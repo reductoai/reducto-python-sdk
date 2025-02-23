@@ -8,8 +8,8 @@ from typing import Any, TypeVar, Iterator, cast
 from datetime import date, datetime
 from typing_extensions import Literal, get_args, get_origin, assert_type
 
-from reductoai._types import Omit, NoneType
-from reductoai._utils import (
+from reducto._types import Omit, NoneType
+from reducto._utils import (
     is_dict,
     is_list,
     is_list_type,
@@ -18,8 +18,8 @@ from reductoai._utils import (
     is_annotated_type,
     is_type_alias_type,
 )
-from reductoai._compat import PYDANTIC_V2, field_outer_type, get_model_fields
-from reductoai._models import BaseModel
+from reducto._compat import PYDANTIC_V2, field_outer_type, get_model_fields
+from reducto._models import BaseModel
 
 BaseModelT = TypeVar("BaseModelT", bound=BaseModel)
 

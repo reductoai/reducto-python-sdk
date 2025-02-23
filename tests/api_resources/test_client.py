@@ -7,9 +7,9 @@ from typing import Any, cast
 
 import pytest
 
-from reductoai import Reductoai, AsyncReductoai
+from reducto import Reducto, AsyncReducto
 from tests.utils import assert_matches_type
-from reductoai.types import UploadResponse
+from reducto.types import UploadResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -19,13 +19,13 @@ class TestClient:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_upload(self, client: Reductoai) -> None:
+    def test_method_upload(self, client: Reducto) -> None:
         client_ = client.upload()
         assert_matches_type(UploadResponse, client_, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_upload_with_all_params(self, client: Reductoai) -> None:
+    def test_method_upload_with_all_params(self, client: Reducto) -> None:
         client_ = client.upload(
             extension="extension",
             file=b"raw file contents",
@@ -34,7 +34,7 @@ class TestClient:
 
     @pytest.mark.skip()
     @parametrize
-    def test_raw_response_upload(self, client: Reductoai) -> None:
+    def test_raw_response_upload(self, client: Reducto) -> None:
         response = client.with_raw_response.upload()
 
         assert response.is_closed is True
@@ -44,7 +44,7 @@ class TestClient:
 
     @pytest.mark.skip()
     @parametrize
-    def test_streaming_response_upload(self, client: Reductoai) -> None:
+    def test_streaming_response_upload(self, client: Reducto) -> None:
         with client.with_streaming_response.upload() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -60,13 +60,13 @@ class TestAsyncClient:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_upload(self, async_client: AsyncReductoai) -> None:
+    async def test_method_upload(self, async_client: AsyncReducto) -> None:
         client = await async_client.upload()
         assert_matches_type(UploadResponse, client, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_upload_with_all_params(self, async_client: AsyncReductoai) -> None:
+    async def test_method_upload_with_all_params(self, async_client: AsyncReducto) -> None:
         client = await async_client.upload(
             extension="extension",
             file=b"raw file contents",
@@ -75,7 +75,7 @@ class TestAsyncClient:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_raw_response_upload(self, async_client: AsyncReductoai) -> None:
+    async def test_raw_response_upload(self, async_client: AsyncReducto) -> None:
         response = await async_client.with_raw_response.upload()
 
         assert response.is_closed is True
@@ -85,7 +85,7 @@ class TestAsyncClient:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_streaming_response_upload(self, async_client: AsyncReductoai) -> None:
+    async def test_streaming_response_upload(self, async_client: AsyncReducto) -> None:
         async with async_client.with_streaming_response.upload() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

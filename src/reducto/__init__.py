@@ -3,28 +3,18 @@
 from . import types
 from ._types import NOT_GIVEN, Omit, NoneType, NotGiven, Transport, ProxiesTypes
 from ._utils import file_from_path
-from ._client import (
-    Client,
-    Stream,
-    Timeout,
-    Reductoai,
-    Transport,
-    AsyncClient,
-    AsyncStream,
-    AsyncReductoai,
-    RequestOptions,
-)
+from ._client import Client, Stream, Reducto, Timeout, Transport, AsyncClient, AsyncStream, AsyncReducto, RequestOptions
 from ._models import BaseModel
 from ._version import __title__, __version__
 from ._response import APIResponse as APIResponse, AsyncAPIResponse as AsyncAPIResponse
 from ._constants import DEFAULT_TIMEOUT, DEFAULT_MAX_RETRIES, DEFAULT_CONNECTION_LIMITS
 from ._exceptions import (
     APIError,
+    ReductoError,
     ConflictError,
     NotFoundError,
     APIStatusError,
     RateLimitError,
-    ReductoaiError,
     APITimeoutError,
     BadRequestError,
     APIConnectionError,
@@ -47,7 +37,7 @@ __all__ = [
     "NotGiven",
     "NOT_GIVEN",
     "Omit",
-    "ReductoaiError",
+    "ReductoError",
     "APIError",
     "APIStatusError",
     "APITimeoutError",
@@ -67,8 +57,8 @@ __all__ = [
     "AsyncClient",
     "Stream",
     "AsyncStream",
-    "Reductoai",
-    "AsyncReductoai",
+    "Reducto",
+    "AsyncReducto",
     "file_from_path",
     "BaseModel",
     "DEFAULT_TIMEOUT",
@@ -83,12 +73,12 @@ _setup_logging()
 # Update the __module__ attribute for exported symbols so that
 # error messages point to this module instead of the module
 # it was originally defined in, e.g.
-# reductoai._exceptions.NotFoundError -> reductoai.NotFoundError
+# reducto._exceptions.NotFoundError -> reducto.NotFoundError
 __locals = locals()
 for __name in __all__:
     if not __name.startswith("__"):
         try:
-            __locals[__name].__module__ = "reductoai"
+            __locals[__name].__module__ = "reducto"
         except (TypeError, AttributeError):
             # Some of our exported symbols are builtins which we can't set attributes for.
             pass

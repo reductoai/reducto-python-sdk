@@ -21,19 +21,19 @@ import pytest
 from respx import MockRouter
 from pydantic import ValidationError
 
-from reductoai import Reductoai, AsyncReductoai, APIResponseValidationError
-from reductoai._types import Omit
-from reductoai._utils import maybe_transform
-from reductoai._models import BaseModel, FinalRequestOptions
-from reductoai._constants import RAW_RESPONSE_HEADER
-from reductoai._exceptions import APIStatusError, ReductoaiError, APITimeoutError, APIResponseValidationError
-from reductoai._base_client import (
+from reducto import Reducto, AsyncReducto, APIResponseValidationError
+from reducto._types import Omit
+from reducto._utils import maybe_transform
+from reducto._models import BaseModel, FinalRequestOptions
+from reducto._constants import RAW_RESPONSE_HEADER
+from reducto._exceptions import ReductoError, APIStatusError, APITimeoutError, APIResponseValidationError
+from reducto._base_client import (
     DEFAULT_TIMEOUT,
     HTTPX_DEFAULT_TIMEOUT,
     BaseClient,
     make_request_options,
 )
-from reductoai.types.split_run_params import SplitRunParams
+from reducto.types.split_run_params import SplitRunParams
 
 from .utils import update_env
 
@@ -51,7 +51,7 @@ def _low_retry_timeout(*_args: Any, **_kwargs: Any) -> float:
     return 0.1
 
 
-def _get_open_connections(client: Reductoai | AsyncReductoai) -> int:
+def _get_open_connections(client: Reducto | AsyncReducto) -> int:
     transport = client._client._transport
     assert isinstance(transport, httpx.HTTPTransport) or isinstance(transport, httpx.AsyncHTTPTransport)
 
@@ -59,8 +59,8 @@ def _get_open_connections(client: Reductoai | AsyncReductoai) -> int:
     return len(pool._requests)
 
 
-class TestReductoai:
-    client = Reductoai(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
+class TestReducto:
+    client = Reducto(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
 
     @pytest.mark.respx(base_url=base_url)
     def test_raw_response(self, respx_mock: MockRouter) -> None:
@@ -107,7 +107,7 @@ class TestReductoai:
         assert isinstance(self.client.timeout, httpx.Timeout)
 
     def test_copy_default_headers(self) -> None:
-        client = Reductoai(
+        client = Reducto(
             base_url=base_url,
             bearer_token=bearer_token,
             _strict_response_validation=True,
@@ -144,7 +144,7 @@ class TestReductoai:
             client.copy(set_default_headers={}, default_headers={"X-Foo": "Bar"})
 
     def test_copy_default_query(self) -> None:
-        client = Reductoai(
+        client = Reducto(
             base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True, default_query={"foo": "bar"}
         )
         assert _get_params(client)["foo"] == "bar"
@@ -235,10 +235,10 @@ class TestReductoai:
                         # to_raw_response_wrapper leaks through the @functools.wraps() decorator.
                         #
                         # removing the decorator fixes the leak for reasons we don't understand.
-                        "reductoai/_legacy_response.py",
-                        "reductoai/_response.py",
+                        "reducto/_legacy_response.py",
+                        "reducto/_response.py",
                         # pydantic.BaseModel.model_dump || pydantic.BaseModel.dict leak memory for some reason.
-                        "reductoai/_compat.py",
+                        "reducto/_compat.py",
                         # Standard library leaks we don't care about.
                         "/logging/__init__.py",
                     ]
@@ -269,7 +269,7 @@ class TestReductoai:
         assert timeout == httpx.Timeout(100.0)
 
     def test_client_timeout_option(self) -> None:
-        client = Reductoai(
+        client = Reducto(
             base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True, timeout=httpx.Timeout(0)
         )
 
@@ -280,7 +280,7 @@ class TestReductoai:
     def test_http_client_timeout_option(self) -> None:
         # custom timeout given to the httpx client should be used
         with httpx.Client(timeout=None) as http_client:
-            client = Reductoai(
+            client = Reducto(
                 base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True, http_client=http_client
             )
 
@@ -290,7 +290,7 @@ class TestReductoai:
 
         # no timeout given to the httpx client should not use the httpx default
         with httpx.Client() as http_client:
-            client = Reductoai(
+            client = Reducto(
                 base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True, http_client=http_client
             )
 
@@ -300,7 +300,7 @@ class TestReductoai:
 
         # explicitly passing the default timeout currently results in it being ignored
         with httpx.Client(timeout=HTTPX_DEFAULT_TIMEOUT) as http_client:
-            client = Reductoai(
+            client = Reducto(
                 base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True, http_client=http_client
             )
 
@@ -311,7 +311,7 @@ class TestReductoai:
     async def test_invalid_http_client(self) -> None:
         with pytest.raises(TypeError, match="Invalid `http_client` arg"):
             async with httpx.AsyncClient() as http_client:
-                Reductoai(
+                Reducto(
                     base_url=base_url,
                     bearer_token=bearer_token,
                     _strict_response_validation=True,
@@ -319,7 +319,7 @@ class TestReductoai:
                 )
 
     def test_default_headers_option(self) -> None:
-        client = Reductoai(
+        client = Reducto(
             base_url=base_url,
             bearer_token=bearer_token,
             _strict_response_validation=True,
@@ -329,7 +329,7 @@ class TestReductoai:
         assert request.headers.get("x-foo") == "bar"
         assert request.headers.get("x-stainless-lang") == "python"
 
-        client2 = Reductoai(
+        client2 = Reducto(
             base_url=base_url,
             bearer_token=bearer_token,
             _strict_response_validation=True,
@@ -343,17 +343,17 @@ class TestReductoai:
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
 
     def test_validate_headers(self) -> None:
-        client = Reductoai(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
+        client = Reducto(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("Authorization") == f"Bearer {bearer_token}"
 
-        with pytest.raises(ReductoaiError):
+        with pytest.raises(ReductoError):
             with update_env(**{"REDUCTOAI_BEARER_TOKEN": Omit()}):
-                client2 = Reductoai(base_url=base_url, bearer_token=None, _strict_response_validation=True)
+                client2 = Reducto(base_url=base_url, bearer_token=None, _strict_response_validation=True)
             _ = client2
 
     def test_default_query_option(self) -> None:
-        client = Reductoai(
+        client = Reducto(
             base_url=base_url,
             bearer_token=bearer_token,
             _strict_response_validation=True,
@@ -470,7 +470,7 @@ class TestReductoai:
         params = dict(request.url.params)
         assert params == {"foo": "2"}
 
-    def test_multipart_repeating_array(self, client: Reductoai) -> None:
+    def test_multipart_repeating_array(self, client: Reducto) -> None:
         request = client._build_request(
             FinalRequestOptions.construct(
                 method="get",
@@ -557,7 +557,7 @@ class TestReductoai:
         assert response.foo == 2
 
     def test_base_url_setter(self) -> None:
-        client = Reductoai(
+        client = Reducto(
             base_url="https://example.com/from_init", bearer_token=bearer_token, _strict_response_validation=True
         )
         assert client.base_url == "https://example.com/from_init/"
@@ -567,19 +567,19 @@ class TestReductoai:
         assert client.base_url == "https://example.com/from_setter/"
 
     def test_base_url_env(self) -> None:
-        with update_env(REDUCTOAI_BASE_URL="http://localhost:5000/from/env"):
-            client = Reductoai(bearer_token=bearer_token, _strict_response_validation=True)
+        with update_env(REDUCTO_BASE_URL="http://localhost:5000/from/env"):
+            client = Reducto(bearer_token=bearer_token, _strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
 
     @pytest.mark.parametrize(
         "client",
         [
-            Reductoai(
+            Reducto(
                 base_url="http://localhost:5000/custom/path/",
                 bearer_token=bearer_token,
                 _strict_response_validation=True,
             ),
-            Reductoai(
+            Reducto(
                 base_url="http://localhost:5000/custom/path/",
                 bearer_token=bearer_token,
                 _strict_response_validation=True,
@@ -588,7 +588,7 @@ class TestReductoai:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_trailing_slash(self, client: Reductoai) -> None:
+    def test_base_url_trailing_slash(self, client: Reducto) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -601,12 +601,12 @@ class TestReductoai:
     @pytest.mark.parametrize(
         "client",
         [
-            Reductoai(
+            Reducto(
                 base_url="http://localhost:5000/custom/path/",
                 bearer_token=bearer_token,
                 _strict_response_validation=True,
             ),
-            Reductoai(
+            Reducto(
                 base_url="http://localhost:5000/custom/path/",
                 bearer_token=bearer_token,
                 _strict_response_validation=True,
@@ -615,7 +615,7 @@ class TestReductoai:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_no_trailing_slash(self, client: Reductoai) -> None:
+    def test_base_url_no_trailing_slash(self, client: Reducto) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -628,12 +628,12 @@ class TestReductoai:
     @pytest.mark.parametrize(
         "client",
         [
-            Reductoai(
+            Reducto(
                 base_url="http://localhost:5000/custom/path/",
                 bearer_token=bearer_token,
                 _strict_response_validation=True,
             ),
-            Reductoai(
+            Reducto(
                 base_url="http://localhost:5000/custom/path/",
                 bearer_token=bearer_token,
                 _strict_response_validation=True,
@@ -642,7 +642,7 @@ class TestReductoai:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_absolute_request_url(self, client: Reductoai) -> None:
+    def test_absolute_request_url(self, client: Reducto) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -653,7 +653,7 @@ class TestReductoai:
         assert request.url == "https://myapi.com/foo"
 
     def test_copied_client_does_not_close_http(self) -> None:
-        client = Reductoai(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
+        client = Reducto(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
         assert not client.is_closed()
 
         copied = client.copy()
@@ -664,7 +664,7 @@ class TestReductoai:
         assert not client.is_closed()
 
     def test_client_context_manager(self) -> None:
-        client = Reductoai(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
+        client = Reducto(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
         with client as c2:
             assert c2 is client
             assert not c2.is_closed()
@@ -685,7 +685,7 @@ class TestReductoai:
 
     def test_client_max_retries_validation(self) -> None:
         with pytest.raises(TypeError, match=r"max_retries cannot be None"):
-            Reductoai(
+            Reducto(
                 base_url=base_url,
                 bearer_token=bearer_token,
                 _strict_response_validation=True,
@@ -699,12 +699,12 @@ class TestReductoai:
 
         respx_mock.get("/foo").mock(return_value=httpx.Response(200, text="my-custom-format"))
 
-        strict_client = Reductoai(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
+        strict_client = Reducto(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
 
         with pytest.raises(APIResponseValidationError):
             strict_client.get("/foo", cast_to=Model)
 
-        client = Reductoai(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=False)
+        client = Reducto(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=False)
 
         response = client.get("/foo", cast_to=Model)
         assert isinstance(response, str)  # type: ignore[unreachable]
@@ -732,14 +732,14 @@ class TestReductoai:
     )
     @mock.patch("time.time", mock.MagicMock(return_value=1696004797))
     def test_parse_retry_after_header(self, remaining_retries: int, retry_after: str, timeout: float) -> None:
-        client = Reductoai(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
+        client = Reducto(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
 
         headers = httpx.Headers({"retry-after": retry_after})
         options = FinalRequestOptions(method="get", url="/foo", max_retries=3)
         calculated = client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("reductoai._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("reducto._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
         respx_mock.post("/split").mock(side_effect=httpx.TimeoutException("Test timeout error"))
@@ -768,7 +768,7 @@ class TestReductoai:
 
         assert _get_open_connections(self.client) == 0
 
-    @mock.patch("reductoai._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("reducto._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
         respx_mock.post("/split").mock(return_value=httpx.Response(500))
@@ -798,12 +798,12 @@ class TestReductoai:
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("reductoai._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("reducto._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
     def test_retries_taken(
         self,
-        client: Reductoai,
+        client: Reducto,
         failures_before_success: int,
         failure_mode: Literal["status", "exception"],
         respx_mock: MockRouter,
@@ -837,10 +837,10 @@ class TestReductoai:
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("reductoai._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("reducto._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_omit_retry_count_header(
-        self, client: Reductoai, failures_before_success: int, respx_mock: MockRouter
+        self, client: Reducto, failures_before_success: int, respx_mock: MockRouter
     ) -> None:
         client = client.with_options(max_retries=4)
 
@@ -869,10 +869,10 @@ class TestReductoai:
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("reductoai._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("reducto._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_overwrite_retry_count_header(
-        self, client: Reductoai, failures_before_success: int, respx_mock: MockRouter
+        self, client: Reducto, failures_before_success: int, respx_mock: MockRouter
     ) -> None:
         client = client.with_options(max_retries=4)
 
@@ -901,8 +901,8 @@ class TestReductoai:
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
 
 
-class TestAsyncReductoai:
-    client = AsyncReductoai(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
+class TestAsyncReducto:
+    client = AsyncReducto(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
 
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
@@ -951,7 +951,7 @@ class TestAsyncReductoai:
         assert isinstance(self.client.timeout, httpx.Timeout)
 
     def test_copy_default_headers(self) -> None:
-        client = AsyncReductoai(
+        client = AsyncReducto(
             base_url=base_url,
             bearer_token=bearer_token,
             _strict_response_validation=True,
@@ -988,7 +988,7 @@ class TestAsyncReductoai:
             client.copy(set_default_headers={}, default_headers={"X-Foo": "Bar"})
 
     def test_copy_default_query(self) -> None:
-        client = AsyncReductoai(
+        client = AsyncReducto(
             base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True, default_query={"foo": "bar"}
         )
         assert _get_params(client)["foo"] == "bar"
@@ -1079,10 +1079,10 @@ class TestAsyncReductoai:
                         # to_raw_response_wrapper leaks through the @functools.wraps() decorator.
                         #
                         # removing the decorator fixes the leak for reasons we don't understand.
-                        "reductoai/_legacy_response.py",
-                        "reductoai/_response.py",
+                        "reducto/_legacy_response.py",
+                        "reducto/_response.py",
                         # pydantic.BaseModel.model_dump || pydantic.BaseModel.dict leak memory for some reason.
-                        "reductoai/_compat.py",
+                        "reducto/_compat.py",
                         # Standard library leaks we don't care about.
                         "/logging/__init__.py",
                     ]
@@ -1113,7 +1113,7 @@ class TestAsyncReductoai:
         assert timeout == httpx.Timeout(100.0)
 
     async def test_client_timeout_option(self) -> None:
-        client = AsyncReductoai(
+        client = AsyncReducto(
             base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True, timeout=httpx.Timeout(0)
         )
 
@@ -1124,7 +1124,7 @@ class TestAsyncReductoai:
     async def test_http_client_timeout_option(self) -> None:
         # custom timeout given to the httpx client should be used
         async with httpx.AsyncClient(timeout=None) as http_client:
-            client = AsyncReductoai(
+            client = AsyncReducto(
                 base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True, http_client=http_client
             )
 
@@ -1134,7 +1134,7 @@ class TestAsyncReductoai:
 
         # no timeout given to the httpx client should not use the httpx default
         async with httpx.AsyncClient() as http_client:
-            client = AsyncReductoai(
+            client = AsyncReducto(
                 base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True, http_client=http_client
             )
 
@@ -1144,7 +1144,7 @@ class TestAsyncReductoai:
 
         # explicitly passing the default timeout currently results in it being ignored
         async with httpx.AsyncClient(timeout=HTTPX_DEFAULT_TIMEOUT) as http_client:
-            client = AsyncReductoai(
+            client = AsyncReducto(
                 base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True, http_client=http_client
             )
 
@@ -1155,7 +1155,7 @@ class TestAsyncReductoai:
     def test_invalid_http_client(self) -> None:
         with pytest.raises(TypeError, match="Invalid `http_client` arg"):
             with httpx.Client() as http_client:
-                AsyncReductoai(
+                AsyncReducto(
                     base_url=base_url,
                     bearer_token=bearer_token,
                     _strict_response_validation=True,
@@ -1163,7 +1163,7 @@ class TestAsyncReductoai:
                 )
 
     def test_default_headers_option(self) -> None:
-        client = AsyncReductoai(
+        client = AsyncReducto(
             base_url=base_url,
             bearer_token=bearer_token,
             _strict_response_validation=True,
@@ -1173,7 +1173,7 @@ class TestAsyncReductoai:
         assert request.headers.get("x-foo") == "bar"
         assert request.headers.get("x-stainless-lang") == "python"
 
-        client2 = AsyncReductoai(
+        client2 = AsyncReducto(
             base_url=base_url,
             bearer_token=bearer_token,
             _strict_response_validation=True,
@@ -1187,17 +1187,17 @@ class TestAsyncReductoai:
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
 
     def test_validate_headers(self) -> None:
-        client = AsyncReductoai(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
+        client = AsyncReducto(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("Authorization") == f"Bearer {bearer_token}"
 
-        with pytest.raises(ReductoaiError):
+        with pytest.raises(ReductoError):
             with update_env(**{"REDUCTOAI_BEARER_TOKEN": Omit()}):
-                client2 = AsyncReductoai(base_url=base_url, bearer_token=None, _strict_response_validation=True)
+                client2 = AsyncReducto(base_url=base_url, bearer_token=None, _strict_response_validation=True)
             _ = client2
 
     def test_default_query_option(self) -> None:
-        client = AsyncReductoai(
+        client = AsyncReducto(
             base_url=base_url,
             bearer_token=bearer_token,
             _strict_response_validation=True,
@@ -1314,7 +1314,7 @@ class TestAsyncReductoai:
         params = dict(request.url.params)
         assert params == {"foo": "2"}
 
-    def test_multipart_repeating_array(self, async_client: AsyncReductoai) -> None:
+    def test_multipart_repeating_array(self, async_client: AsyncReducto) -> None:
         request = async_client._build_request(
             FinalRequestOptions.construct(
                 method="get",
@@ -1401,7 +1401,7 @@ class TestAsyncReductoai:
         assert response.foo == 2
 
     def test_base_url_setter(self) -> None:
-        client = AsyncReductoai(
+        client = AsyncReducto(
             base_url="https://example.com/from_init", bearer_token=bearer_token, _strict_response_validation=True
         )
         assert client.base_url == "https://example.com/from_init/"
@@ -1411,19 +1411,19 @@ class TestAsyncReductoai:
         assert client.base_url == "https://example.com/from_setter/"
 
     def test_base_url_env(self) -> None:
-        with update_env(REDUCTOAI_BASE_URL="http://localhost:5000/from/env"):
-            client = AsyncReductoai(bearer_token=bearer_token, _strict_response_validation=True)
+        with update_env(REDUCTO_BASE_URL="http://localhost:5000/from/env"):
+            client = AsyncReducto(bearer_token=bearer_token, _strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
 
     @pytest.mark.parametrize(
         "client",
         [
-            AsyncReductoai(
+            AsyncReducto(
                 base_url="http://localhost:5000/custom/path/",
                 bearer_token=bearer_token,
                 _strict_response_validation=True,
             ),
-            AsyncReductoai(
+            AsyncReducto(
                 base_url="http://localhost:5000/custom/path/",
                 bearer_token=bearer_token,
                 _strict_response_validation=True,
@@ -1432,7 +1432,7 @@ class TestAsyncReductoai:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_trailing_slash(self, client: AsyncReductoai) -> None:
+    def test_base_url_trailing_slash(self, client: AsyncReducto) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -1445,12 +1445,12 @@ class TestAsyncReductoai:
     @pytest.mark.parametrize(
         "client",
         [
-            AsyncReductoai(
+            AsyncReducto(
                 base_url="http://localhost:5000/custom/path/",
                 bearer_token=bearer_token,
                 _strict_response_validation=True,
             ),
-            AsyncReductoai(
+            AsyncReducto(
                 base_url="http://localhost:5000/custom/path/",
                 bearer_token=bearer_token,
                 _strict_response_validation=True,
@@ -1459,7 +1459,7 @@ class TestAsyncReductoai:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_no_trailing_slash(self, client: AsyncReductoai) -> None:
+    def test_base_url_no_trailing_slash(self, client: AsyncReducto) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -1472,12 +1472,12 @@ class TestAsyncReductoai:
     @pytest.mark.parametrize(
         "client",
         [
-            AsyncReductoai(
+            AsyncReducto(
                 base_url="http://localhost:5000/custom/path/",
                 bearer_token=bearer_token,
                 _strict_response_validation=True,
             ),
-            AsyncReductoai(
+            AsyncReducto(
                 base_url="http://localhost:5000/custom/path/",
                 bearer_token=bearer_token,
                 _strict_response_validation=True,
@@ -1486,7 +1486,7 @@ class TestAsyncReductoai:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_absolute_request_url(self, client: AsyncReductoai) -> None:
+    def test_absolute_request_url(self, client: AsyncReducto) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -1497,7 +1497,7 @@ class TestAsyncReductoai:
         assert request.url == "https://myapi.com/foo"
 
     async def test_copied_client_does_not_close_http(self) -> None:
-        client = AsyncReductoai(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
+        client = AsyncReducto(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
         assert not client.is_closed()
 
         copied = client.copy()
@@ -1509,7 +1509,7 @@ class TestAsyncReductoai:
         assert not client.is_closed()
 
     async def test_client_context_manager(self) -> None:
-        client = AsyncReductoai(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
+        client = AsyncReducto(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
         async with client as c2:
             assert c2 is client
             assert not c2.is_closed()
@@ -1531,7 +1531,7 @@ class TestAsyncReductoai:
 
     async def test_client_max_retries_validation(self) -> None:
         with pytest.raises(TypeError, match=r"max_retries cannot be None"):
-            AsyncReductoai(
+            AsyncReducto(
                 base_url=base_url,
                 bearer_token=bearer_token,
                 _strict_response_validation=True,
@@ -1546,12 +1546,12 @@ class TestAsyncReductoai:
 
         respx_mock.get("/foo").mock(return_value=httpx.Response(200, text="my-custom-format"))
 
-        strict_client = AsyncReductoai(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
+        strict_client = AsyncReducto(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
 
         with pytest.raises(APIResponseValidationError):
             await strict_client.get("/foo", cast_to=Model)
 
-        client = AsyncReductoai(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=False)
+        client = AsyncReducto(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=False)
 
         response = await client.get("/foo", cast_to=Model)
         assert isinstance(response, str)  # type: ignore[unreachable]
@@ -1580,14 +1580,14 @@ class TestAsyncReductoai:
     @mock.patch("time.time", mock.MagicMock(return_value=1696004797))
     @pytest.mark.asyncio
     async def test_parse_retry_after_header(self, remaining_retries: int, retry_after: str, timeout: float) -> None:
-        client = AsyncReductoai(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
+        client = AsyncReducto(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
 
         headers = httpx.Headers({"retry-after": retry_after})
         options = FinalRequestOptions(method="get", url="/foo", max_retries=3)
         calculated = client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("reductoai._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("reducto._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
         respx_mock.post("/split").mock(side_effect=httpx.TimeoutException("Test timeout error"))
@@ -1616,7 +1616,7 @@ class TestAsyncReductoai:
 
         assert _get_open_connections(self.client) == 0
 
-    @mock.patch("reductoai._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("reducto._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
         respx_mock.post("/split").mock(return_value=httpx.Response(500))
@@ -1646,13 +1646,13 @@ class TestAsyncReductoai:
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("reductoai._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("reducto._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
     async def test_retries_taken(
         self,
-        async_client: AsyncReductoai,
+        async_client: AsyncReducto,
         failures_before_success: int,
         failure_mode: Literal["status", "exception"],
         respx_mock: MockRouter,
@@ -1686,11 +1686,11 @@ class TestAsyncReductoai:
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("reductoai._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("reducto._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
     async def test_omit_retry_count_header(
-        self, async_client: AsyncReductoai, failures_before_success: int, respx_mock: MockRouter
+        self, async_client: AsyncReducto, failures_before_success: int, respx_mock: MockRouter
     ) -> None:
         client = async_client.with_options(max_retries=4)
 
@@ -1719,11 +1719,11 @@ class TestAsyncReductoai:
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("reductoai._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("reducto._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
     async def test_overwrite_retry_count_header(
-        self, async_client: AsyncReductoai, failures_before_success: int, respx_mock: MockRouter
+        self, async_client: AsyncReducto, failures_before_success: int, respx_mock: MockRouter
     ) -> None:
         client = async_client.with_options(max_retries=4)
 
@@ -1762,8 +1762,8 @@ class TestAsyncReductoai:
         import nest_asyncio
         import threading
 
-        from reductoai._utils import asyncify
-        from reductoai._base_client import get_platform 
+        from reducto._utils import asyncify
+        from reducto._base_client import get_platform 
 
         async def test_main() -> None:
             result = await asyncify(get_platform)()

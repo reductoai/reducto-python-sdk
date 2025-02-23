@@ -7,9 +7,9 @@ import pytest
 import pydantic
 from pydantic import Field
 
-from reductoai._utils import PropertyInfo
-from reductoai._compat import PYDANTIC_V2, parse_obj, model_dump, model_json
-from reductoai._models import BaseModel, construct_type
+from reducto._utils import PropertyInfo
+from reducto._compat import PYDANTIC_V2, parse_obj, model_dump, model_json
+from reducto._models import BaseModel, construct_type
 
 
 class BasicModel(BaseModel):

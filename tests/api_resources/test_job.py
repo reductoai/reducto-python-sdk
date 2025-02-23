@@ -7,9 +7,9 @@ from typing import Any, cast
 
 import pytest
 
-from reductoai import Reductoai, AsyncReductoai
+from reducto import Reducto, AsyncReducto
 from tests.utils import assert_matches_type
-from reductoai.types import JobGetResponse
+from reducto.types import JobGetResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -19,7 +19,7 @@ class TestJob:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_cancel(self, client: Reductoai) -> None:
+    def test_method_cancel(self, client: Reducto) -> None:
         job = client.job.cancel(
             "job_id",
         )
@@ -27,7 +27,7 @@ class TestJob:
 
     @pytest.mark.skip()
     @parametrize
-    def test_raw_response_cancel(self, client: Reductoai) -> None:
+    def test_raw_response_cancel(self, client: Reducto) -> None:
         response = client.job.with_raw_response.cancel(
             "job_id",
         )
@@ -39,7 +39,7 @@ class TestJob:
 
     @pytest.mark.skip()
     @parametrize
-    def test_streaming_response_cancel(self, client: Reductoai) -> None:
+    def test_streaming_response_cancel(self, client: Reducto) -> None:
         with client.job.with_streaming_response.cancel(
             "job_id",
         ) as response:
@@ -53,7 +53,7 @@ class TestJob:
 
     @pytest.mark.skip()
     @parametrize
-    def test_path_params_cancel(self, client: Reductoai) -> None:
+    def test_path_params_cancel(self, client: Reducto) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `job_id` but received ''"):
             client.job.with_raw_response.cancel(
                 "",
@@ -61,7 +61,7 @@ class TestJob:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_get(self, client: Reductoai) -> None:
+    def test_method_get(self, client: Reducto) -> None:
         job = client.job.get(
             "job_id",
         )
@@ -69,7 +69,7 @@ class TestJob:
 
     @pytest.mark.skip()
     @parametrize
-    def test_raw_response_get(self, client: Reductoai) -> None:
+    def test_raw_response_get(self, client: Reducto) -> None:
         response = client.job.with_raw_response.get(
             "job_id",
         )
@@ -81,7 +81,7 @@ class TestJob:
 
     @pytest.mark.skip()
     @parametrize
-    def test_streaming_response_get(self, client: Reductoai) -> None:
+    def test_streaming_response_get(self, client: Reducto) -> None:
         with client.job.with_streaming_response.get(
             "job_id",
         ) as response:
@@ -95,7 +95,7 @@ class TestJob:
 
     @pytest.mark.skip()
     @parametrize
-    def test_path_params_get(self, client: Reductoai) -> None:
+    def test_path_params_get(self, client: Reducto) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `job_id` but received ''"):
             client.job.with_raw_response.get(
                 "",
@@ -107,7 +107,7 @@ class TestAsyncJob:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_cancel(self, async_client: AsyncReductoai) -> None:
+    async def test_method_cancel(self, async_client: AsyncReducto) -> None:
         job = await async_client.job.cancel(
             "job_id",
         )
@@ -115,7 +115,7 @@ class TestAsyncJob:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_raw_response_cancel(self, async_client: AsyncReductoai) -> None:
+    async def test_raw_response_cancel(self, async_client: AsyncReducto) -> None:
         response = await async_client.job.with_raw_response.cancel(
             "job_id",
         )
@@ -127,7 +127,7 @@ class TestAsyncJob:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_streaming_response_cancel(self, async_client: AsyncReductoai) -> None:
+    async def test_streaming_response_cancel(self, async_client: AsyncReducto) -> None:
         async with async_client.job.with_streaming_response.cancel(
             "job_id",
         ) as response:
@@ -141,7 +141,7 @@ class TestAsyncJob:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_path_params_cancel(self, async_client: AsyncReductoai) -> None:
+    async def test_path_params_cancel(self, async_client: AsyncReducto) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `job_id` but received ''"):
             await async_client.job.with_raw_response.cancel(
                 "",
@@ -149,7 +149,7 @@ class TestAsyncJob:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_get(self, async_client: AsyncReductoai) -> None:
+    async def test_method_get(self, async_client: AsyncReducto) -> None:
         job = await async_client.job.get(
             "job_id",
         )
@@ -157,7 +157,7 @@ class TestAsyncJob:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_raw_response_get(self, async_client: AsyncReductoai) -> None:
+    async def test_raw_response_get(self, async_client: AsyncReducto) -> None:
         response = await async_client.job.with_raw_response.get(
             "job_id",
         )
@@ -169,7 +169,7 @@ class TestAsyncJob:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_streaming_response_get(self, async_client: AsyncReductoai) -> None:
+    async def test_streaming_response_get(self, async_client: AsyncReducto) -> None:
         async with async_client.job.with_streaming_response.get(
             "job_id",
         ) as response:
@@ -183,7 +183,7 @@ class TestAsyncJob:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_path_params_get(self, async_client: AsyncReductoai) -> None:
+    async def test_path_params_get(self, async_client: AsyncReducto) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `job_id` but received ''"):
             await async_client.job.with_raw_response.get(
                 "",

@@ -7,14 +7,14 @@ from typing import TYPE_CHECKING, Iterator, AsyncIterator
 import pytest
 from pytest_asyncio import is_async_test
 
-from reductoai import Reductoai, AsyncReductoai
+from reducto import Reducto, AsyncReducto
 
 if TYPE_CHECKING:
     from _pytest.fixtures import FixtureRequest
 
 pytest.register_assert_rewrite("tests.utils")
 
-logging.getLogger("reductoai").setLevel(logging.DEBUG)
+logging.getLogger("reducto").setLevel(logging.DEBUG)
 
 
 # automatically add `pytest.mark.asyncio()` to all of our async tests
@@ -32,22 +32,20 @@ bearer_token = "My Bearer Token"
 
 
 @pytest.fixture(scope="session")
-def client(request: FixtureRequest) -> Iterator[Reductoai]:
+def client(request: FixtureRequest) -> Iterator[Reducto]:
     strict = getattr(request, "param", True)
     if not isinstance(strict, bool):
         raise TypeError(f"Unexpected fixture parameter type {type(strict)}, expected {bool}")
 
-    with Reductoai(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=strict) as client:
+    with Reducto(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=strict) as client:
         yield client
 
 
 @pytest.fixture(scope="session")
-async def async_client(request: FixtureRequest) -> AsyncIterator[AsyncReductoai]:
+async def async_client(request: FixtureRequest) -> AsyncIterator[AsyncReducto]:
     strict = getattr(request, "param", True)
     if not isinstance(strict, bool):
         raise TypeError(f"Unexpected fixture parameter type {type(strict)}, expected {bool}")
 
-    async with AsyncReductoai(
-        base_url=base_url, bearer_token=bearer_token, _strict_response_validation=strict
-    ) as client:
+    async with AsyncReducto(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=strict) as client:
         yield client

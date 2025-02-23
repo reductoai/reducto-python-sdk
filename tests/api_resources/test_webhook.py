@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from reductoai import Reductoai, AsyncReductoai
+from reducto import Reducto, AsyncReducto
 from tests.utils import assert_matches_type
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -18,13 +18,13 @@ class TestWebhook:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_run(self, client: Reductoai) -> None:
+    def test_method_run(self, client: Reducto) -> None:
         webhook = client.webhook.run()
         assert_matches_type(str, webhook, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
-    def test_raw_response_run(self, client: Reductoai) -> None:
+    def test_raw_response_run(self, client: Reducto) -> None:
         response = client.webhook.with_raw_response.run()
 
         assert response.is_closed is True
@@ -34,7 +34,7 @@ class TestWebhook:
 
     @pytest.mark.skip()
     @parametrize
-    def test_streaming_response_run(self, client: Reductoai) -> None:
+    def test_streaming_response_run(self, client: Reducto) -> None:
         with client.webhook.with_streaming_response.run() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -50,13 +50,13 @@ class TestAsyncWebhook:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_run(self, async_client: AsyncReductoai) -> None:
+    async def test_method_run(self, async_client: AsyncReducto) -> None:
         webhook = await async_client.webhook.run()
         assert_matches_type(str, webhook, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
-    async def test_raw_response_run(self, async_client: AsyncReductoai) -> None:
+    async def test_raw_response_run(self, async_client: AsyncReducto) -> None:
         response = await async_client.webhook.with_raw_response.run()
 
         assert response.is_closed is True
@@ -66,7 +66,7 @@ class TestAsyncWebhook:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_streaming_response_run(self, async_client: AsyncReductoai) -> None:
+    async def test_streaming_response_run(self, async_client: AsyncReducto) -> None:
         async with async_client.webhook.with_streaming_response.run() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

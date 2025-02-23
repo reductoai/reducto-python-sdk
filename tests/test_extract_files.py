@@ -4,8 +4,8 @@ from typing import Sequence
 
 import pytest
 
-from reductoai._types import FileTypes
-from reductoai._utils import extract_files
+from reducto._types import FileTypes
+from reducto._utils import extract_files
 
 
 def test_removes_files_from_input() -> None:

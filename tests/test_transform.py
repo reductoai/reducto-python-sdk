@@ -8,15 +8,15 @@ from typing_extensions import Required, Annotated, TypedDict
 
 import pytest
 
-from reductoai._types import Base64FileInput
-from reductoai._utils import (
+from reducto._types import Base64FileInput
+from reducto._utils import (
     PropertyInfo,
     transform as _transform,
     parse_datetime,
     async_transform as _async_transform,
 )
-from reductoai._compat import PYDANTIC_V2
-from reductoai._models import BaseModel
+from reducto._compat import PYDANTIC_V2
+from reducto._models import BaseModel
 
 _T = TypeVar("_T")
 
