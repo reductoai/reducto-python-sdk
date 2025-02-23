@@ -26,6 +26,34 @@ class TestClient:
 
     @pytest.mark.skip()
     @parametrize
+    def test_method_api_version(self, client: Reductoai) -> None:
+        client_ = client.api_version()
+        assert_matches_type(object, client_, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_raw_response_api_version(self, client: Reductoai) -> None:
+        response = client.with_raw_response.api_version()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        client_ = response.parse()
+        assert_matches_type(object, client_, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_streaming_response_api_version(self, client: Reductoai) -> None:
+        with client.with_streaming_response.api_version() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            client_ = response.parse()
+            assert_matches_type(object, client_, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip()
+    @parametrize
     def test_method_cancel_job(self, client: Reductoai) -> None:
         client_ = client.cancel_job(
             "job_id",
@@ -800,34 +828,6 @@ class TestClient:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_get_version(self, client: Reductoai) -> None:
-        client_ = client.get_version()
-        assert_matches_type(object, client_, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_raw_response_get_version(self, client: Reductoai) -> None:
-        response = client.with_raw_response.get_version()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        client_ = response.parse()
-        assert_matches_type(object, client_, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_streaming_response_get_version(self, client: Reductoai) -> None:
-        with client.with_streaming_response.get_version() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            client_ = response.parse()
-            assert_matches_type(object, client_, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip()
-    @parametrize
     def test_method_retrieve_job(self, client: Reductoai) -> None:
         client_ = client.retrieve_job(
             "job_id",
@@ -871,6 +871,34 @@ class TestClient:
 
 class TestAsyncClient:
     parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_method_api_version(self, async_client: AsyncReductoai) -> None:
+        client = await async_client.api_version()
+        assert_matches_type(object, client, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_raw_response_api_version(self, async_client: AsyncReductoai) -> None:
+        response = await async_client.with_raw_response.api_version()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        client = await response.parse()
+        assert_matches_type(object, client, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_streaming_response_api_version(self, async_client: AsyncReductoai) -> None:
+        async with async_client.with_streaming_response.api_version() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            client = await response.parse()
+            assert_matches_type(object, client, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip()
     @parametrize
@@ -1643,34 +1671,6 @@ class TestAsyncClient:
 
             client = await response.parse()
             assert_matches_type(CreateUploadResponse, client, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_method_get_version(self, async_client: AsyncReductoai) -> None:
-        client = await async_client.get_version()
-        assert_matches_type(object, client, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_raw_response_get_version(self, async_client: AsyncReductoai) -> None:
-        response = await async_client.with_raw_response.get_version()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        client = await response.parse()
-        assert_matches_type(object, client, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_streaming_response_get_version(self, async_client: AsyncReductoai) -> None:
-        async with async_client.with_streaming_response.get_version() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            client = await response.parse()
-            assert_matches_type(object, client, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
