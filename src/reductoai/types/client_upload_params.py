@@ -7,10 +7,10 @@ from typing_extensions import TypedDict
 
 from .._types import FileTypes
 
-__all__ = ["ClientCreateUploadParams"]
+__all__ = ["ClientUploadParams"]
 
 
-class ClientCreateUploadParams(TypedDict, total=False):
+class ClientUploadParams(TypedDict, total=False):
     extension: Optional[str]
 
     file: FileTypes

@@ -4,10 +4,10 @@ from typing import Optional
 
 from .._models import BaseModel
 
-__all__ = ["CreateUploadResponse"]
+__all__ = ["UploadResponse"]
 
 
-class CreateUploadResponse(BaseModel):
+class UploadResponse(BaseModel):
     file_id: str
 
     presigned_url: Optional[str] = None
