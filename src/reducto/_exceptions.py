@@ -18,11 +18,11 @@ __all__ = [
 ]
 
 
-class ReductoaiError(Exception):
+class ReductoError(Exception):
     pass
 
 
-class APIError(ReductoaiError):
+class APIError(ReductoError):
     message: str
     request: httpx.Request
 

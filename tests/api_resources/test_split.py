@@ -7,10 +7,10 @@ from typing import Any, cast
 
 import pytest
 
-from reductoai import Reductoai, AsyncReductoai
+from reducto import Reducto, AsyncReducto
 from tests.utils import assert_matches_type
-from reductoai.types import SplitRunJobResponse
-from reductoai.types.shared import SplitResponse
+from reducto.types import SplitRunJobResponse
+from reducto.types.shared import SplitResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -20,7 +20,7 @@ class TestSplit:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_run(self, client: Reductoai) -> None:
+    def test_method_run(self, client: Reducto) -> None:
         split = client.split.run(
             document_url="document_url",
             split_description=[
@@ -34,7 +34,7 @@ class TestSplit:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_run_with_all_params(self, client: Reductoai) -> None:
+    def test_method_run_with_all_params(self, client: Reducto) -> None:
         split = client.split.run(
             document_url="document_url",
             split_description=[
@@ -103,7 +103,7 @@ class TestSplit:
 
     @pytest.mark.skip()
     @parametrize
-    def test_raw_response_run(self, client: Reductoai) -> None:
+    def test_raw_response_run(self, client: Reducto) -> None:
         response = client.split.with_raw_response.run(
             document_url="document_url",
             split_description=[
@@ -121,7 +121,7 @@ class TestSplit:
 
     @pytest.mark.skip()
     @parametrize
-    def test_streaming_response_run(self, client: Reductoai) -> None:
+    def test_streaming_response_run(self, client: Reducto) -> None:
         with client.split.with_streaming_response.run(
             document_url="document_url",
             split_description=[
@@ -141,7 +141,7 @@ class TestSplit:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_run_job(self, client: Reductoai) -> None:
+    def test_method_run_job(self, client: Reducto) -> None:
         split = client.split.run_job(
             document_url="document_url",
             split_description=[
@@ -155,7 +155,7 @@ class TestSplit:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_run_job_with_all_params(self, client: Reductoai) -> None:
+    def test_method_run_job_with_all_params(self, client: Reducto) -> None:
         split = client.split.run_job(
             document_url="document_url",
             split_description=[
@@ -231,7 +231,7 @@ class TestSplit:
 
     @pytest.mark.skip()
     @parametrize
-    def test_raw_response_run_job(self, client: Reductoai) -> None:
+    def test_raw_response_run_job(self, client: Reducto) -> None:
         response = client.split.with_raw_response.run_job(
             document_url="document_url",
             split_description=[
@@ -249,7 +249,7 @@ class TestSplit:
 
     @pytest.mark.skip()
     @parametrize
-    def test_streaming_response_run_job(self, client: Reductoai) -> None:
+    def test_streaming_response_run_job(self, client: Reducto) -> None:
         with client.split.with_streaming_response.run_job(
             document_url="document_url",
             split_description=[
@@ -273,7 +273,7 @@ class TestAsyncSplit:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_run(self, async_client: AsyncReductoai) -> None:
+    async def test_method_run(self, async_client: AsyncReducto) -> None:
         split = await async_client.split.run(
             document_url="document_url",
             split_description=[
@@ -287,7 +287,7 @@ class TestAsyncSplit:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_run_with_all_params(self, async_client: AsyncReductoai) -> None:
+    async def test_method_run_with_all_params(self, async_client: AsyncReducto) -> None:
         split = await async_client.split.run(
             document_url="document_url",
             split_description=[
@@ -356,7 +356,7 @@ class TestAsyncSplit:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_raw_response_run(self, async_client: AsyncReductoai) -> None:
+    async def test_raw_response_run(self, async_client: AsyncReducto) -> None:
         response = await async_client.split.with_raw_response.run(
             document_url="document_url",
             split_description=[
@@ -374,7 +374,7 @@ class TestAsyncSplit:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_streaming_response_run(self, async_client: AsyncReductoai) -> None:
+    async def test_streaming_response_run(self, async_client: AsyncReducto) -> None:
         async with async_client.split.with_streaming_response.run(
             document_url="document_url",
             split_description=[
@@ -394,7 +394,7 @@ class TestAsyncSplit:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_run_job(self, async_client: AsyncReductoai) -> None:
+    async def test_method_run_job(self, async_client: AsyncReducto) -> None:
         split = await async_client.split.run_job(
             document_url="document_url",
             split_description=[
@@ -408,7 +408,7 @@ class TestAsyncSplit:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_run_job_with_all_params(self, async_client: AsyncReductoai) -> None:
+    async def test_method_run_job_with_all_params(self, async_client: AsyncReducto) -> None:
         split = await async_client.split.run_job(
             document_url="document_url",
             split_description=[
@@ -484,7 +484,7 @@ class TestAsyncSplit:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_raw_response_run_job(self, async_client: AsyncReductoai) -> None:
+    async def test_raw_response_run_job(self, async_client: AsyncReducto) -> None:
         response = await async_client.split.with_raw_response.run_job(
             document_url="document_url",
             split_description=[
@@ -502,7 +502,7 @@ class TestAsyncSplit:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_streaming_response_run_job(self, async_client: AsyncReductoai) -> None:
+    async def test_streaming_response_run_job(self, async_client: AsyncReducto) -> None:
         async with async_client.split.with_streaming_response.run_job(
             document_url="document_url",
             split_description=[

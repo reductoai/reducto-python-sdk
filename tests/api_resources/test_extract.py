@@ -7,10 +7,10 @@ from typing import Any, cast
 
 import pytest
 
-from reductoai import Reductoai, AsyncReductoai
+from reducto import Reducto, AsyncReducto
 from tests.utils import assert_matches_type
-from reductoai.types import ExtractRunJobResponse
-from reductoai.types.shared import ExtractResponse
+from reducto.types import ExtractRunJobResponse
+from reducto.types.shared import ExtractResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -20,7 +20,7 @@ class TestExtract:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_run(self, client: Reductoai) -> None:
+    def test_method_run(self, client: Reducto) -> None:
         extract = client.extract.run(
             document_url="document_url",
             schema={},
@@ -29,7 +29,7 @@ class TestExtract:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_run_with_all_params(self, client: Reductoai) -> None:
+    def test_method_run_with_all_params(self, client: Reducto) -> None:
         extract = client.extract.run(
             document_url="document_url",
             schema={},
@@ -99,7 +99,7 @@ class TestExtract:
 
     @pytest.mark.skip()
     @parametrize
-    def test_raw_response_run(self, client: Reductoai) -> None:
+    def test_raw_response_run(self, client: Reducto) -> None:
         response = client.extract.with_raw_response.run(
             document_url="document_url",
             schema={},
@@ -112,7 +112,7 @@ class TestExtract:
 
     @pytest.mark.skip()
     @parametrize
-    def test_streaming_response_run(self, client: Reductoai) -> None:
+    def test_streaming_response_run(self, client: Reducto) -> None:
         with client.extract.with_streaming_response.run(
             document_url="document_url",
             schema={},
@@ -127,7 +127,7 @@ class TestExtract:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_run_job(self, client: Reductoai) -> None:
+    def test_method_run_job(self, client: Reducto) -> None:
         extract = client.extract.run_job(
             document_url="document_url",
             schema={},
@@ -136,7 +136,7 @@ class TestExtract:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_run_job_with_all_params(self, client: Reductoai) -> None:
+    def test_method_run_job_with_all_params(self, client: Reducto) -> None:
         extract = client.extract.run_job(
             document_url="document_url",
             schema={},
@@ -213,7 +213,7 @@ class TestExtract:
 
     @pytest.mark.skip()
     @parametrize
-    def test_raw_response_run_job(self, client: Reductoai) -> None:
+    def test_raw_response_run_job(self, client: Reducto) -> None:
         response = client.extract.with_raw_response.run_job(
             document_url="document_url",
             schema={},
@@ -226,7 +226,7 @@ class TestExtract:
 
     @pytest.mark.skip()
     @parametrize
-    def test_streaming_response_run_job(self, client: Reductoai) -> None:
+    def test_streaming_response_run_job(self, client: Reducto) -> None:
         with client.extract.with_streaming_response.run_job(
             document_url="document_url",
             schema={},
@@ -245,7 +245,7 @@ class TestAsyncExtract:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_run(self, async_client: AsyncReductoai) -> None:
+    async def test_method_run(self, async_client: AsyncReducto) -> None:
         extract = await async_client.extract.run(
             document_url="document_url",
             schema={},
@@ -254,7 +254,7 @@ class TestAsyncExtract:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_run_with_all_params(self, async_client: AsyncReductoai) -> None:
+    async def test_method_run_with_all_params(self, async_client: AsyncReducto) -> None:
         extract = await async_client.extract.run(
             document_url="document_url",
             schema={},
@@ -324,7 +324,7 @@ class TestAsyncExtract:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_raw_response_run(self, async_client: AsyncReductoai) -> None:
+    async def test_raw_response_run(self, async_client: AsyncReducto) -> None:
         response = await async_client.extract.with_raw_response.run(
             document_url="document_url",
             schema={},
@@ -337,7 +337,7 @@ class TestAsyncExtract:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_streaming_response_run(self, async_client: AsyncReductoai) -> None:
+    async def test_streaming_response_run(self, async_client: AsyncReducto) -> None:
         async with async_client.extract.with_streaming_response.run(
             document_url="document_url",
             schema={},
@@ -352,7 +352,7 @@ class TestAsyncExtract:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_run_job(self, async_client: AsyncReductoai) -> None:
+    async def test_method_run_job(self, async_client: AsyncReducto) -> None:
         extract = await async_client.extract.run_job(
             document_url="document_url",
             schema={},
@@ -361,7 +361,7 @@ class TestAsyncExtract:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_run_job_with_all_params(self, async_client: AsyncReductoai) -> None:
+    async def test_method_run_job_with_all_params(self, async_client: AsyncReducto) -> None:
         extract = await async_client.extract.run_job(
             document_url="document_url",
             schema={},
@@ -438,7 +438,7 @@ class TestAsyncExtract:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_raw_response_run_job(self, async_client: AsyncReductoai) -> None:
+    async def test_raw_response_run_job(self, async_client: AsyncReducto) -> None:
         response = await async_client.extract.with_raw_response.run_job(
             document_url="document_url",
             schema={},
@@ -451,7 +451,7 @@ class TestAsyncExtract:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_streaming_response_run_job(self, async_client: AsyncReductoai) -> None:
+    async def test_streaming_response_run_job(self, async_client: AsyncReducto) -> None:
         async with async_client.extract.with_streaming_response.run_job(
             document_url="document_url",
             schema={},

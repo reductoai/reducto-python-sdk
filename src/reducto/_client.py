@@ -41,7 +41,7 @@ from ._response import (
 )
 from .resources import job, parse, split, extract, webhook
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
-from ._exceptions import APIStatusError, ReductoaiError
+from ._exceptions import ReductoError, APIStatusError
 from ._base_client import (
     DEFAULT_MAX_RETRIES,
     SyncAPIClient,
@@ -50,26 +50,17 @@ from ._base_client import (
 )
 from .types.upload_response import UploadResponse
 
-__all__ = [
-    "Timeout",
-    "Transport",
-    "ProxiesTypes",
-    "RequestOptions",
-    "Reductoai",
-    "AsyncReductoai",
-    "Client",
-    "AsyncClient",
-]
+__all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Reducto", "AsyncReducto", "Client", "AsyncClient"]
 
 
-class Reductoai(SyncAPIClient):
+class Reducto(SyncAPIClient):
     job: job.JobResource
     split: split.SplitResource
     parse: parse.ParseResource
     extract: extract.ExtractResource
     webhook: webhook.WebhookResource
-    with_raw_response: ReductoaiWithRawResponse
-    with_streaming_response: ReductoaiWithStreamedResponse
+    with_raw_response: ReductoWithRawResponse
+    with_streaming_response: ReductoWithStreamedResponse
 
     # client options
     bearer_token: str
@@ -97,20 +88,20 @@ class Reductoai(SyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new synchronous reductoai client instance.
+        """Construct a new synchronous reducto client instance.
 
         This automatically infers the `bearer_token` argument from the `REDUCTOAI_BEARER_TOKEN` environment variable if it is not provided.
         """
         if bearer_token is None:
             bearer_token = os.environ.get("REDUCTOAI_BEARER_TOKEN")
         if bearer_token is None:
-            raise ReductoaiError(
+            raise ReductoError(
                 "The bearer_token client option must be set either by passing bearer_token to the client or by setting the REDUCTOAI_BEARER_TOKEN environment variable"
             )
         self.bearer_token = bearer_token
 
         if base_url is None:
-            base_url = os.environ.get("REDUCTOAI_BASE_URL")
+            base_url = os.environ.get("REDUCTO_BASE_URL")
         if base_url is None:
             base_url = f"https://platform.reducto.ai"
 
@@ -130,8 +121,8 @@ class Reductoai(SyncAPIClient):
         self.parse = parse.ParseResource(self)
         self.extract = extract.ExtractResource(self)
         self.webhook = webhook.WebhookResource(self)
-        self.with_raw_response = ReductoaiWithRawResponse(self)
-        self.with_streaming_response = ReductoaiWithStreamedResponse(self)
+        self.with_raw_response = ReductoWithRawResponse(self)
+        self.with_streaming_response = ReductoWithStreamedResponse(self)
 
     @property
     @override
@@ -282,14 +273,14 @@ class Reductoai(SyncAPIClient):
         return APIStatusError(err_msg, response=response, body=body)
 
 
-class AsyncReductoai(AsyncAPIClient):
+class AsyncReducto(AsyncAPIClient):
     job: job.AsyncJobResource
     split: split.AsyncSplitResource
     parse: parse.AsyncParseResource
     extract: extract.AsyncExtractResource
     webhook: webhook.AsyncWebhookResource
-    with_raw_response: AsyncReductoaiWithRawResponse
-    with_streaming_response: AsyncReductoaiWithStreamedResponse
+    with_raw_response: AsyncReductoWithRawResponse
+    with_streaming_response: AsyncReductoWithStreamedResponse
 
     # client options
     bearer_token: str
@@ -317,20 +308,20 @@ class AsyncReductoai(AsyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new async reductoai client instance.
+        """Construct a new async reducto client instance.
 
         This automatically infers the `bearer_token` argument from the `REDUCTOAI_BEARER_TOKEN` environment variable if it is not provided.
         """
         if bearer_token is None:
             bearer_token = os.environ.get("REDUCTOAI_BEARER_TOKEN")
         if bearer_token is None:
-            raise ReductoaiError(
+            raise ReductoError(
                 "The bearer_token client option must be set either by passing bearer_token to the client or by setting the REDUCTOAI_BEARER_TOKEN environment variable"
             )
         self.bearer_token = bearer_token
 
         if base_url is None:
-            base_url = os.environ.get("REDUCTOAI_BASE_URL")
+            base_url = os.environ.get("REDUCTO_BASE_URL")
         if base_url is None:
             base_url = f"https://platform.reducto.ai"
 
@@ -350,8 +341,8 @@ class AsyncReductoai(AsyncAPIClient):
         self.parse = parse.AsyncParseResource(self)
         self.extract = extract.AsyncExtractResource(self)
         self.webhook = webhook.AsyncWebhookResource(self)
-        self.with_raw_response = AsyncReductoaiWithRawResponse(self)
-        self.with_streaming_response = AsyncReductoaiWithStreamedResponse(self)
+        self.with_raw_response = AsyncReductoWithRawResponse(self)
+        self.with_streaming_response = AsyncReductoWithStreamedResponse(self)
 
     @property
     @override
@@ -502,8 +493,8 @@ class AsyncReductoai(AsyncAPIClient):
         return APIStatusError(err_msg, response=response, body=body)
 
 
-class ReductoaiWithRawResponse:
-    def __init__(self, client: Reductoai) -> None:
+class ReductoWithRawResponse:
+    def __init__(self, client: Reducto) -> None:
         self.job = job.JobResourceWithRawResponse(client.job)
         self.split = split.SplitResourceWithRawResponse(client.split)
         self.parse = parse.ParseResourceWithRawResponse(client.parse)
@@ -515,8 +506,8 @@ class ReductoaiWithRawResponse:
         )
 
 
-class AsyncReductoaiWithRawResponse:
-    def __init__(self, client: AsyncReductoai) -> None:
+class AsyncReductoWithRawResponse:
+    def __init__(self, client: AsyncReducto) -> None:
         self.job = job.AsyncJobResourceWithRawResponse(client.job)
         self.split = split.AsyncSplitResourceWithRawResponse(client.split)
         self.parse = parse.AsyncParseResourceWithRawResponse(client.parse)
@@ -528,8 +519,8 @@ class AsyncReductoaiWithRawResponse:
         )
 
 
-class ReductoaiWithStreamedResponse:
-    def __init__(self, client: Reductoai) -> None:
+class ReductoWithStreamedResponse:
+    def __init__(self, client: Reducto) -> None:
         self.job = job.JobResourceWithStreamingResponse(client.job)
         self.split = split.SplitResourceWithStreamingResponse(client.split)
         self.parse = parse.ParseResourceWithStreamingResponse(client.parse)
@@ -541,8 +532,8 @@ class ReductoaiWithStreamedResponse:
         )
 
 
-class AsyncReductoaiWithStreamedResponse:
-    def __init__(self, client: AsyncReductoai) -> None:
+class AsyncReductoWithStreamedResponse:
+    def __init__(self, client: AsyncReducto) -> None:
         self.job = job.AsyncJobResourceWithStreamingResponse(client.job)
         self.split = split.AsyncSplitResourceWithStreamingResponse(client.split)
         self.parse = parse.AsyncParseResourceWithStreamingResponse(client.parse)
@@ -554,6 +545,6 @@ class AsyncReductoaiWithStreamedResponse:
         )
 
 
-Client = Reductoai
+Client = Reducto
 
-AsyncClient = AsyncReductoai
+AsyncClient = AsyncReducto

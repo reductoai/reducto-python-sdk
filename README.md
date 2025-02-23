@@ -1,8 +1,8 @@
-# Reductoai Python API library
+# Reducto Python API library
 
-[![PyPI version](https://img.shields.io/pypi/v/reductoai.svg)](https://pypi.org/project/reductoai/)
+[![PyPI version](https://img.shields.io/pypi/v/reducto.svg)](https://pypi.org/project/reducto/)
 
-The Reductoai Python library provides convenient access to the Reductoai REST API from any Python 3.8+
+The Reducto Python library provides convenient access to the Reducto REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
@@ -20,7 +20,7 @@ pip install git+ssh://git@github.com/stainless-sdks/reductoai-python.git
 ```
 
 > [!NOTE]
-> Once this package is [published to PyPI](https://app.stainlessapi.com/docs/guides/publish), this will become: `pip install --pre reductoai`
+> Once this package is [published to PyPI](https://app.stainlessapi.com/docs/guides/publish), this will become: `pip install --pre reducto`
 
 ## Usage
 
@@ -28,9 +28,9 @@ The full API of this library can be found in [api.md](api.md).
 
 ```python
 import os
-from reductoai import Reductoai
+from reducto import Reducto
 
-client = Reductoai(
+client = Reducto(
     bearer_token=os.environ.get("REDUCTOAI_BEARER_TOKEN"),  # This is the default and can be omitted
 )
 
@@ -53,14 +53,14 @@ so that your Bearer Token is not stored in source control.
 
 ## Async usage
 
-Simply import `AsyncReductoai` instead of `Reductoai` and use `await` with each API call:
+Simply import `AsyncReducto` instead of `Reducto` and use `await` with each API call:
 
 ```python
 import os
 import asyncio
-from reductoai import AsyncReductoai
+from reducto import AsyncReducto
 
-client = AsyncReductoai(
+client = AsyncReducto(
     bearer_token=os.environ.get("REDUCTOAI_BEARER_TOKEN"),  # This is the default and can be omitted
 )
 
@@ -98,9 +98,9 @@ Request parameters that correspond to file uploads can be passed as `bytes`, a [
 
 ```python
 from pathlib import Path
-from reductoai import Reductoai
+from reducto import Reducto
 
-client = Reductoai()
+client = Reducto()
 
 client.upload(
     file=Path("/path/to/file"),
@@ -111,18 +111,18 @@ The async client uses the exact same interface. If you pass a [`PathLike`](https
 
 ## Handling errors
 
-When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `reductoai.APIConnectionError` is raised.
+When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `reducto.APIConnectionError` is raised.
 
 When the API returns a non-success status code (that is, 4xx or 5xx
-response), a subclass of `reductoai.APIStatusError` is raised, containing `status_code` and `response` properties.
+response), a subclass of `reducto.APIStatusError` is raised, containing `status_code` and `response` properties.
 
-All errors inherit from `reductoai.APIError`.
+All errors inherit from `reducto.APIError`.
 
 ```python
-import reductoai
-from reductoai import Reductoai
+import reducto
+from reducto import Reducto
 
-client = Reductoai()
+client = Reducto()
 
 try:
     client.split.run(
@@ -134,12 +134,12 @@ try:
             }
         ],
     )
-except reductoai.APIConnectionError as e:
+except reducto.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
-except reductoai.RateLimitError as e:
+except reducto.RateLimitError as e:
     print("A 429 status code was received; we should back off a bit.")
-except reductoai.APIStatusError as e:
+except reducto.APIStatusError as e:
     print("Another non-200-range status code was received")
     print(e.status_code)
     print(e.response)
@@ -167,10 +167,10 @@ Connection errors (for example, due to a network connectivity problem), 408 Requ
 You can use the `max_retries` option to configure or disable retry settings:
 
 ```python
-from reductoai import Reductoai
+from reducto import Reducto
 
 # Configure the default for all requests:
-client = Reductoai(
+client = Reducto(
     # default is 2
     max_retries=0,
 )
@@ -193,16 +193,16 @@ By default requests time out after 1 minute. You can configure this with a `time
 which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/#fine-tuning-the-configuration) object:
 
 ```python
-from reductoai import Reductoai
+from reducto import Reducto
 
 # Configure the default for all requests:
-client = Reductoai(
+client = Reducto(
     # 20 seconds (default is 1 minute)
     timeout=20.0,
 )
 
 # More granular control:
-client = Reductoai(
+client = Reducto(
     timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
 )
 
@@ -228,10 +228,10 @@ Note that requests that time out are [retried twice by default](#retries).
 
 We use the standard library [`logging`](https://docs.python.org/3/library/logging.html) module.
 
-You can enable logging by setting the environment variable `REDUCTOAI_LOG` to `info`.
+You can enable logging by setting the environment variable `REDUCTO_LOG` to `info`.
 
 ```shell
-$ export REDUCTOAI_LOG=info
+$ export REDUCTO_LOG=info
 ```
 
 Or to `debug` for more verbose logging.
@@ -253,9 +253,9 @@ if response.my_field is None:
 The "raw" Response object can be accessed by prefixing `.with_raw_response.` to any HTTP method call, e.g.,
 
 ```py
-from reductoai import Reductoai
+from reducto import Reducto
 
-client = Reductoai()
+client = Reducto()
 response = client.split.with_raw_response.run(
     document_url="document_url",
     split_description=[{
@@ -269,9 +269,9 @@ split = response.parse()  # get the object that `split.run()` would have returne
 print(split.result)
 ```
 
-These methods return an [`APIResponse`](https://github.com/stainless-sdks/reductoai-python/tree/main/src/reductoai/_response.py) object.
+These methods return an [`APIResponse`](https://github.com/stainless-sdks/reductoai-python/tree/main/src/reducto/_response.py) object.
 
-The async client returns an [`AsyncAPIResponse`](https://github.com/stainless-sdks/reductoai-python/tree/main/src/reductoai/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
+The async client returns an [`AsyncAPIResponse`](https://github.com/stainless-sdks/reductoai-python/tree/main/src/reducto/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
 
 #### `.with_streaming_response`
 
@@ -341,10 +341,10 @@ You can directly override the [httpx client](https://www.python-httpx.org/api/#c
 
 ```python
 import httpx
-from reductoai import Reductoai, DefaultHttpxClient
+from reducto import Reducto, DefaultHttpxClient
 
-client = Reductoai(
-    # Or use the `REDUCTOAI_BASE_URL` env var
+client = Reducto(
+    # Or use the `REDUCTO_BASE_URL` env var
     base_url="http://my.test.server.example.com:8083",
     http_client=DefaultHttpxClient(
         proxy="http://my.test.proxy.example.com",
@@ -364,9 +364,9 @@ client.with_options(http_client=DefaultHttpxClient(...))
 By default the library closes underlying HTTP connections whenever the client is [garbage collected](https://docs.python.org/3/reference/datamodel.html#object.__del__). You can manually close the client using the `.close()` method if desired, or with a context manager that closes when exiting.
 
 ```py
-from reductoai import Reductoai
+from reducto import Reducto
 
-with Reductoai() as client:
+with Reducto() as client:
   # make requests here
   ...
 
@@ -392,8 +392,8 @@ If you've upgraded to the latest version but aren't seeing any new features you 
 You can determine the version that is being used at runtime with:
 
 ```py
-import reductoai
-print(reductoai.__version__)
+import reducto
+print(reducto.__version__)
 ```
 
 ## Requirements

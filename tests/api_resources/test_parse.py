@@ -7,10 +7,10 @@ from typing import Any, cast
 
 import pytest
 
-from reductoai import Reductoai, AsyncReductoai
+from reducto import Reducto, AsyncReducto
 from tests.utils import assert_matches_type
-from reductoai.types import ParseRunJobResponse
-from reductoai.types.shared import ParseResponse
+from reducto.types import ParseRunJobResponse
+from reducto.types.shared import ParseResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -20,7 +20,7 @@ class TestParse:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_run(self, client: Reductoai) -> None:
+    def test_method_run(self, client: Reducto) -> None:
         parse = client.parse.run(
             document_url="document_url",
         )
@@ -28,7 +28,7 @@ class TestParse:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_run_with_all_params(self, client: Reductoai) -> None:
+    def test_method_run_with_all_params(self, client: Reducto) -> None:
         parse = client.parse.run(
             document_url="document_url",
             advanced_options={
@@ -89,7 +89,7 @@ class TestParse:
 
     @pytest.mark.skip()
     @parametrize
-    def test_raw_response_run(self, client: Reductoai) -> None:
+    def test_raw_response_run(self, client: Reducto) -> None:
         response = client.parse.with_raw_response.run(
             document_url="document_url",
         )
@@ -101,7 +101,7 @@ class TestParse:
 
     @pytest.mark.skip()
     @parametrize
-    def test_streaming_response_run(self, client: Reductoai) -> None:
+    def test_streaming_response_run(self, client: Reducto) -> None:
         with client.parse.with_streaming_response.run(
             document_url="document_url",
         ) as response:
@@ -115,7 +115,7 @@ class TestParse:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_run_job(self, client: Reductoai) -> None:
+    def test_method_run_job(self, client: Reducto) -> None:
         parse = client.parse.run_job(
             document_url="document_url",
         )
@@ -123,7 +123,7 @@ class TestParse:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_run_job_with_all_params(self, client: Reductoai) -> None:
+    def test_method_run_job_with_all_params(self, client: Reducto) -> None:
         parse = client.parse.run_job(
             document_url="document_url",
             advanced_options={
@@ -191,7 +191,7 @@ class TestParse:
 
     @pytest.mark.skip()
     @parametrize
-    def test_raw_response_run_job(self, client: Reductoai) -> None:
+    def test_raw_response_run_job(self, client: Reducto) -> None:
         response = client.parse.with_raw_response.run_job(
             document_url="document_url",
         )
@@ -203,7 +203,7 @@ class TestParse:
 
     @pytest.mark.skip()
     @parametrize
-    def test_streaming_response_run_job(self, client: Reductoai) -> None:
+    def test_streaming_response_run_job(self, client: Reducto) -> None:
         with client.parse.with_streaming_response.run_job(
             document_url="document_url",
         ) as response:
@@ -221,7 +221,7 @@ class TestAsyncParse:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_run(self, async_client: AsyncReductoai) -> None:
+    async def test_method_run(self, async_client: AsyncReducto) -> None:
         parse = await async_client.parse.run(
             document_url="document_url",
         )
@@ -229,7 +229,7 @@ class TestAsyncParse:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_run_with_all_params(self, async_client: AsyncReductoai) -> None:
+    async def test_method_run_with_all_params(self, async_client: AsyncReducto) -> None:
         parse = await async_client.parse.run(
             document_url="document_url",
             advanced_options={
@@ -290,7 +290,7 @@ class TestAsyncParse:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_raw_response_run(self, async_client: AsyncReductoai) -> None:
+    async def test_raw_response_run(self, async_client: AsyncReducto) -> None:
         response = await async_client.parse.with_raw_response.run(
             document_url="document_url",
         )
@@ -302,7 +302,7 @@ class TestAsyncParse:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_streaming_response_run(self, async_client: AsyncReductoai) -> None:
+    async def test_streaming_response_run(self, async_client: AsyncReducto) -> None:
         async with async_client.parse.with_streaming_response.run(
             document_url="document_url",
         ) as response:
@@ -316,7 +316,7 @@ class TestAsyncParse:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_run_job(self, async_client: AsyncReductoai) -> None:
+    async def test_method_run_job(self, async_client: AsyncReducto) -> None:
         parse = await async_client.parse.run_job(
             document_url="document_url",
         )
@@ -324,7 +324,7 @@ class TestAsyncParse:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_run_job_with_all_params(self, async_client: AsyncReductoai) -> None:
+    async def test_method_run_job_with_all_params(self, async_client: AsyncReducto) -> None:
         parse = await async_client.parse.run_job(
             document_url="document_url",
             advanced_options={
@@ -392,7 +392,7 @@ class TestAsyncParse:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_raw_response_run_job(self, async_client: AsyncReductoai) -> None:
+    async def test_raw_response_run_job(self, async_client: AsyncReducto) -> None:
         response = await async_client.parse.with_raw_response.run_job(
             document_url="document_url",
         )
@@ -404,7 +404,7 @@ class TestAsyncParse:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_streaming_response_run_job(self, async_client: AsyncReductoai) -> None:
+    async def test_streaming_response_run_job(self, async_client: AsyncReducto) -> None:
         async with async_client.parse.with_streaming_response.run_job(
             document_url="document_url",
         ) as response:

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import pytest
 
-from reductoai._utils import required_args
+from reducto._utils import required_args
 
 
 def test_too_many_positional_params() -> None:
