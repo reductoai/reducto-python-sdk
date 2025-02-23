@@ -31,7 +31,7 @@ import os
 from reducto import Reducto
 
 client = Reducto(
-    bearer_token=os.environ.get("REDUCTOAI_BEARER_TOKEN"),  # This is the default and can be omitted
+    api_key=os.environ.get("REDUCTO_API_KEY"),  # This is the default and can be omitted
 )
 
 split_response = client.split.run(
@@ -46,10 +46,10 @@ split_response = client.split.run(
 print(split_response.result)
 ```
 
-While you can provide a `bearer_token` keyword argument,
+While you can provide an `api_key` keyword argument,
 we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
-to add `REDUCTOAI_BEARER_TOKEN="My Bearer Token"` to your `.env` file
-so that your Bearer Token is not stored in source control.
+to add `REDUCTO_API_KEY="My API Key"` to your `.env` file
+so that your API Key is not stored in source control.
 
 ## Async usage
 
@@ -61,7 +61,7 @@ import asyncio
 from reducto import AsyncReducto
 
 client = AsyncReducto(
-    bearer_token=os.environ.get("REDUCTOAI_BEARER_TOKEN"),  # This is the default and can be omitted
+    api_key=os.environ.get("REDUCTO_API_KEY"),  # This is the default and can be omitted
 )
 
 
