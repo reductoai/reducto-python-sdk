@@ -47,6 +47,7 @@ from ._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
+from .resources import job, parse, split, extract, webhook
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError, ReductoaiError
 from ._base_client import (
@@ -83,6 +84,11 @@ __all__ = [
 
 
 class Reductoai(SyncAPIClient):
+    job: job.JobResource
+    split: split.SplitResource
+    parse: parse.ParseResource
+    extract: extract.ExtractResource
+    webhook: webhook.WebhookResource
     with_raw_response: ReductoaiWithRawResponse
     with_streaming_response: ReductoaiWithStreamedResponse
 
@@ -140,6 +146,11 @@ class Reductoai(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
+        self.job = job.JobResource(self)
+        self.split = split.SplitResource(self)
+        self.parse = parse.ParseResource(self)
+        self.extract = extract.ExtractResource(self)
+        self.webhook = webhook.WebhookResource(self)
         self.with_raw_response = ReductoaiWithRawResponse(self)
         self.with_streaming_response = ReductoaiWithStreamedResponse(self)
 
@@ -213,6 +224,25 @@ class Reductoai(SyncAPIClient):
     # Alias for `copy` for nicer inline usage, e.g.
     # client.with_options(timeout=10).foo.create(...)
     with_options = copy
+
+    def api_version(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> object:
+        """Get Version"""
+        return self.get(
+            "/version",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=object,
+        )
 
     def cancel_job(
         self,
@@ -693,25 +723,6 @@ class Reductoai(SyncAPIClient):
             cast_to=CreateUploadResponse,
         )
 
-    def get_version(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
-        """Get Version"""
-        return self.get(
-            "/version",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=object,
-        )
-
     def retrieve_job(
         self,
         job_id: str,
@@ -780,6 +791,11 @@ class Reductoai(SyncAPIClient):
 
 
 class AsyncReductoai(AsyncAPIClient):
+    job: job.AsyncJobResource
+    split: split.AsyncSplitResource
+    parse: parse.AsyncParseResource
+    extract: extract.AsyncExtractResource
+    webhook: webhook.AsyncWebhookResource
     with_raw_response: AsyncReductoaiWithRawResponse
     with_streaming_response: AsyncReductoaiWithStreamedResponse
 
@@ -837,6 +853,11 @@ class AsyncReductoai(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
+        self.job = job.AsyncJobResource(self)
+        self.split = split.AsyncSplitResource(self)
+        self.parse = parse.AsyncParseResource(self)
+        self.extract = extract.AsyncExtractResource(self)
+        self.webhook = webhook.AsyncWebhookResource(self)
         self.with_raw_response = AsyncReductoaiWithRawResponse(self)
         self.with_streaming_response = AsyncReductoaiWithStreamedResponse(self)
 
@@ -910,6 +931,25 @@ class AsyncReductoai(AsyncAPIClient):
     # Alias for `copy` for nicer inline usage, e.g.
     # client.with_options(timeout=10).foo.create(...)
     with_options = copy
+
+    async def api_version(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> object:
+        """Get Version"""
+        return await self.get(
+            "/version",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=object,
+        )
 
     async def cancel_job(
         self,
@@ -1392,25 +1432,6 @@ class AsyncReductoai(AsyncAPIClient):
             cast_to=CreateUploadResponse,
         )
 
-    async def get_version(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
-        """Get Version"""
-        return await self.get(
-            "/version",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=object,
-        )
-
     async def retrieve_job(
         self,
         job_id: str,
@@ -1480,6 +1501,15 @@ class AsyncReductoai(AsyncAPIClient):
 
 class ReductoaiWithRawResponse:
     def __init__(self, client: Reductoai) -> None:
+        self.job = job.JobResourceWithRawResponse(client.job)
+        self.split = split.SplitResourceWithRawResponse(client.split)
+        self.parse = parse.ParseResourceWithRawResponse(client.parse)
+        self.extract = extract.ExtractResourceWithRawResponse(client.extract)
+        self.webhook = webhook.WebhookResourceWithRawResponse(client.webhook)
+
+        self.api_version = to_raw_response_wrapper(
+            client.api_version,
+        )
         self.cancel_job = to_raw_response_wrapper(
             client.cancel_job,
         )
@@ -1507,9 +1537,6 @@ class ReductoaiWithRawResponse:
         self.create_upload = to_raw_response_wrapper(
             client.create_upload,
         )
-        self.get_version = to_raw_response_wrapper(
-            client.get_version,
-        )
         self.retrieve_job = to_raw_response_wrapper(
             client.retrieve_job,
         )
@@ -1517,6 +1544,15 @@ class ReductoaiWithRawResponse:
 
 class AsyncReductoaiWithRawResponse:
     def __init__(self, client: AsyncReductoai) -> None:
+        self.job = job.AsyncJobResourceWithRawResponse(client.job)
+        self.split = split.AsyncSplitResourceWithRawResponse(client.split)
+        self.parse = parse.AsyncParseResourceWithRawResponse(client.parse)
+        self.extract = extract.AsyncExtractResourceWithRawResponse(client.extract)
+        self.webhook = webhook.AsyncWebhookResourceWithRawResponse(client.webhook)
+
+        self.api_version = async_to_raw_response_wrapper(
+            client.api_version,
+        )
         self.cancel_job = async_to_raw_response_wrapper(
             client.cancel_job,
         )
@@ -1544,9 +1580,6 @@ class AsyncReductoaiWithRawResponse:
         self.create_upload = async_to_raw_response_wrapper(
             client.create_upload,
         )
-        self.get_version = async_to_raw_response_wrapper(
-            client.get_version,
-        )
         self.retrieve_job = async_to_raw_response_wrapper(
             client.retrieve_job,
         )
@@ -1554,6 +1587,15 @@ class AsyncReductoaiWithRawResponse:
 
 class ReductoaiWithStreamedResponse:
     def __init__(self, client: Reductoai) -> None:
+        self.job = job.JobResourceWithStreamingResponse(client.job)
+        self.split = split.SplitResourceWithStreamingResponse(client.split)
+        self.parse = parse.ParseResourceWithStreamingResponse(client.parse)
+        self.extract = extract.ExtractResourceWithStreamingResponse(client.extract)
+        self.webhook = webhook.WebhookResourceWithStreamingResponse(client.webhook)
+
+        self.api_version = to_streamed_response_wrapper(
+            client.api_version,
+        )
         self.cancel_job = to_streamed_response_wrapper(
             client.cancel_job,
         )
@@ -1581,9 +1623,6 @@ class ReductoaiWithStreamedResponse:
         self.create_upload = to_streamed_response_wrapper(
             client.create_upload,
         )
-        self.get_version = to_streamed_response_wrapper(
-            client.get_version,
-        )
         self.retrieve_job = to_streamed_response_wrapper(
             client.retrieve_job,
         )
@@ -1591,6 +1630,15 @@ class ReductoaiWithStreamedResponse:
 
 class AsyncReductoaiWithStreamedResponse:
     def __init__(self, client: AsyncReductoai) -> None:
+        self.job = job.AsyncJobResourceWithStreamingResponse(client.job)
+        self.split = split.AsyncSplitResourceWithStreamingResponse(client.split)
+        self.parse = parse.AsyncParseResourceWithStreamingResponse(client.parse)
+        self.extract = extract.AsyncExtractResourceWithStreamingResponse(client.extract)
+        self.webhook = webhook.AsyncWebhookResourceWithStreamingResponse(client.webhook)
+
+        self.api_version = async_to_streamed_response_wrapper(
+            client.api_version,
+        )
         self.cancel_job = async_to_streamed_response_wrapper(
             client.cancel_job,
         )
@@ -1617,9 +1665,6 @@ class AsyncReductoaiWithStreamedResponse:
         )
         self.create_upload = async_to_streamed_response_wrapper(
             client.create_upload,
-        )
-        self.get_version = async_to_streamed_response_wrapper(
-            client.get_version,
         )
         self.retrieve_job = async_to_streamed_response_wrapper(
             client.retrieve_job,
