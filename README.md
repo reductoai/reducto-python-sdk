@@ -34,7 +34,7 @@ client = Reductoai(
     bearer_token=os.environ.get("REDUCTOAI_BEARER_TOKEN"),  # This is the default and can be omitted
 )
 
-split_response = client.create_split(
+split_response = client.split.run(
     document_url="document_url",
     split_description=[
         {
@@ -66,7 +66,7 @@ client = AsyncReductoai(
 
 
 async def main() -> None:
-    split_response = await client.create_split(
+    split_response = await client.split.run(
         document_url="document_url",
         split_description=[
             {
@@ -102,7 +102,7 @@ from reductoai import Reductoai
 
 client = Reductoai()
 
-client.create_upload(
+client.upload(
     file=Path("/path/to/file"),
 )
 ```
@@ -125,7 +125,7 @@ from reductoai import Reductoai
 client = Reductoai()
 
 try:
-    client.create_split(
+    client.split.run(
         document_url="document_url",
         split_description=[
             {
@@ -176,7 +176,7 @@ client = Reductoai(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).create_split(
+client.with_options(max_retries=5).split.run(
     document_url="document_url",
     split_description=[
         {
@@ -207,7 +207,7 @@ client = Reductoai(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).create_split(
+client.with_options(timeout=5.0).split.run(
     document_url="document_url",
     split_description=[
         {
@@ -256,7 +256,7 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from reductoai import Reductoai
 
 client = Reductoai()
-response = client.with_raw_response.create_split(
+response = client.split.with_raw_response.run(
     document_url="document_url",
     split_description=[{
         "description": "description",
@@ -265,8 +265,8 @@ response = client.with_raw_response.create_split(
 )
 print(response.headers.get('X-My-Header'))
 
-client = response.parse()  # get the object that `create_split()` would have returned
-print(client.result)
+split = response.parse()  # get the object that `split.run()` would have returned
+print(split.result)
 ```
 
 These methods return an [`APIResponse`](https://github.com/stainless-sdks/reductoai-python/tree/main/src/reductoai/_response.py) object.
@@ -280,7 +280,7 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.with_streaming_response.create_split(
+with client.split.with_streaming_response.run(
     document_url="document_url",
     split_description=[
         {

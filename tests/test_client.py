@@ -33,7 +33,7 @@ from reductoai._base_client import (
     BaseClient,
     make_request_options,
 )
-from reductoai.types.client_create_split_params import ClientCreateSplitParams
+from reductoai.types.split_run_params import SplitRunParams
 
 from .utils import update_env
 
@@ -759,7 +759,7 @@ class TestReductoai:
                                 }
                             ],
                         ),
-                        ClientCreateSplitParams,
+                        SplitRunParams,
                     ),
                 ),
                 cast_to=httpx.Response,
@@ -788,7 +788,7 @@ class TestReductoai:
                                 }
                             ],
                         ),
-                        ClientCreateSplitParams,
+                        SplitRunParams,
                     ),
                 ),
                 cast_to=httpx.Response,
@@ -823,7 +823,7 @@ class TestReductoai:
 
         respx_mock.post("/split").mock(side_effect=retry_handler)
 
-        response = client.with_raw_response.create_split(
+        response = client.split.with_raw_response.run(
             document_url="document_url",
             split_description=[
                 {
@@ -855,7 +855,7 @@ class TestReductoai:
 
         respx_mock.post("/split").mock(side_effect=retry_handler)
 
-        response = client.with_raw_response.create_split(
+        response = client.split.with_raw_response.run(
             document_url="document_url",
             split_description=[
                 {
@@ -887,7 +887,7 @@ class TestReductoai:
 
         respx_mock.post("/split").mock(side_effect=retry_handler)
 
-        response = client.with_raw_response.create_split(
+        response = client.split.with_raw_response.run(
             document_url="document_url",
             split_description=[
                 {
@@ -1607,7 +1607,7 @@ class TestAsyncReductoai:
                                 }
                             ],
                         ),
-                        ClientCreateSplitParams,
+                        SplitRunParams,
                     ),
                 ),
                 cast_to=httpx.Response,
@@ -1636,7 +1636,7 @@ class TestAsyncReductoai:
                                 }
                             ],
                         ),
-                        ClientCreateSplitParams,
+                        SplitRunParams,
                     ),
                 ),
                 cast_to=httpx.Response,
@@ -1672,7 +1672,7 @@ class TestAsyncReductoai:
 
         respx_mock.post("/split").mock(side_effect=retry_handler)
 
-        response = await client.with_raw_response.create_split(
+        response = await client.split.with_raw_response.run(
             document_url="document_url",
             split_description=[
                 {
@@ -1705,7 +1705,7 @@ class TestAsyncReductoai:
 
         respx_mock.post("/split").mock(side_effect=retry_handler)
 
-        response = await client.with_raw_response.create_split(
+        response = await client.split.with_raw_response.run(
             document_url="document_url",
             split_description=[
                 {
@@ -1738,7 +1738,7 @@ class TestAsyncReductoai:
 
         respx_mock.post("/split").mock(side_effect=retry_handler)
 
-        response = await client.with_raw_response.create_split(
+        response = await client.split.with_raw_response.run(
             document_url="document_url",
             split_description=[
                 {
