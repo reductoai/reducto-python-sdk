@@ -195,6 +195,25 @@ class Reducto(SyncAPIClient):
     # client.with_options(timeout=10).foo.create(...)
     with_options = copy
 
+    def api_version(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> object:
+        """Get Version"""
+        return self.get(
+            "/version",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=object,
+        )
+
     def upload(
         self,
         *,
@@ -415,6 +434,25 @@ class AsyncReducto(AsyncAPIClient):
     # client.with_options(timeout=10).foo.create(...)
     with_options = copy
 
+    async def api_version(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> object:
+        """Get Version"""
+        return await self.get(
+            "/version",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=object,
+        )
+
     async def upload(
         self,
         *,
@@ -501,6 +539,9 @@ class ReductoWithRawResponse:
         self.extract = extract.ExtractResourceWithRawResponse(client.extract)
         self.webhook = webhook.WebhookResourceWithRawResponse(client.webhook)
 
+        self.api_version = to_raw_response_wrapper(
+            client.api_version,
+        )
         self.upload = to_raw_response_wrapper(
             client.upload,
         )
@@ -514,6 +555,9 @@ class AsyncReductoWithRawResponse:
         self.extract = extract.AsyncExtractResourceWithRawResponse(client.extract)
         self.webhook = webhook.AsyncWebhookResourceWithRawResponse(client.webhook)
 
+        self.api_version = async_to_raw_response_wrapper(
+            client.api_version,
+        )
         self.upload = async_to_raw_response_wrapper(
             client.upload,
         )
@@ -527,6 +571,9 @@ class ReductoWithStreamedResponse:
         self.extract = extract.ExtractResourceWithStreamingResponse(client.extract)
         self.webhook = webhook.WebhookResourceWithStreamingResponse(client.webhook)
 
+        self.api_version = to_streamed_response_wrapper(
+            client.api_version,
+        )
         self.upload = to_streamed_response_wrapper(
             client.upload,
         )
@@ -540,6 +587,9 @@ class AsyncReductoWithStreamedResponse:
         self.extract = extract.AsyncExtractResourceWithStreamingResponse(client.extract)
         self.webhook = webhook.AsyncWebhookResourceWithStreamingResponse(client.webhook)
 
+        self.api_version = async_to_streamed_response_wrapper(
+            client.api_version,
+        )
         self.upload = async_to_streamed_response_wrapper(
             client.upload,
         )
