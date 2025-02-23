@@ -22,11 +22,12 @@ from reducto.types import (
 Types:
 
 ```python
-from reducto.types import UploadResponse
+from reducto.types import APIVersionResponse, UploadResponse
 ```
 
 Methods:
 
+- <code title="get /version">client.<a href="./src/reducto/_client.py">api_version</a>() -> <a href="./src/reducto/types/api_version_response.py">object</a></code>
 - <code title="post /upload">client.<a href="./src/reducto/_client.py">upload</a>(\*\*<a href="src/reducto/types/client_upload_params.py">params</a>) -> <a href="./src/reducto/types/upload_response.py">UploadResponse</a></code>
 
 # Job
