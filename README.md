@@ -125,14 +125,8 @@ from reducto import Reducto
 client = Reducto()
 
 try:
-    client.split.run(
-        document_url="document_url",
-        split_description=[
-            {
-                "description": "description",
-                "name": "name",
-            }
-        ],
+    client.parse.run(
+        document_url="https://pdfobject.com/pdf/sample.pdf",
     )
 except reducto.APIConnectionError as e:
     print("The server could not be reached")
@@ -176,14 +170,8 @@ client = Reducto(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).split.run(
-    document_url="document_url",
-    split_description=[
-        {
-            "description": "description",
-            "name": "name",
-        }
-    ],
+client.with_options(max_retries=5).parse.run(
+    document_url="https://pdfobject.com/pdf/sample.pdf",
 )
 ```
 
@@ -207,14 +195,8 @@ client = Reducto(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).split.run(
-    document_url="document_url",
-    split_description=[
-        {
-            "description": "description",
-            "name": "name",
-        }
-    ],
+client.with_options(timeout=5.0).parse.run(
+    document_url="https://pdfobject.com/pdf/sample.pdf",
 )
 ```
 
@@ -256,17 +238,13 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from reducto import Reducto
 
 client = Reducto()
-response = client.split.with_raw_response.run(
-    document_url="document_url",
-    split_description=[{
-        "description": "description",
-        "name": "name",
-    }],
+response = client.parse.with_raw_response.run(
+    document_url="https://pdfobject.com/pdf/sample.pdf",
 )
 print(response.headers.get('X-My-Header'))
 
-split = response.parse()  # get the object that `split.run()` would have returned
-print(split.result)
+parse = response.parse()  # get the object that `parse.run()` would have returned
+print(parse.job_id)
 ```
 
 These methods return an [`APIResponse`](https://github.com/stainless-sdks/reductoai-python/tree/main/src/reducto/_response.py) object.
@@ -280,14 +258,8 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.split.with_streaming_response.run(
-    document_url="document_url",
-    split_description=[
-        {
-            "description": "description",
-            "name": "name",
-        }
-    ],
+with client.parse.with_streaming_response.run(
+    document_url="https://pdfobject.com/pdf/sample.pdf",
 ) as response:
     print(response.headers.get("X-My-Header"))
 

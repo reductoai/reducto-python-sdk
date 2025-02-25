@@ -9,7 +9,7 @@ import pytest
 
 from reducto import Reducto, AsyncReducto
 from tests.utils import assert_matches_type
-from reducto.types import UploadResponse
+from reducto.types.shared import Upload
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -49,7 +49,7 @@ class TestClient:
     @parametrize
     def test_method_upload(self, client: Reducto) -> None:
         client_ = client.upload()
-        assert_matches_type(UploadResponse, client_, path=["response"])
+        assert_matches_type(Upload, client_, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
@@ -58,7 +58,7 @@ class TestClient:
             extension="extension",
             file=b"raw file contents",
         )
-        assert_matches_type(UploadResponse, client_, path=["response"])
+        assert_matches_type(Upload, client_, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
@@ -68,7 +68,7 @@ class TestClient:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         client_ = response.parse()
-        assert_matches_type(UploadResponse, client_, path=["response"])
+        assert_matches_type(Upload, client_, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
@@ -78,7 +78,7 @@ class TestClient:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             client_ = response.parse()
-            assert_matches_type(UploadResponse, client_, path=["response"])
+            assert_matches_type(Upload, client_, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -118,7 +118,7 @@ class TestAsyncClient:
     @parametrize
     async def test_method_upload(self, async_client: AsyncReducto) -> None:
         client = await async_client.upload()
-        assert_matches_type(UploadResponse, client, path=["response"])
+        assert_matches_type(Upload, client, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
@@ -127,7 +127,7 @@ class TestAsyncClient:
             extension="extension",
             file=b"raw file contents",
         )
-        assert_matches_type(UploadResponse, client, path=["response"])
+        assert_matches_type(Upload, client, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
@@ -137,7 +137,7 @@ class TestAsyncClient:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         client = await response.parse()
-        assert_matches_type(UploadResponse, client, path=["response"])
+        assert_matches_type(Upload, client, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
@@ -147,6 +147,6 @@ class TestAsyncClient:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             client = await response.parse()
-            assert_matches_type(UploadResponse, client, path=["response"])
+            assert_matches_type(Upload, client, path=["response"])
 
         assert cast(Any, response.is_closed) is True
