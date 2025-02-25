@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from .shared import (
+    Upload as Upload,
     PageRange as PageRange,
     ParseUsage as ParseUsage,
     BoundingBox as BoundingBox,
@@ -16,7 +17,6 @@ from .shared import (
     AdvancedProcessingOptions as AdvancedProcessingOptions,
     ExperimentalProcessingOptions as ExperimentalProcessingOptions,
 )
-from .upload_response import UploadResponse as UploadResponse
 from .job_get_response import JobGetResponse as JobGetResponse
 from .parse_run_params import ParseRunParams as ParseRunParams
 from .split_run_params import SplitRunParams as SplitRunParams

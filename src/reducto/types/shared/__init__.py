@@ -1,5 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from .upload import Upload as Upload
 from .page_range import PageRange as PageRange
 from .parse_usage import ParseUsage as ParseUsage
 from .bounding_box import BoundingBox as BoundingBox

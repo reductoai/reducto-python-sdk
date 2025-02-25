@@ -48,7 +48,7 @@ from ._base_client import (
     AsyncAPIClient,
     make_request_options,
 )
-from .types.upload_response import UploadResponse
+from .types.shared.upload import Upload
 
 __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Reducto", "AsyncReducto", "Client", "AsyncClient"]
 
@@ -225,7 +225,7 @@ class Reducto(SyncAPIClient):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> UploadResponse:
+    ) -> Upload:
         """
         Upload
 
@@ -255,7 +255,7 @@ class Reducto(SyncAPIClient):
                 timeout=timeout,
                 query=maybe_transform({"extension": extension}, client_upload_params.ClientUploadParams),
             ),
-            cast_to=UploadResponse,
+            cast_to=Upload,
         )
 
     @override
@@ -464,7 +464,7 @@ class AsyncReducto(AsyncAPIClient):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> UploadResponse:
+    ) -> Upload:
         """
         Upload
 
@@ -494,7 +494,7 @@ class AsyncReducto(AsyncAPIClient):
                 timeout=timeout,
                 query=await async_maybe_transform({"extension": extension}, client_upload_params.ClientUploadParams),
             ),
-            cast_to=UploadResponse,
+            cast_to=Upload,
         )
 
     @override

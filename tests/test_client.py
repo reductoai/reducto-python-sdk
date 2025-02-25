@@ -33,7 +33,7 @@ from reducto._base_client import (
     BaseClient,
     make_request_options,
 )
-from reducto.types.split_run_params import SplitRunParams
+from reducto.types.parse_run_params import ParseRunParams
 
 from .utils import update_env
 
@@ -712,25 +712,13 @@ class TestReducto:
     @mock.patch("reducto._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
-        respx_mock.post("/split").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.post("/parse").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
             self.client.post(
-                "/split",
+                "/parse",
                 body=cast(
-                    object,
-                    maybe_transform(
-                        dict(
-                            document_url="document_url",
-                            split_description=[
-                                {
-                                    "description": "description",
-                                    "name": "name",
-                                }
-                            ],
-                        ),
-                        SplitRunParams,
-                    ),
+                    object, maybe_transform(dict(document_url="https://pdfobject.com/pdf/sample.pdf"), ParseRunParams)
                 ),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
@@ -741,25 +729,13 @@ class TestReducto:
     @mock.patch("reducto._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
-        respx_mock.post("/split").mock(return_value=httpx.Response(500))
+        respx_mock.post("/parse").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
             self.client.post(
-                "/split",
+                "/parse",
                 body=cast(
-                    object,
-                    maybe_transform(
-                        dict(
-                            document_url="document_url",
-                            split_description=[
-                                {
-                                    "description": "description",
-                                    "name": "name",
-                                }
-                            ],
-                        ),
-                        SplitRunParams,
-                    ),
+                    object, maybe_transform(dict(document_url="https://pdfobject.com/pdf/sample.pdf"), ParseRunParams)
                 ),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
@@ -791,17 +767,9 @@ class TestReducto:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/split").mock(side_effect=retry_handler)
+        respx_mock.post("/parse").mock(side_effect=retry_handler)
 
-        response = client.split.with_raw_response.run(
-            document_url="document_url",
-            split_description=[
-                {
-                    "description": "description",
-                    "name": "name",
-                }
-            ],
-        )
+        response = client.parse.with_raw_response.run(document_url="document_url")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -823,17 +791,10 @@ class TestReducto:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/split").mock(side_effect=retry_handler)
+        respx_mock.post("/parse").mock(side_effect=retry_handler)
 
-        response = client.split.with_raw_response.run(
-            document_url="document_url",
-            split_description=[
-                {
-                    "description": "description",
-                    "name": "name",
-                }
-            ],
-            extra_headers={"x-stainless-retry-count": Omit()},
+        response = client.parse.with_raw_response.run(
+            document_url="document_url", extra_headers={"x-stainless-retry-count": Omit()}
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
@@ -855,17 +816,10 @@ class TestReducto:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/split").mock(side_effect=retry_handler)
+        respx_mock.post("/parse").mock(side_effect=retry_handler)
 
-        response = client.split.with_raw_response.run(
-            document_url="document_url",
-            split_description=[
-                {
-                    "description": "description",
-                    "name": "name",
-                }
-            ],
-            extra_headers={"x-stainless-retry-count": "42"},
+        response = client.parse.with_raw_response.run(
+            document_url="document_url", extra_headers={"x-stainless-retry-count": "42"}
         )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
@@ -1542,25 +1496,13 @@ class TestAsyncReducto:
     @mock.patch("reducto._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
-        respx_mock.post("/split").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.post("/parse").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
             await self.client.post(
-                "/split",
+                "/parse",
                 body=cast(
-                    object,
-                    maybe_transform(
-                        dict(
-                            document_url="document_url",
-                            split_description=[
-                                {
-                                    "description": "description",
-                                    "name": "name",
-                                }
-                            ],
-                        ),
-                        SplitRunParams,
-                    ),
+                    object, maybe_transform(dict(document_url="https://pdfobject.com/pdf/sample.pdf"), ParseRunParams)
                 ),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
@@ -1571,25 +1513,13 @@ class TestAsyncReducto:
     @mock.patch("reducto._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
-        respx_mock.post("/split").mock(return_value=httpx.Response(500))
+        respx_mock.post("/parse").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
             await self.client.post(
-                "/split",
+                "/parse",
                 body=cast(
-                    object,
-                    maybe_transform(
-                        dict(
-                            document_url="document_url",
-                            split_description=[
-                                {
-                                    "description": "description",
-                                    "name": "name",
-                                }
-                            ],
-                        ),
-                        SplitRunParams,
-                    ),
+                    object, maybe_transform(dict(document_url="https://pdfobject.com/pdf/sample.pdf"), ParseRunParams)
                 ),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
@@ -1622,17 +1552,9 @@ class TestAsyncReducto:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/split").mock(side_effect=retry_handler)
+        respx_mock.post("/parse").mock(side_effect=retry_handler)
 
-        response = await client.split.with_raw_response.run(
-            document_url="document_url",
-            split_description=[
-                {
-                    "description": "description",
-                    "name": "name",
-                }
-            ],
-        )
+        response = await client.parse.with_raw_response.run(document_url="document_url")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -1655,17 +1577,10 @@ class TestAsyncReducto:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/split").mock(side_effect=retry_handler)
+        respx_mock.post("/parse").mock(side_effect=retry_handler)
 
-        response = await client.split.with_raw_response.run(
-            document_url="document_url",
-            split_description=[
-                {
-                    "description": "description",
-                    "name": "name",
-                }
-            ],
-            extra_headers={"x-stainless-retry-count": Omit()},
+        response = await client.parse.with_raw_response.run(
+            document_url="document_url", extra_headers={"x-stainless-retry-count": Omit()}
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
@@ -1688,17 +1603,10 @@ class TestAsyncReducto:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/split").mock(side_effect=retry_handler)
+        respx_mock.post("/parse").mock(side_effect=retry_handler)
 
-        response = await client.split.with_raw_response.run(
-            document_url="document_url",
-            split_description=[
-                {
-                    "description": "description",
-                    "name": "name",
-                }
-            ],
-            extra_headers={"x-stainless-retry-count": "42"},
+        response = await client.parse.with_raw_response.run(
+            document_url="document_url", extra_headers={"x-stainless-retry-count": "42"}
         )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
