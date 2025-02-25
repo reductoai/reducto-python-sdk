@@ -34,16 +34,10 @@ client = Reducto(
     api_key=os.environ.get("REDUCTO_API_KEY"),  # This is the default and can be omitted
 )
 
-split_response = client.split.run(
-    document_url="document_url",
-    split_description=[
-        {
-            "description": "description",
-            "name": "name",
-        }
-    ],
+parse_response = client.parse.run(
+    document_url="https://pdfobject.com/pdf/sample.pdf",
 )
-print(split_response.result)
+print(parse_response.job_id)
 ```
 
 While you can provide an `api_key` keyword argument,
@@ -66,16 +60,10 @@ client = AsyncReducto(
 
 
 async def main() -> None:
-    split_response = await client.split.run(
-        document_url="document_url",
-        split_description=[
-            {
-                "description": "description",
-                "name": "name",
-            }
-        ],
+    parse_response = await client.parse.run(
+        document_url="https://pdfobject.com/pdf/sample.pdf",
     )
-    print(split_response.result)
+    print(parse_response.job_id)
 
 
 asyncio.run(main())
