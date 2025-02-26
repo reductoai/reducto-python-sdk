@@ -52,7 +52,7 @@ class ParseResource(SyncAPIResource):
     def run(
         self,
         *,
-        document_url: str,
+        document_url: parse_run_params.DocumentURL,
         advanced_options: AdvancedProcessingOptions | NotGiven = NOT_GIVEN,
         experimental_options: ExperimentalProcessingOptions | NotGiven = NOT_GIVEN,
         options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
@@ -104,7 +104,7 @@ class ParseResource(SyncAPIResource):
     def run_job(
         self,
         *,
-        document_url: str,
+        document_url: parse_run_job_params.DocumentURL,
         advanced_options: AdvancedProcessingOptions | NotGiven = NOT_GIVEN,
         experimental_options: ExperimentalProcessingOptions | NotGiven = NOT_GIVEN,
         options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
@@ -184,7 +184,7 @@ class AsyncParseResource(AsyncAPIResource):
     async def run(
         self,
         *,
-        document_url: str,
+        document_url: parse_run_params.DocumentURL,
         advanced_options: AdvancedProcessingOptions | NotGiven = NOT_GIVEN,
         experimental_options: ExperimentalProcessingOptions | NotGiven = NOT_GIVEN,
         options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
@@ -236,7 +236,7 @@ class AsyncParseResource(AsyncAPIResource):
     async def run_job(
         self,
         *,
-        document_url: str,
+        document_url: parse_run_job_params.DocumentURL,
         advanced_options: AdvancedProcessingOptions | NotGiven = NOT_GIVEN,
         experimental_options: ExperimentalProcessingOptions | NotGiven = NOT_GIVEN,
         options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
