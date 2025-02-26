@@ -22,7 +22,7 @@ class TestSplit:
     @parametrize
     def test_method_run(self, client: Reducto) -> None:
         split = client.split.run(
-            document_url="document_url",
+            document_url="string",
             split_description=[
                 {
                     "description": "description",
@@ -36,7 +36,7 @@ class TestSplit:
     @parametrize
     def test_method_run_with_all_params(self, client: Reducto) -> None:
         split = client.split.run(
-            document_url="document_url",
+            document_url="string",
             split_description=[
                 {
                     "description": "description",
@@ -105,7 +105,7 @@ class TestSplit:
     @parametrize
     def test_raw_response_run(self, client: Reducto) -> None:
         response = client.split.with_raw_response.run(
-            document_url="document_url",
+            document_url="string",
             split_description=[
                 {
                     "description": "description",
@@ -123,7 +123,7 @@ class TestSplit:
     @parametrize
     def test_streaming_response_run(self, client: Reducto) -> None:
         with client.split.with_streaming_response.run(
-            document_url="document_url",
+            document_url="string",
             split_description=[
                 {
                     "description": "description",
@@ -143,7 +143,7 @@ class TestSplit:
     @parametrize
     def test_method_run_job(self, client: Reducto) -> None:
         split = client.split.run_job(
-            document_url="document_url",
+            document_url="string",
             split_description=[
                 {
                     "description": "description",
@@ -157,7 +157,7 @@ class TestSplit:
     @parametrize
     def test_method_run_job_with_all_params(self, client: Reducto) -> None:
         split = client.split.run_job(
-            document_url="document_url",
+            document_url="string",
             split_description=[
                 {
                     "description": "description",
@@ -233,7 +233,7 @@ class TestSplit:
     @parametrize
     def test_raw_response_run_job(self, client: Reducto) -> None:
         response = client.split.with_raw_response.run_job(
-            document_url="document_url",
+            document_url="string",
             split_description=[
                 {
                     "description": "description",
@@ -251,7 +251,7 @@ class TestSplit:
     @parametrize
     def test_streaming_response_run_job(self, client: Reducto) -> None:
         with client.split.with_streaming_response.run_job(
-            document_url="document_url",
+            document_url="string",
             split_description=[
                 {
                     "description": "description",
@@ -275,7 +275,7 @@ class TestAsyncSplit:
     @parametrize
     async def test_method_run(self, async_client: AsyncReducto) -> None:
         split = await async_client.split.run(
-            document_url="document_url",
+            document_url="string",
             split_description=[
                 {
                     "description": "description",
@@ -289,7 +289,7 @@ class TestAsyncSplit:
     @parametrize
     async def test_method_run_with_all_params(self, async_client: AsyncReducto) -> None:
         split = await async_client.split.run(
-            document_url="document_url",
+            document_url="string",
             split_description=[
                 {
                     "description": "description",
@@ -358,7 +358,7 @@ class TestAsyncSplit:
     @parametrize
     async def test_raw_response_run(self, async_client: AsyncReducto) -> None:
         response = await async_client.split.with_raw_response.run(
-            document_url="document_url",
+            document_url="string",
             split_description=[
                 {
                     "description": "description",
@@ -376,7 +376,7 @@ class TestAsyncSplit:
     @parametrize
     async def test_streaming_response_run(self, async_client: AsyncReducto) -> None:
         async with async_client.split.with_streaming_response.run(
-            document_url="document_url",
+            document_url="string",
             split_description=[
                 {
                     "description": "description",
@@ -396,7 +396,7 @@ class TestAsyncSplit:
     @parametrize
     async def test_method_run_job(self, async_client: AsyncReducto) -> None:
         split = await async_client.split.run_job(
-            document_url="document_url",
+            document_url="string",
             split_description=[
                 {
                     "description": "description",
@@ -410,7 +410,7 @@ class TestAsyncSplit:
     @parametrize
     async def test_method_run_job_with_all_params(self, async_client: AsyncReducto) -> None:
         split = await async_client.split.run_job(
-            document_url="document_url",
+            document_url="string",
             split_description=[
                 {
                     "description": "description",
@@ -486,7 +486,7 @@ class TestAsyncSplit:
     @parametrize
     async def test_raw_response_run_job(self, async_client: AsyncReducto) -> None:
         response = await async_client.split.with_raw_response.run_job(
-            document_url="document_url",
+            document_url="string",
             split_description=[
                 {
                     "description": "description",
@@ -504,7 +504,7 @@ class TestAsyncSplit:
     @parametrize
     async def test_streaming_response_run_job(self, async_client: AsyncReducto) -> None:
         async with async_client.split.with_streaming_response.run_job(
-            document_url="document_url",
+            document_url="string",
             split_description=[
                 {
                     "description": "description",

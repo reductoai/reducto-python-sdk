@@ -22,7 +22,7 @@ class TestParse:
     @parametrize
     def test_method_run(self, client: Reducto) -> None:
         parse = client.parse.run(
-            document_url="document_url",
+            document_url="string",
         )
         assert_matches_type(ParseResponse, parse, path=["response"])
 
@@ -30,7 +30,7 @@ class TestParse:
     @parametrize
     def test_method_run_with_all_params(self, client: Reducto) -> None:
         parse = client.parse.run(
-            document_url="document_url",
+            document_url="string",
             advanced_options={
                 "add_page_markers": True,
                 "continue_hierarchy": True,
@@ -91,7 +91,7 @@ class TestParse:
     @parametrize
     def test_raw_response_run(self, client: Reducto) -> None:
         response = client.parse.with_raw_response.run(
-            document_url="document_url",
+            document_url="string",
         )
 
         assert response.is_closed is True
@@ -103,7 +103,7 @@ class TestParse:
     @parametrize
     def test_streaming_response_run(self, client: Reducto) -> None:
         with client.parse.with_streaming_response.run(
-            document_url="document_url",
+            document_url="string",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -117,7 +117,7 @@ class TestParse:
     @parametrize
     def test_method_run_job(self, client: Reducto) -> None:
         parse = client.parse.run_job(
-            document_url="document_url",
+            document_url="string",
         )
         assert_matches_type(ParseRunJobResponse, parse, path=["response"])
 
@@ -125,7 +125,7 @@ class TestParse:
     @parametrize
     def test_method_run_job_with_all_params(self, client: Reducto) -> None:
         parse = client.parse.run_job(
-            document_url="document_url",
+            document_url="string",
             advanced_options={
                 "add_page_markers": True,
                 "continue_hierarchy": True,
@@ -193,7 +193,7 @@ class TestParse:
     @parametrize
     def test_raw_response_run_job(self, client: Reducto) -> None:
         response = client.parse.with_raw_response.run_job(
-            document_url="document_url",
+            document_url="string",
         )
 
         assert response.is_closed is True
@@ -205,7 +205,7 @@ class TestParse:
     @parametrize
     def test_streaming_response_run_job(self, client: Reducto) -> None:
         with client.parse.with_streaming_response.run_job(
-            document_url="document_url",
+            document_url="string",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -223,7 +223,7 @@ class TestAsyncParse:
     @parametrize
     async def test_method_run(self, async_client: AsyncReducto) -> None:
         parse = await async_client.parse.run(
-            document_url="document_url",
+            document_url="string",
         )
         assert_matches_type(ParseResponse, parse, path=["response"])
 
@@ -231,7 +231,7 @@ class TestAsyncParse:
     @parametrize
     async def test_method_run_with_all_params(self, async_client: AsyncReducto) -> None:
         parse = await async_client.parse.run(
-            document_url="document_url",
+            document_url="string",
             advanced_options={
                 "add_page_markers": True,
                 "continue_hierarchy": True,
@@ -292,7 +292,7 @@ class TestAsyncParse:
     @parametrize
     async def test_raw_response_run(self, async_client: AsyncReducto) -> None:
         response = await async_client.parse.with_raw_response.run(
-            document_url="document_url",
+            document_url="string",
         )
 
         assert response.is_closed is True
@@ -304,7 +304,7 @@ class TestAsyncParse:
     @parametrize
     async def test_streaming_response_run(self, async_client: AsyncReducto) -> None:
         async with async_client.parse.with_streaming_response.run(
-            document_url="document_url",
+            document_url="string",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -318,7 +318,7 @@ class TestAsyncParse:
     @parametrize
     async def test_method_run_job(self, async_client: AsyncReducto) -> None:
         parse = await async_client.parse.run_job(
-            document_url="document_url",
+            document_url="string",
         )
         assert_matches_type(ParseRunJobResponse, parse, path=["response"])
 
@@ -326,7 +326,7 @@ class TestAsyncParse:
     @parametrize
     async def test_method_run_job_with_all_params(self, async_client: AsyncReducto) -> None:
         parse = await async_client.parse.run_job(
-            document_url="document_url",
+            document_url="string",
             advanced_options={
                 "add_page_markers": True,
                 "continue_hierarchy": True,
@@ -394,7 +394,7 @@ class TestAsyncParse:
     @parametrize
     async def test_raw_response_run_job(self, async_client: AsyncReducto) -> None:
         response = await async_client.parse.with_raw_response.run_job(
-            document_url="document_url",
+            document_url="string",
         )
 
         assert response.is_closed is True
@@ -406,7 +406,7 @@ class TestAsyncParse:
     @parametrize
     async def test_streaming_response_run_job(self, async_client: AsyncReducto) -> None:
         async with async_client.parse.with_streaming_response.run_job(
-            document_url="document_url",
+            document_url="string",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

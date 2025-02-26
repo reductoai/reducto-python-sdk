@@ -2,18 +2,20 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, TypedDict
+from typing import Union
+from typing_extensions import Required, TypeAlias, TypedDict
 
+from .shared_params.upload import Upload
 from .shared_params.array_extract_config import ArrayExtractConfig
 from .shared_params.base_processing_options import BaseProcessingOptions
 from .shared_params.advanced_processing_options import AdvancedProcessingOptions
 from .shared_params.experimental_processing_options import ExperimentalProcessingOptions
 
-__all__ = ["ExtractRunParams"]
+__all__ = ["ExtractRunParams", "DocumentURL"]
 
 
 class ExtractRunParams(TypedDict, total=False):
-    document_url: Required[str]
+    document_url: Required[DocumentURL]
     """The URL of the document to be processed. You can provide one of the following:
 
     1. A publicly available URL
@@ -43,3 +45,6 @@ class ExtractRunParams(TypedDict, total=False):
     This is a general prompt that is applied to the entire document before any other
     prompts.
     """
+
+
+DocumentURL: TypeAlias = Union[str, Upload]

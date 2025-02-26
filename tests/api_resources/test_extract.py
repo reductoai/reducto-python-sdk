@@ -22,7 +22,7 @@ class TestExtract:
     @parametrize
     def test_method_run(self, client: Reducto) -> None:
         extract = client.extract.run(
-            document_url="document_url",
+            document_url="string",
             schema={},
         )
         assert_matches_type(ExtractResponse, extract, path=["response"])
@@ -31,7 +31,7 @@ class TestExtract:
     @parametrize
     def test_method_run_with_all_params(self, client: Reducto) -> None:
         extract = client.extract.run(
-            document_url="document_url",
+            document_url="string",
             schema={},
             advanced_options={
                 "add_page_markers": True,
@@ -101,7 +101,7 @@ class TestExtract:
     @parametrize
     def test_raw_response_run(self, client: Reducto) -> None:
         response = client.extract.with_raw_response.run(
-            document_url="document_url",
+            document_url="string",
             schema={},
         )
 
@@ -114,7 +114,7 @@ class TestExtract:
     @parametrize
     def test_streaming_response_run(self, client: Reducto) -> None:
         with client.extract.with_streaming_response.run(
-            document_url="document_url",
+            document_url="string",
             schema={},
         ) as response:
             assert not response.is_closed
@@ -129,7 +129,7 @@ class TestExtract:
     @parametrize
     def test_method_run_job(self, client: Reducto) -> None:
         extract = client.extract.run_job(
-            document_url="document_url",
+            document_url="string",
             schema={},
         )
         assert_matches_type(ExtractRunJobResponse, extract, path=["response"])
@@ -138,7 +138,7 @@ class TestExtract:
     @parametrize
     def test_method_run_job_with_all_params(self, client: Reducto) -> None:
         extract = client.extract.run_job(
-            document_url="document_url",
+            document_url="string",
             schema={},
             advanced_options={
                 "add_page_markers": True,
@@ -215,7 +215,7 @@ class TestExtract:
     @parametrize
     def test_raw_response_run_job(self, client: Reducto) -> None:
         response = client.extract.with_raw_response.run_job(
-            document_url="document_url",
+            document_url="string",
             schema={},
         )
 
@@ -228,7 +228,7 @@ class TestExtract:
     @parametrize
     def test_streaming_response_run_job(self, client: Reducto) -> None:
         with client.extract.with_streaming_response.run_job(
-            document_url="document_url",
+            document_url="string",
             schema={},
         ) as response:
             assert not response.is_closed
@@ -247,7 +247,7 @@ class TestAsyncExtract:
     @parametrize
     async def test_method_run(self, async_client: AsyncReducto) -> None:
         extract = await async_client.extract.run(
-            document_url="document_url",
+            document_url="string",
             schema={},
         )
         assert_matches_type(ExtractResponse, extract, path=["response"])
@@ -256,7 +256,7 @@ class TestAsyncExtract:
     @parametrize
     async def test_method_run_with_all_params(self, async_client: AsyncReducto) -> None:
         extract = await async_client.extract.run(
-            document_url="document_url",
+            document_url="string",
             schema={},
             advanced_options={
                 "add_page_markers": True,
@@ -326,7 +326,7 @@ class TestAsyncExtract:
     @parametrize
     async def test_raw_response_run(self, async_client: AsyncReducto) -> None:
         response = await async_client.extract.with_raw_response.run(
-            document_url="document_url",
+            document_url="string",
             schema={},
         )
 
@@ -339,7 +339,7 @@ class TestAsyncExtract:
     @parametrize
     async def test_streaming_response_run(self, async_client: AsyncReducto) -> None:
         async with async_client.extract.with_streaming_response.run(
-            document_url="document_url",
+            document_url="string",
             schema={},
         ) as response:
             assert not response.is_closed
@@ -354,7 +354,7 @@ class TestAsyncExtract:
     @parametrize
     async def test_method_run_job(self, async_client: AsyncReducto) -> None:
         extract = await async_client.extract.run_job(
-            document_url="document_url",
+            document_url="string",
             schema={},
         )
         assert_matches_type(ExtractRunJobResponse, extract, path=["response"])
@@ -363,7 +363,7 @@ class TestAsyncExtract:
     @parametrize
     async def test_method_run_job_with_all_params(self, async_client: AsyncReducto) -> None:
         extract = await async_client.extract.run_job(
-            document_url="document_url",
+            document_url="string",
             schema={},
             advanced_options={
                 "add_page_markers": True,
@@ -440,7 +440,7 @@ class TestAsyncExtract:
     @parametrize
     async def test_raw_response_run_job(self, async_client: AsyncReducto) -> None:
         response = await async_client.extract.with_raw_response.run_job(
-            document_url="document_url",
+            document_url="string",
             schema={},
         )
 
@@ -453,7 +453,7 @@ class TestAsyncExtract:
     @parametrize
     async def test_streaming_response_run_job(self, async_client: AsyncReducto) -> None:
         async with async_client.extract.with_streaming_response.run_job(
-            document_url="document_url",
+            document_url="string",
             schema={},
         ) as response:
             assert not response.is_closed
