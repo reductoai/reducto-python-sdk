@@ -53,7 +53,7 @@ class ExtractResource(SyncAPIResource):
     def run(
         self,
         *,
-        document_url: str,
+        document_url: extract_run_params.DocumentURL,
         schema: object,
         advanced_options: AdvancedProcessingOptions | NotGiven = NOT_GIVEN,
         array_extract: ArrayExtractConfig | NotGiven = NOT_GIVEN,
@@ -122,7 +122,7 @@ class ExtractResource(SyncAPIResource):
     def run_job(
         self,
         *,
-        document_url: str,
+        document_url: extract_run_job_params.DocumentURL,
         schema: object,
         advanced_options: AdvancedProcessingOptions | NotGiven = NOT_GIVEN,
         array_extract: ArrayExtractConfig | NotGiven = NOT_GIVEN,
@@ -219,7 +219,7 @@ class AsyncExtractResource(AsyncAPIResource):
     async def run(
         self,
         *,
-        document_url: str,
+        document_url: extract_run_params.DocumentURL,
         schema: object,
         advanced_options: AdvancedProcessingOptions | NotGiven = NOT_GIVEN,
         array_extract: ArrayExtractConfig | NotGiven = NOT_GIVEN,
@@ -288,7 +288,7 @@ class AsyncExtractResource(AsyncAPIResource):
     async def run_job(
         self,
         *,
-        document_url: str,
+        document_url: extract_run_job_params.DocumentURL,
         schema: object,
         advanced_options: AdvancedProcessingOptions | NotGiven = NOT_GIVEN,
         array_extract: ArrayExtractConfig | NotGiven = NOT_GIVEN,
