@@ -94,3 +94,11 @@ from reducto.types import WebhookRunResponse
 Methods:
 
 - <code title="post /configure_webhook">client.webhook.<a href="./src/reducto/resources/webhook.py">run</a>() -> str</code>
+
+# Config
+
+Types:
+
+```python
+from reducto.types import ExtractConfig, ParseConfig
+```
