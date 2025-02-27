@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.1.0-alpha.2 (2025-02-27)
+
+Full Changelog: [v0.1.0-alpha.1...v0.1.0-alpha.2](https://github.com/reductoai/reducto-python-sdk/compare/v0.1.0-alpha.1...v0.1.0-alpha.2)
+
+### Features
+
+* **api:** manual updates ([#7](https://github.com/reductoai/reducto-python-sdk/issues/7)) ([f0a3ac7](https://github.com/reductoai/reducto-python-sdk/commit/f0a3ac7feffd5ce250ca33795bf95fa4fb6a3481))
+* **api:** update via SDK Studio ([#5](https://github.com/reductoai/reducto-python-sdk/issues/5)) ([5effb16](https://github.com/reductoai/reducto-python-sdk/commit/5effb162cbd6a44036fa87a612a0b66cb5314eab))
+
+
+### Chores
+
+* **internal:** properly set __pydantic_private__ ([#8](https://github.com/reductoai/reducto-python-sdk/issues/8)) ([38b3b62](https://github.com/reductoai/reducto-python-sdk/commit/38b3b62107a57a71f8299d164bc88199308198ed))
+
 ## 0.1.0-alpha.1 (2025-02-25)
 
 Full Changelog: [v0.0.1-alpha.0...v0.1.0-alpha.1](https://github.com/reductoai/reducto-python-sdk/compare/v0.0.1-alpha.0...v0.1.0-alpha.1)
