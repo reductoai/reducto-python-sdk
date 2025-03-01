@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union
+from typing import List, Union
 from typing_extensions import Required, TypeAlias, TypedDict
 
 from .shared_params.upload import Upload
@@ -23,6 +23,7 @@ class ExtractRunJobParams(TypedDict, total=False):
     2. A presigned S3 URL
     3. A reducto:// prefixed URL obtained from the /upload endpoint after directly
        uploading a document
+    4. A job_id (jobid://) or a list of job_ids (jobid://)
     """
 
     schema: Required[object]
@@ -57,4 +58,4 @@ class ExtractRunJobParams(TypedDict, total=False):
     webhook: WebhookConfigNew
 
 
-DocumentURL: TypeAlias = Union[str, Upload]
+DocumentURL: TypeAlias = Union[str, List[str], Upload]
