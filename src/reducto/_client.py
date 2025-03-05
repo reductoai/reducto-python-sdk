@@ -88,7 +88,7 @@ class Reducto(SyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new synchronous reducto client instance.
+        """Construct a new synchronous Reducto client instance.
 
         This automatically infers the `api_key` argument from the `REDUCTO_API_KEY` environment variable if it is not provided.
         """
@@ -327,7 +327,7 @@ class AsyncReducto(AsyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new async reducto client instance.
+        """Construct a new async AsyncReducto client instance.
 
         This automatically infers the `api_key` argument from the `REDUCTO_API_KEY` environment variable if it is not provided.
         """
