@@ -88,6 +88,7 @@ class TestExtract:
                 },
                 "filter_blocks": ["Header"],
                 "force_url_result": True,
+                "ocr_mode": "standard",
                 "table_summary": {
                     "enabled": True,
                     "prompt": "prompt",
@@ -195,6 +196,7 @@ class TestExtract:
                 },
                 "filter_blocks": ["Header"],
                 "force_url_result": True,
+                "ocr_mode": "standard",
                 "table_summary": {
                     "enabled": True,
                     "prompt": "prompt",
@@ -313,6 +315,7 @@ class TestAsyncExtract:
                 },
                 "filter_blocks": ["Header"],
                 "force_url_result": True,
+                "ocr_mode": "standard",
                 "table_summary": {
                     "enabled": True,
                     "prompt": "prompt",
@@ -420,6 +423,7 @@ class TestAsyncExtract:
                 },
                 "filter_blocks": ["Header"],
                 "force_url_result": True,
+                "ocr_mode": "standard",
                 "table_summary": {
                     "enabled": True,
                     "prompt": "prompt",

@@ -92,6 +92,7 @@ class TestSplit:
                 },
                 "filter_blocks": ["Header"],
                 "force_url_result": True,
+                "ocr_mode": "standard",
                 "table_summary": {
                     "enabled": True,
                     "prompt": "prompt",
@@ -213,6 +214,7 @@ class TestSplit:
                 },
                 "filter_blocks": ["Header"],
                 "force_url_result": True,
+                "ocr_mode": "standard",
                 "table_summary": {
                     "enabled": True,
                     "prompt": "prompt",
@@ -345,6 +347,7 @@ class TestAsyncSplit:
                 },
                 "filter_blocks": ["Header"],
                 "force_url_result": True,
+                "ocr_mode": "standard",
                 "table_summary": {
                     "enabled": True,
                     "prompt": "prompt",
@@ -466,6 +469,7 @@ class TestAsyncSplit:
                 },
                 "filter_blocks": ["Header"],
                 "force_url_result": True,
+                "ocr_mode": "standard",
                 "table_summary": {
                     "enabled": True,
                     "prompt": "prompt",
