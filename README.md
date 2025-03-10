@@ -16,7 +16,7 @@ The REST API documentation can be found on [docs.reductoai.com](https://docs.red
 
 ```sh
 # install from PyPI
-pip install --pre reductoai
+pip install reductoai
 ```
 
 ## Usage
