@@ -79,5 +79,11 @@ class BaseProcessingOptions(BaseModel):
     responses).
     """
 
+    ocr_mode: Optional[Literal["standard", "agentic"]] = None
+    """The mode to use for OCR.
+
+    If agentic is enabled, at a small cost table OCR will be automatically edited.
+    """
+
     table_summary: Optional[TableSummary] = None
     """The configuration options for table summarization."""
