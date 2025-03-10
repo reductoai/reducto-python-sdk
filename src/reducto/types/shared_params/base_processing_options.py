@@ -77,5 +77,11 @@ class BaseProcessingOptions(TypedDict, total=False):
     responses).
     """
 
+    ocr_mode: Literal["standard", "agentic"]
+    """The mode to use for OCR.
+
+    If agentic is enabled, at a small cost table OCR will be automatically edited.
+    """
+
     table_summary: TableSummary
     """The configuration options for table summarization."""

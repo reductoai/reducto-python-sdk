@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.1.0 (2025-03-10)
+
+Full Changelog: [v0.1.0-alpha.2...v0.1.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.1.0-alpha.2...v0.1.0)
+
+### Features
+
+* **api:** api update ([#10](https://github.com/reductoai/reducto-python-sdk/issues/10)) ([28ab6ce](https://github.com/reductoai/reducto-python-sdk/commit/28ab6cec5a1483f7bf4dbd56114f4e94d53c2224))
+* **api:** api update ([#16](https://github.com/reductoai/reducto-python-sdk/issues/16)) ([902285c](https://github.com/reductoai/reducto-python-sdk/commit/902285ca3f6db52efe163020aef1c352ac32f52f))
+
+
+### Chores
+
+* **docs:** update client docstring ([#13](https://github.com/reductoai/reducto-python-sdk/issues/13)) ([d649e20](https://github.com/reductoai/reducto-python-sdk/commit/d649e204040395334f3fc0add66d7eaa2f28bc15))
+* **internal:** remove unused http client options forwarding ([#14](https://github.com/reductoai/reducto-python-sdk/issues/14)) ([53cb68e](https://github.com/reductoai/reducto-python-sdk/commit/53cb68ecccda85d788bc27d6bee186c2b7fca75a))
+
+
+### Documentation
+
+* update URLs from stainlessapi.com to stainless.com ([#12](https://github.com/reductoai/reducto-python-sdk/issues/12)) ([ef54876](https://github.com/reductoai/reducto-python-sdk/commit/ef5487656b269f670bc5f119ebe87461dadf73f6))
+
 ## 0.1.0-alpha.2 (2025-02-27)
 
 Full Changelog: [v0.1.0-alpha.1...v0.1.0-alpha.2](https://github.com/reductoai/reducto-python-sdk/compare/v0.1.0-alpha.1...v0.1.0-alpha.2)
