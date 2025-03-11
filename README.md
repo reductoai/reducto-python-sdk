@@ -77,6 +77,48 @@ Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typ
 
 Typed requests and responses provide autocomplete and documentation within your editor. If you would like to see type errors in VS Code to help catch bugs earlier, set `python.analysis.typeCheckingMode` to `basic`.
 
+## Nested params
+
+Nested parameters are dictionaries, typed using `TypedDict`, for example:
+
+```python
+from reducto import Reducto
+
+client = Reducto()
+
+split_response = client.split.run(
+    document_url="string",
+    split_description=[
+        {
+            "description": "description",
+            "name": "name",
+        }
+    ],
+    advanced_options={
+        "add_page_markers": True,
+        "continue_hierarchy": True,
+        "document_password": "document_password",
+        "force_file_extension": "force_file_extension",
+        "keep_line_breaks": True,
+        "large_table_chunking": {
+            "enabled": True,
+            "size": 0,
+        },
+        "merge_tables": True,
+        "ocr_system": "highres",
+        "page_range": {
+            "end": 0,
+            "start": 0,
+        },
+        "remove_text_formatting": True,
+        "return_ocr_data": True,
+        "spreadsheet_table_clustering": "default",
+        "table_output_format": "html",
+    },
+)
+print(split_response.advanced_options)
+```
+
 ## File uploads
 
 Request parameters that correspond to file uploads can be passed as `bytes`, a [`PathLike`](https://docs.python.org/3/library/os.html#os.PathLike) instance or a tuple of `(filename, contents, media type)`.
