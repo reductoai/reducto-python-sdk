@@ -63,5 +63,8 @@ class ExperimentalProcessingOptions(BaseModel):
     return_figure_images: Optional[bool] = None
     """If figure images should be returned in the result. Defaults to False."""
 
+    return_table_images: Optional[bool] = None
+    """If table images should be returned in the result. Defaults to False."""
+
     rotate_pages: Optional[bool] = None
     """Use an orientation model to detect and rotate pages as needed, defaults to True"""
