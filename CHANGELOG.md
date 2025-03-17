@@ -1,5 +1,31 @@
 # Changelog
 
+## 0.2.0 (2025-03-17)
+
+Full Changelog: [v0.1.0...v0.2.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.1.0...v0.2.0)
+
+### Features
+
+* **api:** api update ([#21](https://github.com/reductoai/reducto-python-sdk/issues/21)) ([1b3fbf3](https://github.com/reductoai/reducto-python-sdk/commit/1b3fbf334a8eee76392490894fee8a6e6e6bd0ec))
+
+
+### Bug Fixes
+
+* **ci:** ensure pip is always available ([#27](https://github.com/reductoai/reducto-python-sdk/issues/27)) ([b2a96d3](https://github.com/reductoai/reducto-python-sdk/commit/b2a96d370497f91e4a9d4a0084d549b7c4966c81))
+* **types:** handle more discriminated union shapes ([#26](https://github.com/reductoai/reducto-python-sdk/issues/26)) ([0d77b6f](https://github.com/reductoai/reducto-python-sdk/commit/0d77b6fd402eb2d2b2c8b17a964e2e60c16d1a36))
+
+
+### Chores
+
+* **internal:** bump rye to 0.44.0 ([#25](https://github.com/reductoai/reducto-python-sdk/issues/25)) ([a96cad7](https://github.com/reductoai/reducto-python-sdk/commit/a96cad796adb321bc7c4afc5772469fa4d0299f5))
+* **internal:** codegen related update ([#24](https://github.com/reductoai/reducto-python-sdk/issues/24)) ([c9f88f0](https://github.com/reductoai/reducto-python-sdk/commit/c9f88f052dd7625e6451f20871472ca0d03b744c))
+* **internal:** remove extra empty newlines ([#22](https://github.com/reductoai/reducto-python-sdk/issues/22)) ([1745284](https://github.com/reductoai/reducto-python-sdk/commit/1745284a18ec944b4b697b4d35a69de741eeb920))
+
+
+### Documentation
+
+* revise readme docs about nested params ([#18](https://github.com/reductoai/reducto-python-sdk/issues/18)) ([90919f6](https://github.com/reductoai/reducto-python-sdk/commit/90919f65fc300e912b3bdceadc5c9fd488583438))
+
 ## 0.1.0 (2025-03-10)
 
 Full Changelog: [v0.1.0-alpha.2...v0.1.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.1.0-alpha.2...v0.1.0)
