@@ -13,4 +13,4 @@ __all__ = ["ClientUploadParams"]
 class ClientUploadParams(TypedDict, total=False):
     extension: Optional[str]
 
-    file: FileTypes
+    file: Optional[FileTypes]
