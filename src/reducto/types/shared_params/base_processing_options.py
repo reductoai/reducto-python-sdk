@@ -9,11 +9,12 @@ __all__ = ["BaseProcessingOptions", "Chunking", "FigureSummary", "TableSummary"]
 
 
 class Chunking(TypedDict, total=False):
-    chunk_mode: Literal["variable", "section", "page", "block", "disabled"]
+    chunk_mode: Literal["variable", "section", "page", "block", "disabled", "page_sections"]
     """The mode to use for chunking.
 
     Section chunks according to sections in the document. Page chunks according to
-    pages. Disabled returns a single chunk.
+    pages. Page sections chunks according to both pages and sections. Disabled
+    returns a single chunk.
     """
 
     chunk_size: int

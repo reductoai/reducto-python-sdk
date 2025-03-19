@@ -9,11 +9,12 @@ __all__ = ["BaseProcessingOptions", "Chunking", "FigureSummary", "TableSummary"]
 
 
 class Chunking(BaseModel):
-    chunk_mode: Optional[Literal["variable", "section", "page", "block", "disabled"]] = None
+    chunk_mode: Optional[Literal["variable", "section", "page", "block", "disabled", "page_sections"]] = None
     """The mode to use for chunking.
 
     Section chunks according to sections in the document. Page chunks according to
-    pages. Disabled returns a single chunk.
+    pages. Page sections chunks according to both pages and sections. Disabled
+    returns a single chunk.
     """
 
     chunk_size: Optional[int] = None
