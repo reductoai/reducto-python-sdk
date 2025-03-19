@@ -10,7 +10,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 ## Documentation
 
-The REST API documentation can be found on [docs.reductoai.com](https://docs.reductoai.com). The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found on [docs.reducto.ai](https://docs.reducto.ai/). The full API of this library can be found in [api.md](api.md).
 
 ## Installation
 
