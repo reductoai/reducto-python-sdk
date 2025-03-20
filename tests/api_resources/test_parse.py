@@ -60,6 +60,7 @@ class TestParse:
                 "enable_underlines": True,
                 "enrich": {
                     "enabled": True,
+                    "mode": "standard",
                     "prompt": "prompt",
                 },
                 "native_office_conversion": True,
@@ -157,6 +158,7 @@ class TestParse:
                 "enable_underlines": True,
                 "enrich": {
                     "enabled": True,
+                    "mode": "standard",
                     "prompt": "prompt",
                 },
                 "native_office_conversion": True,
@@ -265,6 +267,7 @@ class TestAsyncParse:
                 "enable_underlines": True,
                 "enrich": {
                     "enabled": True,
+                    "mode": "standard",
                     "prompt": "prompt",
                 },
                 "native_office_conversion": True,
@@ -362,6 +365,7 @@ class TestAsyncParse:
                 "enable_underlines": True,
                 "enrich": {
                     "enabled": True,
+                    "mode": "standard",
                     "prompt": "prompt",
                 },
                 "native_office_conversion": True,

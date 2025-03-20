@@ -68,6 +68,7 @@ class TestExtract:
                 "enable_underlines": True,
                 "enrich": {
                     "enabled": True,
+                    "mode": "standard",
                     "prompt": "prompt",
                 },
                 "native_office_conversion": True,
@@ -177,6 +178,7 @@ class TestExtract:
                 "enable_underlines": True,
                 "enrich": {
                     "enabled": True,
+                    "mode": "standard",
                     "prompt": "prompt",
                 },
                 "native_office_conversion": True,
@@ -297,6 +299,7 @@ class TestAsyncExtract:
                 "enable_underlines": True,
                 "enrich": {
                     "enabled": True,
+                    "mode": "standard",
                     "prompt": "prompt",
                 },
                 "native_office_conversion": True,
@@ -406,6 +409,7 @@ class TestAsyncExtract:
                 "enable_underlines": True,
                 "enrich": {
                     "enabled": True,
+                    "mode": "standard",
                     "prompt": "prompt",
                 },
                 "native_office_conversion": True,
