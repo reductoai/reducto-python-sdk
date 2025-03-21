@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict
+from typing_extensions import Literal, TypedDict
 
 __all__ = ["ExperimentalProcessingOptions", "Enrich"]
 
@@ -14,6 +14,9 @@ class Enrich(TypedDict, total=False):
     extracted content. Note: enabling enrich requires tables be outputted in
     markdown format. Defaults to False.
     """
+
+    mode: Literal["standard", "page"]
+    """The mode to use for enrichment. Defaults to standard"""
 
     prompt: str
     """Add information to the prompt for enrichment."""

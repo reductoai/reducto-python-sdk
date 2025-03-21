@@ -73,6 +73,7 @@ class TestSplit:
                 "enable_underlines": True,
                 "enrich": {
                     "enabled": True,
+                    "mode": "standard",
                     "prompt": "prompt",
                 },
                 "native_office_conversion": True,
@@ -196,6 +197,7 @@ class TestSplit:
                 "enable_underlines": True,
                 "enrich": {
                     "enabled": True,
+                    "mode": "standard",
                     "prompt": "prompt",
                 },
                 "native_office_conversion": True,
@@ -330,6 +332,7 @@ class TestAsyncSplit:
                 "enable_underlines": True,
                 "enrich": {
                     "enabled": True,
+                    "mode": "standard",
                     "prompt": "prompt",
                 },
                 "native_office_conversion": True,
@@ -453,6 +456,7 @@ class TestAsyncSplit:
                 "enable_underlines": True,
                 "enrich": {
                     "enabled": True,
+                    "mode": "standard",
                     "prompt": "prompt",
                 },
                 "native_office_conversion": True,
