@@ -25,7 +25,8 @@ class FullParseResponse(BaseModel):
 def handle_url_response(response: ParseResponse) -> FullParseResponse:
     if response.result.type == "url":
         with httpx.stream("GET", response.result.url) as r:
-            result = ResultFullResult.model_validate_json(r.text)
+            content = r.read().decode()
+            result = ResultFullResult.model_validate_json(content)
             return FullParseResponse(
                 duration=response.duration,
                 job_id=response.job_id,
