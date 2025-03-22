@@ -97,6 +97,7 @@ class TestExtract:
                 },
             },
             system_prompt="system_prompt",
+            use_chunking=True,
         )
         assert_matches_type(ExtractResponse, extract, path=["response"])
 
@@ -208,6 +209,7 @@ class TestExtract:
             },
             priority=True,
             system_prompt="system_prompt",
+            use_chunking=True,
             webhook={
                 "channels": ["string"],
                 "metadata": {},
@@ -328,6 +330,7 @@ class TestAsyncExtract:
                 },
             },
             system_prompt="system_prompt",
+            use_chunking=True,
         )
         assert_matches_type(ExtractResponse, extract, path=["response"])
 
@@ -439,6 +442,7 @@ class TestAsyncExtract:
             },
             priority=True,
             system_prompt="system_prompt",
+            use_chunking=True,
             webhook={
                 "channels": ["string"],
                 "metadata": {},
