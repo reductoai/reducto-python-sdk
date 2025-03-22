@@ -47,5 +47,8 @@ class ExtractRunParams(TypedDict, total=False):
     prompts.
     """
 
+    use_chunking: bool
+    """If chunking should be used for the extraction. Defaults to False."""
+
 
 DocumentURL: TypeAlias = Union[str, List[str], Upload]

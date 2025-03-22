@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.4.0 (2025-03-22)
+
+Full Changelog: [v0.3.0...v0.4.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.3.0...v0.4.0)
+
+### Features
+
+* **api:** api update ([#39](https://github.com/reductoai/reducto-python-sdk/issues/39)) ([ac2917d](https://github.com/reductoai/reducto-python-sdk/commit/ac2917dcb930ff607b6a0e2a8c8d240c733be453))
+* Improve URL response handling ([906737e](https://github.com/reductoai/reducto-python-sdk/commit/906737e752ac9137e5132453a71457b8956d5d78))
+* trigger mintlify update on release ([#23](https://github.com/reductoai/reducto-python-sdk/issues/23)) ([ba8bfbd](https://github.com/reductoai/reducto-python-sdk/commit/ba8bfbd31d871c6d0a3f77dfbc9123b60b6dadf5))
+
 ## 0.3.0 (2025-03-21)
 
 Full Changelog: [v0.2.0...v0.3.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.2.0...v0.3.0)

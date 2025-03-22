@@ -55,6 +55,9 @@ class ExtractRunJobParams(TypedDict, total=False):
     prompts.
     """
 
+    use_chunking: bool
+    """If chunking should be used for the extraction. Defaults to False."""
+
     webhook: WebhookConfigNew
 
 

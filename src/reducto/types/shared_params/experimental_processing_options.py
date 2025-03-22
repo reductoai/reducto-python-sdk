@@ -70,4 +70,6 @@ class ExperimentalProcessingOptions(TypedDict, total=False):
     """If table images should be returned in the result. Defaults to False."""
 
     rotate_pages: bool
-    """Use an orientation model to detect and rotate pages as needed, defaults to True"""
+    """
+    Use an orientation model to detect and rotate pages as needed, defaults to False
+    """

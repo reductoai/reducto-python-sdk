@@ -61,6 +61,7 @@ class ExtractResource(SyncAPIResource):
         generate_citations: bool | NotGiven = NOT_GIVEN,
         options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
         system_prompt: str | NotGiven = NOT_GIVEN,
+        use_chunking: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -91,6 +92,8 @@ class ExtractResource(SyncAPIResource):
           system_prompt: A system prompt to use for the extraction. This is a general prompt that is
               applied to the entire document before any other prompts.
 
+          use_chunking: If chunking should be used for the extraction. Defaults to False.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -111,6 +114,7 @@ class ExtractResource(SyncAPIResource):
                     "generate_citations": generate_citations,
                     "options": options,
                     "system_prompt": system_prompt,
+                    "use_chunking": use_chunking,
                 },
                 extract_run_params.ExtractRunParams,
             ),
@@ -132,6 +136,7 @@ class ExtractResource(SyncAPIResource):
         options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
         priority: bool | NotGiven = NOT_GIVEN,
         system_prompt: str | NotGiven = NOT_GIVEN,
+        use_chunking: bool | NotGiven = NOT_GIVEN,
         webhook: WebhookConfigNew | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -166,6 +171,8 @@ class ExtractResource(SyncAPIResource):
           system_prompt: A system prompt to use for the extraction. This is a general prompt that is
               applied to the entire document before any other prompts.
 
+          use_chunking: If chunking should be used for the extraction. Defaults to False.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -187,6 +194,7 @@ class ExtractResource(SyncAPIResource):
                     "options": options,
                     "priority": priority,
                     "system_prompt": system_prompt,
+                    "use_chunking": use_chunking,
                     "webhook": webhook,
                 },
                 extract_run_job_params.ExtractRunJobParams,
@@ -229,6 +237,7 @@ class AsyncExtractResource(AsyncAPIResource):
         generate_citations: bool | NotGiven = NOT_GIVEN,
         options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
         system_prompt: str | NotGiven = NOT_GIVEN,
+        use_chunking: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -259,6 +268,8 @@ class AsyncExtractResource(AsyncAPIResource):
           system_prompt: A system prompt to use for the extraction. This is a general prompt that is
               applied to the entire document before any other prompts.
 
+          use_chunking: If chunking should be used for the extraction. Defaults to False.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -279,6 +290,7 @@ class AsyncExtractResource(AsyncAPIResource):
                     "generate_citations": generate_citations,
                     "options": options,
                     "system_prompt": system_prompt,
+                    "use_chunking": use_chunking,
                 },
                 extract_run_params.ExtractRunParams,
             ),
@@ -300,6 +312,7 @@ class AsyncExtractResource(AsyncAPIResource):
         options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
         priority: bool | NotGiven = NOT_GIVEN,
         system_prompt: str | NotGiven = NOT_GIVEN,
+        use_chunking: bool | NotGiven = NOT_GIVEN,
         webhook: WebhookConfigNew | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -334,6 +347,8 @@ class AsyncExtractResource(AsyncAPIResource):
           system_prompt: A system prompt to use for the extraction. This is a general prompt that is
               applied to the entire document before any other prompts.
 
+          use_chunking: If chunking should be used for the extraction. Defaults to False.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -355,6 +370,7 @@ class AsyncExtractResource(AsyncAPIResource):
                     "options": options,
                     "priority": priority,
                     "system_prompt": system_prompt,
+                    "use_chunking": use_chunking,
                     "webhook": webhook,
                 },
                 extract_run_job_params.ExtractRunJobParams,
