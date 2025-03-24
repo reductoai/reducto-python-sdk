@@ -8,6 +8,7 @@ from ..types import parse_run_params, parse_run_job_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
     maybe_transform,
+    strip_not_given,
     async_maybe_transform,
 )
 from .._compat import cached_property
@@ -56,6 +57,7 @@ class ParseResource(SyncAPIResource):
         advanced_options: AdvancedProcessingOptions | NotGiven = NOT_GIVEN,
         experimental_options: ExperimentalProcessingOptions | NotGiven = NOT_GIVEN,
         options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
+        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -84,6 +86,7 @@ class ParseResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"user-id": user_id}), **(extra_headers or {})}
         return self._post(
             "/parse",
             body=maybe_transform(
@@ -110,6 +113,7 @@ class ParseResource(SyncAPIResource):
         options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
         priority: bool | NotGiven = NOT_GIVEN,
         webhook: WebhookConfigNew | NotGiven = NOT_GIVEN,
+        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -141,6 +145,7 @@ class ParseResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"user-id": user_id}), **(extra_headers or {})}
         return self._post(
             "/parse_async",
             body=maybe_transform(
@@ -188,6 +193,7 @@ class AsyncParseResource(AsyncAPIResource):
         advanced_options: AdvancedProcessingOptions | NotGiven = NOT_GIVEN,
         experimental_options: ExperimentalProcessingOptions | NotGiven = NOT_GIVEN,
         options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
+        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -216,6 +222,7 @@ class AsyncParseResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"user-id": user_id}), **(extra_headers or {})}
         return await self._post(
             "/parse",
             body=await async_maybe_transform(
@@ -242,6 +249,7 @@ class AsyncParseResource(AsyncAPIResource):
         options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
         priority: bool | NotGiven = NOT_GIVEN,
         webhook: WebhookConfigNew | NotGiven = NOT_GIVEN,
+        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -273,6 +281,7 @@ class AsyncParseResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"user-id": user_id}), **(extra_headers or {})}
         return await self._post(
             "/parse_async",
             body=await async_maybe_transform(
