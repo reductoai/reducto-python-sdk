@@ -3,9 +3,8 @@
 from __future__ import annotations
 
 from typing import List, Union
-from typing_extensions import Required, Annotated, TypeAlias, TypedDict
+from typing_extensions import Required, TypeAlias, TypedDict
 
-from .._utils import PropertyInfo
 from .shared_params.upload import Upload
 from .shared_params.webhook_config_new import WebhookConfigNew
 from .shared_params.array_extract_config import ArrayExtractConfig
@@ -60,8 +59,6 @@ class ExtractRunJobParams(TypedDict, total=False):
     """If chunking should be used for the extraction. Defaults to False."""
 
     webhook: WebhookConfigNew
-
-    user_id: Annotated[str, PropertyInfo(alias="user-id")]
 
 
 DocumentURL: TypeAlias = Union[str, List[str], Upload]
