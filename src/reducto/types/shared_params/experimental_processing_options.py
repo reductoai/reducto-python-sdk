@@ -23,6 +23,8 @@ class Enrich(TypedDict, total=False):
 
 
 class ExperimentalProcessingOptions(TypedDict, total=False):
+    custom_format: Literal["aml", "ai_usage"]
+
     danger_filter_wide_boxes: bool
     """You probably shouldn't use this.
 
