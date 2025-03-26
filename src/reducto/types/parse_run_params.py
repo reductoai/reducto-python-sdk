@@ -3,8 +3,9 @@
 from __future__ import annotations
 
 from typing import Union
-from typing_extensions import Required, TypeAlias, TypedDict
+from typing_extensions import Required, Annotated, TypeAlias, TypedDict
 
+from .._utils import PropertyInfo
 from .shared_params.upload import Upload
 from .shared_params.base_processing_options import BaseProcessingOptions
 from .shared_params.advanced_processing_options import AdvancedProcessingOptions
@@ -28,6 +29,8 @@ class ParseRunParams(TypedDict, total=False):
     experimental_options: ExperimentalProcessingOptions
 
     options: BaseProcessingOptions
+
+    user_id: Annotated[str, PropertyInfo(alias="user-id")]
 
 
 DocumentURL: TypeAlias = Union[str, Upload]
