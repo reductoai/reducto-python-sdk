@@ -86,7 +86,7 @@ class AdvancedProcessingOptions(TypedDict, total=False):
     tables.
     """
 
-    table_output_format: Literal["html", "json", "md", "jsonbbox", "dynamic", "ai_json"]
+    table_output_format: Literal["html", "json", "md", "jsonbbox", "dynamic", "ai_json", "csv"]
     """The mode to use for table output.
 
     Dynamic returns md for simpler tables and html for more complex tables.
