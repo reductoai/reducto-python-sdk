@@ -71,6 +71,4 @@ class ExperimentalProcessingOptions(BaseModel):
     """If table images should be returned in the result. Defaults to False."""
 
     rotate_pages: Optional[bool] = None
-    """
-    Use an orientation model to detect and rotate pages as needed, defaults to False
-    """
+    """Use an orientation model to detect and rotate pages as needed, defaults to True"""
