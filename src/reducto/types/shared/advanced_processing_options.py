@@ -85,7 +85,7 @@ class AdvancedProcessingOptions(BaseModel):
     tables.
     """
 
-    table_output_format: Optional[Literal["html", "json", "md", "jsonbbox", "dynamic", "ai_json"]] = None
+    table_output_format: Optional[Literal["html", "json", "md", "jsonbbox", "dynamic", "ai_json", "csv"]] = None
     """The mode to use for table output.
 
     Dynamic returns md for simpler tables and html for more complex tables.
