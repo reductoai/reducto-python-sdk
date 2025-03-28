@@ -96,10 +96,12 @@ split_response = client.split.run(
     ],
     advanced_options={
         "add_page_markers": True,
+        "bucket_name": "bucket_name",
         "continue_hierarchy": True,
         "document_password": "document_password",
         "force_file_extension": "force_file_extension",
         "keep_line_breaks": True,
+        "kms_arn": "kms_arn",
         "large_table_chunking": {
             "enabled": True,
             "size": 0,

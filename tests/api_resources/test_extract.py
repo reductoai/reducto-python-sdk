@@ -35,10 +35,12 @@ class TestExtract:
             schema={},
             advanced_options={
                 "add_page_markers": True,
+                "bucket_name": "bucket_name",
                 "continue_hierarchy": True,
                 "document_password": "document_password",
                 "force_file_extension": "force_file_extension",
                 "keep_line_breaks": True,
+                "kms_arn": "kms_arn",
                 "large_table_chunking": {
                     "enabled": True,
                     "size": 0,
@@ -61,6 +63,7 @@ class TestExtract:
                 "streaming_extract_item_density": 0,
             },
             experimental_options={
+                "custom_format": "ai_usage",
                 "danger_filter_wide_boxes": True,
                 "enable_checkboxes": True,
                 "enable_equations": True,
@@ -98,6 +101,7 @@ class TestExtract:
             },
             system_prompt="system_prompt",
             use_chunking=True,
+            user_id="user-id",
         )
         assert_matches_type(ExtractResponse, extract, path=["response"])
 
@@ -146,10 +150,12 @@ class TestExtract:
             schema={},
             advanced_options={
                 "add_page_markers": True,
+                "bucket_name": "bucket_name",
                 "continue_hierarchy": True,
                 "document_password": "document_password",
                 "force_file_extension": "force_file_extension",
                 "keep_line_breaks": True,
+                "kms_arn": "kms_arn",
                 "large_table_chunking": {
                     "enabled": True,
                     "size": 0,
@@ -172,6 +178,7 @@ class TestExtract:
                 "streaming_extract_item_density": 0,
             },
             experimental_options={
+                "custom_format": "ai_usage",
                 "danger_filter_wide_boxes": True,
                 "enable_checkboxes": True,
                 "enable_equations": True,
@@ -216,6 +223,7 @@ class TestExtract:
                 "mode": "disabled",
                 "url": "url",
             },
+            user_id="user-id",
         )
         assert_matches_type(ExtractRunJobResponse, extract, path=["response"])
 
@@ -268,10 +276,12 @@ class TestAsyncExtract:
             schema={},
             advanced_options={
                 "add_page_markers": True,
+                "bucket_name": "bucket_name",
                 "continue_hierarchy": True,
                 "document_password": "document_password",
                 "force_file_extension": "force_file_extension",
                 "keep_line_breaks": True,
+                "kms_arn": "kms_arn",
                 "large_table_chunking": {
                     "enabled": True,
                     "size": 0,
@@ -294,6 +304,7 @@ class TestAsyncExtract:
                 "streaming_extract_item_density": 0,
             },
             experimental_options={
+                "custom_format": "ai_usage",
                 "danger_filter_wide_boxes": True,
                 "enable_checkboxes": True,
                 "enable_equations": True,
@@ -331,6 +342,7 @@ class TestAsyncExtract:
             },
             system_prompt="system_prompt",
             use_chunking=True,
+            user_id="user-id",
         )
         assert_matches_type(ExtractResponse, extract, path=["response"])
 
@@ -379,10 +391,12 @@ class TestAsyncExtract:
             schema={},
             advanced_options={
                 "add_page_markers": True,
+                "bucket_name": "bucket_name",
                 "continue_hierarchy": True,
                 "document_password": "document_password",
                 "force_file_extension": "force_file_extension",
                 "keep_line_breaks": True,
+                "kms_arn": "kms_arn",
                 "large_table_chunking": {
                     "enabled": True,
                     "size": 0,
@@ -405,6 +419,7 @@ class TestAsyncExtract:
                 "streaming_extract_item_density": 0,
             },
             experimental_options={
+                "custom_format": "ai_usage",
                 "danger_filter_wide_boxes": True,
                 "enable_checkboxes": True,
                 "enable_equations": True,
@@ -449,6 +464,7 @@ class TestAsyncExtract:
                 "mode": "disabled",
                 "url": "url",
             },
+            user_id="user-id",
         )
         assert_matches_type(ExtractRunJobResponse, extract, path=["response"])
 
