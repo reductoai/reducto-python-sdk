@@ -8,7 +8,6 @@ from ..types import extract_run_params, extract_run_job_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
     maybe_transform,
-    strip_not_given,
     async_maybe_transform,
 )
 from .._compat import cached_property
@@ -63,7 +62,6 @@ class ExtractResource(SyncAPIResource):
         options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
         system_prompt: str | NotGiven = NOT_GIVEN,
         use_chunking: bool | NotGiven = NOT_GIVEN,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -104,7 +102,6 @@ class ExtractResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {**strip_not_given({"user-id": user_id}), **(extra_headers or {})}
         return self._post(
             "/extract",
             body=maybe_transform(
@@ -141,7 +138,6 @@ class ExtractResource(SyncAPIResource):
         system_prompt: str | NotGiven = NOT_GIVEN,
         use_chunking: bool | NotGiven = NOT_GIVEN,
         webhook: WebhookConfigNew | NotGiven = NOT_GIVEN,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -185,7 +181,6 @@ class ExtractResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {**strip_not_given({"user-id": user_id}), **(extra_headers or {})}
         return self._post(
             "/extract_async",
             body=maybe_transform(
@@ -243,7 +238,6 @@ class AsyncExtractResource(AsyncAPIResource):
         options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
         system_prompt: str | NotGiven = NOT_GIVEN,
         use_chunking: bool | NotGiven = NOT_GIVEN,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -284,7 +278,6 @@ class AsyncExtractResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {**strip_not_given({"user-id": user_id}), **(extra_headers or {})}
         return await self._post(
             "/extract",
             body=await async_maybe_transform(
@@ -321,7 +314,6 @@ class AsyncExtractResource(AsyncAPIResource):
         system_prompt: str | NotGiven = NOT_GIVEN,
         use_chunking: bool | NotGiven = NOT_GIVEN,
         webhook: WebhookConfigNew | NotGiven = NOT_GIVEN,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -365,7 +357,6 @@ class AsyncExtractResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {**strip_not_given({"user-id": user_id}), **(extra_headers or {})}
         return await self._post(
             "/extract_async",
             body=await async_maybe_transform(

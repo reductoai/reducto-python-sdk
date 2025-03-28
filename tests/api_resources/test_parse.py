@@ -33,12 +33,10 @@ class TestParse:
             document_url="string",
             advanced_options={
                 "add_page_markers": True,
-                "bucket_name": "bucket_name",
                 "continue_hierarchy": True,
                 "document_password": "document_password",
                 "force_file_extension": "force_file_extension",
                 "keep_line_breaks": True,
-                "kms_arn": "kms_arn",
                 "large_table_chunking": {
                     "enabled": True,
                     "size": 0,
@@ -55,7 +53,6 @@ class TestParse:
                 "table_output_format": "html",
             },
             experimental_options={
-                "custom_format": "ai_usage",
                 "danger_filter_wide_boxes": True,
                 "enable_checkboxes": True,
                 "enable_equations": True,
@@ -90,7 +87,6 @@ class TestParse:
                     "prompt": "prompt",
                 },
             },
-            user_id="user-id",
         )
         assert_matches_type(ParseResponse, parse, path=["response"])
 
@@ -135,12 +131,10 @@ class TestParse:
             document_url="string",
             advanced_options={
                 "add_page_markers": True,
-                "bucket_name": "bucket_name",
                 "continue_hierarchy": True,
                 "document_password": "document_password",
                 "force_file_extension": "force_file_extension",
                 "keep_line_breaks": True,
-                "kms_arn": "kms_arn",
                 "large_table_chunking": {
                     "enabled": True,
                     "size": 0,
@@ -157,7 +151,6 @@ class TestParse:
                 "table_output_format": "html",
             },
             experimental_options={
-                "custom_format": "ai_usage",
                 "danger_filter_wide_boxes": True,
                 "enable_checkboxes": True,
                 "enable_equations": True,
@@ -199,7 +192,6 @@ class TestParse:
                 "mode": "disabled",
                 "url": "url",
             },
-            user_id="user-id",
         )
         assert_matches_type(ParseRunJobResponse, parse, path=["response"])
 
@@ -248,12 +240,10 @@ class TestAsyncParse:
             document_url="string",
             advanced_options={
                 "add_page_markers": True,
-                "bucket_name": "bucket_name",
                 "continue_hierarchy": True,
                 "document_password": "document_password",
                 "force_file_extension": "force_file_extension",
                 "keep_line_breaks": True,
-                "kms_arn": "kms_arn",
                 "large_table_chunking": {
                     "enabled": True,
                     "size": 0,
@@ -270,7 +260,6 @@ class TestAsyncParse:
                 "table_output_format": "html",
             },
             experimental_options={
-                "custom_format": "ai_usage",
                 "danger_filter_wide_boxes": True,
                 "enable_checkboxes": True,
                 "enable_equations": True,
@@ -305,7 +294,6 @@ class TestAsyncParse:
                     "prompt": "prompt",
                 },
             },
-            user_id="user-id",
         )
         assert_matches_type(ParseResponse, parse, path=["response"])
 
@@ -350,12 +338,10 @@ class TestAsyncParse:
             document_url="string",
             advanced_options={
                 "add_page_markers": True,
-                "bucket_name": "bucket_name",
                 "continue_hierarchy": True,
                 "document_password": "document_password",
                 "force_file_extension": "force_file_extension",
                 "keep_line_breaks": True,
-                "kms_arn": "kms_arn",
                 "large_table_chunking": {
                     "enabled": True,
                     "size": 0,
@@ -372,7 +358,6 @@ class TestAsyncParse:
                 "table_output_format": "html",
             },
             experimental_options={
-                "custom_format": "ai_usage",
                 "danger_filter_wide_boxes": True,
                 "enable_checkboxes": True,
                 "enable_equations": True,
@@ -414,7 +399,6 @@ class TestAsyncParse:
                 "mode": "disabled",
                 "url": "url",
             },
-            user_id="user-id",
         )
         assert_matches_type(ParseRunJobResponse, parse, path=["response"])
 
