@@ -35,9 +35,6 @@ class AdvancedProcessingOptions(TypedDict, total=False):
     Defaults to False.
     """
 
-    bucket_name: str
-    """The name of the bucket to use for the document."""
-
     continue_hierarchy: bool
     """
     A flag to indicate if the hierarchy of the document should be continued from
@@ -52,9 +49,6 @@ class AdvancedProcessingOptions(TypedDict, total=False):
 
     keep_line_breaks: bool
     """If line breaks should be preserved in the text."""
-
-    kms_arn: str
-    """The AWS KMS key to use for the document."""
 
     large_table_chunking: LargeTableChunking
     """

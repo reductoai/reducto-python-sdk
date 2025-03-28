@@ -24,8 +24,6 @@ class Enrich(BaseModel):
 
 
 class ExperimentalProcessingOptions(BaseModel):
-    custom_format: Optional[Literal["ai_usage", "aml"]] = None
-
     danger_filter_wide_boxes: Optional[bool] = None
     """You probably shouldn't use this.
 
