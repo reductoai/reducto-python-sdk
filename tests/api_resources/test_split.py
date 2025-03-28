@@ -46,12 +46,10 @@ class TestSplit:
             ],
             advanced_options={
                 "add_page_markers": True,
-                "bucket_name": "bucket_name",
                 "continue_hierarchy": True,
                 "document_password": "document_password",
                 "force_file_extension": "force_file_extension",
                 "keep_line_breaks": True,
-                "kms_arn": "kms_arn",
                 "large_table_chunking": {
                     "enabled": True,
                     "size": 0,
@@ -68,7 +66,6 @@ class TestSplit:
                 "table_output_format": "html",
             },
             experimental_options={
-                "custom_format": "ai_usage",
                 "danger_filter_wide_boxes": True,
                 "enable_checkboxes": True,
                 "enable_equations": True,
@@ -173,12 +170,10 @@ class TestSplit:
             ],
             advanced_options={
                 "add_page_markers": True,
-                "bucket_name": "bucket_name",
                 "continue_hierarchy": True,
                 "document_password": "document_password",
                 "force_file_extension": "force_file_extension",
                 "keep_line_breaks": True,
-                "kms_arn": "kms_arn",
                 "large_table_chunking": {
                     "enabled": True,
                     "size": 0,
@@ -195,7 +190,6 @@ class TestSplit:
                 "table_output_format": "html",
             },
             experimental_options={
-                "custom_format": "ai_usage",
                 "danger_filter_wide_boxes": True,
                 "enable_checkboxes": True,
                 "enable_equations": True,
@@ -311,12 +305,10 @@ class TestAsyncSplit:
             ],
             advanced_options={
                 "add_page_markers": True,
-                "bucket_name": "bucket_name",
                 "continue_hierarchy": True,
                 "document_password": "document_password",
                 "force_file_extension": "force_file_extension",
                 "keep_line_breaks": True,
-                "kms_arn": "kms_arn",
                 "large_table_chunking": {
                     "enabled": True,
                     "size": 0,
@@ -333,7 +325,6 @@ class TestAsyncSplit:
                 "table_output_format": "html",
             },
             experimental_options={
-                "custom_format": "ai_usage",
                 "danger_filter_wide_boxes": True,
                 "enable_checkboxes": True,
                 "enable_equations": True,
@@ -438,12 +429,10 @@ class TestAsyncSplit:
             ],
             advanced_options={
                 "add_page_markers": True,
-                "bucket_name": "bucket_name",
                 "continue_hierarchy": True,
                 "document_password": "document_password",
                 "force_file_extension": "force_file_extension",
                 "keep_line_breaks": True,
-                "kms_arn": "kms_arn",
                 "large_table_chunking": {
                     "enabled": True,
                     "size": 0,
@@ -460,7 +449,6 @@ class TestAsyncSplit:
                 "table_output_format": "html",
             },
             experimental_options={
-                "custom_format": "ai_usage",
                 "danger_filter_wide_boxes": True,
                 "enable_checkboxes": True,
                 "enable_equations": True,
