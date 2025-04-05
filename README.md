@@ -86,14 +86,8 @@ from reducto import Reducto
 
 client = Reducto()
 
-split_response = client.split.run(
+parse_response = client.parse.run(
     document_url="string",
-    split_description=[
-        {
-            "description": "description",
-            "name": "name",
-        }
-    ],
     advanced_options={
         "add_page_markers": True,
         "continue_hierarchy": True,
@@ -116,7 +110,7 @@ split_response = client.split.run(
         "table_output_format": "html",
     },
 )
-print(split_response.advanced_options)
+print(parse_response.advanced_options)
 ```
 
 ## File uploads
