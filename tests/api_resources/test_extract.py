@@ -37,6 +37,7 @@ class TestExtract:
                 "add_page_markers": True,
                 "continue_hierarchy": True,
                 "document_password": "document_password",
+                "filter_line_numbers": True,
                 "force_file_extension": "force_file_extension",
                 "keep_line_breaks": True,
                 "large_table_chunking": {
@@ -149,6 +150,7 @@ class TestExtract:
                 "add_page_markers": True,
                 "continue_hierarchy": True,
                 "document_password": "document_password",
+                "filter_line_numbers": True,
                 "force_file_extension": "force_file_extension",
                 "keep_line_breaks": True,
                 "large_table_chunking": {
@@ -271,6 +273,7 @@ class TestAsyncExtract:
                 "add_page_markers": True,
                 "continue_hierarchy": True,
                 "document_password": "document_password",
+                "filter_line_numbers": True,
                 "force_file_extension": "force_file_extension",
                 "keep_line_breaks": True,
                 "large_table_chunking": {
@@ -383,6 +386,7 @@ class TestAsyncExtract:
                 "add_page_markers": True,
                 "continue_hierarchy": True,
                 "document_password": "document_password",
+                "filter_line_numbers": True,
                 "force_file_extension": "force_file_extension",
                 "keep_line_breaks": True,
                 "large_table_chunking": {
