@@ -100,6 +100,7 @@ class TestSplit:
                     "prompt": "prompt",
                 },
             },
+            priority=True,
             split_rules="split_rules",
         )
         assert_matches_type(SplitResponse, split, path=["response"])
@@ -359,6 +360,7 @@ class TestAsyncSplit:
                     "prompt": "prompt",
                 },
             },
+            priority=True,
             split_rules="split_rules",
         )
         assert_matches_type(SplitResponse, split, path=["response"])

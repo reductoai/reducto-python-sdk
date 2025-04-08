@@ -60,6 +60,7 @@ class SplitResource(SyncAPIResource):
         advanced_options: AdvancedProcessingOptions | NotGiven = NOT_GIVEN,
         experimental_options: ExperimentalProcessingOptions | NotGiven = NOT_GIVEN,
         options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
+        priority: bool | NotGiven = NOT_GIVEN,
         split_rules: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -83,6 +84,10 @@ class SplitResource(SyncAPIResource):
 
           split_description: The configuration options for processing the document.
 
+          priority: If True, attempts to process the job with priority if the user has priority
+              processing budget available; by default, sync jobs are prioritized above async
+              jobs.
+
           split_rules: The rules for splitting the document.
 
           extra_headers: Send extra headers
@@ -102,6 +107,7 @@ class SplitResource(SyncAPIResource):
                     "advanced_options": advanced_options,
                     "experimental_options": experimental_options,
                     "options": options,
+                    "priority": priority,
                     "split_rules": split_rules,
                 },
                 split_run_params.SplitRunParams,
@@ -208,6 +214,7 @@ class AsyncSplitResource(AsyncAPIResource):
         advanced_options: AdvancedProcessingOptions | NotGiven = NOT_GIVEN,
         experimental_options: ExperimentalProcessingOptions | NotGiven = NOT_GIVEN,
         options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
+        priority: bool | NotGiven = NOT_GIVEN,
         split_rules: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -231,6 +238,10 @@ class AsyncSplitResource(AsyncAPIResource):
 
           split_description: The configuration options for processing the document.
 
+          priority: If True, attempts to process the job with priority if the user has priority
+              processing budget available; by default, sync jobs are prioritized above async
+              jobs.
+
           split_rules: The rules for splitting the document.
 
           extra_headers: Send extra headers
@@ -250,6 +261,7 @@ class AsyncSplitResource(AsyncAPIResource):
                     "advanced_options": advanced_options,
                     "experimental_options": experimental_options,
                     "options": options,
+                    "priority": priority,
                     "split_rules": split_rules,
                 },
                 split_run_params.SplitRunParams,
