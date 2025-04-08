@@ -24,6 +24,8 @@ class Enrich(TypedDict, total=False):
 
 
 class ExperimentalProcessingOptionsTyped(TypedDict, total=False):
+    custom_format: Literal["aml", "ai_usage"]
+
     danger_filter_wide_boxes: bool
     """You probably shouldn't use this.
 
@@ -57,6 +59,9 @@ class ExperimentalProcessingOptionsTyped(TypedDict, total=False):
 
     enrich: Enrich
     """The configuration options for enrichment."""
+
+    extra_metadata: object
+    """Extra metadata to be added to logs."""
 
     native_office_conversion: bool
     """

@@ -24,6 +24,8 @@ class Enrich(BaseModel):
 
 
 class ExperimentalProcessingOptions(BaseModel):
+    custom_format: Optional[Literal["aml", "ai_usage"]] = None
+
     danger_filter_wide_boxes: Optional[bool] = None
     """You probably shouldn't use this.
 
@@ -57,6 +59,9 @@ class ExperimentalProcessingOptions(BaseModel):
 
     enrich: Optional[Enrich] = None
     """The configuration options for enrichment."""
+
+    extra_metadata: Optional[object] = None
+    """Extra metadata to be added to logs."""
 
     native_office_conversion: Optional[bool] = None
     """
