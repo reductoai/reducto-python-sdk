@@ -87,6 +87,7 @@ class TestParse:
                     "prompt": "prompt",
                 },
             },
+            priority=True,
         )
         assert_matches_type(ParseResponse, parse, path=["response"])
 
@@ -294,6 +295,7 @@ class TestAsyncParse:
                     "prompt": "prompt",
                 },
             },
+            priority=True,
         )
         assert_matches_type(ParseResponse, parse, path=["response"])
 
