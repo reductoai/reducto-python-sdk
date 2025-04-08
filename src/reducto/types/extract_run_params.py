@@ -3,8 +3,9 @@
 from __future__ import annotations
 
 from typing import List, Union
-from typing_extensions import Required, TypeAlias, TypedDict
+from typing_extensions import Required, Annotated, TypeAlias, TypedDict
 
+from .._utils import PropertyInfo
 from .shared_params.upload import Upload
 from .shared_params.array_extract_config import ArrayExtractConfig
 from .shared_params.base_processing_options import BaseProcessingOptions
@@ -56,6 +57,8 @@ class ExtractRunParams(TypedDict, total=False):
 
     use_chunking: bool
     """If chunking should be used for the extraction. Defaults to False."""
+
+    user_id: Annotated[str, PropertyInfo(alias="user-id")]
 
 
 DocumentURL: TypeAlias = Union[str, List[str], Upload]
