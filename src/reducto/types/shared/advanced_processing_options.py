@@ -43,6 +43,9 @@ class AdvancedProcessingOptions(BaseModel):
     document_password: Optional[str] = None
     """Password to decrypt password-protected documents."""
 
+    filter_line_numbers: Optional[bool] = None
+    """If True, filter out line numbers from the output. Defaults to False."""
+
     force_file_extension: Optional[str] = None
     """Force the URL to be downloaded as a specific file extension (e.g. .png)."""
 
