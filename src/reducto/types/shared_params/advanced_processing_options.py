@@ -44,6 +44,9 @@ class AdvancedProcessingOptions(TypedDict, total=False):
     document_password: str
     """Password to decrypt password-protected documents."""
 
+    filter_line_numbers: bool
+    """If True, filter out line numbers from the output. Defaults to False."""
+
     force_file_extension: str
     """Force the URL to be downloaded as a specific file extension (e.g. .png)."""
 
