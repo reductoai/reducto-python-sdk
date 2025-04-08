@@ -33,11 +33,13 @@ class TestParse:
             document_url="string",
             advanced_options={
                 "add_page_markers": True,
+                "bucket_name": "bucket_name",
                 "continue_hierarchy": True,
                 "document_password": "document_password",
                 "filter_line_numbers": True,
                 "force_file_extension": "force_file_extension",
                 "keep_line_breaks": True,
+                "kms_arn": "kms_arn",
                 "large_table_chunking": {
                     "enabled": True,
                     "size": 0,
@@ -54,6 +56,7 @@ class TestParse:
                 "table_output_format": "html",
             },
             experimental_options={
+                "custom_format": "aml",
                 "danger_filter_wide_boxes": True,
                 "enable_checkboxes": True,
                 "enable_equations": True,
@@ -64,6 +67,7 @@ class TestParse:
                     "mode": "standard",
                     "prompt": "prompt",
                 },
+                "extra_metadata": {},
                 "native_office_conversion": True,
                 "return_figure_images": True,
                 "return_table_images": True,
@@ -89,6 +93,7 @@ class TestParse:
                 },
             },
             priority=True,
+            user_id="user-id",
         )
         assert_matches_type(ParseResponse, parse, path=["response"])
 
@@ -133,11 +138,13 @@ class TestParse:
             document_url="string",
             advanced_options={
                 "add_page_markers": True,
+                "bucket_name": "bucket_name",
                 "continue_hierarchy": True,
                 "document_password": "document_password",
                 "filter_line_numbers": True,
                 "force_file_extension": "force_file_extension",
                 "keep_line_breaks": True,
+                "kms_arn": "kms_arn",
                 "large_table_chunking": {
                     "enabled": True,
                     "size": 0,
@@ -154,6 +161,7 @@ class TestParse:
                 "table_output_format": "html",
             },
             experimental_options={
+                "custom_format": "aml",
                 "danger_filter_wide_boxes": True,
                 "enable_checkboxes": True,
                 "enable_equations": True,
@@ -164,6 +172,7 @@ class TestParse:
                     "mode": "standard",
                     "prompt": "prompt",
                 },
+                "extra_metadata": {},
                 "native_office_conversion": True,
                 "return_figure_images": True,
                 "return_table_images": True,
@@ -195,6 +204,7 @@ class TestParse:
                 "mode": "disabled",
                 "url": "url",
             },
+            user_id="user-id",
         )
         assert_matches_type(ParseRunJobResponse, parse, path=["response"])
 
@@ -243,11 +253,13 @@ class TestAsyncParse:
             document_url="string",
             advanced_options={
                 "add_page_markers": True,
+                "bucket_name": "bucket_name",
                 "continue_hierarchy": True,
                 "document_password": "document_password",
                 "filter_line_numbers": True,
                 "force_file_extension": "force_file_extension",
                 "keep_line_breaks": True,
+                "kms_arn": "kms_arn",
                 "large_table_chunking": {
                     "enabled": True,
                     "size": 0,
@@ -264,6 +276,7 @@ class TestAsyncParse:
                 "table_output_format": "html",
             },
             experimental_options={
+                "custom_format": "aml",
                 "danger_filter_wide_boxes": True,
                 "enable_checkboxes": True,
                 "enable_equations": True,
@@ -274,6 +287,7 @@ class TestAsyncParse:
                     "mode": "standard",
                     "prompt": "prompt",
                 },
+                "extra_metadata": {},
                 "native_office_conversion": True,
                 "return_figure_images": True,
                 "return_table_images": True,
@@ -299,6 +313,7 @@ class TestAsyncParse:
                 },
             },
             priority=True,
+            user_id="user-id",
         )
         assert_matches_type(ParseResponse, parse, path=["response"])
 
@@ -343,11 +358,13 @@ class TestAsyncParse:
             document_url="string",
             advanced_options={
                 "add_page_markers": True,
+                "bucket_name": "bucket_name",
                 "continue_hierarchy": True,
                 "document_password": "document_password",
                 "filter_line_numbers": True,
                 "force_file_extension": "force_file_extension",
                 "keep_line_breaks": True,
+                "kms_arn": "kms_arn",
                 "large_table_chunking": {
                     "enabled": True,
                     "size": 0,
@@ -364,6 +381,7 @@ class TestAsyncParse:
                 "table_output_format": "html",
             },
             experimental_options={
+                "custom_format": "aml",
                 "danger_filter_wide_boxes": True,
                 "enable_checkboxes": True,
                 "enable_equations": True,
@@ -374,6 +392,7 @@ class TestAsyncParse:
                     "mode": "standard",
                     "prompt": "prompt",
                 },
+                "extra_metadata": {},
                 "native_office_conversion": True,
                 "return_figure_images": True,
                 "return_table_images": True,
@@ -405,6 +424,7 @@ class TestAsyncParse:
                 "mode": "disabled",
                 "url": "url",
             },
+            user_id="user-id",
         )
         assert_matches_type(ParseRunJobResponse, parse, path=["response"])
 
