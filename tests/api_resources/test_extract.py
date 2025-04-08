@@ -96,6 +96,7 @@ class TestExtract:
                     "prompt": "prompt",
                 },
             },
+            priority=True,
             system_prompt="system_prompt",
             use_chunking=True,
         )
@@ -329,6 +330,7 @@ class TestAsyncExtract:
                     "prompt": "prompt",
                 },
             },
+            priority=True,
             system_prompt="system_prompt",
             use_chunking=True,
         )

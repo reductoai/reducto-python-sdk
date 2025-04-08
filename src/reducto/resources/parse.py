@@ -56,6 +56,7 @@ class ParseResource(SyncAPIResource):
         advanced_options: AdvancedProcessingOptions | NotGiven = NOT_GIVEN,
         experimental_options: ExperimentalProcessingOptions | NotGiven = NOT_GIVEN,
         options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
+        priority: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -76,6 +77,10 @@ class ParseResource(SyncAPIResource):
               3. A reducto:// prefixed URL obtained from the /upload endpoint after directly
                  uploading a document
 
+          priority: If True, attempts to process the job with priority if the user has priority
+              processing budget available; by default, sync jobs are prioritized above async
+              jobs.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -92,6 +97,7 @@ class ParseResource(SyncAPIResource):
                     "advanced_options": advanced_options,
                     "experimental_options": experimental_options,
                     "options": options,
+                    "priority": priority,
                 },
                 parse_run_params.ParseRunParams,
             ),
@@ -188,6 +194,7 @@ class AsyncParseResource(AsyncAPIResource):
         advanced_options: AdvancedProcessingOptions | NotGiven = NOT_GIVEN,
         experimental_options: ExperimentalProcessingOptions | NotGiven = NOT_GIVEN,
         options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
+        priority: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -208,6 +215,10 @@ class AsyncParseResource(AsyncAPIResource):
               3. A reducto:// prefixed URL obtained from the /upload endpoint after directly
                  uploading a document
 
+          priority: If True, attempts to process the job with priority if the user has priority
+              processing budget available; by default, sync jobs are prioritized above async
+              jobs.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -224,6 +235,7 @@ class AsyncParseResource(AsyncAPIResource):
                     "advanced_options": advanced_options,
                     "experimental_options": experimental_options,
                     "options": options,
+                    "priority": priority,
                 },
                 parse_run_params.ParseRunParams,
             ),

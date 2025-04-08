@@ -60,6 +60,7 @@ class ExtractResource(SyncAPIResource):
         experimental_options: ExperimentalProcessingOptions | NotGiven = NOT_GIVEN,
         generate_citations: bool | NotGiven = NOT_GIVEN,
         options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
+        priority: bool | NotGiven = NOT_GIVEN,
         system_prompt: str | NotGiven = NOT_GIVEN,
         use_chunking: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -89,6 +90,10 @@ class ExtractResource(SyncAPIResource):
 
           generate_citations: If citations should be generated for the extracted content.
 
+          priority: If True, attempts to process the job with priority if the user has priority
+              processing budget available; by default, sync jobs are prioritized above async
+              jobs.
+
           system_prompt: A system prompt to use for the extraction. This is a general prompt that is
               applied to the entire document before any other prompts.
 
@@ -113,6 +118,7 @@ class ExtractResource(SyncAPIResource):
                     "experimental_options": experimental_options,
                     "generate_citations": generate_citations,
                     "options": options,
+                    "priority": priority,
                     "system_prompt": system_prompt,
                     "use_chunking": use_chunking,
                 },
@@ -236,6 +242,7 @@ class AsyncExtractResource(AsyncAPIResource):
         experimental_options: ExperimentalProcessingOptions | NotGiven = NOT_GIVEN,
         generate_citations: bool | NotGiven = NOT_GIVEN,
         options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
+        priority: bool | NotGiven = NOT_GIVEN,
         system_prompt: str | NotGiven = NOT_GIVEN,
         use_chunking: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -265,6 +272,10 @@ class AsyncExtractResource(AsyncAPIResource):
 
           generate_citations: If citations should be generated for the extracted content.
 
+          priority: If True, attempts to process the job with priority if the user has priority
+              processing budget available; by default, sync jobs are prioritized above async
+              jobs.
+
           system_prompt: A system prompt to use for the extraction. This is a general prompt that is
               applied to the entire document before any other prompts.
 
@@ -289,6 +300,7 @@ class AsyncExtractResource(AsyncAPIResource):
                     "experimental_options": experimental_options,
                     "generate_citations": generate_citations,
                     "options": options,
+                    "priority": priority,
                     "system_prompt": system_prompt,
                     "use_chunking": use_chunking,
                 },

@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from typing_extensions import Literal, TypedDict
+from typing import Dict, Union
+from typing_extensions import Literal, TypeAlias, TypedDict
 
 __all__ = ["ExperimentalProcessingOptions", "Enrich"]
 
@@ -22,7 +23,7 @@ class Enrich(TypedDict, total=False):
     """Add information to the prompt for enrichment."""
 
 
-class ExperimentalProcessingOptions(TypedDict, total=False):
+class ExperimentalProcessingOptionsTyped(TypedDict, total=False):
     danger_filter_wide_boxes: bool
     """You probably shouldn't use this.
 
@@ -71,3 +72,6 @@ class ExperimentalProcessingOptions(TypedDict, total=False):
 
     rotate_pages: bool
     """Use an orientation model to detect and rotate pages as needed, defaults to True"""
+
+
+ExperimentalProcessingOptions: TypeAlias = Union[ExperimentalProcessingOptionsTyped, Dict[str, object]]

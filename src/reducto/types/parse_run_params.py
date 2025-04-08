@@ -29,5 +29,12 @@ class ParseRunParams(TypedDict, total=False):
 
     options: BaseProcessingOptions
 
+    priority: bool
+    """
+    If True, attempts to process the job with priority if the user has priority
+    processing budget available; by default, sync jobs are prioritized above async
+    jobs.
+    """
+
 
 DocumentURL: TypeAlias = Union[str, Upload]
