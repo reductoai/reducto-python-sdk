@@ -90,11 +90,13 @@ parse_response = client.parse.run(
     document_url="string",
     advanced_options={
         "add_page_markers": True,
+        "bucket_name": "bucket_name",
         "continue_hierarchy": True,
         "document_password": "document_password",
         "filter_line_numbers": True,
         "force_file_extension": "force_file_extension",
         "keep_line_breaks": True,
+        "kms_arn": "kms_arn",
         "large_table_chunking": {
             "enabled": True,
             "size": 0,
