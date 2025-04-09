@@ -3,9 +3,8 @@
 from __future__ import annotations
 
 from typing import Union
-from typing_extensions import Required, Annotated, TypeAlias, TypedDict
+from typing_extensions import Required, TypeAlias, TypedDict
 
-from .._utils import PropertyInfo
 from .shared_params.upload import Upload
 from .shared_params.webhook_config_new import WebhookConfigNew
 from .shared_params.base_processing_options import BaseProcessingOptions
@@ -39,8 +38,6 @@ class ParseRunJobParams(TypedDict, total=False):
     """
 
     webhook: WebhookConfigNew
-
-    user_id: Annotated[str, PropertyInfo(alias="user-id")]
 
 
 DocumentURL: TypeAlias = Union[str, Upload]
