@@ -49,12 +49,6 @@ class ExperimentalProcessingOptions(BaseModel):
     False
     """
 
-    enable_underlines: Optional[bool] = None
-    """
-    Add <u> tag around text that's underlined and surround strikethroughs and
-    underlines with <change> tags, defaults to False
-    """
-
     enrich: Optional[Enrich] = None
     """The configuration options for enrichment."""
 

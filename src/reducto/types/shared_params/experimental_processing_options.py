@@ -49,12 +49,6 @@ class ExperimentalProcessingOptionsTyped(TypedDict, total=False):
     False
     """
 
-    enable_underlines: bool
-    """
-    Add <u> tag around text that's underlined and surround strikethroughs and
-    underlines with <change> tags, defaults to False
-    """
-
     enrich: Enrich
     """The configuration options for enrichment."""
 
