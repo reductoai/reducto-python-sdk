@@ -71,7 +71,6 @@ class TestSplit:
                 "enable_checkboxes": True,
                 "enable_equations": True,
                 "enable_scripts": True,
-                "enable_underlines": True,
                 "enrich": {
                     "enabled": True,
                     "mode": "standard",
@@ -197,7 +196,6 @@ class TestSplit:
                 "enable_checkboxes": True,
                 "enable_equations": True,
                 "enable_scripts": True,
-                "enable_underlines": True,
                 "enrich": {
                     "enabled": True,
                     "mode": "standard",
@@ -333,7 +331,6 @@ class TestAsyncSplit:
                 "enable_checkboxes": True,
                 "enable_equations": True,
                 "enable_scripts": True,
-                "enable_underlines": True,
                 "enrich": {
                     "enabled": True,
                     "mode": "standard",
@@ -459,7 +456,6 @@ class TestAsyncSplit:
                 "enable_checkboxes": True,
                 "enable_equations": True,
                 "enable_scripts": True,
-                "enable_underlines": True,
                 "enrich": {
                     "enabled": True,
                     "mode": "standard",

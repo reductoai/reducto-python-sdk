@@ -66,7 +66,6 @@ class TestExtract:
                 "enable_checkboxes": True,
                 "enable_equations": True,
                 "enable_scripts": True,
-                "enable_underlines": True,
                 "enrich": {
                     "enabled": True,
                     "mode": "standard",
@@ -179,7 +178,6 @@ class TestExtract:
                 "enable_checkboxes": True,
                 "enable_equations": True,
                 "enable_scripts": True,
-                "enable_underlines": True,
                 "enrich": {
                     "enabled": True,
                     "mode": "standard",
@@ -302,7 +300,6 @@ class TestAsyncExtract:
                 "enable_checkboxes": True,
                 "enable_equations": True,
                 "enable_scripts": True,
-                "enable_underlines": True,
                 "enrich": {
                     "enabled": True,
                     "mode": "standard",
@@ -415,7 +412,6 @@ class TestAsyncExtract:
                 "enable_checkboxes": True,
                 "enable_equations": True,
                 "enable_scripts": True,
-                "enable_underlines": True,
                 "enrich": {
                     "enabled": True,
                     "mode": "standard",
