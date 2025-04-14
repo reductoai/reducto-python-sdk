@@ -43,6 +43,9 @@ class AdvancedProcessingOptions(BaseModel):
     document_password: Optional[str] = None
     """Password to decrypt password-protected documents."""
 
+    filter_line_numbers: Optional[bool] = None
+    """If True, filter out line numbers from the output. Defaults to False."""
+
     force_file_extension: Optional[str] = None
     """Force the URL to be downloaded as a specific file extension (e.g. .png)."""
 
@@ -85,7 +88,7 @@ class AdvancedProcessingOptions(BaseModel):
     tables.
     """
 
-    table_output_format: Optional[Literal["html", "json", "md", "jsonbbox", "dynamic", "ai_json"]] = None
+    table_output_format: Optional[Literal["html", "json", "md", "jsonbbox", "dynamic", "ai_json", "csv"]] = None
     """The mode to use for table output.
 
     Dynamic returns md for simpler tables and html for more complex tables.

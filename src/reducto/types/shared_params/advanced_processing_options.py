@@ -44,6 +44,9 @@ class AdvancedProcessingOptions(TypedDict, total=False):
     document_password: str
     """Password to decrypt password-protected documents."""
 
+    filter_line_numbers: bool
+    """If True, filter out line numbers from the output. Defaults to False."""
+
     force_file_extension: str
     """Force the URL to be downloaded as a specific file extension (e.g. .png)."""
 
@@ -86,7 +89,7 @@ class AdvancedProcessingOptions(TypedDict, total=False):
     tables.
     """
 
-    table_output_format: Literal["html", "json", "md", "jsonbbox", "dynamic", "ai_json"]
+    table_output_format: Literal["html", "json", "md", "jsonbbox", "dynamic", "ai_json", "csv"]
     """The mode to use for table output.
 
     Dynamic returns md for simpler tables and html for more complex tables.

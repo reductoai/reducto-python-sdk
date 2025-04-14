@@ -86,18 +86,13 @@ from reducto import Reducto
 
 client = Reducto()
 
-split_response = client.split.run(
+parse_response = client.parse.run(
     document_url="string",
-    split_description=[
-        {
-            "description": "description",
-            "name": "name",
-        }
-    ],
     advanced_options={
         "add_page_markers": True,
         "continue_hierarchy": True,
         "document_password": "document_password",
+        "filter_line_numbers": True,
         "force_file_extension": "force_file_extension",
         "keep_line_breaks": True,
         "large_table_chunking": {
@@ -116,12 +111,12 @@ split_response = client.split.run(
         "table_output_format": "html",
     },
 )
-print(split_response.advanced_options)
+print(parse_response.advanced_options)
 ```
 
 ## File uploads
 
-Request parameters that correspond to file uploads can be passed as `bytes`, a [`PathLike`](https://docs.python.org/3/library/os.html#os.PathLike) instance or a tuple of `(filename, contents, media type)`.
+Request parameters that correspond to file uploads can be passed as `bytes`, or a [`PathLike`](https://docs.python.org/3/library/os.html#os.PathLike) instance or a tuple of `(filename, contents, media type)`.
 
 ```python
 from pathlib import Path

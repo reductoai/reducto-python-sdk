@@ -1,5 +1,46 @@
 # Changelog
 
+## 0.5.0 (2025-04-12)
+
+Full Changelog: [v0.4.0...v0.5.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.4.0...v0.5.0)
+
+### Features
+
+* **api:** api update ([adae7c2](https://github.com/reductoai/reducto-python-sdk/commit/adae7c2424b8778f38dc3212028cc1c7cb7e9c8e))
+* **api:** api update ([#41](https://github.com/reductoai/reducto-python-sdk/issues/41)) ([df33790](https://github.com/reductoai/reducto-python-sdk/commit/df33790ff9b1333bb139a40422c0c20a22bfd901))
+* **api:** api update ([#43](https://github.com/reductoai/reducto-python-sdk/issues/43)) ([f0f90e6](https://github.com/reductoai/reducto-python-sdk/commit/f0f90e65e45f5548931cca774876711e2c5521a5))
+* **api:** api update ([#44](https://github.com/reductoai/reducto-python-sdk/issues/44)) ([0a348fa](https://github.com/reductoai/reducto-python-sdk/commit/0a348fa355a8e325f41831569cc15ecd10c66ed5))
+* **api:** api update ([#45](https://github.com/reductoai/reducto-python-sdk/issues/45)) ([0850b23](https://github.com/reductoai/reducto-python-sdk/commit/0850b232d26b551fbd700e76f1e481a4c5309fe3))
+* **api:** api update ([#46](https://github.com/reductoai/reducto-python-sdk/issues/46)) ([60602de](https://github.com/reductoai/reducto-python-sdk/commit/60602de79f3d3082a3c0dac99b67439682b8c7c6))
+* **api:** api update ([#48](https://github.com/reductoai/reducto-python-sdk/issues/48)) ([baa9c6f](https://github.com/reductoai/reducto-python-sdk/commit/baa9c6faccaf2caff6afadf6b80f8104d92870ae))
+* **api:** api update ([#49](https://github.com/reductoai/reducto-python-sdk/issues/49)) ([77d2761](https://github.com/reductoai/reducto-python-sdk/commit/77d27619acb08196e5b82acfc55641349f69f5e5))
+* **api:** api update ([#53](https://github.com/reductoai/reducto-python-sdk/issues/53)) ([5a16d95](https://github.com/reductoai/reducto-python-sdk/commit/5a16d95fb5e7297c5032cae242e1ea52586ad2af))
+* **api:** api update ([#54](https://github.com/reductoai/reducto-python-sdk/issues/54)) ([269ea31](https://github.com/reductoai/reducto-python-sdk/commit/269ea314ddba6b6a77cb058f8b27fc46b95d039c))
+* **api:** api update ([#55](https://github.com/reductoai/reducto-python-sdk/issues/55)) ([16ac56b](https://github.com/reductoai/reducto-python-sdk/commit/16ac56b7f38ecf6fcb50a0e2f39f04f11fac92ef))
+* **api:** api update ([#58](https://github.com/reductoai/reducto-python-sdk/issues/58)) ([162b618](https://github.com/reductoai/reducto-python-sdk/commit/162b618b7c321bb6aacdc2a13e220bbf983085ca))
+* **api:** manual updates ([#52](https://github.com/reductoai/reducto-python-sdk/issues/52)) ([72cd53f](https://github.com/reductoai/reducto-python-sdk/commit/72cd53fc742869e54e7446ff8e8a9bf14d614690))
+
+
+### Bug Fixes
+
+* **perf:** optimize some hot paths ([a93ff5a](https://github.com/reductoai/reducto-python-sdk/commit/a93ff5a30d53081d2671cdeca6bc1432b173ccd9))
+* **perf:** skip traversing types for NotGiven values ([9f69d12](https://github.com/reductoai/reducto-python-sdk/commit/9f69d1210b236d3c060d486b11d8cee3539554dd))
+
+
+### Chores
+
+* fix typos ([#47](https://github.com/reductoai/reducto-python-sdk/issues/47)) ([65c7bd8](https://github.com/reductoai/reducto-python-sdk/commit/65c7bd8940c9ed42ab136e6028021aeb542e4eb7))
+* **internal:** expand CI branch coverage ([d2a9180](https://github.com/reductoai/reducto-python-sdk/commit/d2a918085c73a6d8ad7f84fa5c63233419630332))
+* **internal:** reduce CI branch coverage ([1b82a03](https://github.com/reductoai/reducto-python-sdk/commit/1b82a0311f3337156ba0e0f4d1c4d184d70c2b88))
+* **internal:** remove trailing character ([#50](https://github.com/reductoai/reducto-python-sdk/issues/50)) ([be91d1e](https://github.com/reductoai/reducto-python-sdk/commit/be91d1e959a453ef5f3b576024c5871ebad82973))
+* **internal:** slight transform perf improvement ([#56](https://github.com/reductoai/reducto-python-sdk/issues/56)) ([234f8ff](https://github.com/reductoai/reducto-python-sdk/commit/234f8ff2eebc1ee2af3d95faa794173cea607c47))
+* slight wording improvement in README ([#57](https://github.com/reductoai/reducto-python-sdk/issues/57)) ([fae1793](https://github.com/reductoai/reducto-python-sdk/commit/fae17937a1d02a4a06d21a8403219cbf4e2952d4))
+
+
+### Documentation
+
+* swap examples used in readme ([#51](https://github.com/reductoai/reducto-python-sdk/issues/51)) ([63c59d7](https://github.com/reductoai/reducto-python-sdk/commit/63c59d75106af0595a21ddfef6020d06bdbe5955))
+
 ## 0.4.0 (2025-03-22)
 
 Full Changelog: [v0.3.0...v0.4.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.3.0...v0.4.0)
