@@ -16,7 +16,7 @@ class Enrich(TypedDict, total=False):
     markdown format. Defaults to False.
     """
 
-    mode: Literal["standard", "page"]
+    mode: Literal["standard", "page", "table"]
     """The mode to use for enrichment. Defaults to standard"""
 
     prompt: str

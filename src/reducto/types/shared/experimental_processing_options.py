@@ -16,7 +16,7 @@ class Enrich(BaseModel):
     markdown format. Defaults to False.
     """
 
-    mode: Optional[Literal["standard", "page"]] = None
+    mode: Optional[Literal["standard", "page", "table"]] = None
     """The mode to use for enrichment. Defaults to standard"""
 
     prompt: Optional[str] = None
