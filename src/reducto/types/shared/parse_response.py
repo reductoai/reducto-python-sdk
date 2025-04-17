@@ -39,7 +39,6 @@ class ResultFullResultChunkBlock(BaseModel):
         "Key Value",
         "Text",
         "Comment",
-        "Discard",
     ]
     """The type of block extracted from the document."""
 

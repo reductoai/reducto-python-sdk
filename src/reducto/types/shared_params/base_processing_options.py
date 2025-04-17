@@ -67,7 +67,6 @@ class BaseProcessingOptions(TypedDict, total=False):
             "Key Value",
             "Text",
             "Comment",
-            "Discard",
         ]
     ]
     """A list of block types to filter from chunk content."""

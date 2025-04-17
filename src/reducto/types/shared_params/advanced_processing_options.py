@@ -74,6 +74,9 @@ class AdvancedProcessingOptions(TypedDict, total=False):
     page_range: PageRange
     """The page range to process. By default, the entire document is processed."""
 
+    read_comments: bool
+    """If True, pull in PDF comments from the document. Defaults to False."""
+
     remove_text_formatting: bool
     """If True, remove text formatting from the output (e.g.
 

@@ -105,6 +105,7 @@ parse_response = client.parse.run(
             "end": 0,
             "start": 0,
         },
+        "read_comments": True,
         "remove_text_formatting": True,
         "return_ocr_data": True,
         "spreadsheet_table_clustering": "default",

@@ -68,7 +68,6 @@ class BaseProcessingOptions(BaseModel):
                 "Key Value",
                 "Text",
                 "Comment",
-                "Discard",
             ]
         ]
     ] = None

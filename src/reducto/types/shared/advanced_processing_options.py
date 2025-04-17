@@ -73,6 +73,9 @@ class AdvancedProcessingOptions(BaseModel):
     page_range: Optional[PageRange] = None
     """The page range to process. By default, the entire document is processed."""
 
+    read_comments: Optional[bool] = None
+    """If True, pull in PDF comments from the document. Defaults to False."""
+
     remove_text_formatting: Optional[bool] = None
     """If True, remove text formatting from the output (e.g.
 
