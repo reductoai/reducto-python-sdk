@@ -78,8 +78,6 @@ class SplitResource(SyncAPIResource):
               2. A presigned S3 URL
               3. A reducto:// prefixed URL obtained from the /upload endpoint after directly
                  uploading a document
-              4. A job_id (jobid://) or a list of job_ids (jobid://) obtained from a previous
-                 /parse endpoint
 
           split_description: The configuration options for processing the document.
 
@@ -87,7 +85,7 @@ class SplitResource(SyncAPIResource):
               processing budget available; by default, sync jobs are prioritized above async
               jobs.
 
-          split_rules: The prompt that describes rules for splitting the document.
+          split_rules: The rules for splitting the document.
 
           extra_headers: Send extra headers
 
@@ -146,8 +144,6 @@ class SplitResource(SyncAPIResource):
               2. A presigned S3 URL
               3. A reducto:// prefixed URL obtained from the /upload endpoint after directly
                  uploading a document
-              4. A job_id (jobid://) or a list of job_ids (jobid://) obtained from a previous
-                 /parse endpoint
 
           split_description: The configuration options for processing the document.
 
@@ -155,7 +151,7 @@ class SplitResource(SyncAPIResource):
               processing budget available; by default, sync jobs are prioritized above async
               jobs.
 
-          split_rules: The prompt that describes rules for splitting the document.
+          split_rules: The rules for splitting the document.
 
           extra_headers: Send extra headers
 
@@ -236,8 +232,6 @@ class AsyncSplitResource(AsyncAPIResource):
               2. A presigned S3 URL
               3. A reducto:// prefixed URL obtained from the /upload endpoint after directly
                  uploading a document
-              4. A job_id (jobid://) or a list of job_ids (jobid://) obtained from a previous
-                 /parse endpoint
 
           split_description: The configuration options for processing the document.
 
@@ -245,7 +239,7 @@ class AsyncSplitResource(AsyncAPIResource):
               processing budget available; by default, sync jobs are prioritized above async
               jobs.
 
-          split_rules: The prompt that describes rules for splitting the document.
+          split_rules: The rules for splitting the document.
 
           extra_headers: Send extra headers
 
@@ -304,8 +298,6 @@ class AsyncSplitResource(AsyncAPIResource):
               2. A presigned S3 URL
               3. A reducto:// prefixed URL obtained from the /upload endpoint after directly
                  uploading a document
-              4. A job_id (jobid://) or a list of job_ids (jobid://) obtained from a previous
-                 /parse endpoint
 
           split_description: The configuration options for processing the document.
 
@@ -313,7 +305,7 @@ class AsyncSplitResource(AsyncAPIResource):
               processing budget available; by default, sync jobs are prioritized above async
               jobs.
 
-          split_rules: The prompt that describes rules for splitting the document.
+          split_rules: The rules for splitting the document.
 
           extra_headers: Send extra headers
 

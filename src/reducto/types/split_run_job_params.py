@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Iterable
+from typing import Union, Iterable
 from typing_extensions import Required, TypeAlias, TypedDict
 
 from .shared_params.upload import Upload
@@ -23,8 +23,6 @@ class SplitRunJobParams(TypedDict, total=False):
     2. A presigned S3 URL
     3. A reducto:// prefixed URL obtained from the /upload endpoint after directly
        uploading a document
-    4. A job_id (jobid://) or a list of job_ids (jobid://) obtained from a previous
-       /parse endpoint
     """
 
     split_description: Required[Iterable[SplitCategory]]
@@ -44,9 +42,9 @@ class SplitRunJobParams(TypedDict, total=False):
     """
 
     split_rules: str
-    """The prompt that describes rules for splitting the document."""
+    """The rules for splitting the document."""
 
     webhook: WebhookConfigNew
 
 
-DocumentURL: TypeAlias = Union[str, List[str], Upload]
+DocumentURL: TypeAlias = Union[str, Upload]
