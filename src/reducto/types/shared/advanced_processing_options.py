@@ -61,7 +61,7 @@ class AdvancedProcessingOptions(BaseModel):
     merge_tables: Optional[bool] = None
     """
     A flag to indicate if consecutive tables with the same number of columns should
-    be merged across breaks and spaces.
+    be merged.
     """
 
     ocr_system: Optional[Literal["highres", "multilingual", "combined"]] = None
@@ -71,10 +71,7 @@ class AdvancedProcessingOptions(BaseModel):
     """
 
     page_range: Optional[PageRange] = None
-    """The page range to process (1-indexed).
-
-    By default, the entire document is processed.
-    """
+    """The page range to process. By default, the entire document is processed."""
 
     read_comments: Optional[bool] = None
     """If True, pull in PDF comments from the document. Defaults to False."""
@@ -90,8 +87,8 @@ class AdvancedProcessingOptions(BaseModel):
 
     spreadsheet_table_clustering: Optional[Literal["default", "disabled"]] = None
     """
-    In a spreadsheet with different tables inside, we enable splitting up the tables
-    by default. Disabling will register as one large table.
+    On a spreadsheet, the algorithm that is used to split up sheets into multiple
+    tables.
     """
 
     table_output_format: Optional[Literal["html", "json", "md", "jsonbbox", "dynamic", "ai_json", "csv"]] = None

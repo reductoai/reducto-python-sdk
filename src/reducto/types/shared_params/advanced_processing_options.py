@@ -62,7 +62,7 @@ class AdvancedProcessingOptions(TypedDict, total=False):
     merge_tables: bool
     """
     A flag to indicate if consecutive tables with the same number of columns should
-    be merged across breaks and spaces.
+    be merged.
     """
 
     ocr_system: Literal["highres", "multilingual", "combined"]
@@ -72,10 +72,7 @@ class AdvancedProcessingOptions(TypedDict, total=False):
     """
 
     page_range: PageRange
-    """The page range to process (1-indexed).
-
-    By default, the entire document is processed.
-    """
+    """The page range to process. By default, the entire document is processed."""
 
     read_comments: bool
     """If True, pull in PDF comments from the document. Defaults to False."""
@@ -91,8 +88,8 @@ class AdvancedProcessingOptions(TypedDict, total=False):
 
     spreadsheet_table_clustering: Literal["default", "disabled"]
     """
-    In a spreadsheet with different tables inside, we enable splitting up the tables
-    by default. Disabling will register as one large table.
+    On a spreadsheet, the algorithm that is used to split up sheets into multiple
+    tables.
     """
 
     table_output_format: Literal["html", "json", "md", "jsonbbox", "dynamic", "ai_json", "csv"]

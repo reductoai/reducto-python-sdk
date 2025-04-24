@@ -52,12 +52,6 @@ class ExperimentalProcessingOptions(BaseModel):
     enrich: Optional[Enrich] = None
     """The configuration options for enrichment."""
 
-    layout_model: Optional[Literal["default", "beta"]] = None
-    """The layout model to use for the document.
-
-    This will be deprecated in the future.
-    """
-
     native_office_conversion: Optional[bool] = None
     """
     Instead of using LibreOffice, when enabled, this flag uses a Windows VM to
