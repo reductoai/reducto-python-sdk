@@ -10,11 +10,12 @@ __all__ = ["BaseProcessingOptions", "Chunking", "FigureSummary", "TableSummary"]
 
 class Chunking(TypedDict, total=False):
     chunk_mode: Literal["variable", "section", "page", "block", "disabled", "page_sections"]
-    """The mode to use for chunking.
+    """Choose how to partition chunks.
 
-    Section chunks according to sections in the document. Page chunks according to
-    pages. Page sections chunks according to both pages and sections. Disabled
-    returns a single chunk.
+    Variable mode chunks by character length and visual context. Section mode chunks
+    by section headers. Page mode chunks according to pages. Page sections mode
+    chunks first by page, then by sections within each page. Disabled returns one
+    single chunk.
     """
 
     chunk_size: int
@@ -33,7 +34,11 @@ class FigureSummary(TypedDict, total=False):
     """If the figure summary prompt should override our default prompt."""
 
     prompt: str
-    """Add information to the prompt for figure summarization."""
+    """Add information to the prompt for figure summarization.
+
+    Note any visual cues that should be incorporated. Example: 'When provided a
+    diagram, extract all of the figure content verbatim.'
+    """
 
 
 class TableSummary(TypedDict, total=False):
@@ -46,10 +51,16 @@ class TableSummary(TypedDict, total=False):
 
 class BaseProcessingOptions(TypedDict, total=False):
     chunking: Chunking
-    """The configuration options for chunking."""
+    """The configuration options for chunking.
+
+    Chunking is commonly used for RAG usecases.
+    """
 
     extraction_mode: Literal["ocr", "metadata", "hybrid"]
-    """The mode to use for extraction."""
+    """The mode to use for extraction.
+
+    Metadata/hybrid are only recommended with high quality metadata embeddings.
+    """
 
     figure_summary: FigureSummary
     """The configuration options for figure summarization."""
@@ -69,7 +80,10 @@ class BaseProcessingOptions(TypedDict, total=False):
             "Comment",
         ]
     ]
-    """A list of block types to filter from chunk content."""
+    """A list of block types to filter from chunk content.
+
+    By default, Header, Footer, Page Number, and Comment blocks are filtered out.
+    """
 
     force_url_result: bool
     """
@@ -80,7 +94,8 @@ class BaseProcessingOptions(TypedDict, total=False):
     ocr_mode: Literal["standard", "agentic"]
     """The mode to use for OCR.
 
-    If agentic is enabled, at a small cost table OCR will be automatically edited.
+    Agentic mode adds an extra pass, correcting any table/text mistakes at a small
+    cost.
     """
 
     table_summary: TableSummary

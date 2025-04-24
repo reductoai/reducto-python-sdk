@@ -10,11 +10,12 @@ __all__ = ["BaseProcessingOptions", "Chunking", "FigureSummary", "TableSummary"]
 
 class Chunking(BaseModel):
     chunk_mode: Optional[Literal["variable", "section", "page", "block", "disabled", "page_sections"]] = None
-    """The mode to use for chunking.
+    """Choose how to partition chunks.
 
-    Section chunks according to sections in the document. Page chunks according to
-    pages. Page sections chunks according to both pages and sections. Disabled
-    returns a single chunk.
+    Variable mode chunks by character length and visual context. Section mode chunks
+    by section headers. Page mode chunks according to pages. Page sections mode
+    chunks first by page, then by sections within each page. Disabled returns one
+    single chunk.
     """
 
     chunk_size: Optional[int] = None
@@ -33,7 +34,11 @@ class FigureSummary(BaseModel):
     """If the figure summary prompt should override our default prompt."""
 
     prompt: Optional[str] = None
-    """Add information to the prompt for figure summarization."""
+    """Add information to the prompt for figure summarization.
+
+    Note any visual cues that should be incorporated. Example: 'When provided a
+    diagram, extract all of the figure content verbatim.'
+    """
 
 
 class TableSummary(BaseModel):
@@ -46,10 +51,16 @@ class TableSummary(BaseModel):
 
 class BaseProcessingOptions(BaseModel):
     chunking: Optional[Chunking] = None
-    """The configuration options for chunking."""
+    """The configuration options for chunking.
+
+    Chunking is commonly used for RAG usecases.
+    """
 
     extraction_mode: Optional[Literal["ocr", "metadata", "hybrid"]] = None
-    """The mode to use for extraction."""
+    """The mode to use for extraction.
+
+    Metadata/hybrid are only recommended with high quality metadata embeddings.
+    """
 
     figure_summary: Optional[FigureSummary] = None
     """The configuration options for figure summarization."""
@@ -71,7 +82,10 @@ class BaseProcessingOptions(BaseModel):
             ]
         ]
     ] = None
-    """A list of block types to filter from chunk content."""
+    """A list of block types to filter from chunk content.
+
+    By default, Header, Footer, Page Number, and Comment blocks are filtered out.
+    """
 
     force_url_result: Optional[bool] = None
     """
@@ -82,7 +96,8 @@ class BaseProcessingOptions(BaseModel):
     ocr_mode: Optional[Literal["standard", "agentic"]] = None
     """The mode to use for OCR.
 
-    If agentic is enabled, at a small cost table OCR will be automatically edited.
+    Agentic mode adds an extra pass, correcting any table/text mistakes at a small
+    cost.
     """
 
     table_summary: Optional[TableSummary] = None
