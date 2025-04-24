@@ -23,7 +23,8 @@ class ExtractRunJobParams(TypedDict, total=False):
     2. A presigned S3 URL
     3. A reducto:// prefixed URL obtained from the /upload endpoint after directly
        uploading a document
-    4. A job_id (jobid://) or a list of job_ids (jobid://)
+    4. A job_id (jobid://) or a list of job_ids (jobid://) obtained from a previous
+       /parse endpoint
     """
 
     schema: Required[object]
