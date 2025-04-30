@@ -42,6 +42,13 @@ class ResultFullResultChunkBlock(BaseModel):
     ]
     """The type of block extracted from the document."""
 
+    confidence: Optional[str] = None
+    """The confidence for the block.
+
+    It is either low or high and takes into account factors like OCR and table
+    structure
+    """
+
     image_url: Optional[str] = None
     """(Experimental) The URL of the image associated with the block."""
 
