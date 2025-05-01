@@ -29,6 +29,8 @@ from reducto import Reducto
 
 client = Reducto(
     api_key=os.environ.get("REDUCTO_API_KEY"),  # This is the default and can be omitted
+    # or 'production' | 'au'; defaults to "production".
+    environment="eu",
 )
 
 parse_response = client.parse.run(
@@ -53,6 +55,8 @@ from reducto import AsyncReducto
 
 client = AsyncReducto(
     api_key=os.environ.get("REDUCTO_API_KEY"),  # This is the default and can be omitted
+    # or 'production' | 'au'; defaults to "production".
+    environment="eu",
 )
 
 
