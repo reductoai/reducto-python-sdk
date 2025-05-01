@@ -200,7 +200,7 @@ client.with_options(max_retries=5).parse.run(
 
 ### Timeouts
 
-By default requests time out after 1 minute. You can configure this with a `timeout` option,
+By default requests time out after 15 minutes. You can configure this with a `timeout` option,
 which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/#fine-tuning-the-configuration) object:
 
 ```python
@@ -208,7 +208,7 @@ from reducto import Reducto
 
 # Configure the default for all requests:
 client = Reducto(
-    # 20 seconds (default is 1 minute)
+    # 20 seconds (default is 15 minutes)
     timeout=20.0,
 )
 
