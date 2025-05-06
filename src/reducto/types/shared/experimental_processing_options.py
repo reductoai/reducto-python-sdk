@@ -16,7 +16,7 @@ class Enrich(BaseModel):
     markdown format. Defaults to False.
     """
 
-    mode: Optional[Literal["standard", "page"]] = None
+    mode: Optional[Literal["standard", "page", "table"]] = None
     """The mode to use for enrichment. Defaults to standard"""
 
     prompt: Optional[str] = None
@@ -49,14 +49,14 @@ class ExperimentalProcessingOptions(BaseModel):
     False
     """
 
-    enable_underlines: Optional[bool] = None
-    """
-    Add <u> tag around text that's underlined and surround strikethroughs and
-    underlines with <change> tags, defaults to False
-    """
-
     enrich: Optional[Enrich] = None
     """The configuration options for enrichment."""
+
+    layout_model: Optional[Literal["default", "beta"]] = None
+    """The layout model to use for the document.
+
+    This will be deprecated in the future.
+    """
 
     native_office_conversion: Optional[bool] = None
     """

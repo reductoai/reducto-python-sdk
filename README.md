@@ -29,6 +29,8 @@ from reducto import Reducto
 
 client = Reducto(
     api_key=os.environ.get("REDUCTO_API_KEY"),  # This is the default and can be omitted
+    # or 'production' | 'au'; defaults to "production".
+    environment="eu",
 )
 
 parse_response = client.parse.run(
@@ -53,6 +55,8 @@ from reducto import AsyncReducto
 
 client = AsyncReducto(
     api_key=os.environ.get("REDUCTO_API_KEY"),  # This is the default and can be omitted
+    # or 'production' | 'au'; defaults to "production".
+    environment="eu",
 )
 
 
@@ -105,6 +109,7 @@ parse_response = client.parse.run(
             "end": 0,
             "start": 0,
         },
+        "read_comments": True,
         "remove_text_formatting": True,
         "return_ocr_data": True,
         "spreadsheet_table_clustering": "default",
@@ -199,7 +204,7 @@ client.with_options(max_retries=5).parse.run(
 
 ### Timeouts
 
-By default requests time out after 1 minute. You can configure this with a `timeout` option,
+By default requests time out after 15 minutes. You can configure this with a `timeout` option,
 which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/#fine-tuning-the-configuration) object:
 
 ```python
@@ -207,7 +212,7 @@ from reducto import Reducto
 
 # Configure the default for all requests:
 client = Reducto(
-    # 20 seconds (default is 1 minute)
+    # 20 seconds (default is 15 minutes)
     timeout=20.0,
 )
 

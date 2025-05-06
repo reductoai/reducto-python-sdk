@@ -16,7 +16,7 @@ class Enrich(TypedDict, total=False):
     markdown format. Defaults to False.
     """
 
-    mode: Literal["standard", "page"]
+    mode: Literal["standard", "page", "table"]
     """The mode to use for enrichment. Defaults to standard"""
 
     prompt: str
@@ -49,14 +49,14 @@ class ExperimentalProcessingOptionsTyped(TypedDict, total=False):
     False
     """
 
-    enable_underlines: bool
-    """
-    Add <u> tag around text that's underlined and surround strikethroughs and
-    underlines with <change> tags, defaults to False
-    """
-
     enrich: Enrich
     """The configuration options for enrichment."""
+
+    layout_model: Literal["default", "beta"]
+    """The layout model to use for the document.
+
+    This will be deprecated in the future.
+    """
 
     native_office_conversion: bool
     """

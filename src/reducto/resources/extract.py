@@ -6,10 +6,7 @@ import httpx
 
 from ..types import extract_run_params, extract_run_job_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from .._utils import (
-    maybe_transform,
-    async_maybe_transform,
-)
+from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -82,7 +79,8 @@ class ExtractResource(SyncAPIResource):
               2. A presigned S3 URL
               3. A reducto:// prefixed URL obtained from the /upload endpoint after directly
                  uploading a document
-              4. A job_id (jobid://) or a list of job_ids (jobid://)
+              4. A job_id (jobid://) or a list of job_ids (jobid://) obtained from a previous
+                 /parse endpoint
 
           schema: The JSON schema to use for extraction.
 
@@ -162,7 +160,8 @@ class ExtractResource(SyncAPIResource):
               2. A presigned S3 URL
               3. A reducto:// prefixed URL obtained from the /upload endpoint after directly
                  uploading a document
-              4. A job_id (jobid://) or a list of job_ids (jobid://)
+              4. A job_id (jobid://) or a list of job_ids (jobid://) obtained from a previous
+                 /parse endpoint
 
           schema: The JSON schema to use for extraction.
 
@@ -264,7 +263,8 @@ class AsyncExtractResource(AsyncAPIResource):
               2. A presigned S3 URL
               3. A reducto:// prefixed URL obtained from the /upload endpoint after directly
                  uploading a document
-              4. A job_id (jobid://) or a list of job_ids (jobid://)
+              4. A job_id (jobid://) or a list of job_ids (jobid://) obtained from a previous
+                 /parse endpoint
 
           schema: The JSON schema to use for extraction.
 
@@ -344,7 +344,8 @@ class AsyncExtractResource(AsyncAPIResource):
               2. A presigned S3 URL
               3. A reducto:// prefixed URL obtained from the /upload endpoint after directly
                  uploading a document
-              4. A job_id (jobid://) or a list of job_ids (jobid://)
+              4. A job_id (jobid://) or a list of job_ids (jobid://) obtained from a previous
+                 /parse endpoint
 
           schema: The JSON schema to use for extraction.
 
