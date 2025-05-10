@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.6.1 (2025-05-10)
+
+Full Changelog: [v0.6.0...v0.6.1](https://github.com/reductoai/reducto-python-sdk/compare/v0.6.0...v0.6.1)
+
+### Bug Fixes
+
+* **package:** support direct resource imports ([b5332fb](https://github.com/reductoai/reducto-python-sdk/commit/b5332fb31ace673a46c21e9cb2fdfa534db864fb))
+
+
+### Chores
+
+* **internal:** avoid errors for isinstance checks on proxies ([97974a0](https://github.com/reductoai/reducto-python-sdk/commit/97974a09f801f0975b23457465d9a125c7e1426a))
+
 ## 0.6.0 (2025-05-06)
 
 Full Changelog: [v0.5.0...v0.6.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.5.0...v0.6.0)
