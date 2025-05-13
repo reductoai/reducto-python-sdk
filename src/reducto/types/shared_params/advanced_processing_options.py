@@ -24,7 +24,7 @@ class LargeTableChunking(TypedDict, total=False):
     """
 
 
-PageRange: TypeAlias = Union[page_range.PageRange, Iterable[page_range.PageRange]]
+PageRange: TypeAlias = Union[page_range.PageRange, Iterable[page_range.PageRange], Iterable[int]]
 
 
 class AdvancedProcessingOptions(TypedDict, total=False):
