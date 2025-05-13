@@ -23,7 +23,7 @@ class LargeTableChunking(BaseModel):
     """
 
 
-PageRange: TypeAlias = Union[page_range.PageRange, List[page_range.PageRange]]
+PageRange: TypeAlias = Union[page_range.PageRange, List[page_range.PageRange], List[int]]
 
 
 class AdvancedProcessingOptions(BaseModel):
