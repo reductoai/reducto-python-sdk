@@ -109,6 +109,7 @@ parse_response = client.parse.run(
             "end": 0,
             "start": 0,
         },
+        "persist_results": True,
         "read_comments": True,
         "remove_text_formatting": True,
         "return_ocr_data": True,

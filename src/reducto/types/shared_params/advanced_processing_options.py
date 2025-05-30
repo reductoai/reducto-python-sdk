@@ -77,6 +77,9 @@ class AdvancedProcessingOptions(TypedDict, total=False):
     By default, the entire document is processed.
     """
 
+    persist_results: bool
+    """If True, persist the results indefinitely. Defaults to False."""
+
     read_comments: bool
     """If True, pull in PDF comments from the document. Defaults to False."""
 

@@ -76,6 +76,9 @@ class AdvancedProcessingOptions(BaseModel):
     By default, the entire document is processed.
     """
 
+    persist_results: Optional[bool] = None
+    """If True, persist the results indefinitely. Defaults to False."""
+
     read_comments: Optional[bool] = None
     """If True, pull in PDF comments from the document. Defaults to False."""
 
