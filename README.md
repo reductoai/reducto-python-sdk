@@ -92,30 +92,7 @@ client = Reducto()
 
 parse_response = client.parse.run(
     document_url="string",
-    advanced_options={
-        "add_page_markers": True,
-        "continue_hierarchy": True,
-        "document_password": "document_password",
-        "filter_line_numbers": True,
-        "force_file_extension": "force_file_extension",
-        "keep_line_breaks": True,
-        "large_table_chunking": {
-            "enabled": True,
-            "size": 0,
-        },
-        "merge_tables": True,
-        "ocr_system": "highres",
-        "page_range": {
-            "end": 0,
-            "start": 0,
-        },
-        "persist_results": True,
-        "read_comments": True,
-        "remove_text_formatting": True,
-        "return_ocr_data": True,
-        "spreadsheet_table_clustering": "default",
-        "table_output_format": "html",
-    },
+    advanced_options={},
 )
 print(parse_response.advanced_options)
 ```
