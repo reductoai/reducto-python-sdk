@@ -43,6 +43,13 @@ class AdvancedProcessingOptions(BaseModel):
     document_password: Optional[str] = None
     """Password to decrypt password-protected documents."""
 
+    enable_change_tracking: Optional[bool] = None
+    """
+    Add <u> tags around underlined text, <s> tags around strikethrough text, and
+    <change> tags to surround both underlines and strikethroughs for change
+    detection. Defaults to False.
+    """
+
     filter_line_numbers: Optional[bool] = None
     """If True, filter out line numbers from the output. Defaults to False."""
 
