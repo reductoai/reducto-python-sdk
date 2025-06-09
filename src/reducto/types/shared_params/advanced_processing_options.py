@@ -51,6 +51,12 @@ class AdvancedProcessingOptions(TypedDict, total=False):
     detection. Defaults to False.
     """
 
+    exclude_hidden_rows_cols: bool
+    """Skip hidden rows and cols in Excel files. Defaults to False."""
+
+    exclude_hidden_sheets: bool
+    """Skip hidden sheets in Excel files. Defaults to False."""
+
     filter_line_numbers: bool
     """If True, filter out line numbers from the output. Defaults to False."""
 
