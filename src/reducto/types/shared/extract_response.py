@@ -12,6 +12,8 @@ class Usage(BaseModel):
 
     num_pages: int
 
+    credits: Optional[float] = None
+
 
 class ExtractResponse(BaseModel):
     citations: Optional[List[object]] = None
