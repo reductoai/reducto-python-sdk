@@ -84,7 +84,7 @@ class BaseProcessingOptions(BaseModel):
     ] = None
     """A list of block types to filter from chunk content.
 
-    By default, Header, Footer, Page Number, and Comment blocks are filtered out.
+    Pass blocks to filter them from content. By default, no blocks are filtered.
     """
 
     force_url_result: Optional[bool] = None

@@ -1,6 +1,6 @@
 # Reducto Python API library
 
-[![PyPI version](https://img.shields.io/pypi/v/reductoai.svg)](https://pypi.org/project/reductoai/)
+[![PyPI version](<https://img.shields.io/pypi/v/reductoai.svg?label=pypi%20(stable)>)](https://pypi.org/project/reductoai/)
 
 The Reducto Python library provides convenient access to the Reducto REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
@@ -92,29 +92,7 @@ client = Reducto()
 
 parse_response = client.parse.run(
     document_url="string",
-    advanced_options={
-        "add_page_markers": True,
-        "continue_hierarchy": True,
-        "document_password": "document_password",
-        "filter_line_numbers": True,
-        "force_file_extension": "force_file_extension",
-        "keep_line_breaks": True,
-        "large_table_chunking": {
-            "enabled": True,
-            "size": 0,
-        },
-        "merge_tables": True,
-        "ocr_system": "highres",
-        "page_range": {
-            "end": 0,
-            "start": 0,
-        },
-        "read_comments": True,
-        "remove_text_formatting": True,
-        "return_ocr_data": True,
-        "spreadsheet_table_clustering": "default",
-        "table_output_format": "html",
-    },
+    advanced_options={},
 )
 print(parse_response.advanced_options)
 ```
@@ -205,7 +183,7 @@ client.with_options(max_retries=5).parse.run(
 ### Timeouts
 
 By default requests time out after 15 minutes. You can configure this with a `timeout` option,
-which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/#fine-tuning-the-configuration) object:
+which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/timeouts/#fine-tuning-the-configuration) object:
 
 ```python
 from reducto import Reducto

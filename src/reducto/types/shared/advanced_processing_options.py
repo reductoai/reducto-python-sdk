@@ -23,7 +23,7 @@ class LargeTableChunking(BaseModel):
     """
 
 
-PageRange: TypeAlias = Union[page_range.PageRange, List[page_range.PageRange]]
+PageRange: TypeAlias = Union[page_range.PageRange, List[page_range.PageRange], List[int]]
 
 
 class AdvancedProcessingOptions(BaseModel):
@@ -42,6 +42,19 @@ class AdvancedProcessingOptions(BaseModel):
 
     document_password: Optional[str] = None
     """Password to decrypt password-protected documents."""
+
+    enable_change_tracking: Optional[bool] = None
+    """
+    Add <u> tags around underlined text, <s> tags around strikethrough text, and
+    <change> tags to surround both underlines and strikethroughs for change
+    detection. Defaults to False.
+    """
+
+    exclude_hidden_rows_cols: Optional[bool] = None
+    """Skip hidden rows and cols in Excel files. Defaults to False."""
+
+    exclude_hidden_sheets: Optional[bool] = None
+    """Skip hidden sheets in Excel files. Defaults to False."""
 
     filter_line_numbers: Optional[bool] = None
     """If True, filter out line numbers from the output. Defaults to False."""
@@ -75,6 +88,9 @@ class AdvancedProcessingOptions(BaseModel):
 
     By default, the entire document is processed.
     """
+
+    persist_results: Optional[bool] = None
+    """If True, persist the results indefinitely. Defaults to False."""
 
     read_comments: Optional[bool] = None
     """If True, pull in PDF comments from the document. Defaults to False."""

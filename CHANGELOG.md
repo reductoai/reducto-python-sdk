@@ -1,5 +1,48 @@
 # Changelog
 
+## 0.7.0 (2025-06-20)
+
+Full Changelog: [v0.6.0...v0.7.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.6.0...v0.7.0)
+
+### Features
+
+* **api:** api update ([4257bb6](https://github.com/reductoai/reducto-python-sdk/commit/4257bb6713210d7d8a96d6a63911c797ea492a08))
+* **api:** api update ([23a3949](https://github.com/reductoai/reducto-python-sdk/commit/23a39497dd71e64a6c22e3df9dadfebe515f47bc))
+* **api:** api update ([f276b5b](https://github.com/reductoai/reducto-python-sdk/commit/f276b5b6b799d0079d48df2764ac05021eb27f8f))
+* **api:** api update ([b39bfbe](https://github.com/reductoai/reducto-python-sdk/commit/b39bfbe0fca02dab6006d019e4bf200ff2c7351c))
+* **api:** api update ([8bd4e68](https://github.com/reductoai/reducto-python-sdk/commit/8bd4e68ade7e6f10c25db139c3c19aedb474ace2))
+* **api:** api update ([6ad03c9](https://github.com/reductoai/reducto-python-sdk/commit/6ad03c95a0f9a4d331f99fb1f08a0a376e97b666))
+* **api:** api update ([ee26a65](https://github.com/reductoai/reducto-python-sdk/commit/ee26a65b0d987cce86d94ecb7f9573aeebb23f87))
+* **client:** add follow_redirects request option ([70eb648](https://github.com/reductoai/reducto-python-sdk/commit/70eb648ef218265d22a3f734c197c10241bc1a2a))
+
+
+### Bug Fixes
+
+* **client:** correctly parse binary response | stream ([41f71fc](https://github.com/reductoai/reducto-python-sdk/commit/41f71fca201a14738c6d0c5db784c72debe6bc7f))
+* **docs/api:** remove references to nonexistent types ([08eb2d8](https://github.com/reductoai/reducto-python-sdk/commit/08eb2d879d5fb0861dd7d85e85d4892c61004165))
+* **package:** support direct resource imports ([b5332fb](https://github.com/reductoai/reducto-python-sdk/commit/b5332fb31ace673a46c21e9cb2fdfa534db864fb))
+* **tests:** fix: tests which call HTTP endpoints directly with the example parameters ([293fa24](https://github.com/reductoai/reducto-python-sdk/commit/293fa241595928273b1e16f80e3c2755c65edbfe))
+
+
+### Chores
+
+* **ci:** enable for pull requests ([646d80d](https://github.com/reductoai/reducto-python-sdk/commit/646d80d6724626613c8175ac6079678f61579672))
+* **ci:** fix installation instructions ([c0bddc5](https://github.com/reductoai/reducto-python-sdk/commit/c0bddc5bb564585ff1b8e714edc973add7f56eca))
+* **ci:** upload sdks to package manager ([e6ec13a](https://github.com/reductoai/reducto-python-sdk/commit/e6ec13a8db2d3915eb99ebaf2c67bb17060e42a9))
+* **docs:** grammar improvements ([ee6ab9a](https://github.com/reductoai/reducto-python-sdk/commit/ee6ab9a44f79be945fd72edf509f65977b73b2bc))
+* **docs:** remove reference to rye shell ([0e9b32d](https://github.com/reductoai/reducto-python-sdk/commit/0e9b32d24ccd62e0612a64f3f7ca6b7e07153026))
+* **docs:** remove unnecessary param examples ([6f1562f](https://github.com/reductoai/reducto-python-sdk/commit/6f1562f7cfbe1e027fe7b803f2486f843645cd26))
+* **internal:** avoid errors for isinstance checks on proxies ([97974a0](https://github.com/reductoai/reducto-python-sdk/commit/97974a09f801f0975b23457465d9a125c7e1426a))
+* **internal:** update conftest.py ([71942fc](https://github.com/reductoai/reducto-python-sdk/commit/71942fc29a6ad2face05c8f4cc1a165b6eba7224))
+* **readme:** update badges ([c66cb07](https://github.com/reductoai/reducto-python-sdk/commit/c66cb07fd878b23236cc736eee7f1cec0657208a))
+* **tests:** add tests for httpx client instantiation & proxies ([fd4a62b](https://github.com/reductoai/reducto-python-sdk/commit/fd4a62b1602e73e1974289673403ee26549bfeb8))
+* **tests:** run tests in parallel ([e7e0a6b](https://github.com/reductoai/reducto-python-sdk/commit/e7e0a6b3bc23c08a0e40b355e9d4564ab28dfaed))
+
+
+### Documentation
+
+* **client:** fix httpx.Timeout documentation reference ([81851b8](https://github.com/reductoai/reducto-python-sdk/commit/81851b84b39a187c0cbe131452a4521dcd1969e5))
+
 ## 0.6.0 (2025-05-06)
 
 Full Changelog: [v0.5.0...v0.6.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.5.0...v0.6.0)
