@@ -72,6 +72,7 @@ class TestParse:
                 "native_office_conversion": True,
                 "return_figure_images": True,
                 "return_table_images": True,
+                "rotate_figures": True,
                 "rotate_pages": True,
             },
             options={
@@ -177,6 +178,7 @@ class TestParse:
                 "native_office_conversion": True,
                 "return_figure_images": True,
                 "return_table_images": True,
+                "rotate_figures": True,
                 "rotate_pages": True,
             },
             options={
@@ -292,6 +294,7 @@ class TestAsyncParse:
                 "native_office_conversion": True,
                 "return_figure_images": True,
                 "return_table_images": True,
+                "rotate_figures": True,
                 "rotate_pages": True,
             },
             options={
@@ -397,6 +400,7 @@ class TestAsyncParse:
                 "native_office_conversion": True,
                 "return_figure_images": True,
                 "return_table_images": True,
+                "rotate_figures": True,
                 "rotate_pages": True,
             },
             options={
