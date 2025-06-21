@@ -1,6 +1,6 @@
 [project]
 name = "reductoai"
-version = "0.7.0"
+version = "0.8.0"
 description = "The official Python library for the reducto API"
 dynamic = ["readme"]
 license = "Apache-2.0"
@@ -37,6 +37,8 @@ classifiers = [
 Homepage = "https://github.com/reductoai/reducto-python-sdk"
 Repository = "https://github.com/reductoai/reducto-python-sdk"
 
+[project.optional-dependencies]
+aiohttp = ["aiohttp", "httpx_aiohttp>=0.1.6"]
 
 [tool.rye]
 managed = true
