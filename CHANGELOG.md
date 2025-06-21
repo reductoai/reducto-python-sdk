@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.8.0 (2025-06-21)
+
+Full Changelog: [v0.7.0...v0.8.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.7.0...v0.8.0)
+
+### Features
+
+* **client:** add support for aiohttp ([ea80a4c](https://github.com/reductoai/reducto-python-sdk/commit/ea80a4c4c3492f496701bca9f5ce375be4ea5d99))
+
 ## 0.7.0 (2025-06-20)
 
 Full Changelog: [v0.6.0...v0.7.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.6.0...v0.7.0)
