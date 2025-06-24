@@ -16,10 +16,6 @@ class Result(BaseModel):
 
 class SplitResponse(BaseModel):
     result: Result
-    """The extracted response in your provided schema.
-
-    This is a list of dictionaries. If disbale_chunking is True (default), then it
-    will be a list of length one.
-    """
+    """The split result."""
 
     usage: ParseUsage
