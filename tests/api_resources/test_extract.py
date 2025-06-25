@@ -68,6 +68,7 @@ class TestExtract:
             },
             experimental_options={
                 "danger_filter_wide_boxes": True,
+                "embed_text_metadata_pdf": True,
                 "enable_checkboxes": True,
                 "enable_equations": True,
                 "enable_scripts": True,
@@ -187,6 +188,7 @@ class TestExtract:
             },
             experimental_options={
                 "danger_filter_wide_boxes": True,
+                "embed_text_metadata_pdf": True,
                 "enable_checkboxes": True,
                 "enable_equations": True,
                 "enable_scripts": True,
@@ -318,6 +320,7 @@ class TestAsyncExtract:
             },
             experimental_options={
                 "danger_filter_wide_boxes": True,
+                "embed_text_metadata_pdf": True,
                 "enable_checkboxes": True,
                 "enable_equations": True,
                 "enable_scripts": True,
@@ -437,6 +440,7 @@ class TestAsyncExtract:
             },
             experimental_options={
                 "danger_filter_wide_boxes": True,
+                "embed_text_metadata_pdf": True,
                 "enable_checkboxes": True,
                 "enable_equations": True,
                 "enable_scripts": True,
