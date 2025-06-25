@@ -31,6 +31,12 @@ class ExperimentalProcessingOptionsTyped(TypedDict, total=False):
     Defaults to False. You probably don't want to use this.
     """
 
+    embed_text_metadata_pdf: bool
+    """
+    If extracted OCR text metadata should be embedded back into the returned PDF,
+    overwriting any existing text. Defaults to False.
+    """
+
     enable_checkboxes: bool
     """
     Use an experimental checkbox detection model to add checkboxes to the output,
