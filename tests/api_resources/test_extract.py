@@ -85,6 +85,7 @@ class TestExtract:
                 "rotate_pages": True,
             },
             generate_citations=True,
+            include_images=True,
             options={
                 "chunking": {
                     "chunk_mode": "variable",
@@ -205,6 +206,7 @@ class TestExtract:
                 "rotate_pages": True,
             },
             generate_citations=True,
+            include_images=True,
             options={
                 "chunking": {
                     "chunk_mode": "variable",
@@ -337,6 +339,7 @@ class TestAsyncExtract:
                 "rotate_pages": True,
             },
             generate_citations=True,
+            include_images=True,
             options={
                 "chunking": {
                     "chunk_mode": "variable",
@@ -457,6 +460,7 @@ class TestAsyncExtract:
                 "rotate_pages": True,
             },
             generate_citations=True,
+            include_images=True,
             options={
                 "chunking": {
                     "chunk_mode": "variable",
