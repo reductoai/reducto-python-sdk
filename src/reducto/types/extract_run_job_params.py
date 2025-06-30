@@ -40,6 +40,12 @@ class ExtractRunJobParams(TypedDict, total=False):
     generate_citations: bool
     """If citations should be generated for the extracted content."""
 
+    include_images: bool
+    """If images should be passed directly for extractions.
+
+    Can only be enabled for documents with less than 10 pages. Defaults to False.
+    """
+
     options: BaseProcessingOptions
 
     priority: bool

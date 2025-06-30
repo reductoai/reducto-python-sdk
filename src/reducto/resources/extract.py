@@ -56,6 +56,7 @@ class ExtractResource(SyncAPIResource):
         array_extract: ArrayExtractConfig | NotGiven = NOT_GIVEN,
         experimental_options: ExperimentalProcessingOptions | NotGiven = NOT_GIVEN,
         generate_citations: bool | NotGiven = NOT_GIVEN,
+        include_images: bool | NotGiven = NOT_GIVEN,
         options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
         priority: bool | NotGiven = NOT_GIVEN,
         system_prompt: str | NotGiven = NOT_GIVEN,
@@ -88,6 +89,9 @@ class ExtractResource(SyncAPIResource):
 
           generate_citations: If citations should be generated for the extracted content.
 
+          include_images: If images should be passed directly for extractions. Can only be enabled for
+              documents with less than 10 pages. Defaults to False.
+
           priority: If True, attempts to process the job with priority if the user has priority
               processing budget available; by default, sync jobs are prioritized above async
               jobs.
@@ -115,6 +119,7 @@ class ExtractResource(SyncAPIResource):
                     "array_extract": array_extract,
                     "experimental_options": experimental_options,
                     "generate_citations": generate_citations,
+                    "include_images": include_images,
                     "options": options,
                     "priority": priority,
                     "system_prompt": system_prompt,
@@ -137,6 +142,7 @@ class ExtractResource(SyncAPIResource):
         array_extract: ArrayExtractConfig | NotGiven = NOT_GIVEN,
         experimental_options: ExperimentalProcessingOptions | NotGiven = NOT_GIVEN,
         generate_citations: bool | NotGiven = NOT_GIVEN,
+        include_images: bool | NotGiven = NOT_GIVEN,
         options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
         priority: bool | NotGiven = NOT_GIVEN,
         system_prompt: str | NotGiven = NOT_GIVEN,
@@ -169,6 +175,9 @@ class ExtractResource(SyncAPIResource):
 
           generate_citations: If citations should be generated for the extracted content.
 
+          include_images: If images should be passed directly for extractions. Can only be enabled for
+              documents with less than 10 pages. Defaults to False.
+
           priority: If True, attempts to process the job with priority if the user has priority
               processing budget available; by default, sync jobs are prioritized above async
               jobs.
@@ -196,6 +205,7 @@ class ExtractResource(SyncAPIResource):
                     "array_extract": array_extract,
                     "experimental_options": experimental_options,
                     "generate_citations": generate_citations,
+                    "include_images": include_images,
                     "options": options,
                     "priority": priority,
                     "system_prompt": system_prompt,
@@ -240,6 +250,7 @@ class AsyncExtractResource(AsyncAPIResource):
         array_extract: ArrayExtractConfig | NotGiven = NOT_GIVEN,
         experimental_options: ExperimentalProcessingOptions | NotGiven = NOT_GIVEN,
         generate_citations: bool | NotGiven = NOT_GIVEN,
+        include_images: bool | NotGiven = NOT_GIVEN,
         options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
         priority: bool | NotGiven = NOT_GIVEN,
         system_prompt: str | NotGiven = NOT_GIVEN,
@@ -272,6 +283,9 @@ class AsyncExtractResource(AsyncAPIResource):
 
           generate_citations: If citations should be generated for the extracted content.
 
+          include_images: If images should be passed directly for extractions. Can only be enabled for
+              documents with less than 10 pages. Defaults to False.
+
           priority: If True, attempts to process the job with priority if the user has priority
               processing budget available; by default, sync jobs are prioritized above async
               jobs.
@@ -299,6 +313,7 @@ class AsyncExtractResource(AsyncAPIResource):
                     "array_extract": array_extract,
                     "experimental_options": experimental_options,
                     "generate_citations": generate_citations,
+                    "include_images": include_images,
                     "options": options,
                     "priority": priority,
                     "system_prompt": system_prompt,
@@ -321,6 +336,7 @@ class AsyncExtractResource(AsyncAPIResource):
         array_extract: ArrayExtractConfig | NotGiven = NOT_GIVEN,
         experimental_options: ExperimentalProcessingOptions | NotGiven = NOT_GIVEN,
         generate_citations: bool | NotGiven = NOT_GIVEN,
+        include_images: bool | NotGiven = NOT_GIVEN,
         options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
         priority: bool | NotGiven = NOT_GIVEN,
         system_prompt: str | NotGiven = NOT_GIVEN,
@@ -353,6 +369,9 @@ class AsyncExtractResource(AsyncAPIResource):
 
           generate_citations: If citations should be generated for the extracted content.
 
+          include_images: If images should be passed directly for extractions. Can only be enabled for
+              documents with less than 10 pages. Defaults to False.
+
           priority: If True, attempts to process the job with priority if the user has priority
               processing budget available; by default, sync jobs are prioritized above async
               jobs.
@@ -380,6 +399,7 @@ class AsyncExtractResource(AsyncAPIResource):
                     "array_extract": array_extract,
                     "experimental_options": experimental_options,
                     "generate_citations": generate_citations,
+                    "include_images": include_images,
                     "options": options,
                     "priority": priority,
                     "system_prompt": system_prompt,

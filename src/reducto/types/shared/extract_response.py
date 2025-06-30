@@ -22,7 +22,7 @@ class ExtractResponse(BaseModel):
     result: List[object]
     """The extracted response in your provided schema.
 
-    This is a list of dictionaries. If disbale_chunking is True (default), then it
+    This is a list of dictionaries. If disable_chunking is True (default), then it
     will be a list of length one.
     """
 
