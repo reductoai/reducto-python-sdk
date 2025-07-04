@@ -1,5 +1,30 @@
 # Changelog
 
+## 0.8.0 (2025-07-04)
+
+Full Changelog: [v0.7.0...v0.8.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.7.0...v0.8.0)
+
+### Features
+
+* **api:** api update ([e88fd6c](https://github.com/reductoai/reducto-python-sdk/commit/e88fd6c4458cc467f960864bd5f3c740ffadfd4c))
+* **api:** api update ([35d8b38](https://github.com/reductoai/reducto-python-sdk/commit/35d8b38925535216d21a9e8d369a25688a2cdfe4))
+* **api:** api update ([d4053b0](https://github.com/reductoai/reducto-python-sdk/commit/d4053b06801657b95320244489a545509c3491ff))
+* **api:** api update ([ce291e6](https://github.com/reductoai/reducto-python-sdk/commit/ce291e684276b5f1c983c33d0a6386e79ac1eab0))
+* **client:** add support for aiohttp ([ea80a4c](https://github.com/reductoai/reducto-python-sdk/commit/ea80a4c4c3492f496701bca9f5ce375be4ea5d99))
+
+
+### Bug Fixes
+
+* **ci:** correct conditional ([d078380](https://github.com/reductoai/reducto-python-sdk/commit/d078380d37c120a78ddc469727ba25c18ddd4d5d))
+* **ci:** release-doctor — report correct token name ([5e7895b](https://github.com/reductoai/reducto-python-sdk/commit/5e7895b5f7bb93d03559e8e09bffe039a817b998))
+
+
+### Chores
+
+* **ci:** change upload type ([6e4b30f](https://github.com/reductoai/reducto-python-sdk/commit/6e4b30fd85dcf769dd112cfde31ec370a78db6b6))
+* **ci:** only run for pushes and fork pull requests ([571567c](https://github.com/reductoai/reducto-python-sdk/commit/571567c2bab3a0e8f243eb89674c681e61255fd5))
+* **tests:** skip some failing tests on the latest python versions ([f938fd6](https://github.com/reductoai/reducto-python-sdk/commit/f938fd615b2790a9b78393e03c57608705ddfc31))
+
 ## 0.7.0 (2025-06-20)
 
 Full Changelog: [v0.6.0...v0.7.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.6.0...v0.7.0)
