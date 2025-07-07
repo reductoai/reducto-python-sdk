@@ -68,6 +68,7 @@ class TestExtract:
             },
             experimental_options={
                 "danger_filter_wide_boxes": True,
+                "embed_text_metadata_pdf": True,
                 "enable_checkboxes": True,
                 "enable_equations": True,
                 "enable_scripts": True,
@@ -84,6 +85,7 @@ class TestExtract:
                 "rotate_pages": True,
             },
             generate_citations=True,
+            include_images=True,
             options={
                 "chunking": {
                     "chunk_mode": "variable",
@@ -187,6 +189,7 @@ class TestExtract:
             },
             experimental_options={
                 "danger_filter_wide_boxes": True,
+                "embed_text_metadata_pdf": True,
                 "enable_checkboxes": True,
                 "enable_equations": True,
                 "enable_scripts": True,
@@ -203,6 +206,7 @@ class TestExtract:
                 "rotate_pages": True,
             },
             generate_citations=True,
+            include_images=True,
             options={
                 "chunking": {
                     "chunk_mode": "variable",
@@ -264,7 +268,9 @@ class TestExtract:
 
 
 class TestAsyncExtract:
-    parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
+    parametrize = pytest.mark.parametrize(
+        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
+    )
 
     @pytest.mark.skip()
     @parametrize
@@ -316,6 +322,7 @@ class TestAsyncExtract:
             },
             experimental_options={
                 "danger_filter_wide_boxes": True,
+                "embed_text_metadata_pdf": True,
                 "enable_checkboxes": True,
                 "enable_equations": True,
                 "enable_scripts": True,
@@ -332,6 +339,7 @@ class TestAsyncExtract:
                 "rotate_pages": True,
             },
             generate_citations=True,
+            include_images=True,
             options={
                 "chunking": {
                     "chunk_mode": "variable",
@@ -435,6 +443,7 @@ class TestAsyncExtract:
             },
             experimental_options={
                 "danger_filter_wide_boxes": True,
+                "embed_text_metadata_pdf": True,
                 "enable_checkboxes": True,
                 "enable_equations": True,
                 "enable_scripts": True,
@@ -451,6 +460,7 @@ class TestAsyncExtract:
                 "rotate_pages": True,
             },
             generate_citations=True,
+            include_images=True,
             options={
                 "chunking": {
                     "chunk_mode": "variable",
