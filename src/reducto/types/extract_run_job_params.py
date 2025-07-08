@@ -55,6 +55,9 @@ class ExtractRunJobParams(TypedDict, total=False):
     jobs.
     """
 
+    spreadsheet_agent: bool
+    """If spreadsheet agent should be used for extraction."""
+
     system_prompt: str
     """A system prompt to use for the extraction.
 
