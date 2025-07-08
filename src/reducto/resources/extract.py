@@ -59,6 +59,7 @@ class ExtractResource(SyncAPIResource):
         include_images: bool | NotGiven = NOT_GIVEN,
         options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
         priority: bool | NotGiven = NOT_GIVEN,
+        spreadsheet_agent: bool | NotGiven = NOT_GIVEN,
         system_prompt: str | NotGiven = NOT_GIVEN,
         use_chunking: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -96,6 +97,8 @@ class ExtractResource(SyncAPIResource):
               processing budget available; by default, sync jobs are prioritized above async
               jobs.
 
+          spreadsheet_agent: If spreadsheet agent should be used for extraction.
+
           system_prompt: A system prompt to use for the extraction. This is a general prompt that is
               applied to the entire document before any other prompts.
 
@@ -122,6 +125,7 @@ class ExtractResource(SyncAPIResource):
                     "include_images": include_images,
                     "options": options,
                     "priority": priority,
+                    "spreadsheet_agent": spreadsheet_agent,
                     "system_prompt": system_prompt,
                     "use_chunking": use_chunking,
                 },
@@ -145,6 +149,7 @@ class ExtractResource(SyncAPIResource):
         include_images: bool | NotGiven = NOT_GIVEN,
         options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
         priority: bool | NotGiven = NOT_GIVEN,
+        spreadsheet_agent: bool | NotGiven = NOT_GIVEN,
         system_prompt: str | NotGiven = NOT_GIVEN,
         use_chunking: bool | NotGiven = NOT_GIVEN,
         webhook: WebhookConfigNew | NotGiven = NOT_GIVEN,
@@ -182,6 +187,8 @@ class ExtractResource(SyncAPIResource):
               processing budget available; by default, sync jobs are prioritized above async
               jobs.
 
+          spreadsheet_agent: If spreadsheet agent should be used for extraction.
+
           system_prompt: A system prompt to use for the extraction. This is a general prompt that is
               applied to the entire document before any other prompts.
 
@@ -208,6 +215,7 @@ class ExtractResource(SyncAPIResource):
                     "include_images": include_images,
                     "options": options,
                     "priority": priority,
+                    "spreadsheet_agent": spreadsheet_agent,
                     "system_prompt": system_prompt,
                     "use_chunking": use_chunking,
                     "webhook": webhook,
@@ -253,6 +261,7 @@ class AsyncExtractResource(AsyncAPIResource):
         include_images: bool | NotGiven = NOT_GIVEN,
         options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
         priority: bool | NotGiven = NOT_GIVEN,
+        spreadsheet_agent: bool | NotGiven = NOT_GIVEN,
         system_prompt: str | NotGiven = NOT_GIVEN,
         use_chunking: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -290,6 +299,8 @@ class AsyncExtractResource(AsyncAPIResource):
               processing budget available; by default, sync jobs are prioritized above async
               jobs.
 
+          spreadsheet_agent: If spreadsheet agent should be used for extraction.
+
           system_prompt: A system prompt to use for the extraction. This is a general prompt that is
               applied to the entire document before any other prompts.
 
@@ -316,6 +327,7 @@ class AsyncExtractResource(AsyncAPIResource):
                     "include_images": include_images,
                     "options": options,
                     "priority": priority,
+                    "spreadsheet_agent": spreadsheet_agent,
                     "system_prompt": system_prompt,
                     "use_chunking": use_chunking,
                 },
@@ -339,6 +351,7 @@ class AsyncExtractResource(AsyncAPIResource):
         include_images: bool | NotGiven = NOT_GIVEN,
         options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
         priority: bool | NotGiven = NOT_GIVEN,
+        spreadsheet_agent: bool | NotGiven = NOT_GIVEN,
         system_prompt: str | NotGiven = NOT_GIVEN,
         use_chunking: bool | NotGiven = NOT_GIVEN,
         webhook: WebhookConfigNew | NotGiven = NOT_GIVEN,
@@ -376,6 +389,8 @@ class AsyncExtractResource(AsyncAPIResource):
               processing budget available; by default, sync jobs are prioritized above async
               jobs.
 
+          spreadsheet_agent: If spreadsheet agent should be used for extraction.
+
           system_prompt: A system prompt to use for the extraction. This is a general prompt that is
               applied to the entire document before any other prompts.
 
@@ -402,6 +417,7 @@ class AsyncExtractResource(AsyncAPIResource):
                     "include_images": include_images,
                     "options": options,
                     "priority": priority,
+                    "spreadsheet_agent": spreadsheet_agent,
                     "system_prompt": system_prompt,
                     "use_chunking": use_chunking,
                     "webhook": webhook,

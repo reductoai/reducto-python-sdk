@@ -106,6 +106,7 @@ class TestExtract:
                 },
             },
             priority=True,
+            spreadsheet_agent=True,
             system_prompt="system_prompt",
             use_chunking=True,
         )
@@ -227,6 +228,7 @@ class TestExtract:
                 },
             },
             priority=True,
+            spreadsheet_agent=True,
             system_prompt="system_prompt",
             use_chunking=True,
             webhook={
@@ -360,6 +362,7 @@ class TestAsyncExtract:
                 },
             },
             priority=True,
+            spreadsheet_agent=True,
             system_prompt="system_prompt",
             use_chunking=True,
         )
@@ -481,6 +484,7 @@ class TestAsyncExtract:
                 },
             },
             priority=True,
+            spreadsheet_agent=True,
             system_prompt="system_prompt",
             use_chunking=True,
             webhook={
