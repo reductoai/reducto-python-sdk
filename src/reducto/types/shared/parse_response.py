@@ -74,11 +74,17 @@ class ResultFullResultOcrLine(BaseModel):
 
     text: str
 
+    confidence: Optional[float] = None
+    """OCR confidence score between 0 and 1, where 1 indicates highest confidence"""
+
 
 class ResultFullResultOcrWord(BaseModel):
     bbox: BoundingBox
 
     text: str
+
+    confidence: Optional[float] = None
+    """OCR confidence score between 0 and 1, where 1 indicates highest confidence"""
 
 
 class ResultFullResultOcr(BaseModel):
