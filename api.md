@@ -77,6 +77,19 @@ Methods:
 - <code title="post /extract">client.extract.<a href="./src/reducto/resources/extract.py">run</a>(\*\*<a href="src/reducto/types/extract_run_params.py">params</a>) -> <a href="./src/reducto/types/shared/extract_response.py">ExtractResponse</a></code>
 - <code title="post /extract_async">client.extract.<a href="./src/reducto/resources/extract.py">run_job</a>(\*\*<a href="src/reducto/types/extract_run_job_params.py">params</a>) -> <a href="./src/reducto/types/extract_run_job_response.py">ExtractRunJobResponse</a></code>
 
+# Edit
+
+Types:
+
+```python
+from reducto.types import EditRunResponse, EditRunJobResponse
+```
+
+Methods:
+
+- <code title="post /edit">client.edit.<a href="./src/reducto/resources/edit.py">run</a>(\*\*<a href="src/reducto/types/edit_run_params.py">params</a>) -> <a href="./src/reducto/types/edit_run_response.py">EditRunResponse</a></code>
+- <code title="post /edit_async">client.edit.<a href="./src/reducto/resources/edit.py">run_job</a>(\*\*<a href="src/reducto/types/edit_run_job_params.py">params</a>) -> <a href="./src/reducto/types/edit_run_job_response.py">EditRunJobResponse</a></code>
+
 # Webhook
 
 Types:

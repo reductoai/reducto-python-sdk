@@ -1,5 +1,33 @@
 # Changelog
 
+## 0.9.0 (2025-07-21)
+
+Full Changelog: [v0.8.0...v0.9.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.8.0...v0.9.0)
+
+### Features
+
+* **api:** add edit endpoint ([f67cbea](https://github.com/reductoai/reducto-python-sdk/commit/f67cbea23345d32bb52c5c67bee8cc5a194955ed))
+* **api:** api update ([6e28e0a](https://github.com/reductoai/reducto-python-sdk/commit/6e28e0a812c7ac04fb43e21656f70fa23f6a190c))
+* **api:** api update ([954b9b1](https://github.com/reductoai/reducto-python-sdk/commit/954b9b14a929c87388791706939f76355e0c7801))
+* **api:** api update ([596e69e](https://github.com/reductoai/reducto-python-sdk/commit/596e69e246229b37c45f8b64abead8df2b5a068e))
+* **api:** api update ([aff4c7f](https://github.com/reductoai/reducto-python-sdk/commit/aff4c7f2ccc033b3a3d7938a877218eac34dd5ab))
+* clean up environment call outs ([946c953](https://github.com/reductoai/reducto-python-sdk/commit/946c95358285041c8d39c653b001dd08c05748b9))
+
+
+### Bug Fixes
+
+* **client:** don't send Content-Type header on GET requests ([a5c03a1](https://github.com/reductoai/reducto-python-sdk/commit/a5c03a1ad030080e028cba3bc3170af5e1b70d9b))
+* **parsing:** correctly handle nested discriminated unions ([85fcdd1](https://github.com/reductoai/reducto-python-sdk/commit/85fcdd17a4f77c61397f0e9499bf5c75ea43246c))
+
+
+### Chores
+
+* **internal:** bump pinned h11 dep ([503a1b2](https://github.com/reductoai/reducto-python-sdk/commit/503a1b296449bf03cddac09b4e97823ede459004))
+* **internal:** codegen related update ([818940e](https://github.com/reductoai/reducto-python-sdk/commit/818940ecfa3c9f7a38dc91b1439acccb48ed0ce2))
+* **internal:** version bump ([f41e580](https://github.com/reductoai/reducto-python-sdk/commit/f41e5809ec89958f645316fbf74737b3c3221bdc))
+* **package:** mark python 3.13 as supported ([4bd0a2f](https://github.com/reductoai/reducto-python-sdk/commit/4bd0a2f13f70b25aa3739e59cc11b4034a12f74d))
+* **readme:** fix version rendering on pypi ([988277f](https://github.com/reductoai/reducto-python-sdk/commit/988277fda78944d4141677340874e73d58f0cc15))
+
 ## 0.8.0 (2025-07-04)
 
 Full Changelog: [v0.7.0...v0.8.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.7.0...v0.8.0)

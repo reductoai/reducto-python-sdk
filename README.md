@@ -1,6 +1,7 @@
 # Reducto Python API library
 
-[![PyPI version](<https://img.shields.io/pypi/v/reductoai.svg?label=pypi%20(stable)>)](https://pypi.org/project/reductoai/)
+<!-- prettier-ignore -->
+[![PyPI version](https://img.shields.io/pypi/v/reductoai.svg?label=pypi%20(stable))](https://pypi.org/project/reductoai/)
 
 The Reducto Python library provides convenient access to the Reducto REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
@@ -86,7 +87,6 @@ pip install reductoai[aiohttp]
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
 
 ```python
-import os
 import asyncio
 from reducto import DefaultAioHttpClient
 from reducto import AsyncReducto
@@ -94,7 +94,7 @@ from reducto import AsyncReducto
 
 async def main() -> None:
     async with AsyncReducto(
-        api_key=os.environ.get("REDUCTO_API_KEY"),  # This is the default and can be omitted
+        api_key="My API Key",
         http_client=DefaultAioHttpClient(),
     ) as client:
         parse_response = await client.parse.run(
