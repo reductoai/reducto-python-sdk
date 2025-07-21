@@ -8,6 +8,14 @@ from .job import (
     JobResourceWithStreamingResponse,
     AsyncJobResourceWithStreamingResponse,
 )
+from .edit import (
+    EditResource,
+    AsyncEditResource,
+    EditResourceWithRawResponse,
+    AsyncEditResourceWithRawResponse,
+    EditResourceWithStreamingResponse,
+    AsyncEditResourceWithStreamingResponse,
+)
 from .parse import (
     ParseResource,
     AsyncParseResource,
@@ -66,6 +74,12 @@ __all__ = [
     "AsyncExtractResourceWithRawResponse",
     "ExtractResourceWithStreamingResponse",
     "AsyncExtractResourceWithStreamingResponse",
+    "EditResource",
+    "AsyncEditResource",
+    "EditResourceWithRawResponse",
+    "AsyncEditResourceWithRawResponse",
+    "EditResourceWithStreamingResponse",
+    "AsyncEditResourceWithStreamingResponse",
     "WebhookResource",
     "AsyncWebhookResource",
     "WebhookResourceWithRawResponse",
