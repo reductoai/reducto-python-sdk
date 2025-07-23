@@ -1,7 +1,9 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Dict, Optional
 from typing_extensions import Literal
+
+from pydantic import Field as FieldInfo
 
 from ..._models import BaseModel
 
@@ -85,6 +87,7 @@ class ExperimentalProcessingOptions(BaseModel):
     rotate_pages: Optional[bool] = None
     """Use an orientation model to detect and rotate pages as needed, defaults to True"""
 
+    __pydantic_extra__: Dict[str, object] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
     if TYPE_CHECKING:
         # Stub to indicate that arbitrary properties are accepted.
         # To access properties that are not valid identifiers you can use `getattr`, e.g.
