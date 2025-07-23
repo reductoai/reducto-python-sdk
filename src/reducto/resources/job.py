@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing import Any, cast
+
 import httpx
 
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
@@ -97,12 +99,15 @@ class JobResource(SyncAPIResource):
         """
         if not job_id:
             raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
-        return self._get(
-            f"/job/{job_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+        return cast(
+            JobGetResponse,
+            self._get(
+                f"/job/{job_id}",
+                options=make_request_options(
+                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                ),
+                cast_to=cast(Any, JobGetResponse),  # Union types cannot be passed in as arguments in the type system
             ),
-            cast_to=JobGetResponse,
         )
 
 
@@ -184,12 +189,15 @@ class AsyncJobResource(AsyncAPIResource):
         """
         if not job_id:
             raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
-        return await self._get(
-            f"/job/{job_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+        return cast(
+            JobGetResponse,
+            await self._get(
+                f"/job/{job_id}",
+                options=make_request_options(
+                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                ),
+                cast_to=cast(Any, JobGetResponse),  # Union types cannot be passed in as arguments in the type system
             ),
-            cast_to=JobGetResponse,
         )
 
 

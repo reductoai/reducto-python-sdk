@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Union
+from typing import Union
 from typing_extensions import Required, TypeAlias, TypedDict
 
 from .shared_params.upload import Upload
@@ -31,9 +31,6 @@ class EditRunParams(TypedDict, total=False):
     processing budget available; by default, sync jobs are prioritized above async
     jobs.
     """
-
-    snippets: List[str]
-    """List of text snippets that can be reused throughout the document."""
 
 
 DocumentURL: TypeAlias = Union[str, Upload]

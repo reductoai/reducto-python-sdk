@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing import List
-
 import httpx
 
 from ..types import edit_run_params, edit_run_job_params
@@ -52,7 +50,6 @@ class EditResource(SyncAPIResource):
         edit_instructions: str,
         edit_options: edit_run_params.EditOptions | NotGiven = NOT_GIVEN,
         priority: bool | NotGiven = NOT_GIVEN,
-        snippets: List[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -79,8 +76,6 @@ class EditResource(SyncAPIResource):
               processing budget available; by default, sync jobs are prioritized above async
               jobs.
 
-          snippets: List of text snippets that can be reused throughout the document.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -97,7 +92,6 @@ class EditResource(SyncAPIResource):
                     "edit_instructions": edit_instructions,
                     "edit_options": edit_options,
                     "priority": priority,
-                    "snippets": snippets,
                 },
                 edit_run_params.EditRunParams,
             ),
@@ -114,7 +108,6 @@ class EditResource(SyncAPIResource):
         edit_instructions: str,
         edit_options: edit_run_job_params.EditOptions | NotGiven = NOT_GIVEN,
         priority: bool | NotGiven = NOT_GIVEN,
-        snippets: List[str] | NotGiven = NOT_GIVEN,
         webhook: WebhookConfigNew | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -142,8 +135,6 @@ class EditResource(SyncAPIResource):
               processing budget available; by default, sync jobs are prioritized above async
               jobs.
 
-          snippets: List of text snippets that can be reused throughout the document.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -160,7 +151,6 @@ class EditResource(SyncAPIResource):
                     "edit_instructions": edit_instructions,
                     "edit_options": edit_options,
                     "priority": priority,
-                    "snippets": snippets,
                     "webhook": webhook,
                 },
                 edit_run_job_params.EditRunJobParams,
@@ -199,7 +189,6 @@ class AsyncEditResource(AsyncAPIResource):
         edit_instructions: str,
         edit_options: edit_run_params.EditOptions | NotGiven = NOT_GIVEN,
         priority: bool | NotGiven = NOT_GIVEN,
-        snippets: List[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -226,8 +215,6 @@ class AsyncEditResource(AsyncAPIResource):
               processing budget available; by default, sync jobs are prioritized above async
               jobs.
 
-          snippets: List of text snippets that can be reused throughout the document.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -244,7 +231,6 @@ class AsyncEditResource(AsyncAPIResource):
                     "edit_instructions": edit_instructions,
                     "edit_options": edit_options,
                     "priority": priority,
-                    "snippets": snippets,
                 },
                 edit_run_params.EditRunParams,
             ),
@@ -261,7 +247,6 @@ class AsyncEditResource(AsyncAPIResource):
         edit_instructions: str,
         edit_options: edit_run_job_params.EditOptions | NotGiven = NOT_GIVEN,
         priority: bool | NotGiven = NOT_GIVEN,
-        snippets: List[str] | NotGiven = NOT_GIVEN,
         webhook: WebhookConfigNew | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -289,8 +274,6 @@ class AsyncEditResource(AsyncAPIResource):
               processing budget available; by default, sync jobs are prioritized above async
               jobs.
 
-          snippets: List of text snippets that can be reused throughout the document.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -307,7 +290,6 @@ class AsyncEditResource(AsyncAPIResource):
                     "edit_instructions": edit_instructions,
                     "edit_options": edit_options,
                     "priority": priority,
-                    "snippets": snippets,
                     "webhook": webhook,
                 },
                 edit_run_job_params.EditRunJobParams,
