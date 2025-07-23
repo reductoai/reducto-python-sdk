@@ -34,7 +34,6 @@ class TestEdit:
             edit_instructions="edit_instructions",
             edit_options={"color": "#e1cb97"},
             priority=True,
-            snippets=["string"],
         )
         assert_matches_type(EditRunResponse, edit, path=["response"])
 
@@ -83,7 +82,6 @@ class TestEdit:
             edit_instructions="edit_instructions",
             edit_options={"color": "#e1cb97"},
             priority=True,
-            snippets=["string"],
             webhook={
                 "channels": ["string"],
                 "metadata": {},
@@ -144,7 +142,6 @@ class TestAsyncEdit:
             edit_instructions="edit_instructions",
             edit_options={"color": "#e1cb97"},
             priority=True,
-            snippets=["string"],
         )
         assert_matches_type(EditRunResponse, edit, path=["response"])
 
@@ -193,7 +190,6 @@ class TestAsyncEdit:
             edit_instructions="edit_instructions",
             edit_options={"color": "#e1cb97"},
             priority=True,
-            snippets=["string"],
             webhook={
                 "channels": ["string"],
                 "metadata": {},
