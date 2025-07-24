@@ -59,6 +59,8 @@ class EnhancedAsyncJobResponse(BaseModel):
 
     progress: Optional[float] = None
 
+    raw_config: Optional[str] = None
+
     reason: Optional[str] = None
 
     result: Optional[EnhancedAsyncJobResponseResult] = None
