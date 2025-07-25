@@ -61,6 +61,12 @@ class AdvancedProcessingOptions(BaseModel):
     force_file_extension: Optional[str] = None
     """Force the URL to be downloaded as a specific file extension (e.g. .png)."""
 
+    include_color_information: Optional[bool] = None
+    """
+    If True, preserve Excel cell colours in the extracted spreadsheet text using
+    LaTeX colour commands.
+    """
+
     keep_line_breaks: Optional[bool] = None
     """If line breaks should be preserved in the text."""
 
