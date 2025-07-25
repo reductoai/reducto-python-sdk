@@ -42,6 +42,7 @@ class TestExtract:
                 "exclude_hidden_sheets": True,
                 "filter_line_numbers": True,
                 "force_file_extension": "force_file_extension",
+                "include_color_information": True,
                 "keep_line_breaks": True,
                 "large_table_chunking": {
                     "enabled": True,
@@ -164,6 +165,7 @@ class TestExtract:
                 "exclude_hidden_sheets": True,
                 "filter_line_numbers": True,
                 "force_file_extension": "force_file_extension",
+                "include_color_information": True,
                 "keep_line_breaks": True,
                 "large_table_chunking": {
                     "enabled": True,
@@ -298,6 +300,7 @@ class TestAsyncExtract:
                 "exclude_hidden_sheets": True,
                 "filter_line_numbers": True,
                 "force_file_extension": "force_file_extension",
+                "include_color_information": True,
                 "keep_line_breaks": True,
                 "large_table_chunking": {
                     "enabled": True,
@@ -420,6 +423,7 @@ class TestAsyncExtract:
                 "exclude_hidden_sheets": True,
                 "filter_line_numbers": True,
                 "force_file_extension": "force_file_extension",
+                "include_color_information": True,
                 "keep_line_breaks": True,
                 "large_table_chunking": {
                     "enabled": True,
