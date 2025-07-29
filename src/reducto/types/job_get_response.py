@@ -1,10 +1,11 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Union, Optional
+from typing import List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, TypeAlias
 
 from .._models import BaseModel
+from .shared.bounding_box import BoundingBox
 from .shared.parse_response import ParseResponse
 from .shared.split_response import SplitResponse
 from .shared.extract_response import ExtractResponse
@@ -14,14 +15,26 @@ __all__ = [
     "AsyncJobResponse",
     "AsyncJobResponseResult",
     "AsyncJobResponseResultEditResponse",
+    "AsyncJobResponseResultEditResponseFormSchema",
     "EnhancedAsyncJobResponse",
     "EnhancedAsyncJobResponseResult",
     "EnhancedAsyncJobResponseResultEditResponse",
+    "EnhancedAsyncJobResponseResultEditResponseFormSchema",
 ]
+
+
+class AsyncJobResponseResultEditResponseFormSchema(BaseModel):
+    bbox: BoundingBox
+
+    description: str
+
+    type: Literal["text", "checkbox", "dropdown", "barcode"]
 
 
 class AsyncJobResponseResultEditResponse(BaseModel):
     document_url: str
+
+    form_schema: Optional[List[AsyncJobResponseResultEditResponseFormSchema]] = None
 
 
 AsyncJobResponseResult: TypeAlias = Union[
@@ -39,8 +52,18 @@ class AsyncJobResponse(BaseModel):
     result: Optional[AsyncJobResponseResult] = None
 
 
+class EnhancedAsyncJobResponseResultEditResponseFormSchema(BaseModel):
+    bbox: BoundingBox
+
+    description: str
+
+    type: Literal["text", "checkbox", "dropdown", "barcode"]
+
+
 class EnhancedAsyncJobResponseResultEditResponse(BaseModel):
     document_url: str
+
+    form_schema: Optional[List[EnhancedAsyncJobResponseResultEditResponseFormSchema]] = None
 
 
 EnhancedAsyncJobResponseResult: TypeAlias = Union[

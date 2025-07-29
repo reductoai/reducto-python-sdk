@@ -33,6 +33,20 @@ class TestEdit:
             document_url="string",
             edit_instructions="edit_instructions",
             edit_options={"color": "#e1cb97"},
+            form_schema=[
+                {
+                    "bbox": {
+                        "height": 0,
+                        "left": 0,
+                        "page": 0,
+                        "top": 0,
+                        "width": 0,
+                        "original_page": 0,
+                    },
+                    "description": "description",
+                    "type": "text",
+                }
+            ],
             priority=True,
         )
         assert_matches_type(EditRunResponse, edit, path=["response"])
@@ -81,6 +95,20 @@ class TestEdit:
             document_url="string",
             edit_instructions="edit_instructions",
             edit_options={"color": "#e1cb97"},
+            form_schema=[
+                {
+                    "bbox": {
+                        "height": 0,
+                        "left": 0,
+                        "page": 0,
+                        "top": 0,
+                        "width": 0,
+                        "original_page": 0,
+                    },
+                    "description": "description",
+                    "type": "text",
+                }
+            ],
             priority=True,
             webhook={
                 "channels": ["string"],
@@ -141,6 +169,20 @@ class TestAsyncEdit:
             document_url="string",
             edit_instructions="edit_instructions",
             edit_options={"color": "#e1cb97"},
+            form_schema=[
+                {
+                    "bbox": {
+                        "height": 0,
+                        "left": 0,
+                        "page": 0,
+                        "top": 0,
+                        "width": 0,
+                        "original_page": 0,
+                    },
+                    "description": "description",
+                    "type": "text",
+                }
+            ],
             priority=True,
         )
         assert_matches_type(EditRunResponse, edit, path=["response"])
@@ -189,6 +231,20 @@ class TestAsyncEdit:
             document_url="string",
             edit_instructions="edit_instructions",
             edit_options={"color": "#e1cb97"},
+            form_schema=[
+                {
+                    "bbox": {
+                        "height": 0,
+                        "left": 0,
+                        "page": 0,
+                        "top": 0,
+                        "width": 0,
+                        "original_page": 0,
+                    },
+                    "description": "description",
+                    "type": "text",
+                }
+            ],
             priority=True,
             webhook={
                 "channels": ["string"],

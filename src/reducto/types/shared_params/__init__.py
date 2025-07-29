@@ -2,6 +2,7 @@
 
 from .upload import Upload as Upload
 from .page_range import PageRange as PageRange
+from .bounding_box import BoundingBox as BoundingBox
 from .split_category import SplitCategory as SplitCategory
 from .webhook_config_new import WebhookConfigNew as WebhookConfigNew
 from .array_extract_config import ArrayExtractConfig as ArrayExtractConfig
