@@ -282,7 +282,9 @@ class Reducto(SyncAPIClient):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        body = deepcopy_minimal({"file": file})
+        body = deepcopy_minimal({})
+        if file is not NOT_GIVEN:
+            body["file"] = file
         files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
         # It should be noted that the actual Content-Type header that will be
         # sent to the server will contain a `boundary` parameter, e.g.
@@ -549,7 +551,9 @@ class AsyncReducto(AsyncAPIClient):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        body = deepcopy_minimal({"file": file})
+        body = deepcopy_minimal({})
+        if file is not NOT_GIVEN:
+            body["file"] = file
         files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
         # It should be noted that the actual Content-Type header that will be
         # sent to the server will contain a `boundary` parameter, e.g.
