@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List
+from typing import Iterable, Optional
 
 import httpx
 
@@ -51,8 +51,8 @@ class EditResource(SyncAPIResource):
         document_url: edit_run_params.DocumentURL,
         edit_instructions: str,
         edit_options: edit_run_params.EditOptions | NotGiven = NOT_GIVEN,
+        form_schema: Optional[Iterable[edit_run_params.FormSchema]] | NotGiven = NOT_GIVEN,
         priority: bool | NotGiven = NOT_GIVEN,
-        snippets: List[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -75,11 +75,12 @@ class EditResource(SyncAPIResource):
 
           edit_instructions: The instructions for the edit.
 
+          form_schema: Form schema for PDF forms. List of widgets with their types, descriptions, and
+              bounding boxes. Only works for PDFs.
+
           priority: If True, attempts to process the job with priority if the user has priority
               processing budget available; by default, sync jobs are prioritized above async
               jobs.
-
-          snippets: List of text snippets that can be reused throughout the document.
 
           extra_headers: Send extra headers
 
@@ -96,8 +97,8 @@ class EditResource(SyncAPIResource):
                     "document_url": document_url,
                     "edit_instructions": edit_instructions,
                     "edit_options": edit_options,
+                    "form_schema": form_schema,
                     "priority": priority,
-                    "snippets": snippets,
                 },
                 edit_run_params.EditRunParams,
             ),
@@ -113,8 +114,8 @@ class EditResource(SyncAPIResource):
         document_url: edit_run_job_params.DocumentURL,
         edit_instructions: str,
         edit_options: edit_run_job_params.EditOptions | NotGiven = NOT_GIVEN,
+        form_schema: Optional[Iterable[edit_run_job_params.FormSchema]] | NotGiven = NOT_GIVEN,
         priority: bool | NotGiven = NOT_GIVEN,
-        snippets: List[str] | NotGiven = NOT_GIVEN,
         webhook: WebhookConfigNew | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -138,11 +139,12 @@ class EditResource(SyncAPIResource):
 
           edit_instructions: The instructions for the edit.
 
+          form_schema: Form schema for PDF forms. List of widgets with their types, descriptions, and
+              bounding boxes. Only works for PDFs.
+
           priority: If True, attempts to process the job with priority if the user has priority
               processing budget available; by default, sync jobs are prioritized above async
               jobs.
-
-          snippets: List of text snippets that can be reused throughout the document.
 
           extra_headers: Send extra headers
 
@@ -159,8 +161,8 @@ class EditResource(SyncAPIResource):
                     "document_url": document_url,
                     "edit_instructions": edit_instructions,
                     "edit_options": edit_options,
+                    "form_schema": form_schema,
                     "priority": priority,
-                    "snippets": snippets,
                     "webhook": webhook,
                 },
                 edit_run_job_params.EditRunJobParams,
@@ -198,8 +200,8 @@ class AsyncEditResource(AsyncAPIResource):
         document_url: edit_run_params.DocumentURL,
         edit_instructions: str,
         edit_options: edit_run_params.EditOptions | NotGiven = NOT_GIVEN,
+        form_schema: Optional[Iterable[edit_run_params.FormSchema]] | NotGiven = NOT_GIVEN,
         priority: bool | NotGiven = NOT_GIVEN,
-        snippets: List[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -222,11 +224,12 @@ class AsyncEditResource(AsyncAPIResource):
 
           edit_instructions: The instructions for the edit.
 
+          form_schema: Form schema for PDF forms. List of widgets with their types, descriptions, and
+              bounding boxes. Only works for PDFs.
+
           priority: If True, attempts to process the job with priority if the user has priority
               processing budget available; by default, sync jobs are prioritized above async
               jobs.
-
-          snippets: List of text snippets that can be reused throughout the document.
 
           extra_headers: Send extra headers
 
@@ -243,8 +246,8 @@ class AsyncEditResource(AsyncAPIResource):
                     "document_url": document_url,
                     "edit_instructions": edit_instructions,
                     "edit_options": edit_options,
+                    "form_schema": form_schema,
                     "priority": priority,
-                    "snippets": snippets,
                 },
                 edit_run_params.EditRunParams,
             ),
@@ -260,8 +263,8 @@ class AsyncEditResource(AsyncAPIResource):
         document_url: edit_run_job_params.DocumentURL,
         edit_instructions: str,
         edit_options: edit_run_job_params.EditOptions | NotGiven = NOT_GIVEN,
+        form_schema: Optional[Iterable[edit_run_job_params.FormSchema]] | NotGiven = NOT_GIVEN,
         priority: bool | NotGiven = NOT_GIVEN,
-        snippets: List[str] | NotGiven = NOT_GIVEN,
         webhook: WebhookConfigNew | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -285,11 +288,12 @@ class AsyncEditResource(AsyncAPIResource):
 
           edit_instructions: The instructions for the edit.
 
+          form_schema: Form schema for PDF forms. List of widgets with their types, descriptions, and
+              bounding boxes. Only works for PDFs.
+
           priority: If True, attempts to process the job with priority if the user has priority
               processing budget available; by default, sync jobs are prioritized above async
               jobs.
-
-          snippets: List of text snippets that can be reused throughout the document.
 
           extra_headers: Send extra headers
 
@@ -306,8 +310,8 @@ class AsyncEditResource(AsyncAPIResource):
                     "document_url": document_url,
                     "edit_instructions": edit_instructions,
                     "edit_options": edit_options,
+                    "form_schema": form_schema,
                     "priority": priority,
-                    "snippets": snippets,
                     "webhook": webhook,
                 },
                 edit_run_job_params.EditRunJobParams,

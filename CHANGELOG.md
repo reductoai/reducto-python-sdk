@@ -1,5 +1,31 @@
 # Changelog
 
+## 0.10.0 (2025-08-05)
+
+Full Changelog: [v0.9.0...v0.10.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.9.0...v0.10.0)
+
+### Features
+
+* **api:** api update ([f4729e7](https://github.com/reductoai/reducto-python-sdk/commit/f4729e75b14a183d5d1b149462b57d60f3422664))
+* **api:** api update ([1aecd8c](https://github.com/reductoai/reducto-python-sdk/commit/1aecd8c14e04ce303d89f9836c53535a846a0ac3))
+* **api:** api update ([0b681c6](https://github.com/reductoai/reducto-python-sdk/commit/0b681c62d2af13122278997f6e69cb26d924b8f1))
+* **api:** api update ([49b78e3](https://github.com/reductoai/reducto-python-sdk/commit/49b78e3676539613da763948501c0440d43464f0))
+* **api:** api update ([5dca002](https://github.com/reductoai/reducto-python-sdk/commit/5dca00234d23889a2651d4ba548b45a244a8685f))
+* **api:** manual updates ([0bc45db](https://github.com/reductoai/reducto-python-sdk/commit/0bc45dbaab3fe20f07bd939cfa54bb9025ebc24c))
+* **client:** support file upload requests ([591d2a9](https://github.com/reductoai/reducto-python-sdk/commit/591d2a98324d60089ec452dcb1bad295aefdf103))
+
+
+### Bug Fixes
+
+* make file parameter optional in upload method for presigned URL support ([#66](https://github.com/reductoai/reducto-python-sdk/issues/66)) ([5f7060d](https://github.com/reductoai/reducto-python-sdk/commit/5f7060da2af427a1567be05789a5b776b0300dff))
+* **parsing:** ignore empty metadata ([b572c21](https://github.com/reductoai/reducto-python-sdk/commit/b572c216b11ad81db6ef82ca7bb0da4725d11423))
+* **parsing:** parse extra field types ([45461eb](https://github.com/reductoai/reducto-python-sdk/commit/45461eb0465b9933c828d8ad138952ca2222f539))
+
+
+### Chores
+
+* **project:** add settings file for vscode ([6bd9d30](https://github.com/reductoai/reducto-python-sdk/commit/6bd9d30367714341c832834ebcecb1471dd9fff1))
+
 ## 0.9.0 (2025-07-21)
 
 Full Changelog: [v0.8.0...v0.9.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.8.0...v0.9.0)

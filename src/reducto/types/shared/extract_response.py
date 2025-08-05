@@ -27,3 +27,6 @@ class ExtractResponse(BaseModel):
     """
 
     usage: Usage
+
+    studio_link: Optional[str] = None
+    """The link to the studio pipeline for the document."""
