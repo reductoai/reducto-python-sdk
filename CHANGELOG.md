@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.10.1 (2025-08-06)
+
+Full Changelog: [v0.10.0...v0.10.1](https://github.com/reductoai/reducto-python-sdk/compare/v0.10.0...v0.10.1)
+
+### Features
+
+* **api:** manual updates ([84d712f](https://github.com/reductoai/reducto-python-sdk/commit/84d712f7c41de48efafc43bbb8cd86bac77c600f))
+
+
+### Chores
+
+* **internal:** fix ruff target version ([8a8565c](https://github.com/reductoai/reducto-python-sdk/commit/8a8565c625035fcee31727b38d09131912fa5fb3))
+
 ## 0.10.0 (2025-08-05)
 
 Full Changelog: [v0.9.0...v0.10.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.9.0...v0.10.0)
