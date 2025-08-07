@@ -90,6 +90,8 @@ class EnhancedAsyncJobResponse(BaseModel):
 
     source: Optional[object] = None
 
+    total_pages: Optional[int] = None
+
     type: Optional[Literal["Parse", "Extract", "Split", "Edit"]] = None
 
 
