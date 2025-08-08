@@ -48,6 +48,8 @@ class EditOptions(TypedDict, total=False):
     color: str
     """The color to use for edits, in hex format."""
 
+    llm_provider_preference: Literal["openai", "anthropic", "gemini"]
+
 
 class FormSchema(TypedDict, total=False):
     bbox: Required[BoundingBox]
