@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.11.0 (2025-08-09)
+
+Full Changelog: [v0.10.1...v0.11.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.10.1...v0.11.0)
+
+### Features
+
+* **api:** api update ([4c9ce50](https://github.com/reductoai/reducto-python-sdk/commit/4c9ce5066b596549077f8fdd381ba4e0c96f79d7))
+* **api:** api update ([a58b0d9](https://github.com/reductoai/reducto-python-sdk/commit/a58b0d9a11d8bd6995183ffe4f7dd2d7cbb959ae))
+* **api:** api update ([f149270](https://github.com/reductoai/reducto-python-sdk/commit/f1492708a567e8c6bf0b356a2930aa52c83bc94d))
+
+
+### Chores
+
+* **internal:** update comment in script ([91983c6](https://github.com/reductoai/reducto-python-sdk/commit/91983c6457a357112d8e64ef9b67e1b0474ed0b9))
+* update @stainless-api/prism-cli to v5.15.0 ([1ab5a9c](https://github.com/reductoai/reducto-python-sdk/commit/1ab5a9c0064749016894e84be492131e12fa2c80))
+
 ## 0.10.1 (2025-08-06)
 
 Full Changelog: [v0.10.0...v0.10.1](https://github.com/reductoai/reducto-python-sdk/compare/v0.10.0...v0.10.1)
