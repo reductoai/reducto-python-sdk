@@ -83,10 +83,11 @@ class AdvancedProcessingOptions(TypedDict, total=False):
     be merged across breaks and spaces.
     """
 
-    ocr_system: Literal["highres", "multilingual", "combined"]
+    ocr_system: Literal["highres", "multilingual", "combined", "legacy"]
     """The OCR system to use.
 
-    Highres is recommended for documents with English characters.
+    Highres is recommended for documents with English characters. Legacy uses an
+    alternative OCR backend.
     """
 
     page_range: PageRange
