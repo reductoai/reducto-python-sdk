@@ -32,7 +32,10 @@ class TestEdit:
         edit = client.edit.run(
             document_url="string",
             edit_instructions="edit_instructions",
-            edit_options={"color": "#e1cb97"},
+            edit_options={
+                "color": "#e1cb97",
+                "llm_provider_preference": "openai",
+            },
             form_schema=[
                 {
                     "bbox": {
@@ -94,7 +97,10 @@ class TestEdit:
         edit = client.edit.run_job(
             document_url="string",
             edit_instructions="edit_instructions",
-            edit_options={"color": "#e1cb97"},
+            edit_options={
+                "color": "#e1cb97",
+                "llm_provider_preference": "openai",
+            },
             form_schema=[
                 {
                     "bbox": {
@@ -168,7 +174,10 @@ class TestAsyncEdit:
         edit = await async_client.edit.run(
             document_url="string",
             edit_instructions="edit_instructions",
-            edit_options={"color": "#e1cb97"},
+            edit_options={
+                "color": "#e1cb97",
+                "llm_provider_preference": "openai",
+            },
             form_schema=[
                 {
                     "bbox": {
@@ -230,7 +239,10 @@ class TestAsyncEdit:
         edit = await async_client.edit.run_job(
             document_url="string",
             edit_instructions="edit_instructions",
-            edit_options={"color": "#e1cb97"},
+            edit_options={
+                "color": "#e1cb97",
+                "llm_provider_preference": "openai",
+            },
             form_schema=[
                 {
                     "bbox": {
