@@ -18,7 +18,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestSplit:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_run(self, client: Reducto) -> None:
         split = client.split.run(
@@ -32,7 +32,7 @@ class TestSplit:
         )
         assert_matches_type(SplitResponse, split, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_run_with_all_params(self, client: Reducto) -> None:
         split = client.split.run(
@@ -114,7 +114,7 @@ class TestSplit:
         )
         assert_matches_type(SplitResponse, split, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_run(self, client: Reducto) -> None:
         response = client.split.with_raw_response.run(
@@ -132,7 +132,7 @@ class TestSplit:
         split = response.parse()
         assert_matches_type(SplitResponse, split, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_run(self, client: Reducto) -> None:
         with client.split.with_streaming_response.run(
@@ -152,7 +152,7 @@ class TestSplit:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_run_job(self, client: Reducto) -> None:
         split = client.split.run_job(
@@ -166,7 +166,7 @@ class TestSplit:
         )
         assert_matches_type(SplitRunJobResponse, split, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_run_job_with_all_params(self, client: Reducto) -> None:
         split = client.split.run_job(
@@ -254,7 +254,7 @@ class TestSplit:
         )
         assert_matches_type(SplitRunJobResponse, split, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_run_job(self, client: Reducto) -> None:
         response = client.split.with_raw_response.run_job(
@@ -272,7 +272,7 @@ class TestSplit:
         split = response.parse()
         assert_matches_type(SplitRunJobResponse, split, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_run_job(self, client: Reducto) -> None:
         with client.split.with_streaming_response.run_job(
@@ -298,7 +298,7 @@ class TestAsyncSplit:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_run(self, async_client: AsyncReducto) -> None:
         split = await async_client.split.run(
@@ -312,7 +312,7 @@ class TestAsyncSplit:
         )
         assert_matches_type(SplitResponse, split, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_run_with_all_params(self, async_client: AsyncReducto) -> None:
         split = await async_client.split.run(
@@ -394,7 +394,7 @@ class TestAsyncSplit:
         )
         assert_matches_type(SplitResponse, split, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_run(self, async_client: AsyncReducto) -> None:
         response = await async_client.split.with_raw_response.run(
@@ -412,7 +412,7 @@ class TestAsyncSplit:
         split = await response.parse()
         assert_matches_type(SplitResponse, split, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_run(self, async_client: AsyncReducto) -> None:
         async with async_client.split.with_streaming_response.run(
@@ -432,7 +432,7 @@ class TestAsyncSplit:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_run_job(self, async_client: AsyncReducto) -> None:
         split = await async_client.split.run_job(
@@ -446,7 +446,7 @@ class TestAsyncSplit:
         )
         assert_matches_type(SplitRunJobResponse, split, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_run_job_with_all_params(self, async_client: AsyncReducto) -> None:
         split = await async_client.split.run_job(
@@ -534,7 +534,7 @@ class TestAsyncSplit:
         )
         assert_matches_type(SplitRunJobResponse, split, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_run_job(self, async_client: AsyncReducto) -> None:
         response = await async_client.split.with_raw_response.run_job(
@@ -552,7 +552,7 @@ class TestAsyncSplit:
         split = await response.parse()
         assert_matches_type(SplitRunJobResponse, split, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_run_job(self, async_client: AsyncReducto) -> None:
         async with async_client.split.with_streaming_response.run_job(
