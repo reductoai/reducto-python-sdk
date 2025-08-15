@@ -60,3 +60,9 @@ class FormSchema(TypedDict, total=False):
 
     type: Required[Literal["text", "checkbox", "dropdown", "barcode"]]
     """Type of the form widget"""
+
+    fill: bool
+    """If True (default), the system will attempt to fill this widget.
+
+    If False, the widget will be created but intentionally left unfilled.
+    """
