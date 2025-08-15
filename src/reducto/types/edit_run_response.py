@@ -16,6 +16,12 @@ class FormSchema(BaseModel):
 
     type: Literal["text", "checkbox", "dropdown", "barcode"]
 
+    fill: Optional[bool] = None
+    """If True (default), the system will attempt to fill this widget.
+
+    If False, the widget will be created but intentionally left unfilled.
+    """
+
 
 class EditRunResponse(BaseModel):
     document_url: str

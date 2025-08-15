@@ -68,6 +68,12 @@ class AdvancedProcessingOptions(TypedDict, total=False):
     LaTeX colour commands.
     """
 
+    include_formula_information: bool
+    """
+    If True, preserve formula information in spreadsheet cells by wrapping text with
+    LaTeX formula commands during parsing.
+    """
+
     keep_line_breaks: bool
     """If line breaks should be preserved in the text."""
 

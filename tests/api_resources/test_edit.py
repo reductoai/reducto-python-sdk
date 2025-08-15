@@ -48,6 +48,7 @@ class TestEdit:
                     },
                     "description": "description",
                     "type": "text",
+                    "fill": True,
                 }
             ],
             priority=True,
@@ -113,6 +114,7 @@ class TestEdit:
                     },
                     "description": "description",
                     "type": "text",
+                    "fill": True,
                 }
             ],
             priority=True,
@@ -190,6 +192,7 @@ class TestAsyncEdit:
                     },
                     "description": "description",
                     "type": "text",
+                    "fill": True,
                 }
             ],
             priority=True,
@@ -255,6 +258,7 @@ class TestAsyncEdit:
                     },
                     "description": "description",
                     "type": "text",
+                    "fill": True,
                 }
             ],
             priority=True,

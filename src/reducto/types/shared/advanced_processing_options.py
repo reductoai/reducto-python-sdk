@@ -67,6 +67,12 @@ class AdvancedProcessingOptions(BaseModel):
     LaTeX colour commands.
     """
 
+    include_formula_information: Optional[bool] = None
+    """
+    If True, preserve formula information in spreadsheet cells by wrapping text with
+    LaTeX formula commands during parsing.
+    """
+
     keep_line_breaks: Optional[bool] = None
     """If line breaks should be preserved in the text."""
 
