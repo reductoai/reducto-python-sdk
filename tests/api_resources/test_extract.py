@@ -68,6 +68,7 @@ class TestExtract:
                 "pages_per_segment": 0,
                 "streaming_extract_item_density": 0,
             },
+            citations_options={"numerical_confidence": True},
             experimental_options={
                 "danger_filter_wide_boxes": True,
                 "embed_text_metadata_pdf": True,
@@ -86,6 +87,7 @@ class TestExtract:
                 "rotate_figures": True,
                 "rotate_pages": True,
             },
+            experimental_table_citations=True,
             generate_citations=True,
             include_images=True,
             options={
@@ -192,6 +194,7 @@ class TestExtract:
                 "pages_per_segment": 0,
                 "streaming_extract_item_density": 0,
             },
+            citations_options={"numerical_confidence": True},
             experimental_options={
                 "danger_filter_wide_boxes": True,
                 "embed_text_metadata_pdf": True,
@@ -210,6 +213,7 @@ class TestExtract:
                 "rotate_figures": True,
                 "rotate_pages": True,
             },
+            experimental_table_citations=True,
             generate_citations=True,
             include_images=True,
             options={
@@ -328,6 +332,7 @@ class TestAsyncExtract:
                 "pages_per_segment": 0,
                 "streaming_extract_item_density": 0,
             },
+            citations_options={"numerical_confidence": True},
             experimental_options={
                 "danger_filter_wide_boxes": True,
                 "embed_text_metadata_pdf": True,
@@ -346,6 +351,7 @@ class TestAsyncExtract:
                 "rotate_figures": True,
                 "rotate_pages": True,
             },
+            experimental_table_citations=True,
             generate_citations=True,
             include_images=True,
             options={
@@ -452,6 +458,7 @@ class TestAsyncExtract:
                 "pages_per_segment": 0,
                 "streaming_extract_item_density": 0,
             },
+            citations_options={"numerical_confidence": True},
             experimental_options={
                 "danger_filter_wide_boxes": True,
                 "embed_text_metadata_pdf": True,
@@ -470,6 +477,7 @@ class TestAsyncExtract:
                 "rotate_figures": True,
                 "rotate_pages": True,
             },
+            experimental_table_citations=True,
             generate_citations=True,
             include_images=True,
             options={

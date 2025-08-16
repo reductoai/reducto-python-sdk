@@ -11,7 +11,7 @@ from .shared_params.base_processing_options import BaseProcessingOptions
 from .shared_params.advanced_processing_options import AdvancedProcessingOptions
 from .shared_params.experimental_processing_options import ExperimentalProcessingOptions
 
-__all__ = ["ExtractRunParams", "DocumentURL"]
+__all__ = ["ExtractRunParams", "DocumentURL", "CitationsOptions"]
 
 
 class ExtractRunParams(TypedDict, total=False):
@@ -34,7 +34,13 @@ class ExtractRunParams(TypedDict, total=False):
     array_extract: ArrayExtractConfig
     """The configuration options for array extract"""
 
+    citations_options: CitationsOptions
+    """The configuration options for citations."""
+
     experimental_options: ExperimentalProcessingOptions
+
+    experimental_table_citations: bool
+    """If table citations should be generated for the extracted content."""
 
     generate_citations: bool
     """If citations should be generated for the extracted content."""
@@ -69,3 +75,8 @@ class ExtractRunParams(TypedDict, total=False):
 
 
 DocumentURL: TypeAlias = Union[str, List[str], Upload]
+
+
+class CitationsOptions(TypedDict, total=False):
+    numerical_confidence: bool
+    """If True, enable numeric citation confidence scores. Defaults to False."""
