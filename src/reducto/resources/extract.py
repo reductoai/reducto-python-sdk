@@ -54,7 +54,9 @@ class ExtractResource(SyncAPIResource):
         schema: object,
         advanced_options: AdvancedProcessingOptions | NotGiven = NOT_GIVEN,
         array_extract: ArrayExtractConfig | NotGiven = NOT_GIVEN,
+        citations_options: extract_run_params.CitationsOptions | NotGiven = NOT_GIVEN,
         experimental_options: ExperimentalProcessingOptions | NotGiven = NOT_GIVEN,
+        experimental_table_citations: bool | NotGiven = NOT_GIVEN,
         generate_citations: bool | NotGiven = NOT_GIVEN,
         include_images: bool | NotGiven = NOT_GIVEN,
         options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
@@ -88,6 +90,10 @@ class ExtractResource(SyncAPIResource):
 
           array_extract: The configuration options for array extract
 
+          citations_options: The configuration options for citations.
+
+          experimental_table_citations: If table citations should be generated for the extracted content.
+
           generate_citations: If citations should be generated for the extracted content.
 
           include_images: If images should be passed directly for extractions. Can only be enabled for
@@ -120,7 +126,9 @@ class ExtractResource(SyncAPIResource):
                     "schema": schema,
                     "advanced_options": advanced_options,
                     "array_extract": array_extract,
+                    "citations_options": citations_options,
                     "experimental_options": experimental_options,
+                    "experimental_table_citations": experimental_table_citations,
                     "generate_citations": generate_citations,
                     "include_images": include_images,
                     "options": options,
@@ -144,7 +152,9 @@ class ExtractResource(SyncAPIResource):
         schema: object,
         advanced_options: AdvancedProcessingOptions | NotGiven = NOT_GIVEN,
         array_extract: ArrayExtractConfig | NotGiven = NOT_GIVEN,
+        citations_options: extract_run_job_params.CitationsOptions | NotGiven = NOT_GIVEN,
         experimental_options: ExperimentalProcessingOptions | NotGiven = NOT_GIVEN,
+        experimental_table_citations: bool | NotGiven = NOT_GIVEN,
         generate_citations: bool | NotGiven = NOT_GIVEN,
         include_images: bool | NotGiven = NOT_GIVEN,
         options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
@@ -178,6 +188,10 @@ class ExtractResource(SyncAPIResource):
 
           array_extract: The configuration options for array extract
 
+          citations_options: The configuration options for citations.
+
+          experimental_table_citations: If table citations should be generated for the extracted content.
+
           generate_citations: If citations should be generated for the extracted content.
 
           include_images: If images should be passed directly for extractions. Can only be enabled for
@@ -210,7 +224,9 @@ class ExtractResource(SyncAPIResource):
                     "schema": schema,
                     "advanced_options": advanced_options,
                     "array_extract": array_extract,
+                    "citations_options": citations_options,
                     "experimental_options": experimental_options,
+                    "experimental_table_citations": experimental_table_citations,
                     "generate_citations": generate_citations,
                     "include_images": include_images,
                     "options": options,
@@ -256,7 +272,9 @@ class AsyncExtractResource(AsyncAPIResource):
         schema: object,
         advanced_options: AdvancedProcessingOptions | NotGiven = NOT_GIVEN,
         array_extract: ArrayExtractConfig | NotGiven = NOT_GIVEN,
+        citations_options: extract_run_params.CitationsOptions | NotGiven = NOT_GIVEN,
         experimental_options: ExperimentalProcessingOptions | NotGiven = NOT_GIVEN,
+        experimental_table_citations: bool | NotGiven = NOT_GIVEN,
         generate_citations: bool | NotGiven = NOT_GIVEN,
         include_images: bool | NotGiven = NOT_GIVEN,
         options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
@@ -290,6 +308,10 @@ class AsyncExtractResource(AsyncAPIResource):
 
           array_extract: The configuration options for array extract
 
+          citations_options: The configuration options for citations.
+
+          experimental_table_citations: If table citations should be generated for the extracted content.
+
           generate_citations: If citations should be generated for the extracted content.
 
           include_images: If images should be passed directly for extractions. Can only be enabled for
@@ -322,7 +344,9 @@ class AsyncExtractResource(AsyncAPIResource):
                     "schema": schema,
                     "advanced_options": advanced_options,
                     "array_extract": array_extract,
+                    "citations_options": citations_options,
                     "experimental_options": experimental_options,
+                    "experimental_table_citations": experimental_table_citations,
                     "generate_citations": generate_citations,
                     "include_images": include_images,
                     "options": options,
@@ -346,7 +370,9 @@ class AsyncExtractResource(AsyncAPIResource):
         schema: object,
         advanced_options: AdvancedProcessingOptions | NotGiven = NOT_GIVEN,
         array_extract: ArrayExtractConfig | NotGiven = NOT_GIVEN,
+        citations_options: extract_run_job_params.CitationsOptions | NotGiven = NOT_GIVEN,
         experimental_options: ExperimentalProcessingOptions | NotGiven = NOT_GIVEN,
+        experimental_table_citations: bool | NotGiven = NOT_GIVEN,
         generate_citations: bool | NotGiven = NOT_GIVEN,
         include_images: bool | NotGiven = NOT_GIVEN,
         options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
@@ -380,6 +406,10 @@ class AsyncExtractResource(AsyncAPIResource):
 
           array_extract: The configuration options for array extract
 
+          citations_options: The configuration options for citations.
+
+          experimental_table_citations: If table citations should be generated for the extracted content.
+
           generate_citations: If citations should be generated for the extracted content.
 
           include_images: If images should be passed directly for extractions. Can only be enabled for
@@ -412,7 +442,9 @@ class AsyncExtractResource(AsyncAPIResource):
                     "schema": schema,
                     "advanced_options": advanced_options,
                     "array_extract": array_extract,
+                    "citations_options": citations_options,
                     "experimental_options": experimental_options,
+                    "experimental_table_citations": experimental_table_citations,
                     "generate_citations": generate_citations,
                     "include_images": include_images,
                     "options": options,

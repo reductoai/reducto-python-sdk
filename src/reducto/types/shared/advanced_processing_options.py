@@ -67,6 +67,12 @@ class AdvancedProcessingOptions(BaseModel):
     LaTeX colour commands.
     """
 
+    include_formula_information: Optional[bool] = None
+    """
+    If True, preserve formula information in spreadsheet cells by wrapping text with
+    LaTeX formula commands during parsing.
+    """
+
     keep_line_breaks: Optional[bool] = None
     """If line breaks should be preserved in the text."""
 
@@ -82,10 +88,11 @@ class AdvancedProcessingOptions(BaseModel):
     be merged across breaks and spaces.
     """
 
-    ocr_system: Optional[Literal["highres", "multilingual", "combined"]] = None
+    ocr_system: Optional[Literal["highres", "multilingual", "combined", "legacy"]] = None
     """The OCR system to use.
 
-    Highres is recommended for documents with English characters.
+    Highres is recommended for documents with English characters. Legacy uses an
+    alternative OCR backend.
     """
 
     page_range: Optional[PageRange] = None

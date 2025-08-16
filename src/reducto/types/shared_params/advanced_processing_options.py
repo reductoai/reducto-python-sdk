@@ -68,6 +68,12 @@ class AdvancedProcessingOptions(TypedDict, total=False):
     LaTeX colour commands.
     """
 
+    include_formula_information: bool
+    """
+    If True, preserve formula information in spreadsheet cells by wrapping text with
+    LaTeX formula commands during parsing.
+    """
+
     keep_line_breaks: bool
     """If line breaks should be preserved in the text."""
 
@@ -83,10 +89,11 @@ class AdvancedProcessingOptions(TypedDict, total=False):
     be merged across breaks and spaces.
     """
 
-    ocr_system: Literal["highres", "multilingual", "combined"]
+    ocr_system: Literal["highres", "multilingual", "combined", "legacy"]
     """The OCR system to use.
 
-    Highres is recommended for documents with English characters.
+    Highres is recommended for documents with English characters. Legacy uses an
+    alternative OCR backend.
     """
 
     page_range: PageRange
