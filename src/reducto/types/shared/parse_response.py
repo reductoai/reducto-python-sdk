@@ -52,6 +52,12 @@ class ResultFullResultChunkBlock(BaseModel):
     image_url: Optional[str] = None
     """(Experimental) The URL of the image associated with the block."""
 
+    logprobs_confidence: Optional[float] = None
+    """
+    Numeric confidence score based on logprobs and OCR confidence (when
+    numeric_confidence_scores is enabled)
+    """
+
 
 class ResultFullResultChunk(BaseModel):
     blocks: List[ResultFullResultChunkBlock]
