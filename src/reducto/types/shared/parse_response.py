@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Union, Optional
+from typing import Dict, List, Union, Optional
 from typing_extensions import Literal, TypeAlias
 
 from ..._models import BaseModel
@@ -49,14 +49,14 @@ class ResultFullResultChunkBlock(BaseModel):
     structure
     """
 
+    granular_confidence: Optional[Dict[str, float]] = None
+    """Granular confidence scores for the block.
+
+    It is a dictionary of confidence scores for the block.
+    """
+
     image_url: Optional[str] = None
     """(Experimental) The URL of the image associated with the block."""
-
-    logprobs_confidence: Optional[float] = None
-    """
-    Numeric confidence score based on logprobs and OCR confidence (when
-    numeric_confidence_scores is enabled)
-    """
 
 
 class ResultFullResultChunk(BaseModel):
