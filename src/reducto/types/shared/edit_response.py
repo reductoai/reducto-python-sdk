@@ -3,10 +3,10 @@
 from typing import List, Optional
 from typing_extensions import Literal
 
-from .._models import BaseModel
-from .shared.bounding_box import BoundingBox
+from ..._models import BaseModel
+from .bounding_box import BoundingBox
 
-__all__ = ["EditRunResponse", "FormSchema"]
+__all__ = ["EditResponse", "FormSchema"]
 
 
 class FormSchema(BaseModel):
@@ -23,7 +23,7 @@ class FormSchema(BaseModel):
     """
 
 
-class EditRunResponse(BaseModel):
+class EditResponse(BaseModel):
     document_url: str
 
     form_schema: Optional[List[FormSchema]] = None

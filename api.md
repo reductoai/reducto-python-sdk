@@ -6,6 +6,7 @@ from reducto.types import (
     ArrayExtractConfig,
     BaseProcessingOptions,
     BoundingBox,
+    EditResponse,
     ExperimentalProcessingOptions,
     ExtractResponse,
     PageRange,
@@ -82,12 +83,12 @@ Methods:
 Types:
 
 ```python
-from reducto.types import EditRunResponse, EditRunJobResponse
+from reducto.types import EditRunJobResponse
 ```
 
 Methods:
 
-- <code title="post /edit">client.edit.<a href="./src/reducto/resources/edit.py">run</a>(\*\*<a href="src/reducto/types/edit_run_params.py">params</a>) -> <a href="./src/reducto/types/edit_run_response.py">EditRunResponse</a></code>
+- <code title="post /edit">client.edit.<a href="./src/reducto/resources/edit.py">run</a>(\*\*<a href="src/reducto/types/edit_run_params.py">params</a>) -> <a href="./src/reducto/types/shared/edit_response.py">EditResponse</a></code>
 - <code title="post /edit_async">client.edit.<a href="./src/reducto/resources/edit.py">run_job</a>(\*\*<a href="src/reducto/types/edit_run_job_params.py">params</a>) -> <a href="./src/reducto/types/edit_run_job_response.py">EditRunJobResponse</a></code>
 
 # Webhook
