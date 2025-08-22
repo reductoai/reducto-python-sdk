@@ -4,6 +4,7 @@ from .upload import Upload as Upload
 from .page_range import PageRange as PageRange
 from .parse_usage import ParseUsage as ParseUsage
 from .bounding_box import BoundingBox as BoundingBox
+from .edit_response import EditResponse as EditResponse
 from .parse_response import ParseResponse as ParseResponse
 from .split_category import SplitCategory as SplitCategory
 from .split_response import SplitResponse as SplitResponse

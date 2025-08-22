@@ -9,7 +9,8 @@ import pytest
 
 from reducto import Reducto, AsyncReducto
 from tests.utils import assert_matches_type
-from reducto.types import EditRunResponse, EditRunJobResponse
+from reducto.types import EditRunJobResponse
+from reducto.types.shared import EditResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -24,7 +25,7 @@ class TestEdit:
             document_url="string",
             edit_instructions="edit_instructions",
         )
-        assert_matches_type(EditRunResponse, edit, path=["response"])
+        assert_matches_type(EditResponse, edit, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -53,7 +54,7 @@ class TestEdit:
             ],
             priority=True,
         )
-        assert_matches_type(EditRunResponse, edit, path=["response"])
+        assert_matches_type(EditResponse, edit, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -66,7 +67,7 @@ class TestEdit:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         edit = response.parse()
-        assert_matches_type(EditRunResponse, edit, path=["response"])
+        assert_matches_type(EditResponse, edit, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -79,7 +80,7 @@ class TestEdit:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             edit = response.parse()
-            assert_matches_type(EditRunResponse, edit, path=["response"])
+            assert_matches_type(EditResponse, edit, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -168,7 +169,7 @@ class TestAsyncEdit:
             document_url="string",
             edit_instructions="edit_instructions",
         )
-        assert_matches_type(EditRunResponse, edit, path=["response"])
+        assert_matches_type(EditResponse, edit, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -197,7 +198,7 @@ class TestAsyncEdit:
             ],
             priority=True,
         )
-        assert_matches_type(EditRunResponse, edit, path=["response"])
+        assert_matches_type(EditResponse, edit, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -210,7 +211,7 @@ class TestAsyncEdit:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         edit = await response.parse()
-        assert_matches_type(EditRunResponse, edit, path=["response"])
+        assert_matches_type(EditResponse, edit, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -223,7 +224,7 @@ class TestAsyncEdit:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             edit = await response.parse()
-            assert_matches_type(EditRunResponse, edit, path=["response"])
+            assert_matches_type(EditResponse, edit, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
