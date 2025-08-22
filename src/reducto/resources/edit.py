@@ -18,7 +18,7 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
-from ..types.edit_run_response import EditRunResponse
+from ..types.shared.edit_response import EditResponse
 from ..types.edit_run_job_response import EditRunJobResponse
 from ..types.shared_params.webhook_config_new import WebhookConfigNew
 
@@ -59,7 +59,7 @@ class EditResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> EditRunResponse:
+    ) -> EditResponse:
         """Edit
 
         Args:
@@ -105,7 +105,7 @@ class EditResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=EditRunResponse,
+            cast_to=EditResponse,
         )
 
     def run_job(
@@ -208,7 +208,7 @@ class AsyncEditResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> EditRunResponse:
+    ) -> EditResponse:
         """Edit
 
         Args:
@@ -254,7 +254,7 @@ class AsyncEditResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=EditRunResponse,
+            cast_to=EditResponse,
         )
 
     async def run_job(
