@@ -88,6 +88,9 @@ class ResultFullResultOcrLine(BaseModel):
 
     text: str
 
+    chunk_index: Optional[int] = None
+    """The index of the chunk that the line belongs to."""
+
     confidence: Optional[float] = None
     """OCR confidence score between 0 and 1, where 1 indicates highest confidence"""
 
@@ -96,6 +99,9 @@ class ResultFullResultOcrWord(BaseModel):
     bbox: BoundingBox
 
     text: str
+
+    chunk_index: Optional[int] = None
+    """The index of the chunk that the word belongs to."""
 
     confidence: Optional[float] = None
     """OCR confidence score between 0 and 1, where 1 indicates highest confidence"""
