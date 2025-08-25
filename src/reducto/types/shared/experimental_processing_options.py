@@ -72,6 +72,12 @@ class ExperimentalProcessingOptions(BaseModel):
     convert files. This is slower but more accurate.
     """
 
+    numerical_parse_confidence: Optional[bool] = None
+    """
+    If True, enable numeric parse confidence scores in granular_confidence
+    dictionary. Defaults to False.
+    """
+
     return_figure_images: Optional[bool] = None
     """If figure images should be returned in the result. Defaults to False."""
 
