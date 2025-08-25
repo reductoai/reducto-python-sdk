@@ -70,6 +70,12 @@ class ExperimentalProcessingOptionsTyped(TypedDict, total=False):
     convert files. This is slower but more accurate.
     """
 
+    numerical_parse_confidence: bool
+    """
+    If True, enable numeric parse confidence scores in granular_confidence
+    dictionary. Defaults to False.
+    """
+
     return_figure_images: bool
     """If figure images should be returned in the result. Defaults to False."""
 
