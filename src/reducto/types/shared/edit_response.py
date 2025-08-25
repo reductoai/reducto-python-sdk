@@ -3,10 +3,10 @@
 from typing import List, Optional
 from typing_extensions import Literal
 
-from .._models import BaseModel
-from .shared.bounding_box import BoundingBox
+from ..._models import BaseModel
+from .bounding_box import BoundingBox
 
-__all__ = ["EditRunResponse", "FormSchema"]
+__all__ = ["EditResponse", "FormSchema"]
 
 
 class FormSchema(BaseModel):
@@ -16,8 +16,14 @@ class FormSchema(BaseModel):
 
     type: Literal["text", "checkbox", "dropdown", "barcode"]
 
+    fill: Optional[bool] = None
+    """If True (default), the system will attempt to fill this widget.
 
-class EditRunResponse(BaseModel):
+    If False, the widget will be created but intentionally left unfilled.
+    """
+
+
+class EditResponse(BaseModel):
     document_url: str
 
     form_schema: Optional[List[FormSchema]] = None

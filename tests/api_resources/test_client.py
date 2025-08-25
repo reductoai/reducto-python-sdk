@@ -17,13 +17,13 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestClient:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_api_version(self, client: Reducto) -> None:
         client_ = client.api_version()
         assert_matches_type(object, client_, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_api_version(self, client: Reducto) -> None:
         response = client.with_raw_response.api_version()
@@ -33,7 +33,7 @@ class TestClient:
         client_ = response.parse()
         assert_matches_type(object, client_, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_api_version(self, client: Reducto) -> None:
         with client.with_streaming_response.api_version() as response:
@@ -45,13 +45,13 @@ class TestClient:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_upload(self, client: Reducto) -> None:
         client_ = client.upload()
         assert_matches_type(Upload, client_, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_upload_with_all_params(self, client: Reducto) -> None:
         client_ = client.upload(
@@ -60,7 +60,7 @@ class TestClient:
         )
         assert_matches_type(Upload, client_, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_upload(self, client: Reducto) -> None:
         response = client.with_raw_response.upload()
@@ -70,7 +70,7 @@ class TestClient:
         client_ = response.parse()
         assert_matches_type(Upload, client_, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_upload(self, client: Reducto) -> None:
         with client.with_streaming_response.upload() as response:
@@ -88,13 +88,13 @@ class TestAsyncClient:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_api_version(self, async_client: AsyncReducto) -> None:
         client = await async_client.api_version()
         assert_matches_type(object, client, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_api_version(self, async_client: AsyncReducto) -> None:
         response = await async_client.with_raw_response.api_version()
@@ -104,7 +104,7 @@ class TestAsyncClient:
         client = await response.parse()
         assert_matches_type(object, client, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_api_version(self, async_client: AsyncReducto) -> None:
         async with async_client.with_streaming_response.api_version() as response:
@@ -116,13 +116,13 @@ class TestAsyncClient:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_upload(self, async_client: AsyncReducto) -> None:
         client = await async_client.upload()
         assert_matches_type(Upload, client, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_upload_with_all_params(self, async_client: AsyncReducto) -> None:
         client = await async_client.upload(
@@ -131,7 +131,7 @@ class TestAsyncClient:
         )
         assert_matches_type(Upload, client, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_upload(self, async_client: AsyncReducto) -> None:
         response = await async_client.with_raw_response.upload()
@@ -141,7 +141,7 @@ class TestAsyncClient:
         client = await response.parse()
         assert_matches_type(Upload, client, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_upload(self, async_client: AsyncReducto) -> None:
         async with async_client.with_streaming_response.upload() as response:

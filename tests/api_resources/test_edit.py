@@ -9,7 +9,8 @@ import pytest
 
 from reducto import Reducto, AsyncReducto
 from tests.utils import assert_matches_type
-from reducto.types import EditRunResponse, EditRunJobResponse
+from reducto.types import EditRunJobResponse
+from reducto.types.shared import EditResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -17,22 +18,25 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestEdit:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_run(self, client: Reducto) -> None:
         edit = client.edit.run(
             document_url="string",
             edit_instructions="edit_instructions",
         )
-        assert_matches_type(EditRunResponse, edit, path=["response"])
+        assert_matches_type(EditResponse, edit, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_run_with_all_params(self, client: Reducto) -> None:
         edit = client.edit.run(
             document_url="string",
             edit_instructions="edit_instructions",
-            edit_options={"color": "#e1cb97"},
+            edit_options={
+                "color": "#e1cb97",
+                "llm_provider_preference": "openai",
+            },
             form_schema=[
                 {
                     "bbox": {
@@ -45,13 +49,14 @@ class TestEdit:
                     },
                     "description": "description",
                     "type": "text",
+                    "fill": True,
                 }
             ],
             priority=True,
         )
-        assert_matches_type(EditRunResponse, edit, path=["response"])
+        assert_matches_type(EditResponse, edit, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_run(self, client: Reducto) -> None:
         response = client.edit.with_raw_response.run(
@@ -62,9 +67,9 @@ class TestEdit:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         edit = response.parse()
-        assert_matches_type(EditRunResponse, edit, path=["response"])
+        assert_matches_type(EditResponse, edit, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_run(self, client: Reducto) -> None:
         with client.edit.with_streaming_response.run(
@@ -75,11 +80,11 @@ class TestEdit:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             edit = response.parse()
-            assert_matches_type(EditRunResponse, edit, path=["response"])
+            assert_matches_type(EditResponse, edit, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_run_job(self, client: Reducto) -> None:
         edit = client.edit.run_job(
@@ -88,13 +93,16 @@ class TestEdit:
         )
         assert_matches_type(EditRunJobResponse, edit, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_run_job_with_all_params(self, client: Reducto) -> None:
         edit = client.edit.run_job(
             document_url="string",
             edit_instructions="edit_instructions",
-            edit_options={"color": "#e1cb97"},
+            edit_options={
+                "color": "#e1cb97",
+                "llm_provider_preference": "openai",
+            },
             form_schema=[
                 {
                     "bbox": {
@@ -107,6 +115,7 @@ class TestEdit:
                     },
                     "description": "description",
                     "type": "text",
+                    "fill": True,
                 }
             ],
             priority=True,
@@ -119,7 +128,7 @@ class TestEdit:
         )
         assert_matches_type(EditRunJobResponse, edit, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_run_job(self, client: Reducto) -> None:
         response = client.edit.with_raw_response.run_job(
@@ -132,7 +141,7 @@ class TestEdit:
         edit = response.parse()
         assert_matches_type(EditRunJobResponse, edit, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_run_job(self, client: Reducto) -> None:
         with client.edit.with_streaming_response.run_job(
@@ -153,22 +162,25 @@ class TestAsyncEdit:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_run(self, async_client: AsyncReducto) -> None:
         edit = await async_client.edit.run(
             document_url="string",
             edit_instructions="edit_instructions",
         )
-        assert_matches_type(EditRunResponse, edit, path=["response"])
+        assert_matches_type(EditResponse, edit, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_run_with_all_params(self, async_client: AsyncReducto) -> None:
         edit = await async_client.edit.run(
             document_url="string",
             edit_instructions="edit_instructions",
-            edit_options={"color": "#e1cb97"},
+            edit_options={
+                "color": "#e1cb97",
+                "llm_provider_preference": "openai",
+            },
             form_schema=[
                 {
                     "bbox": {
@@ -181,13 +193,14 @@ class TestAsyncEdit:
                     },
                     "description": "description",
                     "type": "text",
+                    "fill": True,
                 }
             ],
             priority=True,
         )
-        assert_matches_type(EditRunResponse, edit, path=["response"])
+        assert_matches_type(EditResponse, edit, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_run(self, async_client: AsyncReducto) -> None:
         response = await async_client.edit.with_raw_response.run(
@@ -198,9 +211,9 @@ class TestAsyncEdit:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         edit = await response.parse()
-        assert_matches_type(EditRunResponse, edit, path=["response"])
+        assert_matches_type(EditResponse, edit, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_run(self, async_client: AsyncReducto) -> None:
         async with async_client.edit.with_streaming_response.run(
@@ -211,11 +224,11 @@ class TestAsyncEdit:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             edit = await response.parse()
-            assert_matches_type(EditRunResponse, edit, path=["response"])
+            assert_matches_type(EditResponse, edit, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_run_job(self, async_client: AsyncReducto) -> None:
         edit = await async_client.edit.run_job(
@@ -224,13 +237,16 @@ class TestAsyncEdit:
         )
         assert_matches_type(EditRunJobResponse, edit, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_run_job_with_all_params(self, async_client: AsyncReducto) -> None:
         edit = await async_client.edit.run_job(
             document_url="string",
             edit_instructions="edit_instructions",
-            edit_options={"color": "#e1cb97"},
+            edit_options={
+                "color": "#e1cb97",
+                "llm_provider_preference": "openai",
+            },
             form_schema=[
                 {
                     "bbox": {
@@ -243,6 +259,7 @@ class TestAsyncEdit:
                     },
                     "description": "description",
                     "type": "text",
+                    "fill": True,
                 }
             ],
             priority=True,
@@ -255,7 +272,7 @@ class TestAsyncEdit:
         )
         assert_matches_type(EditRunJobResponse, edit, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_run_job(self, async_client: AsyncReducto) -> None:
         response = await async_client.edit.with_raw_response.run_job(
@@ -268,7 +285,7 @@ class TestAsyncEdit:
         edit = await response.parse()
         assert_matches_type(EditRunJobResponse, edit, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_run_job(self, async_client: AsyncReducto) -> None:
         async with async_client.edit.with_streaming_response.run_job(
