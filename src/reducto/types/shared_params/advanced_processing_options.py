@@ -117,10 +117,11 @@ class AdvancedProcessingOptions(TypedDict, total=False):
     return_ocr_data: bool
     """If True, return OCR data in the result. Defaults to False."""
 
-    spreadsheet_table_clustering: Literal["default", "disabled"]
+    spreadsheet_table_clustering: Literal["default", "disabled", "intelligent"]
     """
     In a spreadsheet with different tables inside, we enable splitting up the tables
-    by default. Disabling will register as one large table.
+    by default. Intelligent mode applies more powerful models for superior accuracy,
+    at 5× the default per-cell rate. Disabling will register as one large table.
     """
 
     table_output_format: Literal["html", "json", "md", "jsonbbox", "dynamic", "ai_json", "csv"]
