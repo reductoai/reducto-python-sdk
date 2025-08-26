@@ -49,6 +49,13 @@ class AdvancedProcessingOptions(BaseModel):
     tags to OCR text. Works with any extraction mode. Defaults to False.
     """
 
+    enable_highlight_detection: Optional[bool] = None
+    """If True, enable highlight detection.
+
+    Highlighted text will be surrounded by <mark> tags in the output. Defaults to
+    False.
+    """
+
     exclude_hidden_rows_cols: Optional[bool] = None
     """Skip hidden rows and cols in Excel files. Defaults to False."""
 
