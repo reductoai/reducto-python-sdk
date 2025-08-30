@@ -50,6 +50,7 @@ class TestEdit:
                     "description": "description",
                     "type": "text",
                     "fill": True,
+                    "value": "value",
                 }
             ],
             priority=True,
@@ -116,6 +117,7 @@ class TestEdit:
                     "description": "description",
                     "type": "text",
                     "fill": True,
+                    "value": "value",
                 }
             ],
             priority=True,
@@ -194,6 +196,7 @@ class TestAsyncEdit:
                     "description": "description",
                     "type": "text",
                     "fill": True,
+                    "value": "value",
                 }
             ],
             priority=True,
@@ -260,6 +263,7 @@ class TestAsyncEdit:
                     "description": "description",
                     "type": "text",
                     "fill": True,
+                    "value": "value",
                 }
             ],
             priority=True,
