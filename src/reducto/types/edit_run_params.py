@@ -66,3 +66,9 @@ class FormSchema(TypedDict, total=False):
 
     If False, the widget will be created but intentionally left unfilled.
     """
+
+    value: Optional[str]
+    """
+    If provided, this value will be used directly instead of attempting to
+    intelligently determine the field value.
+    """
