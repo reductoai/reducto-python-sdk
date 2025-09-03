@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Iterable
+from typing import Union, Iterable
 from typing_extensions import Required, TypeAlias, TypedDict
 
+from .._types import SequenceNotStr
 from .shared_params.upload import Upload
 from .shared_params.split_category import SplitCategory
 from .shared_params.base_processing_options import BaseProcessingOptions
@@ -46,4 +47,4 @@ class SplitRunParams(TypedDict, total=False):
     """The prompt that describes rules for splitting the document."""
 
 
-DocumentURL: TypeAlias = Union[str, List[str], Upload]
+DocumentURL: TypeAlias = Union[str, SequenceNotStr[str], Upload]

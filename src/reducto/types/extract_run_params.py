@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-from typing import List, Union
+from typing import Union
 from typing_extensions import Required, TypeAlias, TypedDict
 
+from .._types import SequenceNotStr
 from .shared_params.upload import Upload
 from .shared_params.array_extract_config import ArrayExtractConfig
 from .shared_params.base_processing_options import BaseProcessingOptions
@@ -74,7 +75,7 @@ class ExtractRunParams(TypedDict, total=False):
     """If chunking should be used for the extraction. Defaults to False."""
 
 
-DocumentURL: TypeAlias = Union[str, List[str], Upload]
+DocumentURL: TypeAlias = Union[str, SequenceNotStr[str], Upload]
 
 
 class CitationsOptions(TypedDict, total=False):
