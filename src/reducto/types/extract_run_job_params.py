@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-from typing import List, Union
+from typing import Union
 from typing_extensions import Required, TypeAlias, TypedDict
 
+from .._types import SequenceNotStr
 from .shared_params.upload import Upload
 from .shared_params.webhook_config_new import WebhookConfigNew
 from .shared_params.array_extract_config import ArrayExtractConfig
@@ -77,7 +78,7 @@ class ExtractRunJobParams(TypedDict, total=False):
     webhook: WebhookConfigNew
 
 
-DocumentURL: TypeAlias = Union[str, List[str], Upload]
+DocumentURL: TypeAlias = Union[str, SequenceNotStr[str], Upload]
 
 
 class CitationsOptions(TypedDict, total=False):
