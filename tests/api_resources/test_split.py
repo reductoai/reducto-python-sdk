@@ -92,6 +92,7 @@ class TestSplit:
                 "return_table_images": True,
                 "rotate_figures": True,
                 "rotate_pages": True,
+                "user_specified_timeout_seconds": 0,
             },
             options={
                 "chunking": {
@@ -229,6 +230,7 @@ class TestSplit:
                 "return_table_images": True,
                 "rotate_figures": True,
                 "rotate_pages": True,
+                "user_specified_timeout_seconds": 0,
             },
             options={
                 "chunking": {
@@ -378,6 +380,7 @@ class TestAsyncSplit:
                 "return_table_images": True,
                 "rotate_figures": True,
                 "rotate_pages": True,
+                "user_specified_timeout_seconds": 0,
             },
             options={
                 "chunking": {
@@ -515,6 +518,7 @@ class TestAsyncSplit:
                 "return_table_images": True,
                 "rotate_figures": True,
                 "rotate_pages": True,
+                "user_specified_timeout_seconds": 0,
             },
             options={
                 "chunking": {

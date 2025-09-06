@@ -93,6 +93,9 @@ class ExperimentalProcessingOptions(BaseModel):
     rotate_pages: Optional[bool] = None
     """Use an orientation model to detect and rotate pages as needed, defaults to True"""
 
+    user_specified_timeout_seconds: Optional[float] = None
+    """A user specified timeout, defaults to None"""
+
     __pydantic_extra__: Dict[str, object] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
     if TYPE_CHECKING:
         # Stub to indicate that arbitrary properties are accepted.
