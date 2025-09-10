@@ -37,6 +37,8 @@ EnhancedAsyncJobResponseResult: TypeAlias = Union[ParseResponse, ExtractResponse
 class EnhancedAsyncJobResponse(BaseModel):
     status: Literal["Pending", "Completed", "Failed", "Idle"]
 
+    bucket: Optional[object] = None
+
     created_at: Optional[datetime] = None
 
     duration: Optional[float] = None
