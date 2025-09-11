@@ -58,6 +58,7 @@ class SplitResource(SyncAPIResource):
         experimental_options: ExperimentalProcessingOptions | NotGiven = NOT_GIVEN,
         options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
         priority: bool | NotGiven = NOT_GIVEN,
+        split_options: split_run_params.SplitOptions | NotGiven = NOT_GIVEN,
         split_rules: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -107,6 +108,7 @@ class SplitResource(SyncAPIResource):
                     "experimental_options": experimental_options,
                     "options": options,
                     "priority": priority,
+                    "split_options": split_options,
                     "split_rules": split_rules,
                 },
                 split_run_params.SplitRunParams,
@@ -126,6 +128,7 @@ class SplitResource(SyncAPIResource):
         experimental_options: ExperimentalProcessingOptions | NotGiven = NOT_GIVEN,
         options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
         priority: bool | NotGiven = NOT_GIVEN,
+        split_options: split_run_job_params.SplitOptions | NotGiven = NOT_GIVEN,
         split_rules: str | NotGiven = NOT_GIVEN,
         webhook: WebhookConfigNew | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -175,6 +178,7 @@ class SplitResource(SyncAPIResource):
                     "experimental_options": experimental_options,
                     "options": options,
                     "priority": priority,
+                    "split_options": split_options,
                     "split_rules": split_rules,
                     "webhook": webhook,
                 },
@@ -216,6 +220,7 @@ class AsyncSplitResource(AsyncAPIResource):
         experimental_options: ExperimentalProcessingOptions | NotGiven = NOT_GIVEN,
         options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
         priority: bool | NotGiven = NOT_GIVEN,
+        split_options: split_run_params.SplitOptions | NotGiven = NOT_GIVEN,
         split_rules: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -265,6 +270,7 @@ class AsyncSplitResource(AsyncAPIResource):
                     "experimental_options": experimental_options,
                     "options": options,
                     "priority": priority,
+                    "split_options": split_options,
                     "split_rules": split_rules,
                 },
                 split_run_params.SplitRunParams,
@@ -284,6 +290,7 @@ class AsyncSplitResource(AsyncAPIResource):
         experimental_options: ExperimentalProcessingOptions | NotGiven = NOT_GIVEN,
         options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
         priority: bool | NotGiven = NOT_GIVEN,
+        split_options: split_run_job_params.SplitOptions | NotGiven = NOT_GIVEN,
         split_rules: str | NotGiven = NOT_GIVEN,
         webhook: WebhookConfigNew | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -333,6 +340,7 @@ class AsyncSplitResource(AsyncAPIResource):
                     "experimental_options": experimental_options,
                     "options": options,
                     "priority": priority,
+                    "split_options": split_options,
                     "split_rules": split_rules,
                     "webhook": webhook,
                 },
