@@ -114,6 +114,7 @@ class TestSplit:
                 },
             },
             priority=True,
+            split_options={"table_cutoff": "truncate"},
             split_rules="split_rules",
         )
         assert_matches_type(SplitResponse, split, path=["response"])
@@ -252,6 +253,7 @@ class TestSplit:
                 },
             },
             priority=True,
+            split_options={"table_cutoff": "truncate"},
             split_rules="split_rules",
             webhook={
                 "channels": ["string"],
@@ -402,6 +404,7 @@ class TestAsyncSplit:
                 },
             },
             priority=True,
+            split_options={"table_cutoff": "truncate"},
             split_rules="split_rules",
         )
         assert_matches_type(SplitResponse, split, path=["response"])
@@ -540,6 +543,7 @@ class TestAsyncSplit:
                 },
             },
             priority=True,
+            split_options={"table_cutoff": "truncate"},
             split_rules="split_rules",
             webhook={
                 "channels": ["string"],
