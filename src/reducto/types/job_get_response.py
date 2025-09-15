@@ -1,10 +1,11 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Union, Optional
+from typing import List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, TypeAlias
 
 from .._models import BaseModel
+from .shared.parse_usage import ParseUsage
 from .shared.edit_response import EditResponse
 from .shared.parse_response import ParseResponse
 from .shared.split_response import SplitResponse
@@ -14,11 +15,53 @@ __all__ = [
     "JobGetResponse",
     "AsyncJobResponse",
     "AsyncJobResponseResult",
+    "AsyncJobResponseResultPipelineResponse",
+    "AsyncJobResponseResultPipelineResponseResult",
+    "AsyncJobResponseResultPipelineResponseResultExtract",
+    "AsyncJobResponseResultPipelineResponseResultExtractUnionMember0",
     "EnhancedAsyncJobResponse",
     "EnhancedAsyncJobResponseResult",
+    "EnhancedAsyncJobResponseResultPipelineResponse",
+    "EnhancedAsyncJobResponseResultPipelineResponseResult",
+    "EnhancedAsyncJobResponseResultPipelineResponseResultExtract",
+    "EnhancedAsyncJobResponseResultPipelineResponseResultExtractUnionMember0",
 ]
 
-AsyncJobResponseResult: TypeAlias = Union[ParseResponse, ExtractResponse, SplitResponse, EditResponse, None]
+
+class AsyncJobResponseResultPipelineResponseResultExtractUnionMember0(BaseModel):
+    page_range: List[int]
+
+    result: ExtractResponse
+
+    split_name: str
+
+    partition: Optional[str] = None
+
+
+AsyncJobResponseResultPipelineResponseResultExtract: TypeAlias = Union[
+    List[AsyncJobResponseResultPipelineResponseResultExtractUnionMember0], ExtractResponse, None
+]
+
+
+class AsyncJobResponseResultPipelineResponseResult(BaseModel):
+    extract: Optional[AsyncJobResponseResultPipelineResponseResultExtract] = None
+
+    parse: Optional[ParseResponse] = None
+
+    split: Optional[SplitResponse] = None
+
+
+class AsyncJobResponseResultPipelineResponse(BaseModel):
+    job_id: str
+
+    result: AsyncJobResponseResultPipelineResponseResult
+
+    usage: ParseUsage
+
+
+AsyncJobResponseResult: TypeAlias = Union[
+    ParseResponse, ExtractResponse, SplitResponse, EditResponse, AsyncJobResponseResultPipelineResponse, None
+]
 
 
 class AsyncJobResponse(BaseModel):
@@ -31,7 +74,40 @@ class AsyncJobResponse(BaseModel):
     result: Optional[AsyncJobResponseResult] = None
 
 
-EnhancedAsyncJobResponseResult: TypeAlias = Union[ParseResponse, ExtractResponse, SplitResponse, EditResponse, None]
+class EnhancedAsyncJobResponseResultPipelineResponseResultExtractUnionMember0(BaseModel):
+    page_range: List[int]
+
+    result: ExtractResponse
+
+    split_name: str
+
+    partition: Optional[str] = None
+
+
+EnhancedAsyncJobResponseResultPipelineResponseResultExtract: TypeAlias = Union[
+    List[EnhancedAsyncJobResponseResultPipelineResponseResultExtractUnionMember0], ExtractResponse, None
+]
+
+
+class EnhancedAsyncJobResponseResultPipelineResponseResult(BaseModel):
+    extract: Optional[EnhancedAsyncJobResponseResultPipelineResponseResultExtract] = None
+
+    parse: Optional[ParseResponse] = None
+
+    split: Optional[SplitResponse] = None
+
+
+class EnhancedAsyncJobResponseResultPipelineResponse(BaseModel):
+    job_id: str
+
+    result: EnhancedAsyncJobResponseResultPipelineResponseResult
+
+    usage: ParseUsage
+
+
+EnhancedAsyncJobResponseResult: TypeAlias = Union[
+    ParseResponse, ExtractResponse, SplitResponse, EditResponse, EnhancedAsyncJobResponseResultPipelineResponse, None
+]
 
 
 class EnhancedAsyncJobResponse(BaseModel):
