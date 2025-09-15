@@ -76,6 +76,7 @@ class TestSplit:
             },
             experimental_options={
                 "danger_filter_wide_boxes": True,
+                "detect_signatures": True,
                 "embed_text_metadata_pdf": True,
                 "enable_checkboxes": True,
                 "enable_equations": True,
@@ -215,6 +216,7 @@ class TestSplit:
             },
             experimental_options={
                 "danger_filter_wide_boxes": True,
+                "detect_signatures": True,
                 "embed_text_metadata_pdf": True,
                 "enable_checkboxes": True,
                 "enable_equations": True,
@@ -366,6 +368,7 @@ class TestAsyncSplit:
             },
             experimental_options={
                 "danger_filter_wide_boxes": True,
+                "detect_signatures": True,
                 "embed_text_metadata_pdf": True,
                 "enable_checkboxes": True,
                 "enable_equations": True,
@@ -505,6 +508,7 @@ class TestAsyncSplit:
             },
             experimental_options={
                 "danger_filter_wide_boxes": True,
+                "detect_signatures": True,
                 "embed_text_metadata_pdf": True,
                 "enable_checkboxes": True,
                 "enable_equations": True,

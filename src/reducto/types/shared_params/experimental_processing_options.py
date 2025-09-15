@@ -31,6 +31,9 @@ class ExperimentalProcessingOptionsTyped(TypedDict, total=False):
     Defaults to False. You probably don't want to use this.
     """
 
+    detect_signatures: bool
+    """If True, detect signatures in the document. Defaults to False."""
+
     embed_text_metadata_pdf: bool
     """
     If extracted OCR text metadata should be embedded back into the returned PDF,
