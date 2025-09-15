@@ -33,6 +33,9 @@ class ExperimentalProcessingOptions(BaseModel):
     Defaults to False. You probably don't want to use this.
     """
 
+    detect_signatures: Optional[bool] = None
+    """If True, detect signatures in the document. Defaults to False."""
+
     embed_text_metadata_pdf: Optional[bool] = None
     """
     If extracted OCR text metadata should be embedded back into the returned PDF,

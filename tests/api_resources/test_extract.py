@@ -72,6 +72,7 @@ class TestExtract:
             citations_options={"numerical_confidence": True},
             experimental_options={
                 "danger_filter_wide_boxes": True,
+                "detect_signatures": True,
                 "embed_text_metadata_pdf": True,
                 "enable_checkboxes": True,
                 "enable_equations": True,
@@ -201,6 +202,7 @@ class TestExtract:
             citations_options={"numerical_confidence": True},
             experimental_options={
                 "danger_filter_wide_boxes": True,
+                "detect_signatures": True,
                 "embed_text_metadata_pdf": True,
                 "enable_checkboxes": True,
                 "enable_equations": True,
@@ -342,6 +344,7 @@ class TestAsyncExtract:
             citations_options={"numerical_confidence": True},
             experimental_options={
                 "danger_filter_wide_boxes": True,
+                "detect_signatures": True,
                 "embed_text_metadata_pdf": True,
                 "enable_checkboxes": True,
                 "enable_equations": True,
@@ -471,6 +474,7 @@ class TestAsyncExtract:
             citations_options={"numerical_confidence": True},
             experimental_options={
                 "danger_filter_wide_boxes": True,
+                "detect_signatures": True,
                 "embed_text_metadata_pdf": True,
                 "enable_checkboxes": True,
                 "enable_equations": True,
