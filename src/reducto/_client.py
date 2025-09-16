@@ -39,7 +39,7 @@ from ._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .resources import job, edit, parse, split, extract, webhook
+from .resources import job, edit, parse, split, extract, webhook, pipeline
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import ReductoError, APIStatusError
 from ._base_client import (
@@ -75,6 +75,7 @@ class Reducto(SyncAPIClient):
     parse: parse.ParseResource
     extract: extract.ExtractResource
     edit: edit.EditResource
+    pipeline: pipeline.PipelineResource
     webhook: webhook.WebhookResource
     with_raw_response: ReductoWithRawResponse
     with_streaming_response: ReductoWithStreamedResponse
@@ -162,6 +163,7 @@ class Reducto(SyncAPIClient):
         self.parse = parse.ParseResource(self)
         self.extract = extract.ExtractResource(self)
         self.edit = edit.EditResource(self)
+        self.pipeline = pipeline.PipelineResource(self)
         self.webhook = webhook.WebhookResource(self)
         self.with_raw_response = ReductoWithRawResponse(self)
         self.with_streaming_response = ReductoWithStreamedResponse(self)
@@ -345,6 +347,7 @@ class AsyncReducto(AsyncAPIClient):
     parse: parse.AsyncParseResource
     extract: extract.AsyncExtractResource
     edit: edit.AsyncEditResource
+    pipeline: pipeline.AsyncPipelineResource
     webhook: webhook.AsyncWebhookResource
     with_raw_response: AsyncReductoWithRawResponse
     with_streaming_response: AsyncReductoWithStreamedResponse
@@ -432,6 +435,7 @@ class AsyncReducto(AsyncAPIClient):
         self.parse = parse.AsyncParseResource(self)
         self.extract = extract.AsyncExtractResource(self)
         self.edit = edit.AsyncEditResource(self)
+        self.pipeline = pipeline.AsyncPipelineResource(self)
         self.webhook = webhook.AsyncWebhookResource(self)
         self.with_raw_response = AsyncReductoWithRawResponse(self)
         self.with_streaming_response = AsyncReductoWithStreamedResponse(self)
@@ -616,6 +620,7 @@ class ReductoWithRawResponse:
         self.parse = parse.ParseResourceWithRawResponse(client.parse)
         self.extract = extract.ExtractResourceWithRawResponse(client.extract)
         self.edit = edit.EditResourceWithRawResponse(client.edit)
+        self.pipeline = pipeline.PipelineResourceWithRawResponse(client.pipeline)
         self.webhook = webhook.WebhookResourceWithRawResponse(client.webhook)
 
         self.api_version = to_raw_response_wrapper(
@@ -633,6 +638,7 @@ class AsyncReductoWithRawResponse:
         self.parse = parse.AsyncParseResourceWithRawResponse(client.parse)
         self.extract = extract.AsyncExtractResourceWithRawResponse(client.extract)
         self.edit = edit.AsyncEditResourceWithRawResponse(client.edit)
+        self.pipeline = pipeline.AsyncPipelineResourceWithRawResponse(client.pipeline)
         self.webhook = webhook.AsyncWebhookResourceWithRawResponse(client.webhook)
 
         self.api_version = async_to_raw_response_wrapper(
@@ -650,6 +656,7 @@ class ReductoWithStreamedResponse:
         self.parse = parse.ParseResourceWithStreamingResponse(client.parse)
         self.extract = extract.ExtractResourceWithStreamingResponse(client.extract)
         self.edit = edit.EditResourceWithStreamingResponse(client.edit)
+        self.pipeline = pipeline.PipelineResourceWithStreamingResponse(client.pipeline)
         self.webhook = webhook.WebhookResourceWithStreamingResponse(client.webhook)
 
         self.api_version = to_streamed_response_wrapper(
@@ -667,6 +674,7 @@ class AsyncReductoWithStreamedResponse:
         self.parse = parse.AsyncParseResourceWithStreamingResponse(client.parse)
         self.extract = extract.AsyncExtractResourceWithStreamingResponse(client.extract)
         self.edit = edit.AsyncEditResourceWithStreamingResponse(client.edit)
+        self.pipeline = pipeline.AsyncPipelineResourceWithStreamingResponse(client.pipeline)
         self.webhook = webhook.AsyncWebhookResourceWithStreamingResponse(client.webhook)
 
         self.api_version = async_to_streamed_response_wrapper(
