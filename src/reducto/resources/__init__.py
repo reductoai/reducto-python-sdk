@@ -48,6 +48,14 @@ from .webhook import (
     WebhookResourceWithStreamingResponse,
     AsyncWebhookResourceWithStreamingResponse,
 )
+from .pipeline import (
+    PipelineResource,
+    AsyncPipelineResource,
+    PipelineResourceWithRawResponse,
+    AsyncPipelineResourceWithRawResponse,
+    PipelineResourceWithStreamingResponse,
+    AsyncPipelineResourceWithStreamingResponse,
+)
 
 __all__ = [
     "JobResource",
@@ -80,6 +88,12 @@ __all__ = [
     "AsyncEditResourceWithRawResponse",
     "EditResourceWithStreamingResponse",
     "AsyncEditResourceWithStreamingResponse",
+    "PipelineResource",
+    "AsyncPipelineResource",
+    "PipelineResourceWithRawResponse",
+    "AsyncPipelineResourceWithRawResponse",
+    "PipelineResourceWithStreamingResponse",
+    "AsyncPipelineResourceWithStreamingResponse",
     "WebhookResource",
     "AsyncWebhookResource",
     "WebhookResourceWithRawResponse",
