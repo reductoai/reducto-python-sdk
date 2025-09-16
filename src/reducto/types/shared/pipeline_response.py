@@ -3,13 +3,13 @@
 from typing import List, Union, Optional
 from typing_extensions import TypeAlias
 
-from .._models import BaseModel
-from .shared.parse_usage import ParseUsage
-from .shared.parse_response import ParseResponse
-from .shared.split_response import SplitResponse
-from .shared.extract_response import ExtractResponse
+from ..._models import BaseModel
+from .parse_usage import ParseUsage
+from .parse_response import ParseResponse
+from .split_response import SplitResponse
+from .extract_response import ExtractResponse
 
-__all__ = ["PipelineRunResponse", "Result", "ResultExtract", "ResultExtractUnionMember0"]
+__all__ = ["PipelineResponse", "Result", "ResultExtract", "ResultExtractUnionMember0"]
 
 
 class ResultExtractUnionMember0(BaseModel):
@@ -33,7 +33,7 @@ class Result(BaseModel):
     split: Optional[SplitResponse] = None
 
 
-class PipelineRunResponse(BaseModel):
+class PipelineResponse(BaseModel):
     job_id: str
 
     result: Result

@@ -12,6 +12,7 @@ from reducto.types import (
     PageRange,
     ParseResponse,
     ParseUsage,
+    PipelineResponse,
     SplitCategory,
     SplitResponse,
     Upload,
@@ -96,12 +97,12 @@ Methods:
 Types:
 
 ```python
-from reducto.types import PipelineRunResponse, PipelineRunJobResponse
+from reducto.types import PipelineRunJobResponse
 ```
 
 Methods:
 
-- <code title="post /pipeline">client.pipeline.<a href="./src/reducto/resources/pipeline.py">run</a>(\*\*<a href="src/reducto/types/pipeline_run_params.py">params</a>) -> <a href="./src/reducto/types/pipeline_run_response.py">PipelineRunResponse</a></code>
+- <code title="post /pipeline">client.pipeline.<a href="./src/reducto/resources/pipeline.py">run</a>(\*\*<a href="src/reducto/types/pipeline_run_params.py">params</a>) -> <a href="./src/reducto/types/shared/pipeline_response.py">PipelineResponse</a></code>
 - <code title="post /pipeline_async">client.pipeline.<a href="./src/reducto/resources/pipeline.py">run_job</a>(\*\*<a href="src/reducto/types/pipeline_run_job_params.py">params</a>) -> <a href="./src/reducto/types/pipeline_run_job_response.py">PipelineRunJobResponse</a></code>
 
 # Webhook

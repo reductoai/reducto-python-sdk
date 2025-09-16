@@ -12,6 +12,7 @@ from .shared import (
     SplitCategory as SplitCategory,
     SplitResponse as SplitResponse,
     ExtractResponse as ExtractResponse,
+    PipelineResponse as PipelineResponse,
     WebhookConfigNew as WebhookConfigNew,
     ArrayExtractConfig as ArrayExtractConfig,
     BaseProcessingOptions as BaseProcessingOptions,
@@ -30,7 +31,6 @@ from .parse_run_job_params import ParseRunJobParams as ParseRunJobParams
 from .split_run_job_params import SplitRunJobParams as SplitRunJobParams
 from .webhook_run_response import WebhookRunResponse as WebhookRunResponse
 from .edit_run_job_response import EditRunJobResponse as EditRunJobResponse
-from .pipeline_run_response import PipelineRunResponse as PipelineRunResponse
 from .extract_run_job_params import ExtractRunJobParams as ExtractRunJobParams
 from .parse_run_job_response import ParseRunJobResponse as ParseRunJobResponse
 from .split_run_job_response import SplitRunJobResponse as SplitRunJobResponse

@@ -16,7 +16,7 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
-from ..types.pipeline_run_response import PipelineRunResponse
+from ..types.shared.pipeline_response import PipelineResponse
 from ..types.pipeline_run_job_response import PipelineRunJobResponse
 from ..types.shared_params.webhook_config_new import WebhookConfigNew
 
@@ -54,7 +54,7 @@ class PipelineResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PipelineRunResponse:
+    ) -> PipelineResponse:
         """Pipeline
 
         Args:
@@ -87,7 +87,7 @@ class PipelineResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PipelineRunResponse,
+            cast_to=PipelineResponse,
         )
 
     def run_job(
@@ -177,7 +177,7 @@ class AsyncPipelineResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PipelineRunResponse:
+    ) -> PipelineResponse:
         """Pipeline
 
         Args:
@@ -210,7 +210,7 @@ class AsyncPipelineResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PipelineRunResponse,
+            cast_to=PipelineResponse,
         )
 
     async def run_job(
