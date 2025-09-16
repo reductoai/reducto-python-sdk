@@ -13,11 +13,18 @@ __all__ = [
     "ResultFullResult",
     "ResultFullResultChunk",
     "ResultFullResultChunkBlock",
+    "ResultFullResultChunkBlockGranularConfidence",
     "ResultFullResultOcr",
     "ResultFullResultOcrLine",
     "ResultFullResultOcrWord",
     "ResultURLResult",
 ]
+
+
+class ResultFullResultChunkBlockGranularConfidence(BaseModel):
+    extract_confidence: Optional[float] = None
+
+    parse_confidence: Optional[float] = None
 
 
 class ResultFullResultChunkBlock(BaseModel):
@@ -39,6 +46,7 @@ class ResultFullResultChunkBlock(BaseModel):
         "Key Value",
         "Text",
         "Comment",
+        "Signature",
     ]
     """The type of block extracted from the document."""
 
@@ -47,6 +55,13 @@ class ResultFullResultChunkBlock(BaseModel):
 
     It is either low or high and takes into account factors like OCR and table
     structure
+    """
+
+    granular_confidence: Optional[ResultFullResultChunkBlockGranularConfidence] = None
+    """Granular confidence scores for the block.
+
+    It is a dictionary of confidence scores for the block. The confidence scores
+    will not be None if the user has enabled numeric confidence scores.
     """
 
     image_url: Optional[str] = None
@@ -74,6 +89,9 @@ class ResultFullResultOcrLine(BaseModel):
 
     text: str
 
+    chunk_index: Optional[int] = None
+    """The index of the chunk that the line belongs to."""
+
     confidence: Optional[float] = None
     """OCR confidence score between 0 and 1, where 1 indicates highest confidence"""
 
@@ -82,6 +100,9 @@ class ResultFullResultOcrWord(BaseModel):
     bbox: BoundingBox
 
     text: str
+
+    chunk_index: Optional[int] = None
+    """The index of the chunk that the word belongs to."""
 
     confidence: Optional[float] = None
     """OCR confidence score between 0 and 1, where 1 indicates highest confidence"""

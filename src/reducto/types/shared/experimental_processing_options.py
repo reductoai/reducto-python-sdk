@@ -33,6 +33,9 @@ class ExperimentalProcessingOptions(BaseModel):
     Defaults to False. You probably don't want to use this.
     """
 
+    detect_signatures: Optional[bool] = None
+    """If True, detect signatures in the document. Defaults to False."""
+
     embed_text_metadata_pdf: Optional[bool] = None
     """
     If extracted OCR text metadata should be embedded back into the returned PDF,
@@ -72,6 +75,12 @@ class ExperimentalProcessingOptions(BaseModel):
     convert files. This is slower but more accurate.
     """
 
+    numerical_parse_confidence: Optional[bool] = None
+    """
+    If True, enable numeric parse confidence scores in granular_confidence
+    dictionary. Defaults to False.
+    """
+
     return_figure_images: Optional[bool] = None
     """If figure images should be returned in the result. Defaults to False."""
 
@@ -86,6 +95,9 @@ class ExperimentalProcessingOptions(BaseModel):
 
     rotate_pages: Optional[bool] = None
     """Use an orientation model to detect and rotate pages as needed, defaults to True"""
+
+    user_specified_timeout_seconds: Optional[float] = None
+    """A user specified timeout, defaults to None"""
 
     __pydantic_extra__: Dict[str, object] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
     if TYPE_CHECKING:

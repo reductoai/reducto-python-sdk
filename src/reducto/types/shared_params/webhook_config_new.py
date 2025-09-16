@@ -2,14 +2,15 @@
 
 from __future__ import annotations
 
-from typing import List
 from typing_extensions import Literal, TypedDict
+
+from ..._types import SequenceNotStr
 
 __all__ = ["WebhookConfigNew"]
 
 
 class WebhookConfigNew(TypedDict, total=False):
-    channels: List[str]
+    channels: SequenceNotStr[str]
     """
     A list of Svix channels the message will be delivered down, omit to send to all
     channels.

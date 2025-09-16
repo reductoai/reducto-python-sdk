@@ -2,16 +2,17 @@
 
 from __future__ import annotations
 
-from typing import List, Union
+from typing import Union
 from typing_extensions import Required, TypeAlias, TypedDict
 
+from .._types import SequenceNotStr
 from .shared_params.upload import Upload
 from .shared_params.array_extract_config import ArrayExtractConfig
 from .shared_params.base_processing_options import BaseProcessingOptions
 from .shared_params.advanced_processing_options import AdvancedProcessingOptions
 from .shared_params.experimental_processing_options import ExperimentalProcessingOptions
 
-__all__ = ["ExtractRunParams", "DocumentURL"]
+__all__ = ["ExtractRunParams", "DocumentURL", "CitationsOptions"]
 
 
 class ExtractRunParams(TypedDict, total=False):
@@ -34,7 +35,13 @@ class ExtractRunParams(TypedDict, total=False):
     array_extract: ArrayExtractConfig
     """The configuration options for array extract"""
 
+    citations_options: CitationsOptions
+    """The configuration options for citations."""
+
     experimental_options: ExperimentalProcessingOptions
+
+    experimental_table_citations: bool
+    """If table citations should be generated for the extracted content."""
 
     generate_citations: bool
     """If citations should be generated for the extracted content."""
@@ -68,4 +75,9 @@ class ExtractRunParams(TypedDict, total=False):
     """If chunking should be used for the extraction. Defaults to False."""
 
 
-DocumentURL: TypeAlias = Union[str, List[str], Upload]
+DocumentURL: TypeAlias = Union[str, SequenceNotStr[str], Upload]
+
+
+class CitationsOptions(TypedDict, total=False):
+    numerical_confidence: bool
+    """If True, enable numeric citation confidence scores. Defaults to False."""

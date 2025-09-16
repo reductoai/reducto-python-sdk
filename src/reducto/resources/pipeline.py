@@ -2,11 +2,9 @@
 
 from __future__ import annotations
 
-from typing import Iterable, Optional
-
 import httpx
 
-from ..types import edit_run_params, edit_run_job_params
+from ..types import pipeline_run_params, pipeline_run_job_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -18,69 +16,56 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
-from ..types.shared.edit_response import EditResponse
-from ..types.edit_run_job_response import EditRunJobResponse
+from ..types.shared.pipeline_response import PipelineResponse
+from ..types.pipeline_run_job_response import PipelineRunJobResponse
 from ..types.shared_params.webhook_config_new import WebhookConfigNew
 
-__all__ = ["EditResource", "AsyncEditResource"]
+__all__ = ["PipelineResource", "AsyncPipelineResource"]
 
 
-class EditResource(SyncAPIResource):
+class PipelineResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> EditResourceWithRawResponse:
+    def with_raw_response(self) -> PipelineResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/reductoai/reducto-python-sdk#accessing-raw-response-data-eg-headers
         """
-        return EditResourceWithRawResponse(self)
+        return PipelineResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> EditResourceWithStreamingResponse:
+    def with_streaming_response(self) -> PipelineResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/reductoai/reducto-python-sdk#with_streaming_response
         """
-        return EditResourceWithStreamingResponse(self)
+        return PipelineResourceWithStreamingResponse(self)
 
     def run(
         self,
         *,
-        document_url: edit_run_params.DocumentURL,
-        edit_instructions: str,
-        edit_options: edit_run_params.EditOptions | NotGiven = NOT_GIVEN,
-        form_schema: Optional[Iterable[edit_run_params.FormSchema]] | NotGiven = NOT_GIVEN,
-        priority: bool | NotGiven = NOT_GIVEN,
+        document_url: pipeline_run_params.DocumentURL,
+        pipeline_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> EditResponse:
-        """Edit
+    ) -> PipelineResponse:
+        """Pipeline
 
         Args:
-          document_url:
-              The URL of the document to be processed.
+          document_url: The URL of the document to be processed.
 
-        You can provide one of the following:
+        You can provide one of the
+              following: 1. A publicly available URL 2. A presigned S3 URL 3. A reducto://
+              prefixed URL obtained from the /upload endpoint after directly uploading a
+              document
 
-              1. A publicly available URL
-              2. A presigned S3 URL
-              3. A reducto:// prefixed URL obtained from the /upload endpoint after directly
-                 uploading a document
-
-          edit_instructions: The instructions for the edit.
-
-          form_schema: Form schema for PDF forms. List of widgets with their types, descriptions, and
-              bounding boxes. Only works for PDFs.
-
-          priority: If True, attempts to process the job with priority if the user has priority
-              processing budget available; by default, sync jobs are prioritized above async
-              jobs.
+          pipeline_id: The ID of the pipeline to use for the document.
 
           extra_headers: Send extra headers
 
@@ -91,30 +76,25 @@ class EditResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/edit",
+            "/pipeline",
             body=maybe_transform(
                 {
                     "document_url": document_url,
-                    "edit_instructions": edit_instructions,
-                    "edit_options": edit_options,
-                    "form_schema": form_schema,
-                    "priority": priority,
+                    "pipeline_id": pipeline_id,
                 },
-                edit_run_params.EditRunParams,
+                pipeline_run_params.PipelineRunParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=EditResponse,
+            cast_to=PipelineResponse,
         )
 
     def run_job(
         self,
         *,
-        document_url: edit_run_job_params.DocumentURL,
-        edit_instructions: str,
-        edit_options: edit_run_job_params.EditOptions | NotGiven = NOT_GIVEN,
-        form_schema: Optional[Iterable[edit_run_job_params.FormSchema]] | NotGiven = NOT_GIVEN,
+        document_url: pipeline_run_job_params.DocumentURL,
+        pipeline_id: str,
         priority: bool | NotGiven = NOT_GIVEN,
         webhook: WebhookConfigNew | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -123,24 +103,18 @@ class EditResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> EditRunJobResponse:
-        """Edit Async
+    ) -> PipelineRunJobResponse:
+        """Pipeline Async
 
         Args:
-          document_url:
-              The URL of the document to be processed.
+          document_url: The URL of the document to be processed.
 
-        You can provide one of the following:
+        You can provide one of the
+              following: 1. A publicly available URL 2. A presigned S3 URL 3. A reducto://
+              prefixed URL obtained from the /upload endpoint after directly uploading a
+              document
 
-              1. A publicly available URL
-              2. A presigned S3 URL
-              3. A reducto:// prefixed URL obtained from the /upload endpoint after directly
-                 uploading a document
-
-          edit_instructions: The instructions for the edit.
-
-          form_schema: Form schema for PDF forms. List of widgets with their types, descriptions, and
-              bounding boxes. Only works for PDFs.
+          pipeline_id: The ID of the pipeline to use for the document.
 
           priority: If True, attempts to process the job with priority if the user has priority
               processing budget available; by default, sync jobs are prioritized above async
@@ -155,81 +129,66 @@ class EditResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/edit_async",
+            "/pipeline_async",
             body=maybe_transform(
                 {
                     "document_url": document_url,
-                    "edit_instructions": edit_instructions,
-                    "edit_options": edit_options,
-                    "form_schema": form_schema,
+                    "pipeline_id": pipeline_id,
                     "priority": priority,
                     "webhook": webhook,
                 },
-                edit_run_job_params.EditRunJobParams,
+                pipeline_run_job_params.PipelineRunJobParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=EditRunJobResponse,
+            cast_to=PipelineRunJobResponse,
         )
 
 
-class AsyncEditResource(AsyncAPIResource):
+class AsyncPipelineResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncEditResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncPipelineResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/reductoai/reducto-python-sdk#accessing-raw-response-data-eg-headers
         """
-        return AsyncEditResourceWithRawResponse(self)
+        return AsyncPipelineResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncEditResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncPipelineResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/reductoai/reducto-python-sdk#with_streaming_response
         """
-        return AsyncEditResourceWithStreamingResponse(self)
+        return AsyncPipelineResourceWithStreamingResponse(self)
 
     async def run(
         self,
         *,
-        document_url: edit_run_params.DocumentURL,
-        edit_instructions: str,
-        edit_options: edit_run_params.EditOptions | NotGiven = NOT_GIVEN,
-        form_schema: Optional[Iterable[edit_run_params.FormSchema]] | NotGiven = NOT_GIVEN,
-        priority: bool | NotGiven = NOT_GIVEN,
+        document_url: pipeline_run_params.DocumentURL,
+        pipeline_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> EditResponse:
-        """Edit
+    ) -> PipelineResponse:
+        """Pipeline
 
         Args:
-          document_url:
-              The URL of the document to be processed.
+          document_url: The URL of the document to be processed.
 
-        You can provide one of the following:
+        You can provide one of the
+              following: 1. A publicly available URL 2. A presigned S3 URL 3. A reducto://
+              prefixed URL obtained from the /upload endpoint after directly uploading a
+              document
 
-              1. A publicly available URL
-              2. A presigned S3 URL
-              3. A reducto:// prefixed URL obtained from the /upload endpoint after directly
-                 uploading a document
-
-          edit_instructions: The instructions for the edit.
-
-          form_schema: Form schema for PDF forms. List of widgets with their types, descriptions, and
-              bounding boxes. Only works for PDFs.
-
-          priority: If True, attempts to process the job with priority if the user has priority
-              processing budget available; by default, sync jobs are prioritized above async
-              jobs.
+          pipeline_id: The ID of the pipeline to use for the document.
 
           extra_headers: Send extra headers
 
@@ -240,30 +199,25 @@ class AsyncEditResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/edit",
+            "/pipeline",
             body=await async_maybe_transform(
                 {
                     "document_url": document_url,
-                    "edit_instructions": edit_instructions,
-                    "edit_options": edit_options,
-                    "form_schema": form_schema,
-                    "priority": priority,
+                    "pipeline_id": pipeline_id,
                 },
-                edit_run_params.EditRunParams,
+                pipeline_run_params.PipelineRunParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=EditResponse,
+            cast_to=PipelineResponse,
         )
 
     async def run_job(
         self,
         *,
-        document_url: edit_run_job_params.DocumentURL,
-        edit_instructions: str,
-        edit_options: edit_run_job_params.EditOptions | NotGiven = NOT_GIVEN,
-        form_schema: Optional[Iterable[edit_run_job_params.FormSchema]] | NotGiven = NOT_GIVEN,
+        document_url: pipeline_run_job_params.DocumentURL,
+        pipeline_id: str,
         priority: bool | NotGiven = NOT_GIVEN,
         webhook: WebhookConfigNew | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -272,24 +226,18 @@ class AsyncEditResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> EditRunJobResponse:
-        """Edit Async
+    ) -> PipelineRunJobResponse:
+        """Pipeline Async
 
         Args:
-          document_url:
-              The URL of the document to be processed.
+          document_url: The URL of the document to be processed.
 
-        You can provide one of the following:
+        You can provide one of the
+              following: 1. A publicly available URL 2. A presigned S3 URL 3. A reducto://
+              prefixed URL obtained from the /upload endpoint after directly uploading a
+              document
 
-              1. A publicly available URL
-              2. A presigned S3 URL
-              3. A reducto:// prefixed URL obtained from the /upload endpoint after directly
-                 uploading a document
-
-          edit_instructions: The instructions for the edit.
-
-          form_schema: Form schema for PDF forms. List of widgets with their types, descriptions, and
-              bounding boxes. Only works for PDFs.
+          pipeline_id: The ID of the pipeline to use for the document.
 
           priority: If True, attempts to process the job with priority if the user has priority
               processing budget available; by default, sync jobs are prioritized above async
@@ -304,68 +252,66 @@ class AsyncEditResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/edit_async",
+            "/pipeline_async",
             body=await async_maybe_transform(
                 {
                     "document_url": document_url,
-                    "edit_instructions": edit_instructions,
-                    "edit_options": edit_options,
-                    "form_schema": form_schema,
+                    "pipeline_id": pipeline_id,
                     "priority": priority,
                     "webhook": webhook,
                 },
-                edit_run_job_params.EditRunJobParams,
+                pipeline_run_job_params.PipelineRunJobParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=EditRunJobResponse,
+            cast_to=PipelineRunJobResponse,
         )
 
 
-class EditResourceWithRawResponse:
-    def __init__(self, edit: EditResource) -> None:
-        self._edit = edit
+class PipelineResourceWithRawResponse:
+    def __init__(self, pipeline: PipelineResource) -> None:
+        self._pipeline = pipeline
 
         self.run = to_raw_response_wrapper(
-            edit.run,
+            pipeline.run,
         )
         self.run_job = to_raw_response_wrapper(
-            edit.run_job,
+            pipeline.run_job,
         )
 
 
-class AsyncEditResourceWithRawResponse:
-    def __init__(self, edit: AsyncEditResource) -> None:
-        self._edit = edit
+class AsyncPipelineResourceWithRawResponse:
+    def __init__(self, pipeline: AsyncPipelineResource) -> None:
+        self._pipeline = pipeline
 
         self.run = async_to_raw_response_wrapper(
-            edit.run,
+            pipeline.run,
         )
         self.run_job = async_to_raw_response_wrapper(
-            edit.run_job,
+            pipeline.run_job,
         )
 
 
-class EditResourceWithStreamingResponse:
-    def __init__(self, edit: EditResource) -> None:
-        self._edit = edit
+class PipelineResourceWithStreamingResponse:
+    def __init__(self, pipeline: PipelineResource) -> None:
+        self._pipeline = pipeline
 
         self.run = to_streamed_response_wrapper(
-            edit.run,
+            pipeline.run,
         )
         self.run_job = to_streamed_response_wrapper(
-            edit.run_job,
+            pipeline.run_job,
         )
 
 
-class AsyncEditResourceWithStreamingResponse:
-    def __init__(self, edit: AsyncEditResource) -> None:
-        self._edit = edit
+class AsyncPipelineResourceWithStreamingResponse:
+    def __init__(self, pipeline: AsyncPipelineResource) -> None:
+        self._pipeline = pipeline
 
         self.run = async_to_streamed_response_wrapper(
-            edit.run,
+            pipeline.run,
         )
         self.run_job = async_to_streamed_response_wrapper(
-            edit.run_job,
+            pipeline.run_job,
         )

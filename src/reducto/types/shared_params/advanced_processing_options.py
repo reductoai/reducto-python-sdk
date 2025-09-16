@@ -50,6 +50,13 @@ class AdvancedProcessingOptions(TypedDict, total=False):
     tags to OCR text. Works with any extraction mode. Defaults to False.
     """
 
+    enable_highlight_detection: bool
+    """If True, enable highlight detection.
+
+    Highlighted text will be surrounded by <mark> tags in the output. Defaults to
+    False.
+    """
+
     exclude_hidden_rows_cols: bool
     """Skip hidden rows and cols in Excel files. Defaults to False."""
 
@@ -68,6 +75,12 @@ class AdvancedProcessingOptions(TypedDict, total=False):
     LaTeX colour commands.
     """
 
+    include_formula_information: bool
+    """
+    If True, preserve formula information in spreadsheet cells by wrapping text with
+    LaTeX formula commands during parsing.
+    """
+
     keep_line_breaks: bool
     """If line breaks should be preserved in the text."""
 
@@ -83,10 +96,11 @@ class AdvancedProcessingOptions(TypedDict, total=False):
     be merged across breaks and spaces.
     """
 
-    ocr_system: Literal["highres", "multilingual", "combined"]
+    ocr_system: Literal["highres", "multilingual", "combined", "legacy"]
     """The OCR system to use.
 
-    Highres is recommended for documents with English characters.
+    Highres is recommended for documents with English characters. Legacy uses an
+    alternative OCR backend.
     """
 
     page_range: PageRange
@@ -110,10 +124,11 @@ class AdvancedProcessingOptions(TypedDict, total=False):
     return_ocr_data: bool
     """If True, return OCR data in the result. Defaults to False."""
 
-    spreadsheet_table_clustering: Literal["default", "disabled"]
+    spreadsheet_table_clustering: Literal["default", "disabled", "intelligent"]
     """
     In a spreadsheet with different tables inside, we enable splitting up the tables
-    by default. Disabling will register as one large table.
+    by default. Intelligent mode applies more powerful models for superior accuracy,
+    at 5× the default per-cell rate. Disabling will register as one large table.
     """
 
     table_output_format: Literal["html", "json", "md", "jsonbbox", "dynamic", "ai_json", "csv"]

@@ -48,6 +48,8 @@ class EditOptions(TypedDict, total=False):
     color: str
     """The color to use for edits, in hex format."""
 
+    llm_provider_preference: Literal["openai", "anthropic", "gemini"]
+
 
 class FormSchema(TypedDict, total=False):
     bbox: Required[BoundingBox]
@@ -58,3 +60,15 @@ class FormSchema(TypedDict, total=False):
 
     type: Required[Literal["text", "checkbox", "dropdown", "barcode"]]
     """Type of the form widget"""
+
+    fill: bool
+    """If True (default), the system will attempt to fill this widget.
+
+    If False, the widget will be created but intentionally left unfilled.
+    """
+
+    value: Optional[str]
+    """
+    If provided, this value will be used directly instead of attempting to
+    intelligently determine the field value.
+    """

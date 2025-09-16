@@ -49,6 +49,13 @@ class AdvancedProcessingOptions(BaseModel):
     tags to OCR text. Works with any extraction mode. Defaults to False.
     """
 
+    enable_highlight_detection: Optional[bool] = None
+    """If True, enable highlight detection.
+
+    Highlighted text will be surrounded by <mark> tags in the output. Defaults to
+    False.
+    """
+
     exclude_hidden_rows_cols: Optional[bool] = None
     """Skip hidden rows and cols in Excel files. Defaults to False."""
 
@@ -67,6 +74,12 @@ class AdvancedProcessingOptions(BaseModel):
     LaTeX colour commands.
     """
 
+    include_formula_information: Optional[bool] = None
+    """
+    If True, preserve formula information in spreadsheet cells by wrapping text with
+    LaTeX formula commands during parsing.
+    """
+
     keep_line_breaks: Optional[bool] = None
     """If line breaks should be preserved in the text."""
 
@@ -82,10 +95,11 @@ class AdvancedProcessingOptions(BaseModel):
     be merged across breaks and spaces.
     """
 
-    ocr_system: Optional[Literal["highres", "multilingual", "combined"]] = None
+    ocr_system: Optional[Literal["highres", "multilingual", "combined", "legacy"]] = None
     """The OCR system to use.
 
-    Highres is recommended for documents with English characters.
+    Highres is recommended for documents with English characters. Legacy uses an
+    alternative OCR backend.
     """
 
     page_range: Optional[PageRange] = None
@@ -109,10 +123,11 @@ class AdvancedProcessingOptions(BaseModel):
     return_ocr_data: Optional[bool] = None
     """If True, return OCR data in the result. Defaults to False."""
 
-    spreadsheet_table_clustering: Optional[Literal["default", "disabled"]] = None
+    spreadsheet_table_clustering: Optional[Literal["default", "disabled", "intelligent"]] = None
     """
     In a spreadsheet with different tables inside, we enable splitting up the tables
-    by default. Disabling will register as one large table.
+    by default. Intelligent mode applies more powerful models for superior accuracy,
+    at 5× the default per-cell rate. Disabling will register as one large table.
     """
 
     table_output_format: Optional[Literal["html", "json", "md", "jsonbbox", "dynamic", "ai_json", "csv"]] = None

@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Iterable
-from typing_extensions import Required, TypeAlias, TypedDict
+from typing import Union, Iterable
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
+from .._types import SequenceNotStr
 from .shared_params.upload import Upload
 from .shared_params.split_category import SplitCategory
 from .shared_params.webhook_config_new import WebhookConfigNew
@@ -12,7 +13,7 @@ from .shared_params.base_processing_options import BaseProcessingOptions
 from .shared_params.advanced_processing_options import AdvancedProcessingOptions
 from .shared_params.experimental_processing_options import ExperimentalProcessingOptions
 
-__all__ = ["SplitRunJobParams", "DocumentURL"]
+__all__ = ["SplitRunJobParams", "DocumentURL", "SplitOptions"]
 
 
 class SplitRunJobParams(TypedDict, total=False):
@@ -43,10 +44,22 @@ class SplitRunJobParams(TypedDict, total=False):
     jobs.
     """
 
+    split_options: SplitOptions
+
     split_rules: str
     """The prompt that describes rules for splitting the document."""
 
     webhook: WebhookConfigNew
 
 
-DocumentURL: TypeAlias = Union[str, List[str], Upload]
+DocumentURL: TypeAlias = Union[str, SequenceNotStr[str], Upload]
+
+
+class SplitOptions(TypedDict, total=False):
+    table_cutoff: Literal["truncate", "preserve"]
+    """
+    If tables should be truncated to the first few rows or if all content should be
+    preserved. truncate improves latency, preserve is recommended for cases where
+    partition_key is being used and the partition_key may be included within the
+    table. Defaults to truncate
+    """

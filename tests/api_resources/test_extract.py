@@ -18,7 +18,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestExtract:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_run(self, client: Reducto) -> None:
         extract = client.extract.run(
@@ -27,7 +27,7 @@ class TestExtract:
         )
         assert_matches_type(ExtractResponse, extract, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_run_with_all_params(self, client: Reducto) -> None:
         extract = client.extract.run(
@@ -38,11 +38,13 @@ class TestExtract:
                 "continue_hierarchy": True,
                 "document_password": "document_password",
                 "enable_change_tracking": True,
+                "enable_highlight_detection": True,
                 "exclude_hidden_rows_cols": True,
                 "exclude_hidden_sheets": True,
                 "filter_line_numbers": True,
                 "force_file_extension": "force_file_extension",
                 "include_color_information": True,
+                "include_formula_information": True,
                 "keep_line_breaks": True,
                 "large_table_chunking": {
                     "enabled": True,
@@ -67,8 +69,10 @@ class TestExtract:
                 "pages_per_segment": 0,
                 "streaming_extract_item_density": 0,
             },
+            citations_options={"numerical_confidence": True},
             experimental_options={
                 "danger_filter_wide_boxes": True,
+                "detect_signatures": True,
                 "embed_text_metadata_pdf": True,
                 "enable_checkboxes": True,
                 "enable_equations": True,
@@ -80,11 +84,14 @@ class TestExtract:
                 },
                 "layout_model": "default",
                 "native_office_conversion": True,
+                "numerical_parse_confidence": True,
                 "return_figure_images": True,
                 "return_table_images": True,
                 "rotate_figures": True,
                 "rotate_pages": True,
+                "user_specified_timeout_seconds": 0,
             },
+            experimental_table_citations=True,
             generate_citations=True,
             include_images=True,
             options={
@@ -113,7 +120,7 @@ class TestExtract:
         )
         assert_matches_type(ExtractResponse, extract, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_run(self, client: Reducto) -> None:
         response = client.extract.with_raw_response.run(
@@ -126,7 +133,7 @@ class TestExtract:
         extract = response.parse()
         assert_matches_type(ExtractResponse, extract, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_run(self, client: Reducto) -> None:
         with client.extract.with_streaming_response.run(
@@ -141,7 +148,7 @@ class TestExtract:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_run_job(self, client: Reducto) -> None:
         extract = client.extract.run_job(
@@ -150,7 +157,7 @@ class TestExtract:
         )
         assert_matches_type(ExtractRunJobResponse, extract, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_run_job_with_all_params(self, client: Reducto) -> None:
         extract = client.extract.run_job(
@@ -161,11 +168,13 @@ class TestExtract:
                 "continue_hierarchy": True,
                 "document_password": "document_password",
                 "enable_change_tracking": True,
+                "enable_highlight_detection": True,
                 "exclude_hidden_rows_cols": True,
                 "exclude_hidden_sheets": True,
                 "filter_line_numbers": True,
                 "force_file_extension": "force_file_extension",
                 "include_color_information": True,
+                "include_formula_information": True,
                 "keep_line_breaks": True,
                 "large_table_chunking": {
                     "enabled": True,
@@ -190,8 +199,10 @@ class TestExtract:
                 "pages_per_segment": 0,
                 "streaming_extract_item_density": 0,
             },
+            citations_options={"numerical_confidence": True},
             experimental_options={
                 "danger_filter_wide_boxes": True,
+                "detect_signatures": True,
                 "embed_text_metadata_pdf": True,
                 "enable_checkboxes": True,
                 "enable_equations": True,
@@ -203,11 +214,14 @@ class TestExtract:
                 },
                 "layout_model": "default",
                 "native_office_conversion": True,
+                "numerical_parse_confidence": True,
                 "return_figure_images": True,
                 "return_table_images": True,
                 "rotate_figures": True,
                 "rotate_pages": True,
+                "user_specified_timeout_seconds": 0,
             },
+            experimental_table_citations=True,
             generate_citations=True,
             include_images=True,
             options={
@@ -242,7 +256,7 @@ class TestExtract:
         )
         assert_matches_type(ExtractRunJobResponse, extract, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_run_job(self, client: Reducto) -> None:
         response = client.extract.with_raw_response.run_job(
@@ -255,7 +269,7 @@ class TestExtract:
         extract = response.parse()
         assert_matches_type(ExtractRunJobResponse, extract, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_run_job(self, client: Reducto) -> None:
         with client.extract.with_streaming_response.run_job(
@@ -276,7 +290,7 @@ class TestAsyncExtract:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_run(self, async_client: AsyncReducto) -> None:
         extract = await async_client.extract.run(
@@ -285,7 +299,7 @@ class TestAsyncExtract:
         )
         assert_matches_type(ExtractResponse, extract, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_run_with_all_params(self, async_client: AsyncReducto) -> None:
         extract = await async_client.extract.run(
@@ -296,11 +310,13 @@ class TestAsyncExtract:
                 "continue_hierarchy": True,
                 "document_password": "document_password",
                 "enable_change_tracking": True,
+                "enable_highlight_detection": True,
                 "exclude_hidden_rows_cols": True,
                 "exclude_hidden_sheets": True,
                 "filter_line_numbers": True,
                 "force_file_extension": "force_file_extension",
                 "include_color_information": True,
+                "include_formula_information": True,
                 "keep_line_breaks": True,
                 "large_table_chunking": {
                     "enabled": True,
@@ -325,8 +341,10 @@ class TestAsyncExtract:
                 "pages_per_segment": 0,
                 "streaming_extract_item_density": 0,
             },
+            citations_options={"numerical_confidence": True},
             experimental_options={
                 "danger_filter_wide_boxes": True,
+                "detect_signatures": True,
                 "embed_text_metadata_pdf": True,
                 "enable_checkboxes": True,
                 "enable_equations": True,
@@ -338,11 +356,14 @@ class TestAsyncExtract:
                 },
                 "layout_model": "default",
                 "native_office_conversion": True,
+                "numerical_parse_confidence": True,
                 "return_figure_images": True,
                 "return_table_images": True,
                 "rotate_figures": True,
                 "rotate_pages": True,
+                "user_specified_timeout_seconds": 0,
             },
+            experimental_table_citations=True,
             generate_citations=True,
             include_images=True,
             options={
@@ -371,7 +392,7 @@ class TestAsyncExtract:
         )
         assert_matches_type(ExtractResponse, extract, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_run(self, async_client: AsyncReducto) -> None:
         response = await async_client.extract.with_raw_response.run(
@@ -384,7 +405,7 @@ class TestAsyncExtract:
         extract = await response.parse()
         assert_matches_type(ExtractResponse, extract, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_run(self, async_client: AsyncReducto) -> None:
         async with async_client.extract.with_streaming_response.run(
@@ -399,7 +420,7 @@ class TestAsyncExtract:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_run_job(self, async_client: AsyncReducto) -> None:
         extract = await async_client.extract.run_job(
@@ -408,7 +429,7 @@ class TestAsyncExtract:
         )
         assert_matches_type(ExtractRunJobResponse, extract, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_run_job_with_all_params(self, async_client: AsyncReducto) -> None:
         extract = await async_client.extract.run_job(
@@ -419,11 +440,13 @@ class TestAsyncExtract:
                 "continue_hierarchy": True,
                 "document_password": "document_password",
                 "enable_change_tracking": True,
+                "enable_highlight_detection": True,
                 "exclude_hidden_rows_cols": True,
                 "exclude_hidden_sheets": True,
                 "filter_line_numbers": True,
                 "force_file_extension": "force_file_extension",
                 "include_color_information": True,
+                "include_formula_information": True,
                 "keep_line_breaks": True,
                 "large_table_chunking": {
                     "enabled": True,
@@ -448,8 +471,10 @@ class TestAsyncExtract:
                 "pages_per_segment": 0,
                 "streaming_extract_item_density": 0,
             },
+            citations_options={"numerical_confidence": True},
             experimental_options={
                 "danger_filter_wide_boxes": True,
+                "detect_signatures": True,
                 "embed_text_metadata_pdf": True,
                 "enable_checkboxes": True,
                 "enable_equations": True,
@@ -461,11 +486,14 @@ class TestAsyncExtract:
                 },
                 "layout_model": "default",
                 "native_office_conversion": True,
+                "numerical_parse_confidence": True,
                 "return_figure_images": True,
                 "return_table_images": True,
                 "rotate_figures": True,
                 "rotate_pages": True,
+                "user_specified_timeout_seconds": 0,
             },
+            experimental_table_citations=True,
             generate_citations=True,
             include_images=True,
             options={
@@ -500,7 +528,7 @@ class TestAsyncExtract:
         )
         assert_matches_type(ExtractRunJobResponse, extract, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_run_job(self, async_client: AsyncReducto) -> None:
         response = await async_client.extract.with_raw_response.run_job(
@@ -513,7 +541,7 @@ class TestAsyncExtract:
         extract = await response.parse()
         assert_matches_type(ExtractRunJobResponse, extract, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_run_job(self, async_client: AsyncReducto) -> None:
         async with async_client.extract.with_streaming_response.run_job(

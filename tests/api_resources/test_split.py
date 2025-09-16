@@ -18,7 +18,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestSplit:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_run(self, client: Reducto) -> None:
         split = client.split.run(
@@ -32,7 +32,7 @@ class TestSplit:
         )
         assert_matches_type(SplitResponse, split, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_run_with_all_params(self, client: Reducto) -> None:
         split = client.split.run(
@@ -49,11 +49,13 @@ class TestSplit:
                 "continue_hierarchy": True,
                 "document_password": "document_password",
                 "enable_change_tracking": True,
+                "enable_highlight_detection": True,
                 "exclude_hidden_rows_cols": True,
                 "exclude_hidden_sheets": True,
                 "filter_line_numbers": True,
                 "force_file_extension": "force_file_extension",
                 "include_color_information": True,
+                "include_formula_information": True,
                 "keep_line_breaks": True,
                 "large_table_chunking": {
                     "enabled": True,
@@ -74,6 +76,7 @@ class TestSplit:
             },
             experimental_options={
                 "danger_filter_wide_boxes": True,
+                "detect_signatures": True,
                 "embed_text_metadata_pdf": True,
                 "enable_checkboxes": True,
                 "enable_equations": True,
@@ -85,10 +88,12 @@ class TestSplit:
                 },
                 "layout_model": "default",
                 "native_office_conversion": True,
+                "numerical_parse_confidence": True,
                 "return_figure_images": True,
                 "return_table_images": True,
                 "rotate_figures": True,
                 "rotate_pages": True,
+                "user_specified_timeout_seconds": 0,
             },
             options={
                 "chunking": {
@@ -110,11 +115,12 @@ class TestSplit:
                 },
             },
             priority=True,
+            split_options={"table_cutoff": "truncate"},
             split_rules="split_rules",
         )
         assert_matches_type(SplitResponse, split, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_run(self, client: Reducto) -> None:
         response = client.split.with_raw_response.run(
@@ -132,7 +138,7 @@ class TestSplit:
         split = response.parse()
         assert_matches_type(SplitResponse, split, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_run(self, client: Reducto) -> None:
         with client.split.with_streaming_response.run(
@@ -152,7 +158,7 @@ class TestSplit:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_run_job(self, client: Reducto) -> None:
         split = client.split.run_job(
@@ -166,7 +172,7 @@ class TestSplit:
         )
         assert_matches_type(SplitRunJobResponse, split, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_run_job_with_all_params(self, client: Reducto) -> None:
         split = client.split.run_job(
@@ -183,11 +189,13 @@ class TestSplit:
                 "continue_hierarchy": True,
                 "document_password": "document_password",
                 "enable_change_tracking": True,
+                "enable_highlight_detection": True,
                 "exclude_hidden_rows_cols": True,
                 "exclude_hidden_sheets": True,
                 "filter_line_numbers": True,
                 "force_file_extension": "force_file_extension",
                 "include_color_information": True,
+                "include_formula_information": True,
                 "keep_line_breaks": True,
                 "large_table_chunking": {
                     "enabled": True,
@@ -208,6 +216,7 @@ class TestSplit:
             },
             experimental_options={
                 "danger_filter_wide_boxes": True,
+                "detect_signatures": True,
                 "embed_text_metadata_pdf": True,
                 "enable_checkboxes": True,
                 "enable_equations": True,
@@ -219,10 +228,12 @@ class TestSplit:
                 },
                 "layout_model": "default",
                 "native_office_conversion": True,
+                "numerical_parse_confidence": True,
                 "return_figure_images": True,
                 "return_table_images": True,
                 "rotate_figures": True,
                 "rotate_pages": True,
+                "user_specified_timeout_seconds": 0,
             },
             options={
                 "chunking": {
@@ -244,6 +255,7 @@ class TestSplit:
                 },
             },
             priority=True,
+            split_options={"table_cutoff": "truncate"},
             split_rules="split_rules",
             webhook={
                 "channels": ["string"],
@@ -254,7 +266,7 @@ class TestSplit:
         )
         assert_matches_type(SplitRunJobResponse, split, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_run_job(self, client: Reducto) -> None:
         response = client.split.with_raw_response.run_job(
@@ -272,7 +284,7 @@ class TestSplit:
         split = response.parse()
         assert_matches_type(SplitRunJobResponse, split, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_run_job(self, client: Reducto) -> None:
         with client.split.with_streaming_response.run_job(
@@ -298,7 +310,7 @@ class TestAsyncSplit:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_run(self, async_client: AsyncReducto) -> None:
         split = await async_client.split.run(
@@ -312,7 +324,7 @@ class TestAsyncSplit:
         )
         assert_matches_type(SplitResponse, split, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_run_with_all_params(self, async_client: AsyncReducto) -> None:
         split = await async_client.split.run(
@@ -329,11 +341,13 @@ class TestAsyncSplit:
                 "continue_hierarchy": True,
                 "document_password": "document_password",
                 "enable_change_tracking": True,
+                "enable_highlight_detection": True,
                 "exclude_hidden_rows_cols": True,
                 "exclude_hidden_sheets": True,
                 "filter_line_numbers": True,
                 "force_file_extension": "force_file_extension",
                 "include_color_information": True,
+                "include_formula_information": True,
                 "keep_line_breaks": True,
                 "large_table_chunking": {
                     "enabled": True,
@@ -354,6 +368,7 @@ class TestAsyncSplit:
             },
             experimental_options={
                 "danger_filter_wide_boxes": True,
+                "detect_signatures": True,
                 "embed_text_metadata_pdf": True,
                 "enable_checkboxes": True,
                 "enable_equations": True,
@@ -365,10 +380,12 @@ class TestAsyncSplit:
                 },
                 "layout_model": "default",
                 "native_office_conversion": True,
+                "numerical_parse_confidence": True,
                 "return_figure_images": True,
                 "return_table_images": True,
                 "rotate_figures": True,
                 "rotate_pages": True,
+                "user_specified_timeout_seconds": 0,
             },
             options={
                 "chunking": {
@@ -390,11 +407,12 @@ class TestAsyncSplit:
                 },
             },
             priority=True,
+            split_options={"table_cutoff": "truncate"},
             split_rules="split_rules",
         )
         assert_matches_type(SplitResponse, split, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_run(self, async_client: AsyncReducto) -> None:
         response = await async_client.split.with_raw_response.run(
@@ -412,7 +430,7 @@ class TestAsyncSplit:
         split = await response.parse()
         assert_matches_type(SplitResponse, split, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_run(self, async_client: AsyncReducto) -> None:
         async with async_client.split.with_streaming_response.run(
@@ -432,7 +450,7 @@ class TestAsyncSplit:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_run_job(self, async_client: AsyncReducto) -> None:
         split = await async_client.split.run_job(
@@ -446,7 +464,7 @@ class TestAsyncSplit:
         )
         assert_matches_type(SplitRunJobResponse, split, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_run_job_with_all_params(self, async_client: AsyncReducto) -> None:
         split = await async_client.split.run_job(
@@ -463,11 +481,13 @@ class TestAsyncSplit:
                 "continue_hierarchy": True,
                 "document_password": "document_password",
                 "enable_change_tracking": True,
+                "enable_highlight_detection": True,
                 "exclude_hidden_rows_cols": True,
                 "exclude_hidden_sheets": True,
                 "filter_line_numbers": True,
                 "force_file_extension": "force_file_extension",
                 "include_color_information": True,
+                "include_formula_information": True,
                 "keep_line_breaks": True,
                 "large_table_chunking": {
                     "enabled": True,
@@ -488,6 +508,7 @@ class TestAsyncSplit:
             },
             experimental_options={
                 "danger_filter_wide_boxes": True,
+                "detect_signatures": True,
                 "embed_text_metadata_pdf": True,
                 "enable_checkboxes": True,
                 "enable_equations": True,
@@ -499,10 +520,12 @@ class TestAsyncSplit:
                 },
                 "layout_model": "default",
                 "native_office_conversion": True,
+                "numerical_parse_confidence": True,
                 "return_figure_images": True,
                 "return_table_images": True,
                 "rotate_figures": True,
                 "rotate_pages": True,
+                "user_specified_timeout_seconds": 0,
             },
             options={
                 "chunking": {
@@ -524,6 +547,7 @@ class TestAsyncSplit:
                 },
             },
             priority=True,
+            split_options={"table_cutoff": "truncate"},
             split_rules="split_rules",
             webhook={
                 "channels": ["string"],
@@ -534,7 +558,7 @@ class TestAsyncSplit:
         )
         assert_matches_type(SplitRunJobResponse, split, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_run_job(self, async_client: AsyncReducto) -> None:
         response = await async_client.split.with_raw_response.run_job(
@@ -552,7 +576,7 @@ class TestAsyncSplit:
         split = await response.parse()
         assert_matches_type(SplitRunJobResponse, split, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_run_job(self, async_client: AsyncReducto) -> None:
         async with async_client.split.with_streaming_response.run_job(

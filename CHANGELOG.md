@@ -1,5 +1,52 @@
 # Changelog
 
+## 0.11.0 (2025-09-16)
+
+Full Changelog: [v0.10.1...v0.11.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.10.1...v0.11.0)
+
+### Features
+
+* **api:** api update ([2b1fbeb](https://github.com/reductoai/reducto-python-sdk/commit/2b1fbeb9c02b2715a4fb9c86fbc38f9f5cc5995d))
+* **api:** api update ([3d211d1](https://github.com/reductoai/reducto-python-sdk/commit/3d211d18bffab5d93c4f5d2d8b0de6faa1b7663a))
+* **api:** api update ([137e563](https://github.com/reductoai/reducto-python-sdk/commit/137e5634b5d9d6b58232bb07df38d6f3e9fb2c64))
+* **api:** api update ([69eab3e](https://github.com/reductoai/reducto-python-sdk/commit/69eab3ed4122a46174ac1cc99eb1a4524d320a1c))
+* **api:** api update ([f181769](https://github.com/reductoai/reducto-python-sdk/commit/f1817691b85afbd37eda8d0dd62412954866c1ce))
+* **api:** api update ([8864810](https://github.com/reductoai/reducto-python-sdk/commit/8864810c154cf0f343cf6707ef1db1c81d836e52))
+* **api:** api update ([1427a05](https://github.com/reductoai/reducto-python-sdk/commit/1427a0505cd27f1358b0ece63b23ac8210d1672c))
+* **api:** api update ([50fa804](https://github.com/reductoai/reducto-python-sdk/commit/50fa80448b3ed69d009af650d7f399dbe04dd9bf))
+* **api:** api update ([be15201](https://github.com/reductoai/reducto-python-sdk/commit/be152018ea8a18e8c5702d46bcd97bfb1338f4cb))
+* **api:** api update ([7a86d02](https://github.com/reductoai/reducto-python-sdk/commit/7a86d0246a61eae003759541e0a0faa58534cd74))
+* **api:** api update ([4d33b3f](https://github.com/reductoai/reducto-python-sdk/commit/4d33b3f315ec19884d490fef57dbcdae9aaabea7))
+* **api:** api update ([db7535d](https://github.com/reductoai/reducto-python-sdk/commit/db7535d982dd88f53384b7fea1151fba4e9431c2))
+* **api:** api update ([42fc590](https://github.com/reductoai/reducto-python-sdk/commit/42fc590389ea54aa77f54fef7a1d212f26ca9fc3))
+* **api:** api update ([7f54cac](https://github.com/reductoai/reducto-python-sdk/commit/7f54cac00cfc8610efe8740837f34ce3b6fed358))
+* **api:** api update ([9c8c3ce](https://github.com/reductoai/reducto-python-sdk/commit/9c8c3ce5b0a0758aab08644119305b5c99c64805))
+* **api:** api update ([d7bc25b](https://github.com/reductoai/reducto-python-sdk/commit/d7bc25b4c3d3b85671f2d643a2cecd9909e94b36))
+* **api:** api update ([3e9a5c8](https://github.com/reductoai/reducto-python-sdk/commit/3e9a5c83a38641f207a0714264a55d7bff2e0c40))
+* **api:** manual updates ([9b31994](https://github.com/reductoai/reducto-python-sdk/commit/9b31994b941b47ca1cd13ea861ab0d850bf58540))
+* **api:** manual updates ([2f4e621](https://github.com/reductoai/reducto-python-sdk/commit/2f4e62153065ee3499c8b82d8dae407c665352d5))
+* **api:** manual updates ([3794a83](https://github.com/reductoai/reducto-python-sdk/commit/3794a83f2898b49384332764d99feea57ab469c9))
+* improve future compat with pydantic v3 ([0fd503a](https://github.com/reductoai/reducto-python-sdk/commit/0fd503af41fd9406e83f26e0dd052fe74571c7e5))
+* **types:** replace List[str] with SequenceNotStr in params ([d19ddce](https://github.com/reductoai/reducto-python-sdk/commit/d19ddce2f90f04041f2e427ee05c38aa91a4853c))
+
+
+### Bug Fixes
+
+* avoid newer type syntax ([1a2080a](https://github.com/reductoai/reducto-python-sdk/commit/1a2080ae5dc4805225fdccbb3a52626c69b797cc))
+
+
+### Chores
+
+* **internal:** add Sequence related utils ([7d39034](https://github.com/reductoai/reducto-python-sdk/commit/7d390346723d53f7abbe336a7f2a69c85d31836b))
+* **internal:** change ci workflow machines ([c9c08f4](https://github.com/reductoai/reducto-python-sdk/commit/c9c08f400cd47fdc24fd224e86ac8056cee5c7e9))
+* **internal:** codegen related update ([583a974](https://github.com/reductoai/reducto-python-sdk/commit/583a9744a82ee968a845a4d10297dc62038a7ff7))
+* **internal:** move mypy configurations to `pyproject.toml` file ([1e33d5c](https://github.com/reductoai/reducto-python-sdk/commit/1e33d5cfae15c923178520cdebc5d7bde68fb5a2))
+* **internal:** update comment in script ([c4f1dea](https://github.com/reductoai/reducto-python-sdk/commit/c4f1deae57366235a5e5db9311433571a59e0350))
+* **internal:** update pyright exclude list ([38e4e30](https://github.com/reductoai/reducto-python-sdk/commit/38e4e3031117c02836d54b5c17e0c6f73a0a915e))
+* **tests:** simplify `get_platform` test ([5ef6803](https://github.com/reductoai/reducto-python-sdk/commit/5ef6803f71e52467ede98f2b770358e8b3e2a7af))
+* update @stainless-api/prism-cli to v5.15.0 ([b8ce369](https://github.com/reductoai/reducto-python-sdk/commit/b8ce369f84bffab34ca474817c36c9961434d8f8))
+* update github action ([68e4f3c](https://github.com/reductoai/reducto-python-sdk/commit/68e4f3c99fa08bc61508408d7e14691152ccd5a8))
+
 ## 0.10.1 (2025-08-06)
 
 Full Changelog: [v0.10.0...v0.10.1](https://github.com/reductoai/reducto-python-sdk/compare/v0.10.0...v0.10.1)

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union
+from typing import Dict, Union, Optional
 from typing_extensions import Literal, TypeAlias, TypedDict
 
 __all__ = ["ExperimentalProcessingOptions", "Enrich"]
@@ -30,6 +30,9 @@ class ExperimentalProcessingOptionsTyped(TypedDict, total=False):
     If True, filter out boxes with width greater than 50% of the document width.
     Defaults to False. You probably don't want to use this.
     """
+
+    detect_signatures: bool
+    """If True, detect signatures in the document. Defaults to False."""
 
     embed_text_metadata_pdf: bool
     """
@@ -70,6 +73,12 @@ class ExperimentalProcessingOptionsTyped(TypedDict, total=False):
     convert files. This is slower but more accurate.
     """
 
+    numerical_parse_confidence: bool
+    """
+    If True, enable numeric parse confidence scores in granular_confidence
+    dictionary. Defaults to False.
+    """
+
     return_figure_images: bool
     """If figure images should be returned in the result. Defaults to False."""
 
@@ -84,6 +93,9 @@ class ExperimentalProcessingOptionsTyped(TypedDict, total=False):
 
     rotate_pages: bool
     """Use an orientation model to detect and rotate pages as needed, defaults to True"""
+
+    user_specified_timeout_seconds: Optional[float]
+    """A user specified timeout, defaults to None"""
 
 
 ExperimentalProcessingOptions: TypeAlias = Union[ExperimentalProcessingOptionsTyped, Dict[str, object]]

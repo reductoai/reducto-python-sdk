@@ -79,6 +79,7 @@ class BaseProcessingOptions(BaseModel):
                 "Key Value",
                 "Text",
                 "Comment",
+                "Signature",
             ]
         ]
     ] = None

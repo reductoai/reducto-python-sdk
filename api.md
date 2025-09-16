@@ -6,11 +6,13 @@ from reducto.types import (
     ArrayExtractConfig,
     BaseProcessingOptions,
     BoundingBox,
+    EditResponse,
     ExperimentalProcessingOptions,
     ExtractResponse,
     PageRange,
     ParseResponse,
     ParseUsage,
+    PipelineResponse,
     SplitCategory,
     SplitResponse,
     Upload,
@@ -82,13 +84,26 @@ Methods:
 Types:
 
 ```python
-from reducto.types import EditRunResponse, EditRunJobResponse
+from reducto.types import EditRunJobResponse
 ```
 
 Methods:
 
-- <code title="post /edit">client.edit.<a href="./src/reducto/resources/edit.py">run</a>(\*\*<a href="src/reducto/types/edit_run_params.py">params</a>) -> <a href="./src/reducto/types/edit_run_response.py">EditRunResponse</a></code>
+- <code title="post /edit">client.edit.<a href="./src/reducto/resources/edit.py">run</a>(\*\*<a href="src/reducto/types/edit_run_params.py">params</a>) -> <a href="./src/reducto/types/shared/edit_response.py">EditResponse</a></code>
 - <code title="post /edit_async">client.edit.<a href="./src/reducto/resources/edit.py">run_job</a>(\*\*<a href="src/reducto/types/edit_run_job_params.py">params</a>) -> <a href="./src/reducto/types/edit_run_job_response.py">EditRunJobResponse</a></code>
+
+# Pipeline
+
+Types:
+
+```python
+from reducto.types import PipelineRunJobResponse
+```
+
+Methods:
+
+- <code title="post /pipeline">client.pipeline.<a href="./src/reducto/resources/pipeline.py">run</a>(\*\*<a href="src/reducto/types/pipeline_run_params.py">params</a>) -> <a href="./src/reducto/types/shared/pipeline_response.py">PipelineResponse</a></code>
+- <code title="post /pipeline_async">client.pipeline.<a href="./src/reducto/resources/pipeline.py">run_job</a>(\*\*<a href="src/reducto/types/pipeline_run_job_params.py">params</a>) -> <a href="./src/reducto/types/pipeline_run_job_response.py">PipelineRunJobResponse</a></code>
 
 # Webhook
 
