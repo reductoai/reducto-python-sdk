@@ -7,7 +7,7 @@ from typing import Iterable
 import httpx
 
 from ..types import split_run_params, split_run_job_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -54,18 +54,18 @@ class SplitResource(SyncAPIResource):
         *,
         document_url: split_run_params.DocumentURL,
         split_description: Iterable[SplitCategory],
-        advanced_options: AdvancedProcessingOptions | NotGiven = NOT_GIVEN,
-        experimental_options: ExperimentalProcessingOptions | NotGiven = NOT_GIVEN,
-        options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
-        priority: bool | NotGiven = NOT_GIVEN,
-        split_options: split_run_params.SplitOptions | NotGiven = NOT_GIVEN,
-        split_rules: str | NotGiven = NOT_GIVEN,
+        advanced_options: AdvancedProcessingOptions | Omit = omit,
+        experimental_options: ExperimentalProcessingOptions | Omit = omit,
+        options: BaseProcessingOptions | Omit = omit,
+        priority: bool | Omit = omit,
+        split_options: split_run_params.SplitOptions | Omit = omit,
+        split_rules: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SplitResponse:
         """Split
 
@@ -124,19 +124,19 @@ class SplitResource(SyncAPIResource):
         *,
         document_url: split_run_job_params.DocumentURL,
         split_description: Iterable[SplitCategory],
-        advanced_options: AdvancedProcessingOptions | NotGiven = NOT_GIVEN,
-        experimental_options: ExperimentalProcessingOptions | NotGiven = NOT_GIVEN,
-        options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
-        priority: bool | NotGiven = NOT_GIVEN,
-        split_options: split_run_job_params.SplitOptions | NotGiven = NOT_GIVEN,
-        split_rules: str | NotGiven = NOT_GIVEN,
-        webhook: WebhookConfigNew | NotGiven = NOT_GIVEN,
+        advanced_options: AdvancedProcessingOptions | Omit = omit,
+        experimental_options: ExperimentalProcessingOptions | Omit = omit,
+        options: BaseProcessingOptions | Omit = omit,
+        priority: bool | Omit = omit,
+        split_options: split_run_job_params.SplitOptions | Omit = omit,
+        split_rules: str | Omit = omit,
+        webhook: WebhookConfigNew | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SplitRunJobResponse:
         """
         Split Async
@@ -216,18 +216,18 @@ class AsyncSplitResource(AsyncAPIResource):
         *,
         document_url: split_run_params.DocumentURL,
         split_description: Iterable[SplitCategory],
-        advanced_options: AdvancedProcessingOptions | NotGiven = NOT_GIVEN,
-        experimental_options: ExperimentalProcessingOptions | NotGiven = NOT_GIVEN,
-        options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
-        priority: bool | NotGiven = NOT_GIVEN,
-        split_options: split_run_params.SplitOptions | NotGiven = NOT_GIVEN,
-        split_rules: str | NotGiven = NOT_GIVEN,
+        advanced_options: AdvancedProcessingOptions | Omit = omit,
+        experimental_options: ExperimentalProcessingOptions | Omit = omit,
+        options: BaseProcessingOptions | Omit = omit,
+        priority: bool | Omit = omit,
+        split_options: split_run_params.SplitOptions | Omit = omit,
+        split_rules: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SplitResponse:
         """Split
 
@@ -286,19 +286,19 @@ class AsyncSplitResource(AsyncAPIResource):
         *,
         document_url: split_run_job_params.DocumentURL,
         split_description: Iterable[SplitCategory],
-        advanced_options: AdvancedProcessingOptions | NotGiven = NOT_GIVEN,
-        experimental_options: ExperimentalProcessingOptions | NotGiven = NOT_GIVEN,
-        options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
-        priority: bool | NotGiven = NOT_GIVEN,
-        split_options: split_run_job_params.SplitOptions | NotGiven = NOT_GIVEN,
-        split_rules: str | NotGiven = NOT_GIVEN,
-        webhook: WebhookConfigNew | NotGiven = NOT_GIVEN,
+        advanced_options: AdvancedProcessingOptions | Omit = omit,
+        experimental_options: ExperimentalProcessingOptions | Omit = omit,
+        options: BaseProcessingOptions | Omit = omit,
+        priority: bool | Omit = omit,
+        split_options: split_run_job_params.SplitOptions | Omit = omit,
+        split_rules: str | Omit = omit,
+        webhook: WebhookConfigNew | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SplitRunJobResponse:
         """
         Split Async
