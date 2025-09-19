@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Dict, Union, Mapping, Optional, cast
+from typing import Any, Dict, Mapping, Optional, cast
 from typing_extensions import Self, Literal, override
 
 import httpx
@@ -12,7 +12,6 @@ from . import _exceptions
 from ._qs import Querystring
 from .types import client_upload_params
 from ._types import (
-    NOT_GIVEN,
     Body,
     Omit,
     Query,
@@ -23,6 +22,8 @@ from ._types import (
     Transport,
     ProxiesTypes,
     RequestOptions,
+    omit,
+    not_given,
 )
 from ._utils import (
     is_given,
@@ -89,9 +90,9 @@ class Reducto(SyncAPIClient):
         self,
         *,
         api_key: str | None = None,
-        environment: Literal["production", "eu", "au"] | NotGiven = NOT_GIVEN,
-        base_url: str | httpx.URL | None | NotGiven = NOT_GIVEN,
-        timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
+        environment: Literal["production", "eu", "au"] | NotGiven = not_given,
+        base_url: str | httpx.URL | None | NotGiven = not_given,
+        timeout: float | Timeout | None | NotGiven = not_given,
         max_retries: int = DEFAULT_MAX_RETRIES,
         default_headers: Mapping[str, str] | None = None,
         default_query: Mapping[str, object] | None = None,
@@ -194,9 +195,9 @@ class Reducto(SyncAPIClient):
         api_key: str | None = None,
         environment: Literal["production", "eu", "au"] | None = None,
         base_url: str | httpx.URL | None = None,
-        timeout: float | Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | Timeout | None | NotGiven = not_given,
         http_client: httpx.Client | None = None,
-        max_retries: int | NotGiven = NOT_GIVEN,
+        max_retries: int | NotGiven = not_given,
         default_headers: Mapping[str, str] | None = None,
         set_default_headers: Mapping[str, str] | None = None,
         default_query: Mapping[str, object] | None = None,
@@ -249,7 +250,7 @@ class Reducto(SyncAPIClient):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> object:
         """Get Version"""
         return self.get(
@@ -263,14 +264,14 @@ class Reducto(SyncAPIClient):
     def upload(
         self,
         *,
-        extension: Optional[str] | NotGiven = NOT_GIVEN,
-        file: Optional[FileTypes] | NotGiven = NOT_GIVEN,
+        extension: Optional[str] | Omit = omit,
+        file: Optional[FileTypes] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Upload:
         """
         Upload
@@ -359,9 +360,9 @@ class AsyncReducto(AsyncAPIClient):
         self,
         *,
         api_key: str | None = None,
-        environment: Literal["production", "eu", "au"] | NotGiven = NOT_GIVEN,
-        base_url: str | httpx.URL | None | NotGiven = NOT_GIVEN,
-        timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
+        environment: Literal["production", "eu", "au"] | NotGiven = not_given,
+        base_url: str | httpx.URL | None | NotGiven = not_given,
+        timeout: float | Timeout | None | NotGiven = not_given,
         max_retries: int = DEFAULT_MAX_RETRIES,
         default_headers: Mapping[str, str] | None = None,
         default_query: Mapping[str, object] | None = None,
@@ -464,9 +465,9 @@ class AsyncReducto(AsyncAPIClient):
         api_key: str | None = None,
         environment: Literal["production", "eu", "au"] | None = None,
         base_url: str | httpx.URL | None = None,
-        timeout: float | Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | Timeout | None | NotGiven = not_given,
         http_client: httpx.AsyncClient | None = None,
-        max_retries: int | NotGiven = NOT_GIVEN,
+        max_retries: int | NotGiven = not_given,
         default_headers: Mapping[str, str] | None = None,
         set_default_headers: Mapping[str, str] | None = None,
         default_query: Mapping[str, object] | None = None,
@@ -519,7 +520,7 @@ class AsyncReducto(AsyncAPIClient):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> object:
         """Get Version"""
         return await self.get(
@@ -533,14 +534,14 @@ class AsyncReducto(AsyncAPIClient):
     async def upload(
         self,
         *,
-        extension: Optional[str] | NotGiven = NOT_GIVEN,
-        file: Optional[FileTypes] | NotGiven = NOT_GIVEN,
+        extension: Optional[str] | Omit = omit,
+        file: Optional[FileTypes] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Upload:
         """
         Upload
