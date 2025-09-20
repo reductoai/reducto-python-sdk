@@ -5,7 +5,7 @@ from __future__ import annotations
 import httpx
 
 from ..types import extract_run_params, extract_run_job_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -52,24 +52,24 @@ class ExtractResource(SyncAPIResource):
         *,
         document_url: extract_run_params.DocumentURL,
         schema: object,
-        advanced_options: AdvancedProcessingOptions | NotGiven = NOT_GIVEN,
-        array_extract: ArrayExtractConfig | NotGiven = NOT_GIVEN,
-        citations_options: extract_run_params.CitationsOptions | NotGiven = NOT_GIVEN,
-        experimental_options: ExperimentalProcessingOptions | NotGiven = NOT_GIVEN,
-        experimental_table_citations: bool | NotGiven = NOT_GIVEN,
-        generate_citations: bool | NotGiven = NOT_GIVEN,
-        include_images: bool | NotGiven = NOT_GIVEN,
-        options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
-        priority: bool | NotGiven = NOT_GIVEN,
-        spreadsheet_agent: bool | NotGiven = NOT_GIVEN,
-        system_prompt: str | NotGiven = NOT_GIVEN,
-        use_chunking: bool | NotGiven = NOT_GIVEN,
+        advanced_options: AdvancedProcessingOptions | Omit = omit,
+        array_extract: ArrayExtractConfig | Omit = omit,
+        citations_options: extract_run_params.CitationsOptions | Omit = omit,
+        experimental_options: ExperimentalProcessingOptions | Omit = omit,
+        experimental_table_citations: bool | Omit = omit,
+        generate_citations: bool | Omit = omit,
+        include_images: bool | Omit = omit,
+        options: BaseProcessingOptions | Omit = omit,
+        priority: bool | Omit = omit,
+        spreadsheet_agent: bool | Omit = omit,
+        system_prompt: str | Omit = omit,
+        use_chunking: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ExtractResponse:
         """Extract
 
@@ -150,25 +150,25 @@ class ExtractResource(SyncAPIResource):
         *,
         document_url: extract_run_job_params.DocumentURL,
         schema: object,
-        advanced_options: AdvancedProcessingOptions | NotGiven = NOT_GIVEN,
-        array_extract: ArrayExtractConfig | NotGiven = NOT_GIVEN,
-        citations_options: extract_run_job_params.CitationsOptions | NotGiven = NOT_GIVEN,
-        experimental_options: ExperimentalProcessingOptions | NotGiven = NOT_GIVEN,
-        experimental_table_citations: bool | NotGiven = NOT_GIVEN,
-        generate_citations: bool | NotGiven = NOT_GIVEN,
-        include_images: bool | NotGiven = NOT_GIVEN,
-        options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
-        priority: bool | NotGiven = NOT_GIVEN,
-        spreadsheet_agent: bool | NotGiven = NOT_GIVEN,
-        system_prompt: str | NotGiven = NOT_GIVEN,
-        use_chunking: bool | NotGiven = NOT_GIVEN,
-        webhook: WebhookConfigNew | NotGiven = NOT_GIVEN,
+        advanced_options: AdvancedProcessingOptions | Omit = omit,
+        array_extract: ArrayExtractConfig | Omit = omit,
+        citations_options: extract_run_job_params.CitationsOptions | Omit = omit,
+        experimental_options: ExperimentalProcessingOptions | Omit = omit,
+        experimental_table_citations: bool | Omit = omit,
+        generate_citations: bool | Omit = omit,
+        include_images: bool | Omit = omit,
+        options: BaseProcessingOptions | Omit = omit,
+        priority: bool | Omit = omit,
+        spreadsheet_agent: bool | Omit = omit,
+        system_prompt: str | Omit = omit,
+        use_chunking: bool | Omit = omit,
+        webhook: WebhookConfigNew | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ExtractRunJobResponse:
         """
         Extract Async
@@ -270,24 +270,24 @@ class AsyncExtractResource(AsyncAPIResource):
         *,
         document_url: extract_run_params.DocumentURL,
         schema: object,
-        advanced_options: AdvancedProcessingOptions | NotGiven = NOT_GIVEN,
-        array_extract: ArrayExtractConfig | NotGiven = NOT_GIVEN,
-        citations_options: extract_run_params.CitationsOptions | NotGiven = NOT_GIVEN,
-        experimental_options: ExperimentalProcessingOptions | NotGiven = NOT_GIVEN,
-        experimental_table_citations: bool | NotGiven = NOT_GIVEN,
-        generate_citations: bool | NotGiven = NOT_GIVEN,
-        include_images: bool | NotGiven = NOT_GIVEN,
-        options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
-        priority: bool | NotGiven = NOT_GIVEN,
-        spreadsheet_agent: bool | NotGiven = NOT_GIVEN,
-        system_prompt: str | NotGiven = NOT_GIVEN,
-        use_chunking: bool | NotGiven = NOT_GIVEN,
+        advanced_options: AdvancedProcessingOptions | Omit = omit,
+        array_extract: ArrayExtractConfig | Omit = omit,
+        citations_options: extract_run_params.CitationsOptions | Omit = omit,
+        experimental_options: ExperimentalProcessingOptions | Omit = omit,
+        experimental_table_citations: bool | Omit = omit,
+        generate_citations: bool | Omit = omit,
+        include_images: bool | Omit = omit,
+        options: BaseProcessingOptions | Omit = omit,
+        priority: bool | Omit = omit,
+        spreadsheet_agent: bool | Omit = omit,
+        system_prompt: str | Omit = omit,
+        use_chunking: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ExtractResponse:
         """Extract
 
@@ -368,25 +368,25 @@ class AsyncExtractResource(AsyncAPIResource):
         *,
         document_url: extract_run_job_params.DocumentURL,
         schema: object,
-        advanced_options: AdvancedProcessingOptions | NotGiven = NOT_GIVEN,
-        array_extract: ArrayExtractConfig | NotGiven = NOT_GIVEN,
-        citations_options: extract_run_job_params.CitationsOptions | NotGiven = NOT_GIVEN,
-        experimental_options: ExperimentalProcessingOptions | NotGiven = NOT_GIVEN,
-        experimental_table_citations: bool | NotGiven = NOT_GIVEN,
-        generate_citations: bool | NotGiven = NOT_GIVEN,
-        include_images: bool | NotGiven = NOT_GIVEN,
-        options: BaseProcessingOptions | NotGiven = NOT_GIVEN,
-        priority: bool | NotGiven = NOT_GIVEN,
-        spreadsheet_agent: bool | NotGiven = NOT_GIVEN,
-        system_prompt: str | NotGiven = NOT_GIVEN,
-        use_chunking: bool | NotGiven = NOT_GIVEN,
-        webhook: WebhookConfigNew | NotGiven = NOT_GIVEN,
+        advanced_options: AdvancedProcessingOptions | Omit = omit,
+        array_extract: ArrayExtractConfig | Omit = omit,
+        citations_options: extract_run_job_params.CitationsOptions | Omit = omit,
+        experimental_options: ExperimentalProcessingOptions | Omit = omit,
+        experimental_table_citations: bool | Omit = omit,
+        generate_citations: bool | Omit = omit,
+        include_images: bool | Omit = omit,
+        options: BaseProcessingOptions | Omit = omit,
+        priority: bool | Omit = omit,
+        spreadsheet_agent: bool | Omit = omit,
+        system_prompt: str | Omit = omit,
+        use_chunking: bool | Omit = omit,
+        webhook: WebhookConfigNew | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ExtractRunJobResponse:
         """
         Extract Async
