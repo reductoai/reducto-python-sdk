@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.12.0 (2025-09-27)
+
+Full Changelog: [v0.11.0...v0.12.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.11.0...v0.12.0)
+
+### Features
+
+* **api:** api update ([2856096](https://github.com/reductoai/reducto-python-sdk/commit/28560963da16f3408425e341212501e32d67a81f))
+* **api:** api update ([4fa2c91](https://github.com/reductoai/reducto-python-sdk/commit/4fa2c91c94a8c357e735cce8dbd072a4fcb54c55))
+* **api:** manual updates ([f172ed3](https://github.com/reductoai/reducto-python-sdk/commit/f172ed3b5add5ab555d83f608dcd9b5732a91c68))
+
+
+### Bug Fixes
+
+* **compat:** compat with `pydantic&lt;2.8.0` when using additional fields ([084221e](https://github.com/reductoai/reducto-python-sdk/commit/084221ec45061a583622799722c8c12a7165560d))
+
+
+### Chores
+
+* do not install brew dependencies in ./scripts/bootstrap by default ([9be6843](https://github.com/reductoai/reducto-python-sdk/commit/9be68437f02f0e4adb4dd1382d0ce8d2f02f9206))
+* **internal:** update pydantic dependency ([222a534](https://github.com/reductoai/reducto-python-sdk/commit/222a53475a8b1f13207145321d99c7b77c8f63a2))
+* **types:** change optional parameter type from NotGiven to Omit ([3cedda8](https://github.com/reductoai/reducto-python-sdk/commit/3cedda8f1d906488f8573110deac92274756b39d))
+
 ## 0.11.0 (2025-09-16)
 
 Full Changelog: [v0.10.1...v0.11.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.10.1...v0.11.0)
