@@ -75,12 +75,6 @@ class ExperimentalProcessingOptions(BaseModel):
     convert files. This is slower but more accurate.
     """
 
-    numerical_parse_confidence: Optional[bool] = None
-    """
-    If True, enable numeric parse confidence scores in granular_confidence
-    dictionary. Defaults to False.
-    """
-
     return_figure_images: Optional[bool] = None
     """If figure images should be returned in the result. Defaults to False."""
 
@@ -99,9 +93,14 @@ class ExperimentalProcessingOptions(BaseModel):
     user_specified_timeout_seconds: Optional[float] = None
     """A user specified timeout, defaults to None"""
 
-    __pydantic_extra__: Dict[str, object] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
     if TYPE_CHECKING:
+        # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
+        # value to this field, so for compatibility we avoid doing it at runtime.
+        __pydantic_extra__: Dict[str, object] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
+
         # Stub to indicate that arbitrary properties are accepted.
         # To access properties that are not valid identifiers you can use `getattr`, e.g.
         # `getattr(obj, '$type')`
         def __getattr__(self, attr: str) -> object: ...
+    else:
+        __pydantic_extra__: Dict[str, object]
