@@ -286,7 +286,7 @@ class Reducto(SyncAPIClient):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         body = deepcopy_minimal({})
-        if file is not NOT_GIVEN:
+        if file is not not_given:
             body["file"] = file
         files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
         if files:
@@ -558,7 +558,7 @@ class AsyncReducto(AsyncAPIClient):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         body = deepcopy_minimal({})
-        if file is not NOT_GIVEN:
+        if file is not not_given:
             body["file"] = file
         files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
         if files:
