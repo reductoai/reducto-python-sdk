@@ -2,19 +2,25 @@
 
 ```python
 from reducto.types import (
+    AdvancedCitationsConfig,
     AdvancedProcessingOptions,
     ArrayExtractConfig,
     BaseProcessingOptions,
     BoundingBox,
+    ChunkingConfig,
     EditResponse,
+    EnrichConfig,
     ExperimentalProcessingOptions,
     ExtractResponse,
+    FigureSummaryConfig,
+    LargeTableChunkingConfig,
     PageRange,
     ParseResponse,
     ParseUsage,
     PipelineResponse,
     SplitCategory,
     SplitResponse,
+    TableSummaryConfig,
     Upload,
     WebhookConfigNew,
 )
@@ -27,18 +33,19 @@ Methods:
 - <code title="get /version">client.<a href="./src/reducto/_client.py">api_version</a>() -> object</code>
 - <code title="post /upload">client.<a href="./src/reducto/_client.py">upload</a>(\*\*<a href="src/reducto/types/client_upload_params.py">params</a>) -> <a href="./src/reducto/types/shared/upload.py">Upload</a></code>
 
-# Job
+# Jobs
 
 Types:
 
 ```python
-from reducto.types import JobGetResponse
+from reducto.types import JobListResponse, JobGetResponse
 ```
 
 Methods:
 
-- <code title="post /cancel/{job_id}">client.job.<a href="./src/reducto/resources/job.py">cancel</a>(job_id) -> object</code>
-- <code title="get /job/{job_id}">client.job.<a href="./src/reducto/resources/job.py">get</a>(job_id) -> <a href="./src/reducto/types/job_get_response.py">JobGetResponse</a></code>
+- <code title="get /jobs">client.jobs.<a href="./src/reducto/resources/jobs.py">list</a>(\*\*<a href="src/reducto/types/job_list_params.py">params</a>) -> <a href="./src/reducto/types/job_list_response.py">JobListResponse</a></code>
+- <code title="post /cancel/{job_id}">client.jobs.<a href="./src/reducto/resources/jobs.py">cancel</a>(job_id) -> object</code>
+- <code title="get /job/{job_id}">client.jobs.<a href="./src/reducto/resources/jobs.py">get</a>(job_id) -> <a href="./src/reducto/types/job_get_response.py">JobGetResponse</a></code>
 
 # Split
 

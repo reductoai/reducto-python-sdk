@@ -10,10 +10,11 @@ from .shared_params.upload import Upload
 from .shared_params.webhook_config_new import WebhookConfigNew
 from .shared_params.array_extract_config import ArrayExtractConfig
 from .shared_params.base_processing_options import BaseProcessingOptions
+from .shared_params.advanced_citations_config import AdvancedCitationsConfig
 from .shared_params.advanced_processing_options import AdvancedProcessingOptions
 from .shared_params.experimental_processing_options import ExperimentalProcessingOptions
 
-__all__ = ["ExtractRunJobParams", "DocumentURL", "CitationsOptions"]
+__all__ = ["ExtractRunJobParams", "DocumentURL"]
 
 
 class ExtractRunJobParams(TypedDict, total=False):
@@ -36,7 +37,7 @@ class ExtractRunJobParams(TypedDict, total=False):
     array_extract: ArrayExtractConfig
     """The configuration options for array extract"""
 
-    citations_options: CitationsOptions
+    citations_options: AdvancedCitationsConfig
     """The configuration options for citations."""
 
     experimental_options: ExperimentalProcessingOptions
@@ -79,8 +80,3 @@ class ExtractRunJobParams(TypedDict, total=False):
 
 
 DocumentURL: TypeAlias = Union[str, SequenceNotStr[str], Upload]
-
-
-class CitationsOptions(TypedDict, total=False):
-    numerical_confidence: bool
-    """If True, enable numeric citation confidence scores. Defaults to False."""

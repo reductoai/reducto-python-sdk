@@ -6,23 +6,9 @@ from typing_extensions import Literal
 from pydantic import Field as FieldInfo
 
 from ..._models import BaseModel
+from .enrich_config import EnrichConfig
 
-__all__ = ["ExperimentalProcessingOptions", "Enrich"]
-
-
-class Enrich(BaseModel):
-    enabled: Optional[bool] = None
-    """
-    If enabled, a large language/vision model will be used to postprocess the
-    extracted content. Note: enabling enrich requires tables be outputted in
-    markdown format. Defaults to False.
-    """
-
-    mode: Optional[Literal["standard", "page", "table"]] = None
-    """The mode to use for enrichment. Defaults to standard"""
-
-    prompt: Optional[str] = None
-    """Add information to the prompt for enrichment."""
+__all__ = ["ExperimentalProcessingOptions"]
 
 
 class ExperimentalProcessingOptions(BaseModel):
@@ -60,7 +46,7 @@ class ExperimentalProcessingOptions(BaseModel):
     False
     """
 
-    enrich: Optional[Enrich] = None
+    enrich: Optional[EnrichConfig] = None
     """The configuration options for enrichment."""
 
     layout_model: Optional[Literal["default", "beta"]] = None

@@ -1,13 +1,5 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from .job import (
-    JobResource,
-    AsyncJobResource,
-    JobResourceWithRawResponse,
-    AsyncJobResourceWithRawResponse,
-    JobResourceWithStreamingResponse,
-    AsyncJobResourceWithStreamingResponse,
-)
 from .edit import (
     EditResource,
     AsyncEditResource,
@@ -15,6 +7,14 @@ from .edit import (
     AsyncEditResourceWithRawResponse,
     EditResourceWithStreamingResponse,
     AsyncEditResourceWithStreamingResponse,
+)
+from .jobs import (
+    JobsResource,
+    AsyncJobsResource,
+    JobsResourceWithRawResponse,
+    AsyncJobsResourceWithRawResponse,
+    JobsResourceWithStreamingResponse,
+    AsyncJobsResourceWithStreamingResponse,
 )
 from .parse import (
     ParseResource,
@@ -58,12 +58,12 @@ from .pipeline import (
 )
 
 __all__ = [
-    "JobResource",
-    "AsyncJobResource",
-    "JobResourceWithRawResponse",
-    "AsyncJobResourceWithRawResponse",
-    "JobResourceWithStreamingResponse",
-    "AsyncJobResourceWithStreamingResponse",
+    "JobsResource",
+    "AsyncJobsResource",
+    "JobsResourceWithRawResponse",
+    "AsyncJobsResourceWithRawResponse",
+    "JobsResourceWithStreamingResponse",
+    "AsyncJobsResourceWithStreamingResponse",
     "SplitResource",
     "AsyncSplitResource",
     "SplitResourceWithRawResponse",

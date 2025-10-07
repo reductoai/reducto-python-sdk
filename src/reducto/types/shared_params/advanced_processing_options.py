@@ -6,23 +6,9 @@ from typing import Union, Iterable
 from typing_extensions import Literal, TypeAlias, TypedDict
 
 from . import page_range
+from .large_table_chunking_config import LargeTableChunkingConfig
 
-__all__ = ["AdvancedProcessingOptions", "LargeTableChunking", "PageRange"]
-
-
-class LargeTableChunking(TypedDict, total=False):
-    enabled: bool
-    """
-    If large tables should be chunked into smaller tables, currently only supported
-    on spreadsheet and CSV files.
-    """
-
-    size: int
-    """The max row/column size for a table to be chunked.
-
-    Defaults to 50. Header rows/columns are persisted based on heuristics.
-    """
-
+__all__ = ["AdvancedProcessingOptions", "PageRange"]
 
 PageRange: TypeAlias = Union[page_range.PageRange, Iterable[page_range.PageRange], Iterable[int]]
 
@@ -84,7 +70,7 @@ class AdvancedProcessingOptions(TypedDict, total=False):
     keep_line_breaks: bool
     """If line breaks should be preserved in the text."""
 
-    large_table_chunking: LargeTableChunking
+    large_table_chunking: LargeTableChunkingConfig
     """
     The configuration options for large table chunking (currently only supported on
     spreadsheet and CSV files).
