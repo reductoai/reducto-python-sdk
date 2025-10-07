@@ -5,22 +5,9 @@ from __future__ import annotations
 from typing import Dict, Union, Optional
 from typing_extensions import Literal, TypeAlias, TypedDict
 
-__all__ = ["ExperimentalProcessingOptions", "Enrich"]
+from .enrich_config import EnrichConfig
 
-
-class Enrich(TypedDict, total=False):
-    enabled: bool
-    """
-    If enabled, a large language/vision model will be used to postprocess the
-    extracted content. Note: enabling enrich requires tables be outputted in
-    markdown format. Defaults to False.
-    """
-
-    mode: Literal["standard", "page", "table"]
-    """The mode to use for enrichment. Defaults to standard"""
-
-    prompt: str
-    """Add information to the prompt for enrichment."""
+__all__ = ["ExperimentalProcessingOptions"]
 
 
 class ExperimentalProcessingOptionsTyped(TypedDict, total=False):
@@ -58,7 +45,7 @@ class ExperimentalProcessingOptionsTyped(TypedDict, total=False):
     False
     """
 
-    enrich: Enrich
+    enrich: EnrichConfig
     """The configuration options for enrichment."""
 
     layout_model: Literal["default", "beta"]

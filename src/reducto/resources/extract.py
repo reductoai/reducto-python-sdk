@@ -21,6 +21,7 @@ from ..types.extract_run_job_response import ExtractRunJobResponse
 from ..types.shared_params.webhook_config_new import WebhookConfigNew
 from ..types.shared_params.array_extract_config import ArrayExtractConfig
 from ..types.shared_params.base_processing_options import BaseProcessingOptions
+from ..types.shared_params.advanced_citations_config import AdvancedCitationsConfig
 from ..types.shared_params.advanced_processing_options import AdvancedProcessingOptions
 from ..types.shared_params.experimental_processing_options import ExperimentalProcessingOptions
 
@@ -54,7 +55,7 @@ class ExtractResource(SyncAPIResource):
         schema: object,
         advanced_options: AdvancedProcessingOptions | Omit = omit,
         array_extract: ArrayExtractConfig | Omit = omit,
-        citations_options: extract_run_params.CitationsOptions | Omit = omit,
+        citations_options: AdvancedCitationsConfig | Omit = omit,
         experimental_options: ExperimentalProcessingOptions | Omit = omit,
         experimental_table_citations: bool | Omit = omit,
         generate_citations: bool | Omit = omit,
@@ -152,7 +153,7 @@ class ExtractResource(SyncAPIResource):
         schema: object,
         advanced_options: AdvancedProcessingOptions | Omit = omit,
         array_extract: ArrayExtractConfig | Omit = omit,
-        citations_options: extract_run_job_params.CitationsOptions | Omit = omit,
+        citations_options: AdvancedCitationsConfig | Omit = omit,
         experimental_options: ExperimentalProcessingOptions | Omit = omit,
         experimental_table_citations: bool | Omit = omit,
         generate_citations: bool | Omit = omit,
@@ -272,7 +273,7 @@ class AsyncExtractResource(AsyncAPIResource):
         schema: object,
         advanced_options: AdvancedProcessingOptions | Omit = omit,
         array_extract: ArrayExtractConfig | Omit = omit,
-        citations_options: extract_run_params.CitationsOptions | Omit = omit,
+        citations_options: AdvancedCitationsConfig | Omit = omit,
         experimental_options: ExperimentalProcessingOptions | Omit = omit,
         experimental_table_citations: bool | Omit = omit,
         generate_citations: bool | Omit = omit,
@@ -370,7 +371,7 @@ class AsyncExtractResource(AsyncAPIResource):
         schema: object,
         advanced_options: AdvancedProcessingOptions | Omit = omit,
         array_extract: ArrayExtractConfig | Omit = omit,
-        citations_options: extract_run_job_params.CitationsOptions | Omit = omit,
+        citations_options: AdvancedCitationsConfig | Omit = omit,
         experimental_options: ExperimentalProcessingOptions | Omit = omit,
         experimental_table_citations: bool | Omit = omit,
         generate_citations: bool | Omit = omit,
