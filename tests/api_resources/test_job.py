@@ -14,19 +14,19 @@ from reducto.types import JobGetResponse, JobListResponse
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
 
-class TestJobs:
+class TestJob:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_list(self, client: Reducto) -> None:
-        job = client.jobs.list()
+        job = client.job.list()
         assert_matches_type(JobListResponse, job, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: Reducto) -> None:
-        job = client.jobs.list(
+        job = client.job.list(
             cursor="cursor",
             exclude_configs=True,
             limit=1,
@@ -36,7 +36,7 @@ class TestJobs:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Reducto) -> None:
-        response = client.jobs.with_raw_response.list()
+        response = client.job.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -46,7 +46,7 @@ class TestJobs:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Reducto) -> None:
-        with client.jobs.with_streaming_response.list() as response:
+        with client.job.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -58,7 +58,7 @@ class TestJobs:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_cancel(self, client: Reducto) -> None:
-        job = client.jobs.cancel(
+        job = client.job.cancel(
             "job_id",
         )
         assert_matches_type(object, job, path=["response"])
@@ -66,7 +66,7 @@ class TestJobs:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_cancel(self, client: Reducto) -> None:
-        response = client.jobs.with_raw_response.cancel(
+        response = client.job.with_raw_response.cancel(
             "job_id",
         )
 
@@ -78,7 +78,7 @@ class TestJobs:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_cancel(self, client: Reducto) -> None:
-        with client.jobs.with_streaming_response.cancel(
+        with client.job.with_streaming_response.cancel(
             "job_id",
         ) as response:
             assert not response.is_closed
@@ -93,14 +93,14 @@ class TestJobs:
     @parametrize
     def test_path_params_cancel(self, client: Reducto) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `job_id` but received ''"):
-            client.jobs.with_raw_response.cancel(
+            client.job.with_raw_response.cancel(
                 "",
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_get(self, client: Reducto) -> None:
-        job = client.jobs.get(
+        job = client.job.get(
             "job_id",
         )
         assert_matches_type(JobGetResponse, job, path=["response"])
@@ -108,7 +108,7 @@ class TestJobs:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_get(self, client: Reducto) -> None:
-        response = client.jobs.with_raw_response.get(
+        response = client.job.with_raw_response.get(
             "job_id",
         )
 
@@ -120,7 +120,7 @@ class TestJobs:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_get(self, client: Reducto) -> None:
-        with client.jobs.with_streaming_response.get(
+        with client.job.with_streaming_response.get(
             "job_id",
         ) as response:
             assert not response.is_closed
@@ -135,12 +135,12 @@ class TestJobs:
     @parametrize
     def test_path_params_get(self, client: Reducto) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `job_id` but received ''"):
-            client.jobs.with_raw_response.get(
+            client.job.with_raw_response.get(
                 "",
             )
 
 
-class TestAsyncJobs:
+class TestAsyncJob:
     parametrize = pytest.mark.parametrize(
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
@@ -148,13 +148,13 @@ class TestAsyncJobs:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncReducto) -> None:
-        job = await async_client.jobs.list()
+        job = await async_client.job.list()
         assert_matches_type(JobListResponse, job, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncReducto) -> None:
-        job = await async_client.jobs.list(
+        job = await async_client.job.list(
             cursor="cursor",
             exclude_configs=True,
             limit=1,
@@ -164,7 +164,7 @@ class TestAsyncJobs:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncReducto) -> None:
-        response = await async_client.jobs.with_raw_response.list()
+        response = await async_client.job.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -174,7 +174,7 @@ class TestAsyncJobs:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncReducto) -> None:
-        async with async_client.jobs.with_streaming_response.list() as response:
+        async with async_client.job.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -186,7 +186,7 @@ class TestAsyncJobs:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_cancel(self, async_client: AsyncReducto) -> None:
-        job = await async_client.jobs.cancel(
+        job = await async_client.job.cancel(
             "job_id",
         )
         assert_matches_type(object, job, path=["response"])
@@ -194,7 +194,7 @@ class TestAsyncJobs:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_cancel(self, async_client: AsyncReducto) -> None:
-        response = await async_client.jobs.with_raw_response.cancel(
+        response = await async_client.job.with_raw_response.cancel(
             "job_id",
         )
 
@@ -206,7 +206,7 @@ class TestAsyncJobs:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_cancel(self, async_client: AsyncReducto) -> None:
-        async with async_client.jobs.with_streaming_response.cancel(
+        async with async_client.job.with_streaming_response.cancel(
             "job_id",
         ) as response:
             assert not response.is_closed
@@ -221,14 +221,14 @@ class TestAsyncJobs:
     @parametrize
     async def test_path_params_cancel(self, async_client: AsyncReducto) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `job_id` but received ''"):
-            await async_client.jobs.with_raw_response.cancel(
+            await async_client.job.with_raw_response.cancel(
                 "",
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_get(self, async_client: AsyncReducto) -> None:
-        job = await async_client.jobs.get(
+        job = await async_client.job.get(
             "job_id",
         )
         assert_matches_type(JobGetResponse, job, path=["response"])
@@ -236,7 +236,7 @@ class TestAsyncJobs:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_get(self, async_client: AsyncReducto) -> None:
-        response = await async_client.jobs.with_raw_response.get(
+        response = await async_client.job.with_raw_response.get(
             "job_id",
         )
 
@@ -248,7 +248,7 @@ class TestAsyncJobs:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_get(self, async_client: AsyncReducto) -> None:
-        async with async_client.jobs.with_streaming_response.get(
+        async with async_client.job.with_streaming_response.get(
             "job_id",
         ) as response:
             assert not response.is_closed
@@ -263,6 +263,6 @@ class TestAsyncJobs:
     @parametrize
     async def test_path_params_get(self, async_client: AsyncReducto) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `job_id` but received ''"):
-            await async_client.jobs.with_raw_response.get(
+            await async_client.job.with_raw_response.get(
                 "",
             )

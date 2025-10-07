@@ -40,7 +40,7 @@ from ._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .resources import edit, jobs, parse, split, extract, webhook, pipeline
+from .resources import job, edit, parse, split, extract, webhook, pipeline
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import ReductoError, APIStatusError
 from ._base_client import (
@@ -71,7 +71,7 @@ ENVIRONMENTS: Dict[str, str] = {
 
 
 class Reducto(SyncAPIClient):
-    jobs: jobs.JobsResource
+    job: job.JobResource
     split: split.SplitResource
     parse: parse.ParseResource
     extract: extract.ExtractResource
@@ -159,7 +159,7 @@ class Reducto(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.jobs = jobs.JobsResource(self)
+        self.job = job.JobResource(self)
         self.split = split.SplitResource(self)
         self.parse = parse.ParseResource(self)
         self.extract = extract.ExtractResource(self)
@@ -341,7 +341,7 @@ class Reducto(SyncAPIClient):
 
 
 class AsyncReducto(AsyncAPIClient):
-    jobs: jobs.AsyncJobsResource
+    job: job.AsyncJobResource
     split: split.AsyncSplitResource
     parse: parse.AsyncParseResource
     extract: extract.AsyncExtractResource
@@ -429,7 +429,7 @@ class AsyncReducto(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.jobs = jobs.AsyncJobsResource(self)
+        self.job = job.AsyncJobResource(self)
         self.split = split.AsyncSplitResource(self)
         self.parse = parse.AsyncParseResource(self)
         self.extract = extract.AsyncExtractResource(self)
@@ -612,7 +612,7 @@ class AsyncReducto(AsyncAPIClient):
 
 class ReductoWithRawResponse:
     def __init__(self, client: Reducto) -> None:
-        self.jobs = jobs.JobsResourceWithRawResponse(client.jobs)
+        self.job = job.JobResourceWithRawResponse(client.job)
         self.split = split.SplitResourceWithRawResponse(client.split)
         self.parse = parse.ParseResourceWithRawResponse(client.parse)
         self.extract = extract.ExtractResourceWithRawResponse(client.extract)
@@ -630,7 +630,7 @@ class ReductoWithRawResponse:
 
 class AsyncReductoWithRawResponse:
     def __init__(self, client: AsyncReducto) -> None:
-        self.jobs = jobs.AsyncJobsResourceWithRawResponse(client.jobs)
+        self.job = job.AsyncJobResourceWithRawResponse(client.job)
         self.split = split.AsyncSplitResourceWithRawResponse(client.split)
         self.parse = parse.AsyncParseResourceWithRawResponse(client.parse)
         self.extract = extract.AsyncExtractResourceWithRawResponse(client.extract)
@@ -648,7 +648,7 @@ class AsyncReductoWithRawResponse:
 
 class ReductoWithStreamedResponse:
     def __init__(self, client: Reducto) -> None:
-        self.jobs = jobs.JobsResourceWithStreamingResponse(client.jobs)
+        self.job = job.JobResourceWithStreamingResponse(client.job)
         self.split = split.SplitResourceWithStreamingResponse(client.split)
         self.parse = parse.ParseResourceWithStreamingResponse(client.parse)
         self.extract = extract.ExtractResourceWithStreamingResponse(client.extract)
@@ -666,7 +666,7 @@ class ReductoWithStreamedResponse:
 
 class AsyncReductoWithStreamedResponse:
     def __init__(self, client: AsyncReducto) -> None:
-        self.jobs = jobs.AsyncJobsResourceWithStreamingResponse(client.jobs)
+        self.job = job.AsyncJobResourceWithStreamingResponse(client.job)
         self.split = split.AsyncSplitResourceWithStreamingResponse(client.split)
         self.parse = parse.AsyncParseResourceWithStreamingResponse(client.parse)
         self.extract = extract.AsyncExtractResourceWithStreamingResponse(client.extract)
