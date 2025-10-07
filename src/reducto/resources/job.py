@@ -21,28 +21,28 @@ from .._base_client import make_request_options
 from ..types.job_get_response import JobGetResponse
 from ..types.job_list_response import JobListResponse
 
-__all__ = ["JobsResource", "AsyncJobsResource"]
+__all__ = ["JobResource", "AsyncJobResource"]
 
 
-class JobsResource(SyncAPIResource):
+class JobResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> JobsResourceWithRawResponse:
+    def with_raw_response(self) -> JobResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/reductoai/reducto-python-sdk#accessing-raw-response-data-eg-headers
         """
-        return JobsResourceWithRawResponse(self)
+        return JobResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> JobsResourceWithStreamingResponse:
+    def with_streaming_response(self) -> JobResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/reductoai/reducto-python-sdk#with_streaming_response
         """
-        return JobsResourceWithStreamingResponse(self)
+        return JobResourceWithStreamingResponse(self)
 
     def list(
         self,
@@ -166,25 +166,25 @@ class JobsResource(SyncAPIResource):
         )
 
 
-class AsyncJobsResource(AsyncAPIResource):
+class AsyncJobResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncJobsResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncJobResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/reductoai/reducto-python-sdk#accessing-raw-response-data-eg-headers
         """
-        return AsyncJobsResourceWithRawResponse(self)
+        return AsyncJobResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncJobsResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncJobResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/reductoai/reducto-python-sdk#with_streaming_response
         """
-        return AsyncJobsResourceWithStreamingResponse(self)
+        return AsyncJobResourceWithStreamingResponse(self)
 
     async def list(
         self,
@@ -308,61 +308,61 @@ class AsyncJobsResource(AsyncAPIResource):
         )
 
 
-class JobsResourceWithRawResponse:
-    def __init__(self, jobs: JobsResource) -> None:
-        self._jobs = jobs
+class JobResourceWithRawResponse:
+    def __init__(self, job: JobResource) -> None:
+        self._job = job
 
         self.list = to_raw_response_wrapper(
-            jobs.list,
+            job.list,
         )
         self.cancel = to_raw_response_wrapper(
-            jobs.cancel,
+            job.cancel,
         )
         self.get = to_raw_response_wrapper(
-            jobs.get,
+            job.get,
         )
 
 
-class AsyncJobsResourceWithRawResponse:
-    def __init__(self, jobs: AsyncJobsResource) -> None:
-        self._jobs = jobs
+class AsyncJobResourceWithRawResponse:
+    def __init__(self, job: AsyncJobResource) -> None:
+        self._job = job
 
         self.list = async_to_raw_response_wrapper(
-            jobs.list,
+            job.list,
         )
         self.cancel = async_to_raw_response_wrapper(
-            jobs.cancel,
+            job.cancel,
         )
         self.get = async_to_raw_response_wrapper(
-            jobs.get,
+            job.get,
         )
 
 
-class JobsResourceWithStreamingResponse:
-    def __init__(self, jobs: JobsResource) -> None:
-        self._jobs = jobs
+class JobResourceWithStreamingResponse:
+    def __init__(self, job: JobResource) -> None:
+        self._job = job
 
         self.list = to_streamed_response_wrapper(
-            jobs.list,
+            job.list,
         )
         self.cancel = to_streamed_response_wrapper(
-            jobs.cancel,
+            job.cancel,
         )
         self.get = to_streamed_response_wrapper(
-            jobs.get,
+            job.get,
         )
 
 
-class AsyncJobsResourceWithStreamingResponse:
-    def __init__(self, jobs: AsyncJobsResource) -> None:
-        self._jobs = jobs
+class AsyncJobResourceWithStreamingResponse:
+    def __init__(self, job: AsyncJobResource) -> None:
+        self._job = job
 
         self.list = async_to_streamed_response_wrapper(
-            jobs.list,
+            job.list,
         )
         self.cancel = async_to_streamed_response_wrapper(
-            jobs.cancel,
+            job.cancel,
         )
         self.get = async_to_streamed_response_wrapper(
-            jobs.get,
+            job.get,
         )
