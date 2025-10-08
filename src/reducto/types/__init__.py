@@ -8,14 +8,20 @@ from .shared import (
     ParseUsage as ParseUsage,
     BoundingBox as BoundingBox,
     EditResponse as EditResponse,
+    EnrichConfig as EnrichConfig,
     ParseResponse as ParseResponse,
     SplitCategory as SplitCategory,
     SplitResponse as SplitResponse,
+    ChunkingConfig as ChunkingConfig,
     ExtractResponse as ExtractResponse,
     PipelineResponse as PipelineResponse,
     WebhookConfigNew as WebhookConfigNew,
     ArrayExtractConfig as ArrayExtractConfig,
+    TableSummaryConfig as TableSummaryConfig,
+    FigureSummaryConfig as FigureSummaryConfig,
     BaseProcessingOptions as BaseProcessingOptions,
+    AdvancedCitationsConfig as AdvancedCitationsConfig,
+    LargeTableChunkingConfig as LargeTableChunkingConfig,
     AdvancedProcessingOptions as AdvancedProcessingOptions,
     ExperimentalProcessingOptions as ExperimentalProcessingOptions,
 )
@@ -24,9 +30,11 @@ from .job_get_response import JobGetResponse as JobGetResponse
 from .parse_run_params import ParseRunParams as ParseRunParams
 from .split_run_params import SplitRunParams as SplitRunParams
 from .extract_run_params import ExtractRunParams as ExtractRunParams
+from .job_get_all_params import JobGetAllParams as JobGetAllParams
 from .edit_run_job_params import EditRunJobParams as EditRunJobParams
 from .pipeline_run_params import PipelineRunParams as PipelineRunParams
 from .client_upload_params import ClientUploadParams as ClientUploadParams
+from .job_get_all_response import JobGetAllResponse as JobGetAllResponse
 from .parse_run_job_params import ParseRunJobParams as ParseRunJobParams
 from .split_run_job_params import SplitRunJobParams as SplitRunJobParams
 from .webhook_run_response import WebhookRunResponse as WebhookRunResponse

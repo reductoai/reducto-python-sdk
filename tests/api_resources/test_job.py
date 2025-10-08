@@ -9,7 +9,7 @@ import pytest
 
 from reducto import Reducto, AsyncReducto
 from tests.utils import assert_matches_type
-from reducto.types import JobGetResponse
+from reducto.types import JobGetResponse, JobGetAllResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -101,6 +101,44 @@ class TestJob:
                 "",
             )
 
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_get_all(self, client: Reducto) -> None:
+        job = client.job.get_all()
+        assert_matches_type(JobGetAllResponse, job, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_get_all_with_all_params(self, client: Reducto) -> None:
+        job = client.job.get_all(
+            cursor="cursor",
+            exclude_configs=True,
+            limit=1,
+        )
+        assert_matches_type(JobGetAllResponse, job, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_get_all(self, client: Reducto) -> None:
+        response = client.job.with_raw_response.get_all()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        job = response.parse()
+        assert_matches_type(JobGetAllResponse, job, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_get_all(self, client: Reducto) -> None:
+        with client.job.with_streaming_response.get_all() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            job = response.parse()
+            assert_matches_type(JobGetAllResponse, job, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
 
 class TestAsyncJob:
     parametrize = pytest.mark.parametrize(
@@ -190,3 +228,41 @@ class TestAsyncJob:
             await async_client.job.with_raw_response.get(
                 "",
             )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_get_all(self, async_client: AsyncReducto) -> None:
+        job = await async_client.job.get_all()
+        assert_matches_type(JobGetAllResponse, job, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_get_all_with_all_params(self, async_client: AsyncReducto) -> None:
+        job = await async_client.job.get_all(
+            cursor="cursor",
+            exclude_configs=True,
+            limit=1,
+        )
+        assert_matches_type(JobGetAllResponse, job, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_get_all(self, async_client: AsyncReducto) -> None:
+        response = await async_client.job.with_raw_response.get_all()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        job = await response.parse()
+        assert_matches_type(JobGetAllResponse, job, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_get_all(self, async_client: AsyncReducto) -> None:
+        async with async_client.job.with_streaming_response.get_all() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            job = await response.parse()
+            assert_matches_type(JobGetAllResponse, job, path=["response"])
+
+        assert cast(Any, response.is_closed) is True

@@ -51,7 +51,11 @@ class EditOptions(TypedDict, total=False):
     color: str
     """The color to use for edits, in hex format."""
 
-    llm_provider_preference: Literal["openai", "anthropic", "gemini"]
+    llm_provider_preference: Optional[Literal["openai", "anthropic", "google"]]
+    """The LLM provider to use for edit processing.
+
+    If not specified, defaults to 'google'
+    """
 
 
 class FormSchema(TypedDict, total=False):

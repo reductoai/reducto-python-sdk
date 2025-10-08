@@ -2,11 +2,13 @@
 
 from __future__ import annotations
 
-from typing import Any, cast
+from typing import Any, Optional, cast
 
 import httpx
 
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ..types import job_get_all_params
+from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -17,6 +19,7 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.job_get_response import JobGetResponse
+from ..types.job_get_all_response import JobGetAllResponse
 
 __all__ = ["JobResource", "AsyncJobResource"]
 
@@ -50,7 +53,7 @@ class JobResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> object:
         """
         Cancel Job
@@ -83,7 +86,7 @@ class JobResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> JobGetResponse:
         """
         Retrieve Parse
@@ -108,6 +111,58 @@ class JobResource(SyncAPIResource):
                 ),
                 cast_to=cast(Any, JobGetResponse),  # Union types cannot be passed in as arguments in the type system
             ),
+        )
+
+    def get_all(
+        self,
+        *,
+        cursor: Optional[str] | Omit = omit,
+        exclude_configs: bool | Omit = omit,
+        limit: int | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> JobGetAllResponse:
+        """Get Jobs
+
+        Args:
+          cursor: Cursor for pagination.
+
+        Use the next_cursor from the previous response to fetch
+              the next page.
+
+          exclude_configs: Exclude raw_config from response to reduce size
+
+          limit: Maximum number of jobs to return per page. Defaults to 100, max 500.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get(
+            "/jobs",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "cursor": cursor,
+                        "exclude_configs": exclude_configs,
+                        "limit": limit,
+                    },
+                    job_get_all_params.JobGetAllParams,
+                ),
+            ),
+            cast_to=JobGetAllResponse,
         )
 
 
@@ -140,7 +195,7 @@ class AsyncJobResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> object:
         """
         Cancel Job
@@ -173,7 +228,7 @@ class AsyncJobResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> JobGetResponse:
         """
         Retrieve Parse
@@ -200,6 +255,58 @@ class AsyncJobResource(AsyncAPIResource):
             ),
         )
 
+    async def get_all(
+        self,
+        *,
+        cursor: Optional[str] | Omit = omit,
+        exclude_configs: bool | Omit = omit,
+        limit: int | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> JobGetAllResponse:
+        """Get Jobs
+
+        Args:
+          cursor: Cursor for pagination.
+
+        Use the next_cursor from the previous response to fetch
+              the next page.
+
+          exclude_configs: Exclude raw_config from response to reduce size
+
+          limit: Maximum number of jobs to return per page. Defaults to 100, max 500.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._get(
+            "/jobs",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "cursor": cursor,
+                        "exclude_configs": exclude_configs,
+                        "limit": limit,
+                    },
+                    job_get_all_params.JobGetAllParams,
+                ),
+            ),
+            cast_to=JobGetAllResponse,
+        )
+
 
 class JobResourceWithRawResponse:
     def __init__(self, job: JobResource) -> None:
@@ -210,6 +317,9 @@ class JobResourceWithRawResponse:
         )
         self.get = to_raw_response_wrapper(
             job.get,
+        )
+        self.get_all = to_raw_response_wrapper(
+            job.get_all,
         )
 
 
@@ -223,6 +333,9 @@ class AsyncJobResourceWithRawResponse:
         self.get = async_to_raw_response_wrapper(
             job.get,
         )
+        self.get_all = async_to_raw_response_wrapper(
+            job.get_all,
+        )
 
 
 class JobResourceWithStreamingResponse:
@@ -235,6 +348,9 @@ class JobResourceWithStreamingResponse:
         self.get = to_streamed_response_wrapper(
             job.get,
         )
+        self.get_all = to_streamed_response_wrapper(
+            job.get_all,
+        )
 
 
 class AsyncJobResourceWithStreamingResponse:
@@ -246,4 +362,7 @@ class AsyncJobResourceWithStreamingResponse:
         )
         self.get = async_to_streamed_response_wrapper(
             job.get,
+        )
+        self.get_all = async_to_streamed_response_wrapper(
+            job.get_all,
         )
