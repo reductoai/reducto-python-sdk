@@ -62,7 +62,7 @@ class EnhancedAsyncJobResponse(BaseModel):
 
     total_pages: Optional[int] = None
 
-    type: Optional[Literal["Parse", "Extract", "Split", "Edit"]] = None
+    type: Optional[Literal["Parse", "Extract", "Split", "Edit", "Pipeline"]] = None
 
 
 JobGetResponse: TypeAlias = Union[AsyncJobResponse, EnhancedAsyncJobResponse]
