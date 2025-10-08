@@ -6,7 +6,7 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["JobListResponse", "Job"]
+__all__ = ["JobGetAllResponse", "Job"]
 
 
 class Job(BaseModel):
@@ -31,7 +31,7 @@ class Job(BaseModel):
     source: Optional[object] = None
 
 
-class JobListResponse(BaseModel):
+class JobGetAllResponse(BaseModel):
     jobs: List[Job]
     """
     List of jobs with their job_id, status, type, raw_config, created_at, num_pages
