@@ -5,10 +5,10 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import TypedDict
 
-__all__ = ["JobListParams"]
+__all__ = ["JobGetAllParams"]
 
 
-class JobListParams(TypedDict, total=False):
+class JobGetAllParams(TypedDict, total=False):
     cursor: Optional[str]
     """Cursor for pagination.
 
