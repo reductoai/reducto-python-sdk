@@ -6,7 +6,7 @@ from typing import Any, Optional, cast
 
 import httpx
 
-from ..types import job_get_all_params
+from ..types import job_get_params, job_get_all_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -81,6 +81,7 @@ class JobResource(SyncAPIResource):
         self,
         job_id: str,
         *,
+        bucket_name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -107,7 +108,11 @@ class JobResource(SyncAPIResource):
             self._get(
                 f"/job/{job_id}",
                 options=make_request_options(
-                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                    extra_headers=extra_headers,
+                    extra_query=extra_query,
+                    extra_body=extra_body,
+                    timeout=timeout,
+                    query=maybe_transform({"bucket_name": bucket_name}, job_get_params.JobGetParams),
                 ),
                 cast_to=cast(Any, JobGetResponse),  # Union types cannot be passed in as arguments in the type system
             ),
@@ -223,6 +228,7 @@ class AsyncJobResource(AsyncAPIResource):
         self,
         job_id: str,
         *,
+        bucket_name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -249,7 +255,11 @@ class AsyncJobResource(AsyncAPIResource):
             await self._get(
                 f"/job/{job_id}",
                 options=make_request_options(
-                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                    extra_headers=extra_headers,
+                    extra_query=extra_query,
+                    extra_body=extra_body,
+                    timeout=timeout,
+                    query=await async_maybe_transform({"bucket_name": bucket_name}, job_get_params.JobGetParams),
                 ),
                 cast_to=cast(Any, JobGetResponse),  # Union types cannot be passed in as arguments in the type system
             ),

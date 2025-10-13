@@ -2,11 +2,14 @@
 
 from __future__ import annotations
 
+from typing import Any, Dict, Union, cast
+from typing_extensions import overload
+
 import httpx
 
 from ..types import parse_run_params, parse_run_job_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from .._utils import required_args, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -16,7 +19,7 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
-from ..types.shared.parse_response import ParseResponse
+from ..types.parse_run_response import ParseRunResponse
 from ..types.parse_run_job_response import ParseRunJobResponse
 from ..types.shared_params.webhook_config_new import WebhookConfigNew
 from ..types.shared_params.base_processing_options import BaseProcessingOptions
@@ -46,10 +49,11 @@ class ParseResource(SyncAPIResource):
         """
         return ParseResourceWithStreamingResponse(self)
 
+    @overload
     def run(
         self,
         *,
-        document_url: parse_run_params.DocumentURL,
+        document_url: parse_run_params.ParseConfigDocumentURL,
         advanced_options: AdvancedProcessingOptions | Omit = omit,
         experimental_options: ExperimentalProcessingOptions | Omit = omit,
         options: BaseProcessingOptions | Omit = omit,
@@ -60,7 +64,7 @@ class ParseResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ParseResponse:
+    ) -> ParseRunResponse:
         """Parse
 
         Args:
@@ -86,28 +90,149 @@ class ParseResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._post(
-            "/parse",
-            body=maybe_transform(
-                {
-                    "document_url": document_url,
-                    "advanced_options": advanced_options,
-                    "experimental_options": experimental_options,
-                    "options": options,
-                    "priority": priority,
-                },
-                parse_run_params.ParseRunParams,
+        ...
+
+    @overload
+    def run(
+        self,
+        *,
+        document_url: Union[str, SequenceNotStr[str]],
+        async_: parse_run_params.ParseConfigAsync | Omit = omit,
+        config: parse_run_params.ParseConfigConfig | Omit = omit,
+        priority: bool | Omit = omit,
+        user_config: Dict[str, object] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ParseRunResponse:
+        """Parse
+
+        Args:
+          document_url: The URL of the document to process.
+
+        Either a public URL or a presigned URL with
+              a valid expiration time.
+
+          async_: The configuration options for asynchronous processing (default synchronous).
+
+          config: The configuration options for processing the document.
+
+          priority: If True, attempts to process the job with priority if the user has priority
+              processing budget available; by default, sync jobs are prioritized above async
+              jobs.
+
+          user_config: User-specific configuration options.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    def run(
+        self,
+        *,
+        input: parse_run_params.SyncParseConfigInput,
+        enhance: parse_run_params.SyncParseConfigEnhance | Omit = omit,
+        formatting: parse_run_params.SyncParseConfigFormatting | Omit = omit,
+        retrieval: parse_run_params.SyncParseConfigRetrieval | Omit = omit,
+        settings: parse_run_params.SyncParseConfigSettings | Omit = omit,
+        spreadsheet: parse_run_params.SyncParseConfigSpreadsheet | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ParseRunResponse:
+        """Parse
+
+        Args:
+          input: The URL of the document to be processed.
+
+        You can provide one of the
+              following: 1. A publicly available URL 2. A presigned S3 URL 3. A reducto://
+              prefixed URL obtained from the /upload endpoint after directly uploading a
+              document 4. A jobid:// prefixed URL obtained from a previous /parse invocation
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @required_args(["document_url"], ["input"])
+    def run(
+        self,
+        *,
+        document_url: parse_run_params.ParseConfigDocumentURL | Union[str, SequenceNotStr[str]] | Omit = omit,
+        advanced_options: AdvancedProcessingOptions | Omit = omit,
+        experimental_options: ExperimentalProcessingOptions | Omit = omit,
+        options: BaseProcessingOptions | Omit = omit,
+        priority: bool | Omit = omit,
+        async_: parse_run_params.ParseConfigAsync | Omit = omit,
+        config: parse_run_params.ParseConfigConfig | Omit = omit,
+        user_config: Dict[str, object] | Omit = omit,
+        input: parse_run_params.SyncParseConfigInput | Omit = omit,
+        enhance: parse_run_params.SyncParseConfigEnhance | Omit = omit,
+        formatting: parse_run_params.SyncParseConfigFormatting | Omit = omit,
+        retrieval: parse_run_params.SyncParseConfigRetrieval | Omit = omit,
+        settings: parse_run_params.SyncParseConfigSettings | Omit = omit,
+        spreadsheet: parse_run_params.SyncParseConfigSpreadsheet | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ParseRunResponse:
+        return cast(
+            ParseRunResponse,
+            self._post(
+                "/parse",
+                body=maybe_transform(
+                    {
+                        "document_url": document_url,
+                        "advanced_options": advanced_options,
+                        "experimental_options": experimental_options,
+                        "options": options,
+                        "priority": priority,
+                        "async_": async_,
+                        "config": config,
+                        "user_config": user_config,
+                        "input": input,
+                        "enhance": enhance,
+                        "formatting": formatting,
+                        "retrieval": retrieval,
+                        "settings": settings,
+                        "spreadsheet": spreadsheet,
+                    },
+                    parse_run_params.ParseRunParams,
+                ),
+                options=make_request_options(
+                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                ),
+                cast_to=cast(Any, ParseRunResponse),  # Union types cannot be passed in as arguments in the type system
             ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ParseResponse,
         )
 
+    @overload
     def run_job(
         self,
         *,
-        document_url: parse_run_job_params.DocumentURL,
+        document_url: parse_run_job_params.AsyncParseConfigNewDocumentURL,
         advanced_options: AdvancedProcessingOptions | Omit = omit,
         experimental_options: ExperimentalProcessingOptions | Omit = omit,
         options: BaseProcessingOptions | Omit = omit,
@@ -144,6 +269,72 @@ class ParseResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        ...
+
+    @overload
+    def run_job(
+        self,
+        *,
+        input: parse_run_job_params.AsyncParseConfigInput,
+        async_: parse_run_job_params.AsyncParseConfigAsync | Omit = omit,
+        enhance: parse_run_job_params.AsyncParseConfigEnhance | Omit = omit,
+        formatting: parse_run_job_params.AsyncParseConfigFormatting | Omit = omit,
+        retrieval: parse_run_job_params.AsyncParseConfigRetrieval | Omit = omit,
+        settings: parse_run_job_params.AsyncParseConfigSettings | Omit = omit,
+        spreadsheet: parse_run_job_params.AsyncParseConfigSpreadsheet | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ParseRunJobResponse:
+        """Async Parse
+
+        Args:
+          input: The URL of the document to be processed.
+
+        You can provide one of the
+              following: 1. A publicly available URL 2. A presigned S3 URL 3. A reducto://
+              prefixed URL obtained from the /upload endpoint after directly uploading a
+              document 4. A jobid:// prefixed URL obtained from a previous /parse invocation
+
+          async_: The configuration options for asynchronous processing (default synchronous).
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @required_args(["document_url"], ["input"])
+    def run_job(
+        self,
+        *,
+        document_url: parse_run_job_params.AsyncParseConfigNewDocumentURL | Omit = omit,
+        advanced_options: AdvancedProcessingOptions | Omit = omit,
+        experimental_options: ExperimentalProcessingOptions | Omit = omit,
+        options: BaseProcessingOptions | Omit = omit,
+        priority: bool | Omit = omit,
+        webhook: WebhookConfigNew | Omit = omit,
+        input: parse_run_job_params.AsyncParseConfigInput | Omit = omit,
+        async_: parse_run_job_params.AsyncParseConfigAsync | Omit = omit,
+        enhance: parse_run_job_params.AsyncParseConfigEnhance | Omit = omit,
+        formatting: parse_run_job_params.AsyncParseConfigFormatting | Omit = omit,
+        retrieval: parse_run_job_params.AsyncParseConfigRetrieval | Omit = omit,
+        settings: parse_run_job_params.AsyncParseConfigSettings | Omit = omit,
+        spreadsheet: parse_run_job_params.AsyncParseConfigSpreadsheet | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ParseRunJobResponse:
         return self._post(
             "/parse_async",
             body=maybe_transform(
@@ -154,6 +345,13 @@ class ParseResource(SyncAPIResource):
                     "options": options,
                     "priority": priority,
                     "webhook": webhook,
+                    "input": input,
+                    "async_": async_,
+                    "enhance": enhance,
+                    "formatting": formatting,
+                    "retrieval": retrieval,
+                    "settings": settings,
+                    "spreadsheet": spreadsheet,
                 },
                 parse_run_job_params.ParseRunJobParams,
             ),
@@ -184,10 +382,11 @@ class AsyncParseResource(AsyncAPIResource):
         """
         return AsyncParseResourceWithStreamingResponse(self)
 
+    @overload
     async def run(
         self,
         *,
-        document_url: parse_run_params.DocumentURL,
+        document_url: parse_run_params.ParseConfigDocumentURL,
         advanced_options: AdvancedProcessingOptions | Omit = omit,
         experimental_options: ExperimentalProcessingOptions | Omit = omit,
         options: BaseProcessingOptions | Omit = omit,
@@ -198,7 +397,7 @@ class AsyncParseResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ParseResponse:
+    ) -> ParseRunResponse:
         """Parse
 
         Args:
@@ -224,28 +423,149 @@ class AsyncParseResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._post(
-            "/parse",
-            body=await async_maybe_transform(
-                {
-                    "document_url": document_url,
-                    "advanced_options": advanced_options,
-                    "experimental_options": experimental_options,
-                    "options": options,
-                    "priority": priority,
-                },
-                parse_run_params.ParseRunParams,
+        ...
+
+    @overload
+    async def run(
+        self,
+        *,
+        document_url: Union[str, SequenceNotStr[str]],
+        async_: parse_run_params.ParseConfigAsync | Omit = omit,
+        config: parse_run_params.ParseConfigConfig | Omit = omit,
+        priority: bool | Omit = omit,
+        user_config: Dict[str, object] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ParseRunResponse:
+        """Parse
+
+        Args:
+          document_url: The URL of the document to process.
+
+        Either a public URL or a presigned URL with
+              a valid expiration time.
+
+          async_: The configuration options for asynchronous processing (default synchronous).
+
+          config: The configuration options for processing the document.
+
+          priority: If True, attempts to process the job with priority if the user has priority
+              processing budget available; by default, sync jobs are prioritized above async
+              jobs.
+
+          user_config: User-specific configuration options.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    async def run(
+        self,
+        *,
+        input: parse_run_params.SyncParseConfigInput,
+        enhance: parse_run_params.SyncParseConfigEnhance | Omit = omit,
+        formatting: parse_run_params.SyncParseConfigFormatting | Omit = omit,
+        retrieval: parse_run_params.SyncParseConfigRetrieval | Omit = omit,
+        settings: parse_run_params.SyncParseConfigSettings | Omit = omit,
+        spreadsheet: parse_run_params.SyncParseConfigSpreadsheet | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ParseRunResponse:
+        """Parse
+
+        Args:
+          input: The URL of the document to be processed.
+
+        You can provide one of the
+              following: 1. A publicly available URL 2. A presigned S3 URL 3. A reducto://
+              prefixed URL obtained from the /upload endpoint after directly uploading a
+              document 4. A jobid:// prefixed URL obtained from a previous /parse invocation
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @required_args(["document_url"], ["input"])
+    async def run(
+        self,
+        *,
+        document_url: parse_run_params.ParseConfigDocumentURL | Union[str, SequenceNotStr[str]] | Omit = omit,
+        advanced_options: AdvancedProcessingOptions | Omit = omit,
+        experimental_options: ExperimentalProcessingOptions | Omit = omit,
+        options: BaseProcessingOptions | Omit = omit,
+        priority: bool | Omit = omit,
+        async_: parse_run_params.ParseConfigAsync | Omit = omit,
+        config: parse_run_params.ParseConfigConfig | Omit = omit,
+        user_config: Dict[str, object] | Omit = omit,
+        input: parse_run_params.SyncParseConfigInput | Omit = omit,
+        enhance: parse_run_params.SyncParseConfigEnhance | Omit = omit,
+        formatting: parse_run_params.SyncParseConfigFormatting | Omit = omit,
+        retrieval: parse_run_params.SyncParseConfigRetrieval | Omit = omit,
+        settings: parse_run_params.SyncParseConfigSettings | Omit = omit,
+        spreadsheet: parse_run_params.SyncParseConfigSpreadsheet | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ParseRunResponse:
+        return cast(
+            ParseRunResponse,
+            await self._post(
+                "/parse",
+                body=await async_maybe_transform(
+                    {
+                        "document_url": document_url,
+                        "advanced_options": advanced_options,
+                        "experimental_options": experimental_options,
+                        "options": options,
+                        "priority": priority,
+                        "async_": async_,
+                        "config": config,
+                        "user_config": user_config,
+                        "input": input,
+                        "enhance": enhance,
+                        "formatting": formatting,
+                        "retrieval": retrieval,
+                        "settings": settings,
+                        "spreadsheet": spreadsheet,
+                    },
+                    parse_run_params.ParseRunParams,
+                ),
+                options=make_request_options(
+                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                ),
+                cast_to=cast(Any, ParseRunResponse),  # Union types cannot be passed in as arguments in the type system
             ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ParseResponse,
         )
 
+    @overload
     async def run_job(
         self,
         *,
-        document_url: parse_run_job_params.DocumentURL,
+        document_url: parse_run_job_params.AsyncParseConfigNewDocumentURL,
         advanced_options: AdvancedProcessingOptions | Omit = omit,
         experimental_options: ExperimentalProcessingOptions | Omit = omit,
         options: BaseProcessingOptions | Omit = omit,
@@ -282,6 +602,72 @@ class AsyncParseResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        ...
+
+    @overload
+    async def run_job(
+        self,
+        *,
+        input: parse_run_job_params.AsyncParseConfigInput,
+        async_: parse_run_job_params.AsyncParseConfigAsync | Omit = omit,
+        enhance: parse_run_job_params.AsyncParseConfigEnhance | Omit = omit,
+        formatting: parse_run_job_params.AsyncParseConfigFormatting | Omit = omit,
+        retrieval: parse_run_job_params.AsyncParseConfigRetrieval | Omit = omit,
+        settings: parse_run_job_params.AsyncParseConfigSettings | Omit = omit,
+        spreadsheet: parse_run_job_params.AsyncParseConfigSpreadsheet | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ParseRunJobResponse:
+        """Async Parse
+
+        Args:
+          input: The URL of the document to be processed.
+
+        You can provide one of the
+              following: 1. A publicly available URL 2. A presigned S3 URL 3. A reducto://
+              prefixed URL obtained from the /upload endpoint after directly uploading a
+              document 4. A jobid:// prefixed URL obtained from a previous /parse invocation
+
+          async_: The configuration options for asynchronous processing (default synchronous).
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @required_args(["document_url"], ["input"])
+    async def run_job(
+        self,
+        *,
+        document_url: parse_run_job_params.AsyncParseConfigNewDocumentURL | Omit = omit,
+        advanced_options: AdvancedProcessingOptions | Omit = omit,
+        experimental_options: ExperimentalProcessingOptions | Omit = omit,
+        options: BaseProcessingOptions | Omit = omit,
+        priority: bool | Omit = omit,
+        webhook: WebhookConfigNew | Omit = omit,
+        input: parse_run_job_params.AsyncParseConfigInput | Omit = omit,
+        async_: parse_run_job_params.AsyncParseConfigAsync | Omit = omit,
+        enhance: parse_run_job_params.AsyncParseConfigEnhance | Omit = omit,
+        formatting: parse_run_job_params.AsyncParseConfigFormatting | Omit = omit,
+        retrieval: parse_run_job_params.AsyncParseConfigRetrieval | Omit = omit,
+        settings: parse_run_job_params.AsyncParseConfigSettings | Omit = omit,
+        spreadsheet: parse_run_job_params.AsyncParseConfigSpreadsheet | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ParseRunJobResponse:
         return await self._post(
             "/parse_async",
             body=await async_maybe_transform(
@@ -292,6 +678,13 @@ class AsyncParseResource(AsyncAPIResource):
                     "options": options,
                     "priority": priority,
                     "webhook": webhook,
+                    "input": input,
+                    "async_": async_,
+                    "enhance": enhance,
+                    "formatting": formatting,
+                    "retrieval": retrieval,
+                    "settings": settings,
+                    "spreadsheet": spreadsheet,
                 },
                 parse_run_job_params.ParseRunJobParams,
             ),
