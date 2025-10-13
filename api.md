@@ -44,7 +44,7 @@ from reducto.types import JobGetResponse, JobGetAllResponse
 Methods:
 
 - <code title="post /cancel/{job_id}">client.job.<a href="./src/reducto/resources/job.py">cancel</a>(job_id) -> object</code>
-- <code title="get /job/{job_id}">client.job.<a href="./src/reducto/resources/job.py">get</a>(job_id) -> <a href="./src/reducto/types/job_get_response.py">JobGetResponse</a></code>
+- <code title="get /job/{job_id}">client.job.<a href="./src/reducto/resources/job.py">get</a>(job_id, \*\*<a href="src/reducto/types/job_get_params.py">params</a>) -> <a href="./src/reducto/types/job_get_response.py">JobGetResponse</a></code>
 - <code title="get /jobs">client.job.<a href="./src/reducto/resources/job.py">get_all</a>(\*\*<a href="src/reducto/types/job_get_all_params.py">params</a>) -> <a href="./src/reducto/types/job_get_all_response.py">JobGetAllResponse</a></code>
 
 # Split
@@ -65,12 +65,12 @@ Methods:
 Types:
 
 ```python
-from reducto.types import ParseRunJobResponse
+from reducto.types import ParseRunResponse, ParseRunJobResponse
 ```
 
 Methods:
 
-- <code title="post /parse">client.parse.<a href="./src/reducto/resources/parse.py">run</a>(\*\*<a href="src/reducto/types/parse_run_params.py">params</a>) -> <a href="./src/reducto/types/shared/parse_response.py">ParseResponse</a></code>
+- <code title="post /parse">client.parse.<a href="./src/reducto/resources/parse.py">run</a>(\*\*<a href="src/reducto/types/parse_run_params.py">params</a>) -> <a href="./src/reducto/types/parse_run_response.py">ParseRunResponse</a></code>
 - <code title="post /parse_async">client.parse.<a href="./src/reducto/resources/parse.py">run_job</a>(\*\*<a href="src/reducto/types/parse_run_job_params.py">params</a>) -> <a href="./src/reducto/types/parse_run_job_response.py">ParseRunJobResponse</a></code>
 
 # Extract
@@ -78,12 +78,12 @@ Methods:
 Types:
 
 ```python
-from reducto.types import ExtractRunJobResponse
+from reducto.types import ExtractRunResponse, ExtractRunJobResponse
 ```
 
 Methods:
 
-- <code title="post /extract">client.extract.<a href="./src/reducto/resources/extract.py">run</a>(\*\*<a href="src/reducto/types/extract_run_params.py">params</a>) -> <a href="./src/reducto/types/shared/extract_response.py">ExtractResponse</a></code>
+- <code title="post /extract">client.extract.<a href="./src/reducto/resources/extract.py">run</a>(\*\*<a href="src/reducto/types/extract_run_params.py">params</a>) -> <a href="./src/reducto/types/extract_run_response.py">ExtractRunResponse</a></code>
 - <code title="post /extract_async">client.extract.<a href="./src/reducto/resources/extract.py">run_job</a>(\*\*<a href="src/reducto/types/extract_run_job_params.py">params</a>) -> <a href="./src/reducto/types/extract_run_job_response.py">ExtractRunJobResponse</a></code>
 
 # Edit

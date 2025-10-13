@@ -48,6 +48,12 @@ class ExperimentalProcessingOptionsTyped(TypedDict, total=False):
     enrich: EnrichConfig
     """The configuration options for enrichment."""
 
+    layout_enrichment: bool
+    """
+    Layout enrichment is a beta feature that improves our layout and reading order
+    performance at the cost of increased latency. Defaults to False.
+    """
+
     layout_model: Literal["default", "beta"]
     """The layout model to use for the document.
 

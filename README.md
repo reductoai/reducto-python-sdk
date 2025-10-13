@@ -34,10 +34,9 @@ client = Reducto(
     environment="eu",
 )
 
-parse_response = client.parse.run(
+response = client.parse.run(
     document_url="https://pdfobject.com/pdf/sample.pdf",
 )
-print(parse_response.job_id)
 ```
 
 While you can provide an `api_key` keyword argument,
@@ -62,10 +61,9 @@ client = AsyncReducto(
 
 
 async def main() -> None:
-    parse_response = await client.parse.run(
+    response = await client.parse.run(
         document_url="https://pdfobject.com/pdf/sample.pdf",
     )
-    print(parse_response.job_id)
 
 
 asyncio.run(main())
@@ -97,10 +95,9 @@ async def main() -> None:
         api_key="My API Key",
         http_client=DefaultAioHttpClient(),
     ) as client:
-        parse_response = await client.parse.run(
+        response = await client.parse.run(
             document_url="https://pdfobject.com/pdf/sample.pdf",
         )
-        print(parse_response.job_id)
 
 
 asyncio.run(main())
@@ -124,11 +121,11 @@ from reducto import Reducto
 
 client = Reducto()
 
-parse_response = client.parse.run(
+response = client.parse.run(
     document_url="string",
     advanced_options={},
 )
-print(parse_response.advanced_options)
+print(response.advanced_options)
 ```
 
 ## File uploads
@@ -283,7 +280,7 @@ response = client.parse.with_raw_response.run(
 print(response.headers.get('X-My-Header'))
 
 parse = response.parse()  # get the object that `parse.run()` would have returned
-print(parse.job_id)
+print(parse)
 ```
 
 These methods return an [`APIResponse`](https://github.com/reductoai/reducto-python-sdk/tree/main/src/reducto/_response.py) object.

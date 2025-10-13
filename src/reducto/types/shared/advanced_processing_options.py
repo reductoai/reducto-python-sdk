@@ -81,7 +81,7 @@ class AdvancedProcessingOptions(BaseModel):
     be merged across breaks and spaces.
     """
 
-    ocr_system: Optional[Literal["highres", "multilingual", "combined", "legacy"]] = None
+    ocr_system: Optional[Literal["highres", "multilingual", "combined", "reducto", "legacy"]] = None
     """The OCR system to use.
 
     Highres is recommended for documents with English characters. Legacy uses an
