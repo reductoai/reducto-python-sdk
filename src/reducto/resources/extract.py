@@ -21,6 +21,8 @@ from .._response import (
 from .._base_client import make_request_options
 from ..types.extract_run_response import ExtractRunResponse
 from ..types.extract_run_job_response import ExtractRunJobResponse
+from ..types.shared_params.parse_options import ParseOptions
+from ..types.shared_params.config_v3_async_config import ConfigV3AsyncConfig
 
 __all__ = ["ExtractResource", "AsyncExtractResource"]
 
@@ -51,7 +53,7 @@ class ExtractResource(SyncAPIResource):
         *,
         input: extract_run_params.SyncExtractConfigInput,
         instructions: extract_run_params.SyncExtractConfigInstructions | Omit = omit,
-        parsing: extract_run_params.SyncExtractConfigParsing | Omit = omit,
+        parsing: ParseOptions | Omit = omit,
         settings: extract_run_params.SyncExtractConfigSettings | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -92,9 +94,9 @@ class ExtractResource(SyncAPIResource):
         self,
         *,
         input: extract_run_params.AsyncExtractConfigInput,
-        async_: extract_run_params.AsyncExtractConfigAsync | Omit = omit,
+        async_: ConfigV3AsyncConfig | Omit = omit,
         instructions: extract_run_params.AsyncExtractConfigInstructions | Omit = omit,
-        parsing: extract_run_params.AsyncExtractConfigParsing | Omit = omit,
+        parsing: ParseOptions | Omit = omit,
         settings: extract_run_params.AsyncExtractConfigSettings | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -140,13 +142,11 @@ class ExtractResource(SyncAPIResource):
         instructions: extract_run_params.SyncExtractConfigInstructions
         | extract_run_params.AsyncExtractConfigInstructions
         | Omit = omit,
-        parsing: extract_run_params.SyncExtractConfigParsing
-        | extract_run_params.AsyncExtractConfigParsing
-        | Omit = omit,
+        parsing: ParseOptions | Omit = omit,
         settings: extract_run_params.SyncExtractConfigSettings
         | extract_run_params.AsyncExtractConfigSettings
         | Omit = omit,
-        async_: extract_run_params.AsyncExtractConfigAsync | Omit = omit,
+        async_: ConfigV3AsyncConfig | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -181,9 +181,9 @@ class ExtractResource(SyncAPIResource):
         self,
         *,
         input: extract_run_job_params.Input,
-        async_: extract_run_job_params.Async | Omit = omit,
+        async_: ConfigV3AsyncConfig | Omit = omit,
         instructions: extract_run_job_params.Instructions | Omit = omit,
-        parsing: extract_run_job_params.Parsing | Omit = omit,
+        parsing: ParseOptions | Omit = omit,
         settings: extract_run_job_params.Settings | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -264,7 +264,7 @@ class AsyncExtractResource(AsyncAPIResource):
         *,
         input: extract_run_params.SyncExtractConfigInput,
         instructions: extract_run_params.SyncExtractConfigInstructions | Omit = omit,
-        parsing: extract_run_params.SyncExtractConfigParsing | Omit = omit,
+        parsing: ParseOptions | Omit = omit,
         settings: extract_run_params.SyncExtractConfigSettings | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -305,9 +305,9 @@ class AsyncExtractResource(AsyncAPIResource):
         self,
         *,
         input: extract_run_params.AsyncExtractConfigInput,
-        async_: extract_run_params.AsyncExtractConfigAsync | Omit = omit,
+        async_: ConfigV3AsyncConfig | Omit = omit,
         instructions: extract_run_params.AsyncExtractConfigInstructions | Omit = omit,
-        parsing: extract_run_params.AsyncExtractConfigParsing | Omit = omit,
+        parsing: ParseOptions | Omit = omit,
         settings: extract_run_params.AsyncExtractConfigSettings | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -353,13 +353,11 @@ class AsyncExtractResource(AsyncAPIResource):
         instructions: extract_run_params.SyncExtractConfigInstructions
         | extract_run_params.AsyncExtractConfigInstructions
         | Omit = omit,
-        parsing: extract_run_params.SyncExtractConfigParsing
-        | extract_run_params.AsyncExtractConfigParsing
-        | Omit = omit,
+        parsing: ParseOptions | Omit = omit,
         settings: extract_run_params.SyncExtractConfigSettings
         | extract_run_params.AsyncExtractConfigSettings
         | Omit = omit,
-        async_: extract_run_params.AsyncExtractConfigAsync | Omit = omit,
+        async_: ConfigV3AsyncConfig | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -394,9 +392,9 @@ class AsyncExtractResource(AsyncAPIResource):
         self,
         *,
         input: extract_run_job_params.Input,
-        async_: extract_run_job_params.Async | Omit = omit,
+        async_: ConfigV3AsyncConfig | Omit = omit,
         instructions: extract_run_job_params.Instructions | Omit = omit,
-        parsing: extract_run_job_params.Parsing | Omit = omit,
+        parsing: ParseOptions | Omit = omit,
         settings: extract_run_job_params.Settings | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.

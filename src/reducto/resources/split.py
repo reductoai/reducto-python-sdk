@@ -20,6 +20,7 @@ from .._response import (
 from .._base_client import make_request_options
 from ..types.shared.split_response import SplitResponse
 from ..types.split_run_job_response import SplitRunJobResponse
+from ..types.shared_params.parse_options import ParseOptions
 from ..types.shared_params.split_category import SplitCategory
 
 __all__ = ["SplitResource", "AsyncSplitResource"]
@@ -50,7 +51,7 @@ class SplitResource(SyncAPIResource):
         *,
         input: split_run_params.Input,
         split_description: Iterable[SplitCategory],
-        parsing: split_run_params.Parsing | Omit = omit,
+        parsing: ParseOptions | Omit = omit,
         settings: split_run_params.Settings | Omit = omit,
         split_rules: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -163,7 +164,7 @@ class AsyncSplitResource(AsyncAPIResource):
         *,
         input: split_run_params.Input,
         split_description: Iterable[SplitCategory],
-        parsing: split_run_params.Parsing | Omit = omit,
+        parsing: ParseOptions | Omit = omit,
         settings: split_run_params.Settings | Omit = omit,
         split_rules: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.

@@ -1,18 +1,15 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
+from typing import List, Union, Optional
 
 from ..._models import BaseModel
 from .extract_usage import ExtractUsage
 
-__all__ = ["ExtractResponse"]
+__all__ = ["V3ExtractResponse"]
 
 
-class ExtractResponse(BaseModel):
-    citations: Optional[List[object]] = None
-    """The citations corresponding to the extracted response."""
-
-    result: List[object]
+class V3ExtractResponse(BaseModel):
+    result: Union[List[object], object]
     """The extracted response in your provided schema.
 
     This is a list of dictionaries. If disable_chunking is True (default), then it
