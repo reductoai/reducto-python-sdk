@@ -2,11 +2,14 @@
 
 from __future__ import annotations
 
+from typing import Any, cast
+from typing_extensions import overload
+
 import httpx
 
 from ..types import extract_run_params, extract_run_job_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import required_args, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -16,14 +19,10 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
-from ..types.shared.extract_response import ExtractResponse
+from ..types.extract_run_response import ExtractRunResponse
 from ..types.extract_run_job_response import ExtractRunJobResponse
-from ..types.shared_params.webhook_config_new import WebhookConfigNew
-from ..types.shared_params.array_extract_config import ArrayExtractConfig
-from ..types.shared_params.base_processing_options import BaseProcessingOptions
-from ..types.shared_params.advanced_citations_config import AdvancedCitationsConfig
-from ..types.shared_params.advanced_processing_options import AdvancedProcessingOptions
-from ..types.shared_params.experimental_processing_options import ExperimentalProcessingOptions
+from ..types.shared_params.parse_options import ParseOptions
+from ..types.shared_params.config_v3_async_config import ConfigV3AsyncConfig
 
 __all__ = ["ExtractResource", "AsyncExtractResource"]
 
@@ -48,68 +47,37 @@ class ExtractResource(SyncAPIResource):
         """
         return ExtractResourceWithStreamingResponse(self)
 
+    @overload
     def run(
         self,
         *,
-        document_url: extract_run_params.DocumentURL,
-        schema: object,
-        advanced_options: AdvancedProcessingOptions | Omit = omit,
-        array_extract: ArrayExtractConfig | Omit = omit,
-        citations_options: AdvancedCitationsConfig | Omit = omit,
-        experimental_options: ExperimentalProcessingOptions | Omit = omit,
-        experimental_table_citations: bool | Omit = omit,
-        generate_citations: bool | Omit = omit,
-        include_images: bool | Omit = omit,
-        options: BaseProcessingOptions | Omit = omit,
-        priority: bool | Omit = omit,
-        spreadsheet_agent: bool | Omit = omit,
-        system_prompt: str | Omit = omit,
-        use_chunking: bool | Omit = omit,
+        input: extract_run_params.SyncExtractConfigInput,
+        instructions: extract_run_params.SyncExtractConfigInstructions | Omit = omit,
+        parsing: ParseOptions | Omit = omit,
+        settings: extract_run_params.SyncExtractConfigSettings | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ExtractResponse:
+    ) -> ExtractRunResponse:
         """Extract
 
         Args:
-          document_url:
-              The URL of the document to be processed.
+          input: The URL of the document to be processed.
 
-        You can provide one of the following:
+        You can provide one of the
+              following: 1. A publicly available URL 2. A presigned S3 URL 3. A reducto://
+              prefixed URL obtained from the /upload endpoint after directly uploading a
+              document 4. A jobid:// prefixed URL obtained from a previous /parse invocation
 
-              1. A publicly available URL
-              2. A presigned S3 URL
-              3. A reducto:// prefixed URL obtained from the /upload endpoint after directly
-                 uploading a document
-              4. A job_id (jobid://) or a list of job_ids (jobid://) obtained from a previous
-                 /parse endpoint
+          instructions: The instructions to use for the extraction.
 
-          schema: The JSON schema to use for extraction.
+          parsing: The configuration options for parsing the document. If you are passing in a
+              jobid:// URL for the file, then this configuration will be ignored.
 
-          array_extract: The configuration options for array extract
-
-          citations_options: The configuration options for citations.
-
-          experimental_table_citations: If table citations should be generated for the extracted content.
-
-          generate_citations: If citations should be generated for the extracted content.
-
-          include_images: If images should be passed directly for extractions. Can only be enabled for
-              documents with less than 10 pages. Defaults to False.
-
-          priority: If True, attempts to process the job with priority if the user has priority
-              processing budget available; by default, sync jobs are prioritized above async
-              jobs.
-
-          spreadsheet_agent: If spreadsheet agent should be used for extraction.
-
-          system_prompt: A system prompt to use for the extraction. This is a general prompt that is
-              applied to the entire document before any other prompts.
-
-          use_chunking: If chunking should be used for the extraction. Defaults to False.
+          settings: The settings to use for the extraction.
 
           extra_headers: Send extra headers
 
@@ -119,51 +87,104 @@ class ExtractResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._post(
-            "/extract",
-            body=maybe_transform(
-                {
-                    "document_url": document_url,
-                    "schema": schema,
-                    "advanced_options": advanced_options,
-                    "array_extract": array_extract,
-                    "citations_options": citations_options,
-                    "experimental_options": experimental_options,
-                    "experimental_table_citations": experimental_table_citations,
-                    "generate_citations": generate_citations,
-                    "include_images": include_images,
-                    "options": options,
-                    "priority": priority,
-                    "spreadsheet_agent": spreadsheet_agent,
-                    "system_prompt": system_prompt,
-                    "use_chunking": use_chunking,
-                },
-                extract_run_params.ExtractRunParams,
+        ...
+
+    @overload
+    def run(
+        self,
+        *,
+        input: extract_run_params.AsyncExtractConfigInput,
+        async_: ConfigV3AsyncConfig | Omit = omit,
+        instructions: extract_run_params.AsyncExtractConfigInstructions | Omit = omit,
+        parsing: ParseOptions | Omit = omit,
+        settings: extract_run_params.AsyncExtractConfigSettings | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ExtractRunResponse:
+        """Extract
+
+        Args:
+          input: The URL of the document to be processed.
+
+        You can provide one of the
+              following: 1. A publicly available URL 2. A presigned S3 URL 3. A reducto://
+              prefixed URL obtained from the /upload endpoint after directly uploading a
+              document 4. A jobid:// prefixed URL obtained from a previous /parse invocation
+
+          async_: The configuration options for asynchronous processing (default synchronous).
+
+          instructions: The instructions to use for the extraction.
+
+          parsing: The configuration options for parsing the document. If you are passing in a
+              jobid:// URL for the file, then this configuration will be ignored.
+
+          settings: The settings to use for the extraction.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @required_args(["input"])
+    def run(
+        self,
+        *,
+        input: extract_run_params.SyncExtractConfigInput | extract_run_params.AsyncExtractConfigInput,
+        instructions: extract_run_params.SyncExtractConfigInstructions
+        | extract_run_params.AsyncExtractConfigInstructions
+        | Omit = omit,
+        parsing: ParseOptions | Omit = omit,
+        settings: extract_run_params.SyncExtractConfigSettings
+        | extract_run_params.AsyncExtractConfigSettings
+        | Omit = omit,
+        async_: ConfigV3AsyncConfig | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ExtractRunResponse:
+        return cast(
+            ExtractRunResponse,
+            self._post(
+                "/extract",
+                body=maybe_transform(
+                    {
+                        "input": input,
+                        "instructions": instructions,
+                        "parsing": parsing,
+                        "settings": settings,
+                        "async_": async_,
+                    },
+                    extract_run_params.ExtractRunParams,
+                ),
+                options=make_request_options(
+                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                ),
+                cast_to=cast(
+                    Any, ExtractRunResponse
+                ),  # Union types cannot be passed in as arguments in the type system
             ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ExtractResponse,
         )
 
     def run_job(
         self,
         *,
-        document_url: extract_run_job_params.DocumentURL,
-        schema: object,
-        advanced_options: AdvancedProcessingOptions | Omit = omit,
-        array_extract: ArrayExtractConfig | Omit = omit,
-        citations_options: AdvancedCitationsConfig | Omit = omit,
-        experimental_options: ExperimentalProcessingOptions | Omit = omit,
-        experimental_table_citations: bool | Omit = omit,
-        generate_citations: bool | Omit = omit,
-        include_images: bool | Omit = omit,
-        options: BaseProcessingOptions | Omit = omit,
-        priority: bool | Omit = omit,
-        spreadsheet_agent: bool | Omit = omit,
-        system_prompt: str | Omit = omit,
-        use_chunking: bool | Omit = omit,
-        webhook: WebhookConfigNew | Omit = omit,
+        input: extract_run_job_params.Input,
+        async_: ConfigV3AsyncConfig | Omit = omit,
+        instructions: extract_run_job_params.Instructions | Omit = omit,
+        parsing: ParseOptions | Omit = omit,
+        settings: extract_run_job_params.Settings | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -171,43 +192,24 @@ class ExtractResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ExtractRunJobResponse:
-        """
-        Extract Async
+        """Extract Async
 
         Args:
-          document_url:
-              The URL of the document to be processed. You can provide one of the following:
+          input: The URL of the document to be processed.
 
-              1. A publicly available URL
-              2. A presigned S3 URL
-              3. A reducto:// prefixed URL obtained from the /upload endpoint after directly
-                 uploading a document
-              4. A job_id (jobid://) or a list of job_ids (jobid://) obtained from a previous
-                 /parse endpoint
+        You can provide one of the
+              following: 1. A publicly available URL 2. A presigned S3 URL 3. A reducto://
+              prefixed URL obtained from the /upload endpoint after directly uploading a
+              document 4. A jobid:// prefixed URL obtained from a previous /parse invocation
 
-          schema: The JSON schema to use for extraction.
+          async_: The configuration options for asynchronous processing (default synchronous).
 
-          array_extract: The configuration options for array extract
+          instructions: The instructions to use for the extraction.
 
-          citations_options: The configuration options for citations.
+          parsing: The configuration options for parsing the document. If you are passing in a
+              jobid:// URL for the file, then this configuration will be ignored.
 
-          experimental_table_citations: If table citations should be generated for the extracted content.
-
-          generate_citations: If citations should be generated for the extracted content.
-
-          include_images: If images should be passed directly for extractions. Can only be enabled for
-              documents with less than 10 pages. Defaults to False.
-
-          priority: If True, attempts to process the job with priority if the user has priority
-              processing budget available; by default, sync jobs are prioritized above async
-              jobs.
-
-          spreadsheet_agent: If spreadsheet agent should be used for extraction.
-
-          system_prompt: A system prompt to use for the extraction. This is a general prompt that is
-              applied to the entire document before any other prompts.
-
-          use_chunking: If chunking should be used for the extraction. Defaults to False.
+          settings: The settings to use for the extraction.
 
           extra_headers: Send extra headers
 
@@ -221,21 +223,11 @@ class ExtractResource(SyncAPIResource):
             "/extract_async",
             body=maybe_transform(
                 {
-                    "document_url": document_url,
-                    "schema": schema,
-                    "advanced_options": advanced_options,
-                    "array_extract": array_extract,
-                    "citations_options": citations_options,
-                    "experimental_options": experimental_options,
-                    "experimental_table_citations": experimental_table_citations,
-                    "generate_citations": generate_citations,
-                    "include_images": include_images,
-                    "options": options,
-                    "priority": priority,
-                    "spreadsheet_agent": spreadsheet_agent,
-                    "system_prompt": system_prompt,
-                    "use_chunking": use_chunking,
-                    "webhook": webhook,
+                    "input": input,
+                    "async_": async_,
+                    "instructions": instructions,
+                    "parsing": parsing,
+                    "settings": settings,
                 },
                 extract_run_job_params.ExtractRunJobParams,
             ),
@@ -266,68 +258,37 @@ class AsyncExtractResource(AsyncAPIResource):
         """
         return AsyncExtractResourceWithStreamingResponse(self)
 
+    @overload
     async def run(
         self,
         *,
-        document_url: extract_run_params.DocumentURL,
-        schema: object,
-        advanced_options: AdvancedProcessingOptions | Omit = omit,
-        array_extract: ArrayExtractConfig | Omit = omit,
-        citations_options: AdvancedCitationsConfig | Omit = omit,
-        experimental_options: ExperimentalProcessingOptions | Omit = omit,
-        experimental_table_citations: bool | Omit = omit,
-        generate_citations: bool | Omit = omit,
-        include_images: bool | Omit = omit,
-        options: BaseProcessingOptions | Omit = omit,
-        priority: bool | Omit = omit,
-        spreadsheet_agent: bool | Omit = omit,
-        system_prompt: str | Omit = omit,
-        use_chunking: bool | Omit = omit,
+        input: extract_run_params.SyncExtractConfigInput,
+        instructions: extract_run_params.SyncExtractConfigInstructions | Omit = omit,
+        parsing: ParseOptions | Omit = omit,
+        settings: extract_run_params.SyncExtractConfigSettings | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ExtractResponse:
+    ) -> ExtractRunResponse:
         """Extract
 
         Args:
-          document_url:
-              The URL of the document to be processed.
+          input: The URL of the document to be processed.
 
-        You can provide one of the following:
+        You can provide one of the
+              following: 1. A publicly available URL 2. A presigned S3 URL 3. A reducto://
+              prefixed URL obtained from the /upload endpoint after directly uploading a
+              document 4. A jobid:// prefixed URL obtained from a previous /parse invocation
 
-              1. A publicly available URL
-              2. A presigned S3 URL
-              3. A reducto:// prefixed URL obtained from the /upload endpoint after directly
-                 uploading a document
-              4. A job_id (jobid://) or a list of job_ids (jobid://) obtained from a previous
-                 /parse endpoint
+          instructions: The instructions to use for the extraction.
 
-          schema: The JSON schema to use for extraction.
+          parsing: The configuration options for parsing the document. If you are passing in a
+              jobid:// URL for the file, then this configuration will be ignored.
 
-          array_extract: The configuration options for array extract
-
-          citations_options: The configuration options for citations.
-
-          experimental_table_citations: If table citations should be generated for the extracted content.
-
-          generate_citations: If citations should be generated for the extracted content.
-
-          include_images: If images should be passed directly for extractions. Can only be enabled for
-              documents with less than 10 pages. Defaults to False.
-
-          priority: If True, attempts to process the job with priority if the user has priority
-              processing budget available; by default, sync jobs are prioritized above async
-              jobs.
-
-          spreadsheet_agent: If spreadsheet agent should be used for extraction.
-
-          system_prompt: A system prompt to use for the extraction. This is a general prompt that is
-              applied to the entire document before any other prompts.
-
-          use_chunking: If chunking should be used for the extraction. Defaults to False.
+          settings: The settings to use for the extraction.
 
           extra_headers: Send extra headers
 
@@ -337,51 +298,104 @@ class AsyncExtractResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._post(
-            "/extract",
-            body=await async_maybe_transform(
-                {
-                    "document_url": document_url,
-                    "schema": schema,
-                    "advanced_options": advanced_options,
-                    "array_extract": array_extract,
-                    "citations_options": citations_options,
-                    "experimental_options": experimental_options,
-                    "experimental_table_citations": experimental_table_citations,
-                    "generate_citations": generate_citations,
-                    "include_images": include_images,
-                    "options": options,
-                    "priority": priority,
-                    "spreadsheet_agent": spreadsheet_agent,
-                    "system_prompt": system_prompt,
-                    "use_chunking": use_chunking,
-                },
-                extract_run_params.ExtractRunParams,
+        ...
+
+    @overload
+    async def run(
+        self,
+        *,
+        input: extract_run_params.AsyncExtractConfigInput,
+        async_: ConfigV3AsyncConfig | Omit = omit,
+        instructions: extract_run_params.AsyncExtractConfigInstructions | Omit = omit,
+        parsing: ParseOptions | Omit = omit,
+        settings: extract_run_params.AsyncExtractConfigSettings | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ExtractRunResponse:
+        """Extract
+
+        Args:
+          input: The URL of the document to be processed.
+
+        You can provide one of the
+              following: 1. A publicly available URL 2. A presigned S3 URL 3. A reducto://
+              prefixed URL obtained from the /upload endpoint after directly uploading a
+              document 4. A jobid:// prefixed URL obtained from a previous /parse invocation
+
+          async_: The configuration options for asynchronous processing (default synchronous).
+
+          instructions: The instructions to use for the extraction.
+
+          parsing: The configuration options for parsing the document. If you are passing in a
+              jobid:// URL for the file, then this configuration will be ignored.
+
+          settings: The settings to use for the extraction.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @required_args(["input"])
+    async def run(
+        self,
+        *,
+        input: extract_run_params.SyncExtractConfigInput | extract_run_params.AsyncExtractConfigInput,
+        instructions: extract_run_params.SyncExtractConfigInstructions
+        | extract_run_params.AsyncExtractConfigInstructions
+        | Omit = omit,
+        parsing: ParseOptions | Omit = omit,
+        settings: extract_run_params.SyncExtractConfigSettings
+        | extract_run_params.AsyncExtractConfigSettings
+        | Omit = omit,
+        async_: ConfigV3AsyncConfig | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ExtractRunResponse:
+        return cast(
+            ExtractRunResponse,
+            await self._post(
+                "/extract",
+                body=await async_maybe_transform(
+                    {
+                        "input": input,
+                        "instructions": instructions,
+                        "parsing": parsing,
+                        "settings": settings,
+                        "async_": async_,
+                    },
+                    extract_run_params.ExtractRunParams,
+                ),
+                options=make_request_options(
+                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                ),
+                cast_to=cast(
+                    Any, ExtractRunResponse
+                ),  # Union types cannot be passed in as arguments in the type system
             ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ExtractResponse,
         )
 
     async def run_job(
         self,
         *,
-        document_url: extract_run_job_params.DocumentURL,
-        schema: object,
-        advanced_options: AdvancedProcessingOptions | Omit = omit,
-        array_extract: ArrayExtractConfig | Omit = omit,
-        citations_options: AdvancedCitationsConfig | Omit = omit,
-        experimental_options: ExperimentalProcessingOptions | Omit = omit,
-        experimental_table_citations: bool | Omit = omit,
-        generate_citations: bool | Omit = omit,
-        include_images: bool | Omit = omit,
-        options: BaseProcessingOptions | Omit = omit,
-        priority: bool | Omit = omit,
-        spreadsheet_agent: bool | Omit = omit,
-        system_prompt: str | Omit = omit,
-        use_chunking: bool | Omit = omit,
-        webhook: WebhookConfigNew | Omit = omit,
+        input: extract_run_job_params.Input,
+        async_: ConfigV3AsyncConfig | Omit = omit,
+        instructions: extract_run_job_params.Instructions | Omit = omit,
+        parsing: ParseOptions | Omit = omit,
+        settings: extract_run_job_params.Settings | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -389,43 +403,24 @@ class AsyncExtractResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ExtractRunJobResponse:
-        """
-        Extract Async
+        """Extract Async
 
         Args:
-          document_url:
-              The URL of the document to be processed. You can provide one of the following:
+          input: The URL of the document to be processed.
 
-              1. A publicly available URL
-              2. A presigned S3 URL
-              3. A reducto:// prefixed URL obtained from the /upload endpoint after directly
-                 uploading a document
-              4. A job_id (jobid://) or a list of job_ids (jobid://) obtained from a previous
-                 /parse endpoint
+        You can provide one of the
+              following: 1. A publicly available URL 2. A presigned S3 URL 3. A reducto://
+              prefixed URL obtained from the /upload endpoint after directly uploading a
+              document 4. A jobid:// prefixed URL obtained from a previous /parse invocation
 
-          schema: The JSON schema to use for extraction.
+          async_: The configuration options for asynchronous processing (default synchronous).
 
-          array_extract: The configuration options for array extract
+          instructions: The instructions to use for the extraction.
 
-          citations_options: The configuration options for citations.
+          parsing: The configuration options for parsing the document. If you are passing in a
+              jobid:// URL for the file, then this configuration will be ignored.
 
-          experimental_table_citations: If table citations should be generated for the extracted content.
-
-          generate_citations: If citations should be generated for the extracted content.
-
-          include_images: If images should be passed directly for extractions. Can only be enabled for
-              documents with less than 10 pages. Defaults to False.
-
-          priority: If True, attempts to process the job with priority if the user has priority
-              processing budget available; by default, sync jobs are prioritized above async
-              jobs.
-
-          spreadsheet_agent: If spreadsheet agent should be used for extraction.
-
-          system_prompt: A system prompt to use for the extraction. This is a general prompt that is
-              applied to the entire document before any other prompts.
-
-          use_chunking: If chunking should be used for the extraction. Defaults to False.
+          settings: The settings to use for the extraction.
 
           extra_headers: Send extra headers
 
@@ -439,21 +434,11 @@ class AsyncExtractResource(AsyncAPIResource):
             "/extract_async",
             body=await async_maybe_transform(
                 {
-                    "document_url": document_url,
-                    "schema": schema,
-                    "advanced_options": advanced_options,
-                    "array_extract": array_extract,
-                    "citations_options": citations_options,
-                    "experimental_options": experimental_options,
-                    "experimental_table_citations": experimental_table_citations,
-                    "generate_citations": generate_citations,
-                    "include_images": include_images,
-                    "options": options,
-                    "priority": priority,
-                    "spreadsheet_agent": spreadsheet_agent,
-                    "system_prompt": system_prompt,
-                    "use_chunking": use_chunking,
-                    "webhook": webhook,
+                    "input": input,
+                    "async_": async_,
+                    "instructions": instructions,
+                    "parsing": parsing,
+                    "settings": settings,
                 },
                 extract_run_job_params.ExtractRunJobParams,
             ),

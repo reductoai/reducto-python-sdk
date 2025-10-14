@@ -10,6 +10,7 @@ from .shared.parse_response import ParseResponse
 from .shared.split_response import SplitResponse
 from .shared.extract_response import ExtractResponse
 from .shared.pipeline_response import PipelineResponse
+from .shared.v3_extract_response import V3ExtractResponse
 
 __all__ = [
     "JobGetResponse",
@@ -20,7 +21,7 @@ __all__ = [
 ]
 
 AsyncJobResponseResult: TypeAlias = Union[
-    ParseResponse, ExtractResponse, SplitResponse, EditResponse, PipelineResponse, None
+    ParseResponse, ExtractResponse, SplitResponse, EditResponse, PipelineResponse, V3ExtractResponse, None
 ]
 
 
@@ -35,7 +36,7 @@ class AsyncJobResponse(BaseModel):
 
 
 EnhancedAsyncJobResponseResult: TypeAlias = Union[
-    ParseResponse, ExtractResponse, SplitResponse, EditResponse, PipelineResponse, None
+    ParseResponse, ExtractResponse, SplitResponse, EditResponse, PipelineResponse, V3ExtractResponse, None
 ]
 
 
@@ -62,7 +63,7 @@ class EnhancedAsyncJobResponse(BaseModel):
 
     total_pages: Optional[int] = None
 
-    type: Optional[Literal["Parse", "Extract", "Split", "Edit"]] = None
+    type: Optional[Literal["Parse", "Extract", "Split", "Edit", "Pipeline"]] = None
 
 
 JobGetResponse: TypeAlias = Union[AsyncJobResponse, EnhancedAsyncJobResponse]

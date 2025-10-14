@@ -49,6 +49,12 @@ class ExperimentalProcessingOptions(BaseModel):
     enrich: Optional[EnrichConfig] = None
     """The configuration options for enrichment."""
 
+    layout_enrichment: Optional[bool] = None
+    """
+    Layout enrichment is a beta feature that improves our layout and reading order
+    performance at the cost of increased latency. Defaults to False.
+    """
+
     layout_model: Optional[Literal["default", "beta"]] = None
     """The layout model to use for the document.
 

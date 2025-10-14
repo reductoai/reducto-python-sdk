@@ -34,10 +34,9 @@ client = Reducto(
     environment="eu",
 )
 
-parse_response = client.parse.run(
-    document_url="https://pdfobject.com/pdf/sample.pdf",
+response = client.parse.run(
+    input="string",
 )
-print(parse_response.job_id)
 ```
 
 While you can provide an `api_key` keyword argument,
@@ -62,10 +61,9 @@ client = AsyncReducto(
 
 
 async def main() -> None:
-    parse_response = await client.parse.run(
-        document_url="https://pdfobject.com/pdf/sample.pdf",
+    response = await client.parse.run(
+        input="string",
     )
-    print(parse_response.job_id)
 
 
 asyncio.run(main())
@@ -97,10 +95,9 @@ async def main() -> None:
         api_key="My API Key",
         http_client=DefaultAioHttpClient(),
     ) as client:
-        parse_response = await client.parse.run(
-            document_url="https://pdfobject.com/pdf/sample.pdf",
+        response = await client.parse.run(
+            input="string",
         )
-        print(parse_response.job_id)
 
 
 asyncio.run(main())
@@ -124,11 +121,11 @@ from reducto import Reducto
 
 client = Reducto()
 
-parse_response = client.parse.run(
-    document_url="string",
-    advanced_options={},
+response = client.parse.run(
+    input="string",
+    enhance={},
 )
-print(parse_response.advanced_options)
+print(response.enhance)
 ```
 
 ## File uploads
@@ -165,7 +162,7 @@ client = Reducto()
 
 try:
     client.parse.run(
-        document_url="https://pdfobject.com/pdf/sample.pdf",
+        input="string",
     )
 except reducto.APIConnectionError as e:
     print("The server could not be reached")
@@ -210,7 +207,7 @@ client = Reducto(
 
 # Or, configure per-request:
 client.with_options(max_retries=5).parse.run(
-    document_url="https://pdfobject.com/pdf/sample.pdf",
+    input="string",
 )
 ```
 
@@ -235,7 +232,7 @@ client = Reducto(
 
 # Override per-request:
 client.with_options(timeout=5.0).parse.run(
-    document_url="https://pdfobject.com/pdf/sample.pdf",
+    input="string",
 )
 ```
 
@@ -278,12 +275,12 @@ from reducto import Reducto
 
 client = Reducto()
 response = client.parse.with_raw_response.run(
-    document_url="https://pdfobject.com/pdf/sample.pdf",
+    input="string",
 )
 print(response.headers.get('X-My-Header'))
 
 parse = response.parse()  # get the object that `parse.run()` would have returned
-print(parse.job_id)
+print(parse)
 ```
 
 These methods return an [`APIResponse`](https://github.com/reductoai/reducto-python-sdk/tree/main/src/reducto/_response.py) object.
@@ -298,7 +295,7 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 
 ```python
 with client.parse.with_streaming_response.run(
-    document_url="https://pdfobject.com/pdf/sample.pdf",
+    input="string",
 ) as response:
     print(response.headers.get("X-My-Header"))
 

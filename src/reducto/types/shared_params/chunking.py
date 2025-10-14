@@ -2,13 +2,14 @@
 
 from __future__ import annotations
 
+from typing import Optional
 from typing_extensions import Literal, TypedDict
 
-__all__ = ["ChunkingConfig"]
+__all__ = ["Chunking"]
 
 
-class ChunkingConfig(TypedDict, total=False):
-    chunk_mode: Literal["variable", "section", "page", "block", "disabled", "page_sections"]
+class Chunking(TypedDict, total=False):
+    chunk_mode: Literal["variable", "section", "page", "disabled", "block", "page_sections"]
     """Choose how to partition chunks.
 
     Variable mode chunks by character length and visual context. Section mode chunks
@@ -17,9 +18,9 @@ class ChunkingConfig(TypedDict, total=False):
     single chunk.
     """
 
-    chunk_size: int
+    chunk_size: Optional[int]
     """
     The approximate size of chunks (in characters) that the document will be split
-    into. Defaults to None, in which case the chunk size is variable between 250 -
+    into. Defaults to null, in which case the chunk size is variable between 250 -
     1500 characters.
     """
