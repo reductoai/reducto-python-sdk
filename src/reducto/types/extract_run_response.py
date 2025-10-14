@@ -4,9 +4,8 @@ from typing import List, Union, Optional
 from typing_extensions import TypeAlias
 
 from .._models import BaseModel
-from .shared.extract_response import ExtractResponse
 
-__all__ = ["ExtractRunResponse", "V3ExtractResponse", "V3ExtractResponseUsage"]
+__all__ = ["ExtractRunResponse", "V3ExtractResponse", "V3ExtractResponseUsage", "AsyncExtractResponse"]
 
 
 class V3ExtractResponseUsage(BaseModel):
@@ -33,4 +32,8 @@ class V3ExtractResponse(BaseModel):
     """The link to the studio pipeline for the document."""
 
 
-ExtractRunResponse: TypeAlias = Union[ExtractResponse, V3ExtractResponse]
+class AsyncExtractResponse(BaseModel):
+    job_id: str
+
+
+ExtractRunResponse: TypeAlias = Union[V3ExtractResponse, AsyncExtractResponse]

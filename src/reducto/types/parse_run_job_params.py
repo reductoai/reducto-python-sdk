@@ -9,67 +9,31 @@ from .._types import SequenceNotStr
 from .._utils import PropertyInfo
 from .shared_params.upload import Upload
 from .shared_params.page_range import PageRange
-from .shared_params.webhook_config_new import WebhookConfigNew
-from .shared_params.base_processing_options import BaseProcessingOptions
-from .shared_params.advanced_processing_options import AdvancedProcessingOptions
-from .shared_params.experimental_processing_options import ExperimentalProcessingOptions
 
 __all__ = [
     "ParseRunJobParams",
-    "AsyncParseConfigNew",
-    "AsyncParseConfigNewDocumentURL",
-    "AsyncParseConfig",
-    "AsyncParseConfigInput",
-    "AsyncParseConfigAsync",
-    "AsyncParseConfigAsyncWebhook",
-    "AsyncParseConfigAsyncWebhookSvixWebhookConfig",
-    "AsyncParseConfigAsyncWebhookDirectWebhookConfig",
-    "AsyncParseConfigEnhance",
-    "AsyncParseConfigEnhanceAgentic",
-    "AsyncParseConfigEnhanceAgenticTableAgentic",
-    "AsyncParseConfigEnhanceAgenticFigureAgentic",
-    "AsyncParseConfigEnhanceAgenticTextAgentic",
-    "AsyncParseConfigFormatting",
-    "AsyncParseConfigRetrieval",
-    "AsyncParseConfigRetrievalChunking",
-    "AsyncParseConfigSettings",
-    "AsyncParseConfigSettingsPageRange",
-    "AsyncParseConfigSpreadsheet",
-    "AsyncParseConfigSpreadsheetSplitLargeTables",
+    "Input",
+    "Async",
+    "AsyncWebhook",
+    "AsyncWebhookSvixWebhookConfig",
+    "AsyncWebhookDirectWebhookConfig",
+    "Enhance",
+    "EnhanceAgentic",
+    "EnhanceAgenticTableAgentic",
+    "EnhanceAgenticFigureAgentic",
+    "EnhanceAgenticTextAgentic",
+    "Formatting",
+    "Retrieval",
+    "RetrievalChunking",
+    "Settings",
+    "SettingsPageRange",
+    "Spreadsheet",
+    "SpreadsheetSplitLargeTables",
 ]
 
 
-class AsyncParseConfigNew(TypedDict, total=False):
-    document_url: Required[AsyncParseConfigNewDocumentURL]
-    """The URL of the document to be processed. You can provide one of the following:
-
-    1. A publicly available URL
-    2. A presigned S3 URL
-    3. A reducto:// prefixed URL obtained from the /upload endpoint after directly
-       uploading a document
-    """
-
-    advanced_options: AdvancedProcessingOptions
-
-    experimental_options: ExperimentalProcessingOptions
-
-    options: BaseProcessingOptions
-
-    priority: bool
-    """
-    If True, attempts to process the job with priority if the user has priority
-    processing budget available; by default, sync jobs are prioritized above async
-    jobs.
-    """
-
-    webhook: WebhookConfigNew
-
-
-AsyncParseConfigNewDocumentURL: TypeAlias = Union[str, Upload]
-
-
-class AsyncParseConfig(TypedDict, total=False):
-    input: Required[AsyncParseConfigInput]
+class ParseRunJobParams(TypedDict, total=False):
+    input: Required[Input]
     """The URL of the document to be processed.
 
     You can provide one of the following: 1. A publicly available URL 2. A presigned
@@ -78,24 +42,24 @@ class AsyncParseConfig(TypedDict, total=False):
     previous /parse invocation
     """
 
-    async_: Annotated[AsyncParseConfigAsync, PropertyInfo(alias="async")]
+    async_: Annotated[Async, PropertyInfo(alias="async")]
     """The configuration options for asynchronous processing (default synchronous)."""
 
-    enhance: AsyncParseConfigEnhance
+    enhance: Enhance
 
-    formatting: AsyncParseConfigFormatting
+    formatting: Formatting
 
-    retrieval: AsyncParseConfigRetrieval
+    retrieval: Retrieval
 
-    settings: AsyncParseConfigSettings
+    settings: Settings
 
-    spreadsheet: AsyncParseConfigSpreadsheet
-
-
-AsyncParseConfigInput: TypeAlias = Union[str, Upload]
+    spreadsheet: Spreadsheet
 
 
-class AsyncParseConfigAsyncWebhookSvixWebhookConfig(TypedDict, total=False):
+Input: TypeAlias = Union[str, Upload]
+
+
+class AsyncWebhookSvixWebhookConfig(TypedDict, total=False):
     channels: SequenceNotStr[str]
     """
     A list of Svix channels the message will be delivered down, omit to send to all
@@ -105,18 +69,16 @@ class AsyncParseConfigAsyncWebhookSvixWebhookConfig(TypedDict, total=False):
     mode: Literal["svix"]
 
 
-class AsyncParseConfigAsyncWebhookDirectWebhookConfig(TypedDict, total=False):
+class AsyncWebhookDirectWebhookConfig(TypedDict, total=False):
     url: Required[str]
 
     mode: Literal["direct"]
 
 
-AsyncParseConfigAsyncWebhook: TypeAlias = Union[
-    AsyncParseConfigAsyncWebhookSvixWebhookConfig, AsyncParseConfigAsyncWebhookDirectWebhookConfig
-]
+AsyncWebhook: TypeAlias = Union[AsyncWebhookSvixWebhookConfig, AsyncWebhookDirectWebhookConfig]
 
 
-class AsyncParseConfigAsync(TypedDict, total=False):
+class Async(TypedDict, total=False):
     metadata: object
     """JSON metadata included in webhook request body. Defaults to None."""
 
@@ -127,37 +89,33 @@ class AsyncParseConfigAsync(TypedDict, total=False):
     jobs.
     """
 
-    webhook: Optional[AsyncParseConfigAsyncWebhook]
+    webhook: Optional[AsyncWebhook]
     """The webhook configuration for the asynchronous processing."""
 
 
-class AsyncParseConfigEnhanceAgenticTableAgentic(TypedDict, total=False):
+class EnhanceAgenticTableAgentic(TypedDict, total=False):
     scope: Required[Literal["table"]]
 
     prompt: Optional[str]
     """Custom prompt for table agentic."""
 
 
-class AsyncParseConfigEnhanceAgenticFigureAgentic(TypedDict, total=False):
+class EnhanceAgenticFigureAgentic(TypedDict, total=False):
     scope: Required[Literal["figure"]]
 
     prompt: Optional[str]
     """Custom prompt for figure agentic."""
 
 
-class AsyncParseConfigEnhanceAgenticTextAgentic(TypedDict, total=False):
+class EnhanceAgenticTextAgentic(TypedDict, total=False):
     scope: Required[Literal["text"]]
 
 
-AsyncParseConfigEnhanceAgentic: TypeAlias = Union[
-    AsyncParseConfigEnhanceAgenticTableAgentic,
-    AsyncParseConfigEnhanceAgenticFigureAgentic,
-    AsyncParseConfigEnhanceAgenticTextAgentic,
-]
+EnhanceAgentic: TypeAlias = Union[EnhanceAgenticTableAgentic, EnhanceAgenticFigureAgentic, EnhanceAgenticTextAgentic]
 
 
-class AsyncParseConfigEnhance(TypedDict, total=False):
-    agentic: Iterable[AsyncParseConfigEnhanceAgentic]
+class Enhance(TypedDict, total=False):
+    agentic: Iterable[EnhanceAgentic]
     """
     Agentic uses vision language models to enhance the accuracy of the output of
     different types of extraction. This will incur a cost and latency increase.
@@ -170,7 +128,7 @@ class AsyncParseConfigEnhance(TypedDict, total=False):
     """
 
 
-class AsyncParseConfigFormatting(TypedDict, total=False):
+class Formatting(TypedDict, total=False):
     add_page_markers: bool
     """If True, add page markers to the output.
 
@@ -197,7 +155,7 @@ class AsyncParseConfigFormatting(TypedDict, total=False):
     """
 
 
-class AsyncParseConfigRetrievalChunking(TypedDict, total=False):
+class RetrievalChunking(TypedDict, total=False):
     chunk_mode: Literal["variable", "section", "page", "disabled", "block", "page_sections"]
     """Choose how to partition chunks.
 
@@ -215,8 +173,8 @@ class AsyncParseConfigRetrievalChunking(TypedDict, total=False):
     """
 
 
-class AsyncParseConfigRetrieval(TypedDict, total=False):
-    chunking: AsyncParseConfigRetrievalChunking
+class Retrieval(TypedDict, total=False):
+    chunking: RetrievalChunking
 
     embedding_optimized: bool
     """If True, use embedding optimized mode. Defaults to False."""
@@ -243,10 +201,10 @@ class AsyncParseConfigRetrieval(TypedDict, total=False):
     """
 
 
-AsyncParseConfigSettingsPageRange: TypeAlias = Union[PageRange, Iterable[PageRange], Iterable[int]]
+SettingsPageRange: TypeAlias = Union[PageRange, Iterable[PageRange], Iterable[int]]
 
 
-class AsyncParseConfigSettings(TypedDict, total=False):
+class Settings(TypedDict, total=False):
     document_password: Optional[str]
     """Password to decrypt password-protected documents."""
 
@@ -266,7 +224,7 @@ class AsyncParseConfigSettings(TypedDict, total=False):
     compatibility.
     """
 
-    page_range: Optional[AsyncParseConfigSettingsPageRange]
+    page_range: Optional[SettingsPageRange]
     """The page range to process (1-indexed).
 
     By default, the entire document is processed.
@@ -288,7 +246,7 @@ class AsyncParseConfigSettings(TypedDict, total=False):
     """The timeout for the job in seconds. Defaults to 900."""
 
 
-class AsyncParseConfigSpreadsheetSplitLargeTables(TypedDict, total=False):
+class SpreadsheetSplitLargeTables(TypedDict, total=False):
     enabled: bool
     """If True, split large tables into smaller tables. Defaults to True."""
 
@@ -296,7 +254,7 @@ class AsyncParseConfigSpreadsheetSplitLargeTables(TypedDict, total=False):
     """The size of the tables to split into. Defaults to 50."""
 
 
-class AsyncParseConfigSpreadsheet(TypedDict, total=False):
+class Spreadsheet(TypedDict, total=False):
     clustering: Literal["accurate", "fast", "disabled"]
     """
     In a spreadsheet with different tables inside, we enable splitting up the tables
@@ -310,7 +268,4 @@ class AsyncParseConfigSpreadsheet(TypedDict, total=False):
     include: List[Literal["cell_colors", "formula"]]
     """Whether to include cell color and formula information in the output."""
 
-    split_large_tables: AsyncParseConfigSpreadsheetSplitLargeTables
-
-
-ParseRunJobParams: TypeAlias = Union[AsyncParseConfigNew, AsyncParseConfig]
+    split_large_tables: SpreadsheetSplitLargeTables

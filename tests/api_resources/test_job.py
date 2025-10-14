@@ -63,16 +63,7 @@ class TestJob:
     @parametrize
     def test_method_get(self, client: Reducto) -> None:
         job = client.job.get(
-            job_id="job_id",
-        )
-        assert_matches_type(JobGetResponse, job, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_get_with_all_params(self, client: Reducto) -> None:
-        job = client.job.get(
-            job_id="job_id",
-            bucket_name="bucket_name",
+            "job_id",
         )
         assert_matches_type(JobGetResponse, job, path=["response"])
 
@@ -80,7 +71,7 @@ class TestJob:
     @parametrize
     def test_raw_response_get(self, client: Reducto) -> None:
         response = client.job.with_raw_response.get(
-            job_id="job_id",
+            "job_id",
         )
 
         assert response.is_closed is True
@@ -92,7 +83,7 @@ class TestJob:
     @parametrize
     def test_streaming_response_get(self, client: Reducto) -> None:
         with client.job.with_streaming_response.get(
-            job_id="job_id",
+            "job_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -107,7 +98,7 @@ class TestJob:
     def test_path_params_get(self, client: Reducto) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `job_id` but received ''"):
             client.job.with_raw_response.get(
-                job_id="",
+                "",
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -200,16 +191,7 @@ class TestAsyncJob:
     @parametrize
     async def test_method_get(self, async_client: AsyncReducto) -> None:
         job = await async_client.job.get(
-            job_id="job_id",
-        )
-        assert_matches_type(JobGetResponse, job, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_get_with_all_params(self, async_client: AsyncReducto) -> None:
-        job = await async_client.job.get(
-            job_id="job_id",
-            bucket_name="bucket_name",
+            "job_id",
         )
         assert_matches_type(JobGetResponse, job, path=["response"])
 
@@ -217,7 +199,7 @@ class TestAsyncJob:
     @parametrize
     async def test_raw_response_get(self, async_client: AsyncReducto) -> None:
         response = await async_client.job.with_raw_response.get(
-            job_id="job_id",
+            "job_id",
         )
 
         assert response.is_closed is True
@@ -229,7 +211,7 @@ class TestAsyncJob:
     @parametrize
     async def test_streaming_response_get(self, async_client: AsyncReducto) -> None:
         async with async_client.job.with_streaming_response.get(
-            job_id="job_id",
+            "job_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -244,7 +226,7 @@ class TestAsyncJob:
     async def test_path_params_get(self, async_client: AsyncReducto) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `job_id` but received ''"):
             await async_client.job.with_raw_response.get(
-                job_id="",
+                "",
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
