@@ -18,7 +18,6 @@ from .._response import (
 from .._base_client import make_request_options
 from ..types.shared.pipeline_response import PipelineResponse
 from ..types.pipeline_run_job_response import PipelineRunJobResponse
-from ..types.shared_params.webhook_config_new import WebhookConfigNew
 
 __all__ = ["PipelineResource", "AsyncPipelineResource"]
 
@@ -46,7 +45,7 @@ class PipelineResource(SyncAPIResource):
     def run(
         self,
         *,
-        document_url: pipeline_run_params.DocumentURL,
+        input: pipeline_run_params.Input,
         pipeline_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -58,12 +57,12 @@ class PipelineResource(SyncAPIResource):
         """Pipeline
 
         Args:
-          document_url: The URL of the document to be processed.
+          input: The URL of the document to be processed.
 
         You can provide one of the
               following: 1. A publicly available URL 2. A presigned S3 URL 3. A reducto://
               prefixed URL obtained from the /upload endpoint after directly uploading a
-              document
+              document 4. A jobid:// prefixed URL obtained from a previous /parse invocation
 
           pipeline_id: The ID of the pipeline to use for the document.
 
@@ -79,7 +78,7 @@ class PipelineResource(SyncAPIResource):
             "/pipeline",
             body=maybe_transform(
                 {
-                    "document_url": document_url,
+                    "input": input,
                     "pipeline_id": pipeline_id,
                 },
                 pipeline_run_params.PipelineRunParams,
@@ -93,10 +92,9 @@ class PipelineResource(SyncAPIResource):
     def run_job(
         self,
         *,
-        document_url: pipeline_run_job_params.DocumentURL,
+        input: pipeline_run_job_params.Input,
         pipeline_id: str,
-        priority: bool | Omit = omit,
-        webhook: WebhookConfigNew | Omit = omit,
+        async_: pipeline_run_job_params.Async | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -107,18 +105,16 @@ class PipelineResource(SyncAPIResource):
         """Pipeline Async
 
         Args:
-          document_url: The URL of the document to be processed.
+          input: The URL of the document to be processed.
 
         You can provide one of the
               following: 1. A publicly available URL 2. A presigned S3 URL 3. A reducto://
               prefixed URL obtained from the /upload endpoint after directly uploading a
-              document
+              document 4. A jobid:// prefixed URL obtained from a previous /parse invocation
 
           pipeline_id: The ID of the pipeline to use for the document.
 
-          priority: If True, attempts to process the job with priority if the user has priority
-              processing budget available; by default, sync jobs are prioritized above async
-              jobs.
+          async_: The configuration options for asynchronous processing (default synchronous).
 
           extra_headers: Send extra headers
 
@@ -132,10 +128,9 @@ class PipelineResource(SyncAPIResource):
             "/pipeline_async",
             body=maybe_transform(
                 {
-                    "document_url": document_url,
+                    "input": input,
                     "pipeline_id": pipeline_id,
-                    "priority": priority,
-                    "webhook": webhook,
+                    "async_": async_,
                 },
                 pipeline_run_job_params.PipelineRunJobParams,
             ),
@@ -169,7 +164,7 @@ class AsyncPipelineResource(AsyncAPIResource):
     async def run(
         self,
         *,
-        document_url: pipeline_run_params.DocumentURL,
+        input: pipeline_run_params.Input,
         pipeline_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -181,12 +176,12 @@ class AsyncPipelineResource(AsyncAPIResource):
         """Pipeline
 
         Args:
-          document_url: The URL of the document to be processed.
+          input: The URL of the document to be processed.
 
         You can provide one of the
               following: 1. A publicly available URL 2. A presigned S3 URL 3. A reducto://
               prefixed URL obtained from the /upload endpoint after directly uploading a
-              document
+              document 4. A jobid:// prefixed URL obtained from a previous /parse invocation
 
           pipeline_id: The ID of the pipeline to use for the document.
 
@@ -202,7 +197,7 @@ class AsyncPipelineResource(AsyncAPIResource):
             "/pipeline",
             body=await async_maybe_transform(
                 {
-                    "document_url": document_url,
+                    "input": input,
                     "pipeline_id": pipeline_id,
                 },
                 pipeline_run_params.PipelineRunParams,
@@ -216,10 +211,9 @@ class AsyncPipelineResource(AsyncAPIResource):
     async def run_job(
         self,
         *,
-        document_url: pipeline_run_job_params.DocumentURL,
+        input: pipeline_run_job_params.Input,
         pipeline_id: str,
-        priority: bool | Omit = omit,
-        webhook: WebhookConfigNew | Omit = omit,
+        async_: pipeline_run_job_params.Async | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -230,18 +224,16 @@ class AsyncPipelineResource(AsyncAPIResource):
         """Pipeline Async
 
         Args:
-          document_url: The URL of the document to be processed.
+          input: The URL of the document to be processed.
 
         You can provide one of the
               following: 1. A publicly available URL 2. A presigned S3 URL 3. A reducto://
               prefixed URL obtained from the /upload endpoint after directly uploading a
-              document
+              document 4. A jobid:// prefixed URL obtained from a previous /parse invocation
 
           pipeline_id: The ID of the pipeline to use for the document.
 
-          priority: If True, attempts to process the job with priority if the user has priority
-              processing budget available; by default, sync jobs are prioritized above async
-              jobs.
+          async_: The configuration options for asynchronous processing (default synchronous).
 
           extra_headers: Send extra headers
 
@@ -255,10 +247,9 @@ class AsyncPipelineResource(AsyncAPIResource):
             "/pipeline_async",
             body=await async_maybe_transform(
                 {
-                    "document_url": document_url,
+                    "input": input,
                     "pipeline_id": pipeline_id,
-                    "priority": priority,
-                    "webhook": webhook,
+                    "async_": async_,
                 },
                 pipeline_run_job_params.PipelineRunJobParams,
             ),

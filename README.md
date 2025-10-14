@@ -35,7 +35,7 @@ client = Reducto(
 )
 
 response = client.parse.run(
-    document_url="https://pdfobject.com/pdf/sample.pdf",
+    input="string",
 )
 ```
 
@@ -62,7 +62,7 @@ client = AsyncReducto(
 
 async def main() -> None:
     response = await client.parse.run(
-        document_url="https://pdfobject.com/pdf/sample.pdf",
+        input="string",
     )
 
 
@@ -96,7 +96,7 @@ async def main() -> None:
         http_client=DefaultAioHttpClient(),
     ) as client:
         response = await client.parse.run(
-            document_url="https://pdfobject.com/pdf/sample.pdf",
+            input="string",
         )
 
 
@@ -122,10 +122,10 @@ from reducto import Reducto
 client = Reducto()
 
 response = client.parse.run(
-    document_url="string",
-    advanced_options={},
+    input="string",
+    enhance={},
 )
-print(response.advanced_options)
+print(response.enhance)
 ```
 
 ## File uploads
@@ -162,7 +162,7 @@ client = Reducto()
 
 try:
     client.parse.run(
-        document_url="https://pdfobject.com/pdf/sample.pdf",
+        input="string",
     )
 except reducto.APIConnectionError as e:
     print("The server could not be reached")
@@ -207,7 +207,7 @@ client = Reducto(
 
 # Or, configure per-request:
 client.with_options(max_retries=5).parse.run(
-    document_url="https://pdfobject.com/pdf/sample.pdf",
+    input="string",
 )
 ```
 
@@ -232,7 +232,7 @@ client = Reducto(
 
 # Override per-request:
 client.with_options(timeout=5.0).parse.run(
-    document_url="https://pdfobject.com/pdf/sample.pdf",
+    input="string",
 )
 ```
 
@@ -275,7 +275,7 @@ from reducto import Reducto
 
 client = Reducto()
 response = client.parse.with_raw_response.run(
-    document_url="https://pdfobject.com/pdf/sample.pdf",
+    input="string",
 )
 print(response.headers.get('X-My-Header'))
 
@@ -295,7 +295,7 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 
 ```python
 with client.parse.with_streaming_response.run(
-    document_url="https://pdfobject.com/pdf/sample.pdf",
+    input="string",
 ) as response:
     print(response.headers.get("X-My-Header"))
 

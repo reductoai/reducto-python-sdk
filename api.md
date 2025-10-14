@@ -44,7 +44,7 @@ from reducto.types import JobGetResponse, JobGetAllResponse
 Methods:
 
 - <code title="post /cancel/{job_id}">client.job.<a href="./src/reducto/resources/job.py">cancel</a>(job_id) -> object</code>
-- <code title="get /job/{job_id}">client.job.<a href="./src/reducto/resources/job.py">get</a>(job_id, \*\*<a href="src/reducto/types/job_get_params.py">params</a>) -> <a href="./src/reducto/types/job_get_response.py">JobGetResponse</a></code>
+- <code title="get /job/{job_id}">client.job.<a href="./src/reducto/resources/job.py">get</a>(job_id) -> <a href="./src/reducto/types/job_get_response.py">JobGetResponse</a></code>
 - <code title="get /jobs">client.job.<a href="./src/reducto/resources/job.py">get_all</a>(\*\*<a href="src/reducto/types/job_get_all_params.py">params</a>) -> <a href="./src/reducto/types/job_get_all_response.py">JobGetAllResponse</a></code>
 
 # Split
