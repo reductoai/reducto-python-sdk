@@ -18,6 +18,7 @@ from .._response import (
 from .._base_client import make_request_options
 from ..types.shared.pipeline_response import PipelineResponse
 from ..types.pipeline_run_job_response import PipelineRunJobResponse
+from ..types.shared_params.config_v3_async_config import ConfigV3AsyncConfig
 
 __all__ = ["PipelineResource", "AsyncPipelineResource"]
 
@@ -94,7 +95,7 @@ class PipelineResource(SyncAPIResource):
         *,
         input: pipeline_run_job_params.Input,
         pipeline_id: str,
-        async_: pipeline_run_job_params.Async | Omit = omit,
+        async_: ConfigV3AsyncConfig | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -213,7 +214,7 @@ class AsyncPipelineResource(AsyncAPIResource):
         *,
         input: pipeline_run_job_params.Input,
         pipeline_id: str,
-        async_: pipeline_run_job_params.Async | Omit = omit,
+        async_: ConfigV3AsyncConfig | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,

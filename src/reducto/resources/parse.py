@@ -20,7 +20,13 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.parse_run_response import ParseRunResponse
+from ..types.shared_params.enhance import Enhance
 from ..types.parse_run_job_response import ParseRunJobResponse
+from ..types.shared_params.settings import Settings
+from ..types.shared_params.retrieval import Retrieval
+from ..types.shared_params.formatting import Formatting
+from ..types.shared_params.spreadsheet import Spreadsheet
+from ..types.shared_params.config_v3_async_config import ConfigV3AsyncConfig
 
 __all__ = ["ParseResource", "AsyncParseResource"]
 
@@ -50,11 +56,11 @@ class ParseResource(SyncAPIResource):
         self,
         *,
         input: parse_run_params.SyncParseConfigInput,
-        enhance: parse_run_params.SyncParseConfigEnhance | Omit = omit,
-        formatting: parse_run_params.SyncParseConfigFormatting | Omit = omit,
-        retrieval: parse_run_params.SyncParseConfigRetrieval | Omit = omit,
-        settings: parse_run_params.SyncParseConfigSettings | Omit = omit,
-        spreadsheet: parse_run_params.SyncParseConfigSpreadsheet | Omit = omit,
+        enhance: Enhance | Omit = omit,
+        formatting: Formatting | Omit = omit,
+        retrieval: Retrieval | Omit = omit,
+        settings: Settings | Omit = omit,
+        spreadsheet: Spreadsheet | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -87,12 +93,12 @@ class ParseResource(SyncAPIResource):
         self,
         *,
         input: parse_run_params.AsyncParseConfigInput,
-        async_: parse_run_params.AsyncParseConfigAsync | Omit = omit,
-        enhance: parse_run_params.AsyncParseConfigEnhance | Omit = omit,
-        formatting: parse_run_params.AsyncParseConfigFormatting | Omit = omit,
-        retrieval: parse_run_params.AsyncParseConfigRetrieval | Omit = omit,
-        settings: parse_run_params.AsyncParseConfigSettings | Omit = omit,
-        spreadsheet: parse_run_params.AsyncParseConfigSpreadsheet | Omit = omit,
+        async_: ConfigV3AsyncConfig | Omit = omit,
+        enhance: Enhance | Omit = omit,
+        formatting: Formatting | Omit = omit,
+        retrieval: Retrieval | Omit = omit,
+        settings: Settings | Omit = omit,
+        spreadsheet: Spreadsheet | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -127,16 +133,12 @@ class ParseResource(SyncAPIResource):
         self,
         *,
         input: parse_run_params.SyncParseConfigInput | parse_run_params.AsyncParseConfigInput,
-        enhance: parse_run_params.SyncParseConfigEnhance | parse_run_params.AsyncParseConfigEnhance | Omit = omit,
-        formatting: parse_run_params.SyncParseConfigFormatting
-        | parse_run_params.AsyncParseConfigFormatting
-        | Omit = omit,
-        retrieval: parse_run_params.SyncParseConfigRetrieval | parse_run_params.AsyncParseConfigRetrieval | Omit = omit,
-        settings: parse_run_params.SyncParseConfigSettings | parse_run_params.AsyncParseConfigSettings | Omit = omit,
-        spreadsheet: parse_run_params.SyncParseConfigSpreadsheet
-        | parse_run_params.AsyncParseConfigSpreadsheet
-        | Omit = omit,
-        async_: parse_run_params.AsyncParseConfigAsync | Omit = omit,
+        enhance: Enhance | Omit = omit,
+        formatting: Formatting | Omit = omit,
+        retrieval: Retrieval | Omit = omit,
+        settings: Settings | Omit = omit,
+        spreadsheet: Spreadsheet | Omit = omit,
+        async_: ConfigV3AsyncConfig | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -171,12 +173,12 @@ class ParseResource(SyncAPIResource):
         self,
         *,
         input: parse_run_job_params.Input,
-        async_: parse_run_job_params.Async | Omit = omit,
-        enhance: parse_run_job_params.Enhance | Omit = omit,
-        formatting: parse_run_job_params.Formatting | Omit = omit,
-        retrieval: parse_run_job_params.Retrieval | Omit = omit,
-        settings: parse_run_job_params.Settings | Omit = omit,
-        spreadsheet: parse_run_job_params.Spreadsheet | Omit = omit,
+        async_: ConfigV3AsyncConfig | Omit = omit,
+        enhance: Enhance | Omit = omit,
+        formatting: Formatting | Omit = omit,
+        retrieval: Retrieval | Omit = omit,
+        settings: Settings | Omit = omit,
+        spreadsheet: Spreadsheet | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -250,11 +252,11 @@ class AsyncParseResource(AsyncAPIResource):
         self,
         *,
         input: parse_run_params.SyncParseConfigInput,
-        enhance: parse_run_params.SyncParseConfigEnhance | Omit = omit,
-        formatting: parse_run_params.SyncParseConfigFormatting | Omit = omit,
-        retrieval: parse_run_params.SyncParseConfigRetrieval | Omit = omit,
-        settings: parse_run_params.SyncParseConfigSettings | Omit = omit,
-        spreadsheet: parse_run_params.SyncParseConfigSpreadsheet | Omit = omit,
+        enhance: Enhance | Omit = omit,
+        formatting: Formatting | Omit = omit,
+        retrieval: Retrieval | Omit = omit,
+        settings: Settings | Omit = omit,
+        spreadsheet: Spreadsheet | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -287,12 +289,12 @@ class AsyncParseResource(AsyncAPIResource):
         self,
         *,
         input: parse_run_params.AsyncParseConfigInput,
-        async_: parse_run_params.AsyncParseConfigAsync | Omit = omit,
-        enhance: parse_run_params.AsyncParseConfigEnhance | Omit = omit,
-        formatting: parse_run_params.AsyncParseConfigFormatting | Omit = omit,
-        retrieval: parse_run_params.AsyncParseConfigRetrieval | Omit = omit,
-        settings: parse_run_params.AsyncParseConfigSettings | Omit = omit,
-        spreadsheet: parse_run_params.AsyncParseConfigSpreadsheet | Omit = omit,
+        async_: ConfigV3AsyncConfig | Omit = omit,
+        enhance: Enhance | Omit = omit,
+        formatting: Formatting | Omit = omit,
+        retrieval: Retrieval | Omit = omit,
+        settings: Settings | Omit = omit,
+        spreadsheet: Spreadsheet | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -327,16 +329,12 @@ class AsyncParseResource(AsyncAPIResource):
         self,
         *,
         input: parse_run_params.SyncParseConfigInput | parse_run_params.AsyncParseConfigInput,
-        enhance: parse_run_params.SyncParseConfigEnhance | parse_run_params.AsyncParseConfigEnhance | Omit = omit,
-        formatting: parse_run_params.SyncParseConfigFormatting
-        | parse_run_params.AsyncParseConfigFormatting
-        | Omit = omit,
-        retrieval: parse_run_params.SyncParseConfigRetrieval | parse_run_params.AsyncParseConfigRetrieval | Omit = omit,
-        settings: parse_run_params.SyncParseConfigSettings | parse_run_params.AsyncParseConfigSettings | Omit = omit,
-        spreadsheet: parse_run_params.SyncParseConfigSpreadsheet
-        | parse_run_params.AsyncParseConfigSpreadsheet
-        | Omit = omit,
-        async_: parse_run_params.AsyncParseConfigAsync | Omit = omit,
+        enhance: Enhance | Omit = omit,
+        formatting: Formatting | Omit = omit,
+        retrieval: Retrieval | Omit = omit,
+        settings: Settings | Omit = omit,
+        spreadsheet: Spreadsheet | Omit = omit,
+        async_: ConfigV3AsyncConfig | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -371,12 +369,12 @@ class AsyncParseResource(AsyncAPIResource):
         self,
         *,
         input: parse_run_job_params.Input,
-        async_: parse_run_job_params.Async | Omit = omit,
-        enhance: parse_run_job_params.Enhance | Omit = omit,
-        formatting: parse_run_job_params.Formatting | Omit = omit,
-        retrieval: parse_run_job_params.Retrieval | Omit = omit,
-        settings: parse_run_job_params.Settings | Omit = omit,
-        spreadsheet: parse_run_job_params.Spreadsheet | Omit = omit,
+        async_: ConfigV3AsyncConfig | Omit = omit,
+        enhance: Enhance | Omit = omit,
+        formatting: Formatting | Omit = omit,
+        retrieval: Retrieval | Omit = omit,
+        settings: Settings | Omit = omit,
+        spreadsheet: Spreadsheet | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
