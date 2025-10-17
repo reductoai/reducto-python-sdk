@@ -62,15 +62,17 @@ class SplitResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SplitResponse:
-        """Split
+        """
+        Split
 
         Args:
-          input: The URL of the document to be processed.
+          input: For parse/split/extract pipelines, the URL of the document to be processed. You
+              can provide one of the following: 1. A publicly available URL 2. A presigned S3
+              URL 3. A reducto:// prefixed URL obtained from the /upload endpoint after
+              directly uploading a document 4. A jobid:// prefixed URL obtained from a
+              previous /parse invocation
 
-        You can provide one of the
-              following: 1. A publicly available URL 2. A presigned S3 URL 3. A reducto://
-              prefixed URL obtained from the /upload endpoint after directly uploading a
-              document 4. A jobid:// prefixed URL obtained from a previous /parse invocation
+                          For edit pipelines, this should be a string containing the edit instructions
 
           split_description: The configuration options for processing the document.
 
@@ -123,15 +125,17 @@ class SplitResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SplitRunJobResponse:
-        """Split Async
+        """
+        Split Async
 
         Args:
-          input: The URL of the document to be processed.
+          input: For parse/split/extract pipelines, the URL of the document to be processed. You
+              can provide one of the following: 1. A publicly available URL 2. A presigned S3
+              URL 3. A reducto:// prefixed URL obtained from the /upload endpoint after
+              directly uploading a document 4. A jobid:// prefixed URL obtained from a
+              previous /parse invocation
 
-        You can provide one of the
-              following: 1. A publicly available URL 2. A presigned S3 URL 3. A reducto://
-              prefixed URL obtained from the /upload endpoint after directly uploading a
-              document 4. A jobid:// prefixed URL obtained from a previous /parse invocation
+                          For edit pipelines, this should be a string containing the edit instructions
 
           split_description: The configuration options for processing the document.
 
@@ -207,15 +211,17 @@ class AsyncSplitResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SplitResponse:
-        """Split
+        """
+        Split
 
         Args:
-          input: The URL of the document to be processed.
+          input: For parse/split/extract pipelines, the URL of the document to be processed. You
+              can provide one of the following: 1. A publicly available URL 2. A presigned S3
+              URL 3. A reducto:// prefixed URL obtained from the /upload endpoint after
+              directly uploading a document 4. A jobid:// prefixed URL obtained from a
+              previous /parse invocation
 
-        You can provide one of the
-              following: 1. A publicly available URL 2. A presigned S3 URL 3. A reducto://
-              prefixed URL obtained from the /upload endpoint after directly uploading a
-              document 4. A jobid:// prefixed URL obtained from a previous /parse invocation
+                          For edit pipelines, this should be a string containing the edit instructions
 
           split_description: The configuration options for processing the document.
 
@@ -268,15 +274,17 @@ class AsyncSplitResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SplitRunJobResponse:
-        """Split Async
+        """
+        Split Async
 
         Args:
-          input: The URL of the document to be processed.
+          input: For parse/split/extract pipelines, the URL of the document to be processed. You
+              can provide one of the following: 1. A publicly available URL 2. A presigned S3
+              URL 3. A reducto:// prefixed URL obtained from the /upload endpoint after
+              directly uploading a document 4. A jobid:// prefixed URL obtained from a
+              previous /parse invocation
 
-        You can provide one of the
-              following: 1. A publicly available URL 2. A presigned S3 URL 3. A reducto://
-              prefixed URL obtained from the /upload endpoint after directly uploading a
-              document 4. A jobid:// prefixed URL obtained from a previous /parse invocation
+                          For edit pipelines, this should be a string containing the edit instructions
 
           split_description: The configuration options for processing the document.
 
