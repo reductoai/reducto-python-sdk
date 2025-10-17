@@ -19,14 +19,12 @@ __all__ = ["ParseRunParams", "SyncParseConfig", "SyncParseConfigInput", "AsyncPa
 
 class SyncParseConfig(TypedDict, total=False):
     input: Required[SyncParseConfigInput]
-    """For parse/split/extract pipelines, the URL of the document to be processed.
+    """The URL of the document to be processed.
 
     You can provide one of the following: 1. A publicly available URL 2. A presigned
     S3 URL 3. A reducto:// prefixed URL obtained from the /upload endpoint after
     directly uploading a document 4. A jobid:// prefixed URL obtained from a
     previous /parse invocation
-
-                For edit pipelines, this should be a string containing the edit instructions
     """
 
     enhance: Enhance
@@ -45,14 +43,12 @@ SyncParseConfigInput: TypeAlias = Union[str, Upload]
 
 class AsyncParseConfig(TypedDict, total=False):
     input: Required[AsyncParseConfigInput]
-    """For parse/split/extract pipelines, the URL of the document to be processed.
+    """The URL of the document to be processed.
 
     You can provide one of the following: 1. A publicly available URL 2. A presigned
     S3 URL 3. A reducto:// prefixed URL obtained from the /upload endpoint after
     directly uploading a document 4. A jobid:// prefixed URL obtained from a
     previous /parse invocation
-
-                For edit pipelines, this should be a string containing the edit instructions
     """
 
     async_: Annotated[ConfigV3AsyncConfig, PropertyInfo(alias="async")]
