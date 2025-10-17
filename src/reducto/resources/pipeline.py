@@ -55,15 +55,17 @@ class PipelineResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PipelineResponse:
-        """Pipeline
+        """
+        Pipeline
 
         Args:
-          input: The URL of the document to be processed.
+          input: For parse/split/extract pipelines, the URL of the document to be processed. You
+              can provide one of the following: 1. A publicly available URL 2. A presigned S3
+              URL 3. A reducto:// prefixed URL obtained from the /upload endpoint after
+              directly uploading a document 4. A jobid:// prefixed URL obtained from a
+              previous /parse invocation
 
-        You can provide one of the
-              following: 1. A publicly available URL 2. A presigned S3 URL 3. A reducto://
-              prefixed URL obtained from the /upload endpoint after directly uploading a
-              document 4. A jobid:// prefixed URL obtained from a previous /parse invocation
+                          For edit pipelines, this should be a string containing the edit instructions
 
           pipeline_id: The ID of the pipeline to use for the document.
 
@@ -103,15 +105,17 @@ class PipelineResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PipelineRunJobResponse:
-        """Pipeline Async
+        """
+        Pipeline Async
 
         Args:
-          input: The URL of the document to be processed.
+          input: For parse/split/extract pipelines, the URL of the document to be processed. You
+              can provide one of the following: 1. A publicly available URL 2. A presigned S3
+              URL 3. A reducto:// prefixed URL obtained from the /upload endpoint after
+              directly uploading a document 4. A jobid:// prefixed URL obtained from a
+              previous /parse invocation
 
-        You can provide one of the
-              following: 1. A publicly available URL 2. A presigned S3 URL 3. A reducto://
-              prefixed URL obtained from the /upload endpoint after directly uploading a
-              document 4. A jobid:// prefixed URL obtained from a previous /parse invocation
+                          For edit pipelines, this should be a string containing the edit instructions
 
           pipeline_id: The ID of the pipeline to use for the document.
 
@@ -174,15 +178,17 @@ class AsyncPipelineResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PipelineResponse:
-        """Pipeline
+        """
+        Pipeline
 
         Args:
-          input: The URL of the document to be processed.
+          input: For parse/split/extract pipelines, the URL of the document to be processed. You
+              can provide one of the following: 1. A publicly available URL 2. A presigned S3
+              URL 3. A reducto:// prefixed URL obtained from the /upload endpoint after
+              directly uploading a document 4. A jobid:// prefixed URL obtained from a
+              previous /parse invocation
 
-        You can provide one of the
-              following: 1. A publicly available URL 2. A presigned S3 URL 3. A reducto://
-              prefixed URL obtained from the /upload endpoint after directly uploading a
-              document 4. A jobid:// prefixed URL obtained from a previous /parse invocation
+                          For edit pipelines, this should be a string containing the edit instructions
 
           pipeline_id: The ID of the pipeline to use for the document.
 
@@ -222,15 +228,17 @@ class AsyncPipelineResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PipelineRunJobResponse:
-        """Pipeline Async
+        """
+        Pipeline Async
 
         Args:
-          input: The URL of the document to be processed.
+          input: For parse/split/extract pipelines, the URL of the document to be processed. You
+              can provide one of the following: 1. A publicly available URL 2. A presigned S3
+              URL 3. A reducto:// prefixed URL obtained from the /upload endpoint after
+              directly uploading a document 4. A jobid:// prefixed URL obtained from a
+              previous /parse invocation
 
-        You can provide one of the
-              following: 1. A publicly available URL 2. A presigned S3 URL 3. A reducto://
-              prefixed URL obtained from the /upload endpoint after directly uploading a
-              document 4. A jobid:// prefixed URL obtained from a previous /parse invocation
+                          For edit pipelines, this should be a string containing the edit instructions
 
           pipeline_id: The ID of the pipeline to use for the document.
 

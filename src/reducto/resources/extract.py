@@ -62,15 +62,17 @@ class ExtractResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ExtractRunResponse:
-        """Extract
+        """
+        Extract
 
         Args:
-          input: The URL of the document to be processed.
+          input: For parse/split/extract pipelines, the URL of the document to be processed. You
+              can provide one of the following: 1. A publicly available URL 2. A presigned S3
+              URL 3. A reducto:// prefixed URL obtained from the /upload endpoint after
+              directly uploading a document 4. A jobid:// prefixed URL obtained from a
+              previous /parse invocation
 
-        You can provide one of the
-              following: 1. A publicly available URL 2. A presigned S3 URL 3. A reducto://
-              prefixed URL obtained from the /upload endpoint after directly uploading a
-              document 4. A jobid:// prefixed URL obtained from a previous /parse invocation
+                          For edit pipelines, this should be a string containing the edit instructions
 
           instructions: The instructions to use for the extraction.
 
@@ -105,15 +107,17 @@ class ExtractResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ExtractRunResponse:
-        """Extract
+        """
+        Extract
 
         Args:
-          input: The URL of the document to be processed.
+          input: For parse/split/extract pipelines, the URL of the document to be processed. You
+              can provide one of the following: 1. A publicly available URL 2. A presigned S3
+              URL 3. A reducto:// prefixed URL obtained from the /upload endpoint after
+              directly uploading a document 4. A jobid:// prefixed URL obtained from a
+              previous /parse invocation
 
-        You can provide one of the
-              following: 1. A publicly available URL 2. A presigned S3 URL 3. A reducto://
-              prefixed URL obtained from the /upload endpoint after directly uploading a
-              document 4. A jobid:// prefixed URL obtained from a previous /parse invocation
+                          For edit pipelines, this should be a string containing the edit instructions
 
           async_: The configuration options for asynchronous processing (default synchronous).
 
@@ -192,15 +196,17 @@ class ExtractResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ExtractRunJobResponse:
-        """Extract Async
+        """
+        Extract Async
 
         Args:
-          input: The URL of the document to be processed.
+          input: For parse/split/extract pipelines, the URL of the document to be processed. You
+              can provide one of the following: 1. A publicly available URL 2. A presigned S3
+              URL 3. A reducto:// prefixed URL obtained from the /upload endpoint after
+              directly uploading a document 4. A jobid:// prefixed URL obtained from a
+              previous /parse invocation
 
-        You can provide one of the
-              following: 1. A publicly available URL 2. A presigned S3 URL 3. A reducto://
-              prefixed URL obtained from the /upload endpoint after directly uploading a
-              document 4. A jobid:// prefixed URL obtained from a previous /parse invocation
+                          For edit pipelines, this should be a string containing the edit instructions
 
           async_: The configuration options for asynchronous processing (default synchronous).
 
@@ -273,15 +279,17 @@ class AsyncExtractResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ExtractRunResponse:
-        """Extract
+        """
+        Extract
 
         Args:
-          input: The URL of the document to be processed.
+          input: For parse/split/extract pipelines, the URL of the document to be processed. You
+              can provide one of the following: 1. A publicly available URL 2. A presigned S3
+              URL 3. A reducto:// prefixed URL obtained from the /upload endpoint after
+              directly uploading a document 4. A jobid:// prefixed URL obtained from a
+              previous /parse invocation
 
-        You can provide one of the
-              following: 1. A publicly available URL 2. A presigned S3 URL 3. A reducto://
-              prefixed URL obtained from the /upload endpoint after directly uploading a
-              document 4. A jobid:// prefixed URL obtained from a previous /parse invocation
+                          For edit pipelines, this should be a string containing the edit instructions
 
           instructions: The instructions to use for the extraction.
 
@@ -316,15 +324,17 @@ class AsyncExtractResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ExtractRunResponse:
-        """Extract
+        """
+        Extract
 
         Args:
-          input: The URL of the document to be processed.
+          input: For parse/split/extract pipelines, the URL of the document to be processed. You
+              can provide one of the following: 1. A publicly available URL 2. A presigned S3
+              URL 3. A reducto:// prefixed URL obtained from the /upload endpoint after
+              directly uploading a document 4. A jobid:// prefixed URL obtained from a
+              previous /parse invocation
 
-        You can provide one of the
-              following: 1. A publicly available URL 2. A presigned S3 URL 3. A reducto://
-              prefixed URL obtained from the /upload endpoint after directly uploading a
-              document 4. A jobid:// prefixed URL obtained from a previous /parse invocation
+                          For edit pipelines, this should be a string containing the edit instructions
 
           async_: The configuration options for asynchronous processing (default synchronous).
 
@@ -403,15 +413,17 @@ class AsyncExtractResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ExtractRunJobResponse:
-        """Extract Async
+        """
+        Extract Async
 
         Args:
-          input: The URL of the document to be processed.
+          input: For parse/split/extract pipelines, the URL of the document to be processed. You
+              can provide one of the following: 1. A publicly available URL 2. A presigned S3
+              URL 3. A reducto:// prefixed URL obtained from the /upload endpoint after
+              directly uploading a document 4. A jobid:// prefixed URL obtained from a
+              previous /parse invocation
 
-        You can provide one of the
-              following: 1. A publicly available URL 2. A presigned S3 URL 3. A reducto://
-              prefixed URL obtained from the /upload endpoint after directly uploading a
-              document 4. A jobid:// prefixed URL obtained from a previous /parse invocation
+                          For edit pipelines, this should be a string containing the edit instructions
 
           async_: The configuration options for asynchronous processing (default synchronous).
 
