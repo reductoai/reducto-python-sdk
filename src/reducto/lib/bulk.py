@@ -4,23 +4,22 @@ Bulk parsing utilities for processing multiple documents concurrently with autom
 This module provides helpers for efficiently processing large batches of documents using
 the Reducto API with semaphore-based concurrency control and automatic result polling.
 """
+from __future__ import annotations
 
 import asyncio
 import logging
+from typing import Any, Dict, List, Union, Callable, Optional, Awaitable
 from collections import deque
-from dataclasses import dataclass, field
-from typing import Any, Awaitable, Callable, Dict, List, Optional, Union
+from dataclasses import dataclass
 
 from reducto import AsyncReducto
-from reducto.types.job_get_response import JobGetResponse
-from reducto.types.parse_run_job_response import ParseRunJobResponse
+from reducto._types import Omit, omit
 from reducto.types.shared.parse_response import ParseResponse
 from reducto.types.shared_params.enhance import Enhance
-from reducto.types.shared_params.formatting import Formatting
-from reducto.types.shared_params.retrieval import Retrieval
 from reducto.types.shared_params.settings import Settings
+from reducto.types.shared_params.retrieval import Retrieval
+from reducto.types.shared_params.formatting import Formatting
 from reducto.types.shared_params.spreadsheet import Spreadsheet
-from reducto._types import Omit, omit
 
 logger = logging.getLogger(__name__)
 

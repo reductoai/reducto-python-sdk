@@ -1,4 +1,4 @@
-from .bulk import BulkParseConfig, BulkParseManager, JobResult, bulk_parse
+from .bulk import JobResult, BulkParseConfig, BulkParseManager, bulk_parse
 from .helpers import FullParseResponse, handle_url_response
 
 __all__ = [
