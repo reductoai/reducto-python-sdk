@@ -143,7 +143,7 @@ class BulkParseManager:
         self._pending_jobs: deque[_PendingJob] = deque()
         self._completed_jobs: List[JobResult] = []
         self._job_map: Dict[str, str] = {}  # job_id -> input_url
-        self._polling_task: Optional[asyncio.Task] = None
+        self._polling_task: Optional[asyncio.Task[None]] = None
         self._shutdown = False
         self._lock = asyncio.Lock()
 
@@ -201,11 +201,11 @@ class BulkParseManager:
         tasks = [self.submit(url) for url in input_urls]
         job_ids = await asyncio.gather(*tasks, return_exceptions=True)
 
-        valid_job_ids = []
+        valid_job_ids: List[str] = []
         for i, result in enumerate(job_ids):
             if isinstance(result, Exception):
                 logger.error(f"Failed to submit {input_urls[i]}: {result}")
-            else:
+            elif isinstance(result, str):
                 valid_job_ids.append(result)
 
         return valid_job_ids
@@ -234,8 +234,8 @@ class BulkParseManager:
                         job_id=pending_job.job_id,
                         input_url=pending_job.input_url,
                         status=status,
-                        result=job_response.result if hasattr(job_response, "result") else None,
-                        duration=job_response.duration if hasattr(job_response, "duration") else None,
+                        result=getattr(job_response, "result", None),
+                        duration=getattr(job_response, "duration", None),
                     )
 
                     async with self._lock:
@@ -250,7 +250,7 @@ class BulkParseManager:
                             logger.error(f"Error in on_complete callback for job {pending_job.job_id}: {e}")
 
                 elif status == "Failed":
-                    reason = job_response.reason if hasattr(job_response, "reason") else "Unknown error"
+                    reason = getattr(job_response, "reason", "Unknown error")
                     result = JobResult(
                         job_id=pending_job.job_id,
                         input_url=pending_job.input_url,
