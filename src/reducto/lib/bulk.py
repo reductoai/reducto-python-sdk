@@ -210,7 +210,7 @@ class BulkParseManager:
 
         return valid_job_ids
 
-    async def _poll_jobs(self):
+    async def _poll_jobs(self) -> None:
         """Background task that polls for job results."""
         logger.info("Started polling task")
 
@@ -339,7 +339,7 @@ class BulkParseManager:
         async with self._lock:
             return len(self._pending_jobs)
 
-    async def shutdown(self):
+    async def shutdown(self) -> None:
         """
         Shutdown the manager and stop polling.
 
