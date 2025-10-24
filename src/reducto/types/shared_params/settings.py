@@ -50,5 +50,5 @@ class Settings(TypedDict, total=False):
     return_ocr_data: bool
     """If True, return OCR data in the result. Defaults to False."""
 
-    timeout: float
-    """The timeout for the job in seconds. Defaults to 900."""
+    timeout: Optional[float]
+    """The timeout for the job in seconds."""
