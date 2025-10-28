@@ -15,7 +15,7 @@ class Formatting(TypedDict, total=False):
     Defaults to False. Useful for extracting data with page specific information.
     """
 
-    include: List[Literal["change_tracking", "highlight", "comments", "hyperlinks"]]
+    include: List[Literal["change_tracking", "highlight", "comments"]]
     """A list of formatting to include in the output.
 
     [insert description of each option here later]
