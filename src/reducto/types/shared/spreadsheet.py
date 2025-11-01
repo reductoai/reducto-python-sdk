@@ -17,7 +17,9 @@ class Spreadsheet(BaseModel):
     5× the default per-cell rate. Disabling will register as one large table.
     """
 
-    exclude: Optional[List[Literal["hidden_sheets", "hidden_rows", "hidden_cols"]]] = None
+    exclude: Optional[List[Literal["hidden_sheets", "hidden_rows", "hidden_cols", "styling", "spreadsheet_images"]]] = (
+        None
+    )
     """Whether to exclude hidden sheets, rows, or columns in the output."""
 
     include: Optional[List[Literal["cell_colors", "formula"]]] = None
