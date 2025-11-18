@@ -139,9 +139,9 @@ class CitationFinder:
 
         assert self.data.result.ocr is not None, "Enable return_ocr_data to continue."
 
-        self.page_data: list[PageData] = self._transform_ocr_to_page_data()
+        self.page_numbers, self.page_data = self._transform_ocr_to_page_data()
 
-    def _transform_ocr_to_page_data(self) -> list[PageData]:
+    def _transform_ocr_to_page_data(self) -> tuple[list[int], list[PageData]]:
         """Transform OCR data into PageData structure for each page for efficient computation."""
 
         pages_data: dict[int, _PageDataBuilder] = {}
@@ -203,13 +203,15 @@ class CitationFinder:
                 builder.word_text.append(normalize_string(word.text))
 
         # Build PageData objects
+        page_numbers = sorted(pages_data.keys())
+
         page_data_list: list[PageData] = []
-        for page_num in sorted(pages_data.keys()):
+        for page_num in page_numbers:
             builder = pages_data[page_num]
             page_data = PageData(
-                blocks=np.array(builder.blocks, dtype=np.float64),
-                lines=np.array(builder.lines, dtype=np.float64),
-                words=np.array(builder.words, dtype=np.float64),
+                blocks=np.array(builder.blocks, dtype=np.float64).reshape(-1, 4),
+                lines=np.array(builder.lines, dtype=np.float64).reshape(-1, 4),
+                words=np.array(builder.words, dtype=np.float64).reshape(-1, 4),
                 block_text=builder.block_text,
                 line_text=builder.line_text,
                 word_text=builder.word_text,
@@ -219,20 +221,28 @@ class CitationFinder:
             page_data_list.append(page_data)
 
         for page_data in page_data_list:
-            word_line_matrix = compute_iou_matrix(page_data.words, page_data.lines, mode="containment")
-            word_to_line_indices = np.argmax(word_line_matrix, axis=1)
-            word_to_line: dict[int, int] = {i: int(word_to_line_indices[i]) for i in range(len(word_to_line_indices))}
+            word_to_line: dict[int, int] = {}
+            if page_data.words.shape[0] > 0 and page_data.lines.shape[0] > 0:
+                word_line_matrix = compute_iou_matrix(page_data.words, page_data.lines, mode="containment")
+                if word_line_matrix.size > 0:
+                    word_to_line_indices = np.argmax(word_line_matrix, axis=1)
+                    word_to_line = {
+                        i: int(word_to_line_indices[i]) for i in range(len(word_to_line_indices))
+                    }
 
-            line_block_matrix = compute_iou_matrix(page_data.lines, page_data.blocks, mode="containment")
-            line_to_block_indices = np.argmax(line_block_matrix, axis=1)
-            line_to_block: dict[int, int] = {
-                i: int(line_to_block_indices[i]) for i in range(len(line_to_block_indices))
-            }
+            line_to_block: dict[int, int] = {}
+            if page_data.lines.shape[0] > 0 and page_data.blocks.shape[0] > 0:
+                line_block_matrix = compute_iou_matrix(page_data.lines, page_data.blocks, mode="containment")
+                if line_block_matrix.size > 0:
+                    line_to_block_indices = np.argmax(line_block_matrix, axis=1)
+                    line_to_block = {
+                        i: int(line_to_block_indices[i]) for i in range(len(line_to_block_indices))
+                    }
 
             page_data.word_to_line = word_to_line
             page_data.line_to_block = line_to_block
 
-        return page_data_list
+        return page_numbers, page_data_list
 
     def cite(self, target: str, bbox_filter: Optional[BoundingBox] = None) -> list[Citation]:
         target = normalize_string(target)
@@ -240,11 +250,12 @@ class CitationFinder:
 
         citations: list[Citation] = []
 
-        matching_blocks: list[tuple[int, int, str]] = []
+        matching_blocks: list[tuple[int, int, int, str]] = []
         for page_idx, page_data in enumerate(self.page_data):
+            page_num = self.page_numbers[page_idx]
             for block_idx, block_text in enumerate(page_data.block_text):
                 if bbox_filter is not None:
-                    if bbox_filter.page != page_idx:
+                    if bbox_filter.page != page_num:
                         continue
 
                     block_bbox = page_data.blocks[block_idx]
@@ -264,9 +275,9 @@ class CitationFinder:
                         continue
 
                 if target in block_text:
-                    matching_blocks.append((page_idx, block_idx, block_text))
+                    matching_blocks.append((page_idx, page_num, block_idx, block_text))
 
-        for page_idx, block_idx, _ in matching_blocks:
+        for page_idx, page_num, block_idx, _ in matching_blocks:
             page_data = self.page_data[page_idx]
 
             lines_in_block: list[int] = []
@@ -320,7 +331,7 @@ class CitationFinder:
                     bottom = np.max(word_boxes[:, 3])
 
                     bbox = BoundingBox(
-                        page=page_idx,
+                        page=page_num,
                         left=float(left),
                         top=float(top),
                         width=float(right - left),
@@ -328,7 +339,7 @@ class CitationFinder:
                     )
                     line_bboxes.append(bbox)
 
-                citation = Citation(page=page_idx, bboxes=line_bboxes)
+                citation = Citation(page=page_num, bboxes=line_bboxes)
                 citations.append(citation)
 
         return citations
