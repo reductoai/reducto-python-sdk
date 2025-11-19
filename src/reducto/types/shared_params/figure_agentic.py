@@ -13,3 +13,10 @@ class FigureAgentic(TypedDict, total=False):
 
     prompt: Optional[str]
     """Custom prompt for figure agentic."""
+
+    return_overlays: bool
+    """If True, return overlays for the figure.
+
+    This is so you can use the overlays to double check the quality of the
+    extraction
+    """
