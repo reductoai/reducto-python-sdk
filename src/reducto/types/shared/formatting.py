@@ -15,11 +15,8 @@ class Formatting(BaseModel):
     Defaults to False. Useful for extracting data with page specific information.
     """
 
-    include: Optional[List[Literal["change_tracking", "highlight", "comments", "hyperlinks"]]] = None
-    """A list of formatting to include in the output.
-
-    [insert description of each option here later]
-    """
+    include: Optional[List[Literal["change_tracking", "highlight", "comments", "hyperlinks", "signatures"]]] = None
+    """A list of formatting to include in the output."""
 
     merge_tables: Optional[bool] = None
     """
