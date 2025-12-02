@@ -50,6 +50,12 @@ class ResultFullResultChunkBlock(BaseModel):
     ]
     """The type of block extracted from the document."""
 
+    chart_data: Optional[List[str]] = None
+    """
+    (Experimental) The URL/link to chart data JSON for figure blocks processed by
+    chart agent.
+    """
+
     confidence: Optional[str] = None
     """The confidence for the block.
 
@@ -95,6 +101,9 @@ class ResultFullResultOcrLine(BaseModel):
     confidence: Optional[float] = None
     """OCR confidence score between 0 and 1, where 1 indicates highest confidence"""
 
+    rotation: Optional[int] = None
+    """The rotation angle in degrees, from 0 to 360, counterclockwise."""
+
 
 class ResultFullResultOcrWord(BaseModel):
     bbox: BoundingBox
@@ -106,6 +115,9 @@ class ResultFullResultOcrWord(BaseModel):
 
     confidence: Optional[float] = None
     """OCR confidence score between 0 and 1, where 1 indicates highest confidence"""
+
+    rotation: Optional[int] = None
+    """The rotation angle in degrees, from 0 to 360, counterclockwise."""
 
 
 class ResultFullResultOcr(BaseModel):
