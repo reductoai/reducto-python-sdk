@@ -8,6 +8,9 @@ __all__ = ["FigureSummaryConfig"]
 
 
 class FigureSummaryConfig(BaseModel):
+    advanced_chart_agent: Optional[bool] = None
+    """If True, use the advanced chart agent. Defaults to False."""
+
     enabled: Optional[bool] = None
     """If figure summarization should be performed."""
 
