@@ -4,6 +4,7 @@ from typing import List, Optional
 from typing_extensions import Literal
 
 from ..._models import BaseModel
+from .parse_usage import ParseUsage
 from .bounding_box import BoundingBox
 
 __all__ = ["EditResponse", "FormSchema"]
@@ -40,4 +41,10 @@ class EditResponse(BaseModel):
     """Form schema for PDF forms.
 
     List of widgets with their types, descriptions, and bounding boxes.
+    """
+
+    usage: Optional[ParseUsage] = None
+    """
+    Usage information for the edit operation, including number of pages and credits
+    charged.
     """

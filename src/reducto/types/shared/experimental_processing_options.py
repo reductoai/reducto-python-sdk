@@ -12,6 +12,12 @@ __all__ = ["ExperimentalProcessingOptions"]
 
 
 class ExperimentalProcessingOptions(BaseModel):
+    chunk_table_blocks: Optional[bool] = None
+    """
+    If True, split table blocks into smaller chunks based on the specified chunk
+    size in the chunking option. Defaults to False.
+    """
+
     danger_filter_wide_boxes: Optional[bool] = None
     """You probably shouldn't use this.
 

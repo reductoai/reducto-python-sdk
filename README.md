@@ -3,7 +3,7 @@
 <!-- prettier-ignore -->
 [![PyPI version](https://img.shields.io/pypi/v/reductoai.svg?label=pypi%20(stable))](https://pypi.org/project/reductoai/)
 
-The Reducto Python library provides convenient access to the Reducto REST API from any Python 3.8+
+The Reducto Python library provides convenient access to the Reducto REST API from any Python 3.9+
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
@@ -35,7 +35,7 @@ client = Reducto(
 )
 
 response = client.parse.run(
-    input="string",
+    input="https://pdfobject.com/pdf/sample.pdf",
 )
 ```
 
@@ -62,7 +62,7 @@ client = AsyncReducto(
 
 async def main() -> None:
     response = await client.parse.run(
-        input="string",
+        input="https://pdfobject.com/pdf/sample.pdf",
     )
 
 
@@ -85,6 +85,7 @@ pip install reductoai[aiohttp]
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
 
 ```python
+import os
 import asyncio
 from reducto import DefaultAioHttpClient
 from reducto import AsyncReducto
@@ -92,11 +93,11 @@ from reducto import AsyncReducto
 
 async def main() -> None:
     async with AsyncReducto(
-        api_key="My API Key",
+        api_key=os.environ.get("REDUCTO_API_KEY"),  # This is the default and can be omitted
         http_client=DefaultAioHttpClient(),
     ) as client:
         response = await client.parse.run(
-            input="string",
+            input="https://pdfobject.com/pdf/sample.pdf",
         )
 
 
@@ -162,7 +163,7 @@ client = Reducto()
 
 try:
     client.parse.run(
-        input="string",
+        input="https://pdfobject.com/pdf/sample.pdf",
     )
 except reducto.APIConnectionError as e:
     print("The server could not be reached")
@@ -207,7 +208,7 @@ client = Reducto(
 
 # Or, configure per-request:
 client.with_options(max_retries=5).parse.run(
-    input="string",
+    input="https://pdfobject.com/pdf/sample.pdf",
 )
 ```
 
@@ -232,7 +233,7 @@ client = Reducto(
 
 # Override per-request:
 client.with_options(timeout=5.0).parse.run(
-    input="string",
+    input="https://pdfobject.com/pdf/sample.pdf",
 )
 ```
 
@@ -275,7 +276,7 @@ from reducto import Reducto
 
 client = Reducto()
 response = client.parse.with_raw_response.run(
-    input="string",
+    input="https://pdfobject.com/pdf/sample.pdf",
 )
 print(response.headers.get('X-My-Header'))
 
@@ -295,7 +296,7 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 
 ```python
 with client.parse.with_streaming_response.run(
-    input="string",
+    input="https://pdfobject.com/pdf/sample.pdf",
 ) as response:
     print(response.headers.get("X-My-Header"))
 
@@ -406,7 +407,7 @@ print(reducto.__version__)
 
 ## Requirements
 
-Python 3.8 or higher.
+Python 3.9 or higher.
 
 ## Contributing
 

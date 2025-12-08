@@ -48,6 +48,12 @@ class EditOptions(TypedDict, total=False):
     color: str
     """The color to use for edits, in hex format."""
 
+    enable_overflow_pages: bool
+    """If True, creates overflow pages for text that doesn't fit in form fields.
+
+    Defaults to False.
+    """
+
     llm_provider_preference: Optional[Literal["openai", "anthropic", "google"]]
     """The LLM provider to use for edit processing.
 
