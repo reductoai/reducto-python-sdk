@@ -50,4 +50,4 @@ class Settings(BaseModel):
     """If True, return OCR data in the result. Defaults to False."""
 
     timeout: Optional[float] = None
-    """The timeout for the job in seconds. Defaults to 900."""
+    """The timeout for the job in seconds."""
