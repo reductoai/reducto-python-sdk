@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import re
 import json
-from typing import Any, Union, Literal, Optional
+from typing import Any, Union, Literal, Optional, cast
 from pathlib import Path
 from dataclasses import field, dataclass
 
@@ -105,12 +105,12 @@ class Citation(BaseModel):
 class _PageDataBuilder:
     """Internal helper for building page data."""
 
-    blocks: list[list[float]] = field(default_factory=list)
-    lines: list[list[float]] = field(default_factory=list)
-    words: list[list[float]] = field(default_factory=list)
-    block_text: list[str] = field(default_factory=list)
-    line_text: list[str] = field(default_factory=list)
-    word_text: list[str] = field(default_factory=list)
+    blocks: list[list[float]] = field(default_factory=lambda: [])
+    lines: list[list[float]] = field(default_factory=lambda: [])
+    words: list[list[float]] = field(default_factory=lambda: [])
+    block_text: list[str] = field(default_factory=lambda: [])
+    line_text: list[str] = field(default_factory=lambda: [])
+    word_text: list[str] = field(default_factory=lambda: [])
 
 
 @dataclass
@@ -208,10 +208,13 @@ class CitationFinder:
         page_data_list: list[PageData] = []
         for page_num in page_numbers:
             builder = pages_data[page_num]
+            blocks_arr = cast(npt.NDArray[np.float64], np.array(builder.blocks, dtype=np.float64).reshape(-1, 4))
+            lines_arr = cast(npt.NDArray[np.float64], np.array(builder.lines, dtype=np.float64).reshape(-1, 4))
+            words_arr = cast(npt.NDArray[np.float64], np.array(builder.words, dtype=np.float64).reshape(-1, 4))
             page_data = PageData(
-                blocks=np.array(builder.blocks, dtype=np.float64).reshape(-1, 4),
-                lines=np.array(builder.lines, dtype=np.float64).reshape(-1, 4),
-                words=np.array(builder.words, dtype=np.float64).reshape(-1, 4),
+                blocks=blocks_arr,
+                lines=lines_arr,
+                words=words_arr,
                 block_text=builder.block_text,
                 line_text=builder.line_text,
                 word_text=builder.word_text,
