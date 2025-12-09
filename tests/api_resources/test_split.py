@@ -71,6 +71,7 @@ class TestSplit:
                 "settings": {
                     "document_password": "document_password",
                     "embed_pdf_metadata": True,
+                    "extraction_mode": "ocr",
                     "force_file_extension": "force_file_extension",
                     "force_url_result": True,
                     "ocr_system": "standard",
@@ -197,6 +198,7 @@ class TestSplit:
                 "settings": {
                     "document_password": "document_password",
                     "embed_pdf_metadata": True,
+                    "extraction_mode": "ocr",
                     "force_file_extension": "force_file_extension",
                     "force_url_result": True,
                     "ocr_system": "standard",
@@ -321,6 +323,7 @@ class TestAsyncSplit:
                 "settings": {
                     "document_password": "document_password",
                     "embed_pdf_metadata": True,
+                    "extraction_mode": "ocr",
                     "force_file_extension": "force_file_extension",
                     "force_url_result": True,
                     "ocr_system": "standard",
@@ -447,6 +450,7 @@ class TestAsyncSplit:
                 "settings": {
                     "document_password": "document_password",
                     "embed_pdf_metadata": True,
+                    "extraction_mode": "ocr",
                     "force_file_extension": "force_file_extension",
                     "force_url_result": True,
                     "ocr_system": "standard",
