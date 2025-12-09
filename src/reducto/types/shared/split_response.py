@@ -28,6 +28,8 @@ class ResultSplit(BaseModel):
 
 
 class Result(BaseModel):
+    """The split result."""
+
     section_mapping: Optional[Dict[str, List[int]]] = None
 
     splits: List[ResultSplit]

@@ -46,6 +46,8 @@ Input: TypeAlias = Union[str, Upload]
 
 
 class Instructions(TypedDict, total=False):
+    """The instructions to use for the extraction."""
+
     schema: object
     """The JSON schema to use for the extraction."""
 
@@ -54,6 +56,8 @@ class Instructions(TypedDict, total=False):
 
 
 class SettingsCitations(TypedDict, total=False):
+    """The citations to use for the extraction."""
+
     enabled: bool
     """If True, include citations in the extraction."""
 
@@ -62,6 +66,8 @@ class SettingsCitations(TypedDict, total=False):
 
 
 class Settings(TypedDict, total=False):
+    """The settings to use for the extraction."""
+
     array_extract: bool
     """If True, use array extraction."""
 

@@ -23,6 +23,8 @@ ResultExtractUnionMember0Result: TypeAlias = Union[ExtractResponse, V3ExtractRes
 
 
 class ResultExtractUnionMember0(BaseModel):
+    """This is the response format for Extract -> Split Pipelines"""
+
     page_range: List[int]
 
     result: ResultExtractUnionMember0Result
