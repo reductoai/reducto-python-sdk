@@ -55,6 +55,8 @@ SyncExtractConfigInput: TypeAlias = Union[str, Upload]
 
 
 class SyncExtractConfigInstructions(TypedDict, total=False):
+    """The instructions to use for the extraction."""
+
     schema: object
     """The JSON schema to use for the extraction."""
 
@@ -63,6 +65,8 @@ class SyncExtractConfigInstructions(TypedDict, total=False):
 
 
 class SyncExtractConfigSettingsCitations(TypedDict, total=False):
+    """The citations to use for the extraction."""
+
     enabled: bool
     """If True, include citations in the extraction."""
 
@@ -71,6 +75,8 @@ class SyncExtractConfigSettingsCitations(TypedDict, total=False):
 
 
 class SyncExtractConfigSettings(TypedDict, total=False):
+    """The settings to use for the extraction."""
+
     array_extract: bool
     """If True, use array extraction."""
 
@@ -120,6 +126,8 @@ AsyncExtractConfigInput: TypeAlias = Union[str, Upload]
 
 
 class AsyncExtractConfigInstructions(TypedDict, total=False):
+    """The instructions to use for the extraction."""
+
     schema: object
     """The JSON schema to use for the extraction."""
 
@@ -128,6 +136,8 @@ class AsyncExtractConfigInstructions(TypedDict, total=False):
 
 
 class AsyncExtractConfigSettingsCitations(TypedDict, total=False):
+    """The citations to use for the extraction."""
+
     enabled: bool
     """If True, include citations in the extraction."""
 
@@ -136,6 +146,8 @@ class AsyncExtractConfigSettingsCitations(TypedDict, total=False):
 
 
 class AsyncExtractConfigSettings(TypedDict, total=False):
+    """The settings to use for the extraction."""
+
     array_extract: bool
     """If True, use array extraction."""
 
