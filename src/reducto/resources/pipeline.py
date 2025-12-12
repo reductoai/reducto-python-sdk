@@ -48,6 +48,7 @@ class PipelineResource(SyncAPIResource):
         *,
         input: pipeline_run_params.Input,
         pipeline_id: str,
+        settings: pipeline_run_params.Settings | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -69,6 +70,8 @@ class PipelineResource(SyncAPIResource):
 
           pipeline_id: The ID of the pipeline to use for the document.
 
+          settings: Settings for pipeline execution that override pipeline defaults.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -83,6 +86,7 @@ class PipelineResource(SyncAPIResource):
                 {
                     "input": input,
                     "pipeline_id": pipeline_id,
+                    "settings": settings,
                 },
                 pipeline_run_params.PipelineRunParams,
             ),
@@ -98,6 +102,7 @@ class PipelineResource(SyncAPIResource):
         input: pipeline_run_job_params.Input,
         pipeline_id: str,
         async_: ConfigV3AsyncConfig | Omit = omit,
+        settings: pipeline_run_job_params.Settings | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -121,6 +126,8 @@ class PipelineResource(SyncAPIResource):
 
           async_: The configuration options for asynchronous processing (default synchronous).
 
+          settings: Settings for pipeline execution that override pipeline defaults.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -136,6 +143,7 @@ class PipelineResource(SyncAPIResource):
                     "input": input,
                     "pipeline_id": pipeline_id,
                     "async_": async_,
+                    "settings": settings,
                 },
                 pipeline_run_job_params.PipelineRunJobParams,
             ),
@@ -171,6 +179,7 @@ class AsyncPipelineResource(AsyncAPIResource):
         *,
         input: pipeline_run_params.Input,
         pipeline_id: str,
+        settings: pipeline_run_params.Settings | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -192,6 +201,8 @@ class AsyncPipelineResource(AsyncAPIResource):
 
           pipeline_id: The ID of the pipeline to use for the document.
 
+          settings: Settings for pipeline execution that override pipeline defaults.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -206,6 +217,7 @@ class AsyncPipelineResource(AsyncAPIResource):
                 {
                     "input": input,
                     "pipeline_id": pipeline_id,
+                    "settings": settings,
                 },
                 pipeline_run_params.PipelineRunParams,
             ),
@@ -221,6 +233,7 @@ class AsyncPipelineResource(AsyncAPIResource):
         input: pipeline_run_job_params.Input,
         pipeline_id: str,
         async_: ConfigV3AsyncConfig | Omit = omit,
+        settings: pipeline_run_job_params.Settings | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -244,6 +257,8 @@ class AsyncPipelineResource(AsyncAPIResource):
 
           async_: The configuration options for asynchronous processing (default synchronous).
 
+          settings: Settings for pipeline execution that override pipeline defaults.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -259,6 +274,7 @@ class AsyncPipelineResource(AsyncAPIResource):
                     "input": input,
                     "pipeline_id": pipeline_id,
                     "async_": async_,
+                    "settings": settings,
                 },
                 pipeline_run_job_params.PipelineRunJobParams,
             ),
