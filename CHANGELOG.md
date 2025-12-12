@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.15.0 (2025-12-12)
+
+Full Changelog: [v0.14.0...v0.15.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.14.0...v0.15.0)
+
+### Features
+
+* **api:** api update ([c99f850](https://github.com/reductoai/reducto-python-sdk/commit/c99f8501e2e4ae3c710fca3230f3df176267456a))
+* **api:** api update ([85466bb](https://github.com/reductoai/reducto-python-sdk/commit/85466bb652b052bf54d4411a71325ba556a375b4))
+
+
+### Bug Fixes
+
+* **types:** allow pyright to infer TypedDict types within SequenceNotStr ([e10c534](https://github.com/reductoai/reducto-python-sdk/commit/e10c534ad4efb0d898f9c49e040fd6e933afb202))
+
+
+### Chores
+
+* add missing docstrings ([6854ebb](https://github.com/reductoai/reducto-python-sdk/commit/6854ebb6dbf5b4e6e4e93d19d0b9990ab77bcf14))
+
 ## 0.14.0 (2025-12-08)
 
 Full Changelog: [v0.13.0...v0.14.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.13.0...v0.14.0)
