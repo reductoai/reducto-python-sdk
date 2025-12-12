@@ -19,6 +19,13 @@ class Settings(TypedDict, total=False):
     embed_pdf_metadata: bool
     """If True, embed OCR metadata into the returned PDF. Defaults to False."""
 
+    extraction_mode: Literal["ocr", "hybrid"]
+    """The mode to use for text extraction from PDFs.
+
+    OCR mode uses optical character recognition only. Hybrid mode combines OCR with
+    embedded PDF text for best accuracy (default).
+    """
+
     force_file_extension: Optional[str]
     """Force the URL to be downloaded as a specific file extension (e.g. `.png`)."""
 

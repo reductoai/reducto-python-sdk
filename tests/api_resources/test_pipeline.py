@@ -33,6 +33,7 @@ class TestPipeline:
         pipeline = client.pipeline.run(
             input="string",
             pipeline_id="pipeline_id",
+            settings={"document_password": "document_password"},
         )
         assert_matches_type(PipelineResponse, pipeline, path=["response"])
 
@@ -87,6 +88,7 @@ class TestPipeline:
                     "mode": "svix",
                 },
             },
+            settings={"document_password": "document_password"},
         )
         assert_matches_type(PipelineRunJobResponse, pipeline, path=["response"])
 
@@ -139,6 +141,7 @@ class TestAsyncPipeline:
         pipeline = await async_client.pipeline.run(
             input="string",
             pipeline_id="pipeline_id",
+            settings={"document_password": "document_password"},
         )
         assert_matches_type(PipelineResponse, pipeline, path=["response"])
 
@@ -193,6 +196,7 @@ class TestAsyncPipeline:
                     "mode": "svix",
                 },
             },
+            settings={"document_password": "document_password"},
         )
         assert_matches_type(PipelineRunJobResponse, pipeline, path=["response"])
 

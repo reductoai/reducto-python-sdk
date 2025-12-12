@@ -2,14 +2,14 @@
 
 from __future__ import annotations
 
-from typing import Union
+from typing import Union, Optional
 from typing_extensions import Required, Annotated, TypeAlias, TypedDict
 
 from .._utils import PropertyInfo
 from .shared_params.upload import Upload
 from .shared_params.config_v3_async_config import ConfigV3AsyncConfig
 
-__all__ = ["PipelineRunJobParams", "Input"]
+__all__ = ["PipelineRunJobParams", "Input", "Settings"]
 
 
 class PipelineRunJobParams(TypedDict, total=False):
@@ -30,5 +30,15 @@ class PipelineRunJobParams(TypedDict, total=False):
     async_: Annotated[ConfigV3AsyncConfig, PropertyInfo(alias="async")]
     """The configuration options for asynchronous processing (default synchronous)."""
 
+    settings: Settings
+    """Settings for pipeline execution that override pipeline defaults."""
+
 
 Input: TypeAlias = Union[str, Upload]
+
+
+class Settings(TypedDict, total=False):
+    """Settings for pipeline execution that override pipeline defaults."""
+
+    document_password: Optional[str]
+    """Password to decrypt password-protected documents."""

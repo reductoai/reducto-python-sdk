@@ -50,6 +50,8 @@ Input: TypeAlias = Union[str, Upload]
 
 
 class Settings(TypedDict, total=False):
+    """The settings for split processing."""
+
     table_cutoff: Literal["truncate", "preserve"]
     """
     If tables should be truncated to the first few rows or if all content should be
