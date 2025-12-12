@@ -55,6 +55,12 @@ class ExperimentalProcessingOptions(BaseModel):
     enrich: Optional[EnrichConfig] = None
     """The configuration options for enrichment."""
 
+    latency_sensitive: Optional[bool] = None
+    """If True, the job will be processed with lower latency and higher priority.
+
+    Uses 2x the cost of a regular job. Defaults to False.
+    """
+
     layout_enrichment: Optional[bool] = None
     """
     Layout enrichment is a beta feature that improves our layout and reading order
