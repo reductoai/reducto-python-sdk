@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Dict, Mapping, Optional, cast
+from typing import TYPE_CHECKING, Any, Dict, Mapping, Optional, cast
 from typing_extensions import Self, Literal, override
 
 import httpx
@@ -33,6 +33,7 @@ from ._utils import (
     get_async_library,
     async_maybe_transform,
 )
+from ._compat import cached_property
 from ._version import __version__
 from ._response import (
     to_raw_response_wrapper,
@@ -40,7 +41,6 @@ from ._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .resources import job, edit, parse, split, extract, webhook, pipeline
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import ReductoError, APIStatusError
 from ._base_client import (
@@ -50,6 +50,16 @@ from ._base_client import (
     make_request_options,
 )
 from .types.shared.upload import Upload
+
+if TYPE_CHECKING:
+    from .resources import job, edit, parse, split, extract, webhook, pipeline
+    from .resources.job import JobResource, AsyncJobResource
+    from .resources.edit import EditResource, AsyncEditResource
+    from .resources.parse import ParseResource, AsyncParseResource
+    from .resources.split import SplitResource, AsyncSplitResource
+    from .resources.extract import ExtractResource, AsyncExtractResource
+    from .resources.webhook import WebhookResource, AsyncWebhookResource
+    from .resources.pipeline import PipelineResource, AsyncPipelineResource
 
 __all__ = [
     "ENVIRONMENTS",
@@ -71,16 +81,6 @@ ENVIRONMENTS: Dict[str, str] = {
 
 
 class Reducto(SyncAPIClient):
-    job: job.JobResource
-    split: split.SplitResource
-    parse: parse.ParseResource
-    extract: extract.ExtractResource
-    edit: edit.EditResource
-    pipeline: pipeline.PipelineResource
-    webhook: webhook.WebhookResource
-    with_raw_response: ReductoWithRawResponse
-    with_streaming_response: ReductoWithStreamedResponse
-
     # client options
     api_key: str
 
@@ -159,15 +159,55 @@ class Reducto(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.job = job.JobResource(self)
-        self.split = split.SplitResource(self)
-        self.parse = parse.ParseResource(self)
-        self.extract = extract.ExtractResource(self)
-        self.edit = edit.EditResource(self)
-        self.pipeline = pipeline.PipelineResource(self)
-        self.webhook = webhook.WebhookResource(self)
-        self.with_raw_response = ReductoWithRawResponse(self)
-        self.with_streaming_response = ReductoWithStreamedResponse(self)
+    @cached_property
+    def job(self) -> JobResource:
+        from .resources.job import JobResource
+
+        return JobResource(self)
+
+    @cached_property
+    def split(self) -> SplitResource:
+        from .resources.split import SplitResource
+
+        return SplitResource(self)
+
+    @cached_property
+    def parse(self) -> ParseResource:
+        from .resources.parse import ParseResource
+
+        return ParseResource(self)
+
+    @cached_property
+    def extract(self) -> ExtractResource:
+        from .resources.extract import ExtractResource
+
+        return ExtractResource(self)
+
+    @cached_property
+    def edit(self) -> EditResource:
+        from .resources.edit import EditResource
+
+        return EditResource(self)
+
+    @cached_property
+    def pipeline(self) -> PipelineResource:
+        from .resources.pipeline import PipelineResource
+
+        return PipelineResource(self)
+
+    @cached_property
+    def webhook(self) -> WebhookResource:
+        from .resources.webhook import WebhookResource
+
+        return WebhookResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> ReductoWithRawResponse:
+        return ReductoWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> ReductoWithStreamedResponse:
+        return ReductoWithStreamedResponse(self)
 
     @property
     @override
@@ -341,16 +381,6 @@ class Reducto(SyncAPIClient):
 
 
 class AsyncReducto(AsyncAPIClient):
-    job: job.AsyncJobResource
-    split: split.AsyncSplitResource
-    parse: parse.AsyncParseResource
-    extract: extract.AsyncExtractResource
-    edit: edit.AsyncEditResource
-    pipeline: pipeline.AsyncPipelineResource
-    webhook: webhook.AsyncWebhookResource
-    with_raw_response: AsyncReductoWithRawResponse
-    with_streaming_response: AsyncReductoWithStreamedResponse
-
     # client options
     api_key: str
 
@@ -429,15 +459,55 @@ class AsyncReducto(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.job = job.AsyncJobResource(self)
-        self.split = split.AsyncSplitResource(self)
-        self.parse = parse.AsyncParseResource(self)
-        self.extract = extract.AsyncExtractResource(self)
-        self.edit = edit.AsyncEditResource(self)
-        self.pipeline = pipeline.AsyncPipelineResource(self)
-        self.webhook = webhook.AsyncWebhookResource(self)
-        self.with_raw_response = AsyncReductoWithRawResponse(self)
-        self.with_streaming_response = AsyncReductoWithStreamedResponse(self)
+    @cached_property
+    def job(self) -> AsyncJobResource:
+        from .resources.job import AsyncJobResource
+
+        return AsyncJobResource(self)
+
+    @cached_property
+    def split(self) -> AsyncSplitResource:
+        from .resources.split import AsyncSplitResource
+
+        return AsyncSplitResource(self)
+
+    @cached_property
+    def parse(self) -> AsyncParseResource:
+        from .resources.parse import AsyncParseResource
+
+        return AsyncParseResource(self)
+
+    @cached_property
+    def extract(self) -> AsyncExtractResource:
+        from .resources.extract import AsyncExtractResource
+
+        return AsyncExtractResource(self)
+
+    @cached_property
+    def edit(self) -> AsyncEditResource:
+        from .resources.edit import AsyncEditResource
+
+        return AsyncEditResource(self)
+
+    @cached_property
+    def pipeline(self) -> AsyncPipelineResource:
+        from .resources.pipeline import AsyncPipelineResource
+
+        return AsyncPipelineResource(self)
+
+    @cached_property
+    def webhook(self) -> AsyncWebhookResource:
+        from .resources.webhook import AsyncWebhookResource
+
+        return AsyncWebhookResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> AsyncReductoWithRawResponse:
+        return AsyncReductoWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> AsyncReductoWithStreamedResponse:
+        return AsyncReductoWithStreamedResponse(self)
 
     @property
     @override
@@ -611,14 +681,10 @@ class AsyncReducto(AsyncAPIClient):
 
 
 class ReductoWithRawResponse:
+    _client: Reducto
+
     def __init__(self, client: Reducto) -> None:
-        self.job = job.JobResourceWithRawResponse(client.job)
-        self.split = split.SplitResourceWithRawResponse(client.split)
-        self.parse = parse.ParseResourceWithRawResponse(client.parse)
-        self.extract = extract.ExtractResourceWithRawResponse(client.extract)
-        self.edit = edit.EditResourceWithRawResponse(client.edit)
-        self.pipeline = pipeline.PipelineResourceWithRawResponse(client.pipeline)
-        self.webhook = webhook.WebhookResourceWithRawResponse(client.webhook)
+        self._client = client
 
         self.api_version = to_raw_response_wrapper(
             client.api_version,
@@ -627,16 +693,54 @@ class ReductoWithRawResponse:
             client.upload,
         )
 
+    @cached_property
+    def job(self) -> job.JobResourceWithRawResponse:
+        from .resources.job import JobResourceWithRawResponse
+
+        return JobResourceWithRawResponse(self._client.job)
+
+    @cached_property
+    def split(self) -> split.SplitResourceWithRawResponse:
+        from .resources.split import SplitResourceWithRawResponse
+
+        return SplitResourceWithRawResponse(self._client.split)
+
+    @cached_property
+    def parse(self) -> parse.ParseResourceWithRawResponse:
+        from .resources.parse import ParseResourceWithRawResponse
+
+        return ParseResourceWithRawResponse(self._client.parse)
+
+    @cached_property
+    def extract(self) -> extract.ExtractResourceWithRawResponse:
+        from .resources.extract import ExtractResourceWithRawResponse
+
+        return ExtractResourceWithRawResponse(self._client.extract)
+
+    @cached_property
+    def edit(self) -> edit.EditResourceWithRawResponse:
+        from .resources.edit import EditResourceWithRawResponse
+
+        return EditResourceWithRawResponse(self._client.edit)
+
+    @cached_property
+    def pipeline(self) -> pipeline.PipelineResourceWithRawResponse:
+        from .resources.pipeline import PipelineResourceWithRawResponse
+
+        return PipelineResourceWithRawResponse(self._client.pipeline)
+
+    @cached_property
+    def webhook(self) -> webhook.WebhookResourceWithRawResponse:
+        from .resources.webhook import WebhookResourceWithRawResponse
+
+        return WebhookResourceWithRawResponse(self._client.webhook)
+
 
 class AsyncReductoWithRawResponse:
+    _client: AsyncReducto
+
     def __init__(self, client: AsyncReducto) -> None:
-        self.job = job.AsyncJobResourceWithRawResponse(client.job)
-        self.split = split.AsyncSplitResourceWithRawResponse(client.split)
-        self.parse = parse.AsyncParseResourceWithRawResponse(client.parse)
-        self.extract = extract.AsyncExtractResourceWithRawResponse(client.extract)
-        self.edit = edit.AsyncEditResourceWithRawResponse(client.edit)
-        self.pipeline = pipeline.AsyncPipelineResourceWithRawResponse(client.pipeline)
-        self.webhook = webhook.AsyncWebhookResourceWithRawResponse(client.webhook)
+        self._client = client
 
         self.api_version = async_to_raw_response_wrapper(
             client.api_version,
@@ -645,16 +749,54 @@ class AsyncReductoWithRawResponse:
             client.upload,
         )
 
+    @cached_property
+    def job(self) -> job.AsyncJobResourceWithRawResponse:
+        from .resources.job import AsyncJobResourceWithRawResponse
+
+        return AsyncJobResourceWithRawResponse(self._client.job)
+
+    @cached_property
+    def split(self) -> split.AsyncSplitResourceWithRawResponse:
+        from .resources.split import AsyncSplitResourceWithRawResponse
+
+        return AsyncSplitResourceWithRawResponse(self._client.split)
+
+    @cached_property
+    def parse(self) -> parse.AsyncParseResourceWithRawResponse:
+        from .resources.parse import AsyncParseResourceWithRawResponse
+
+        return AsyncParseResourceWithRawResponse(self._client.parse)
+
+    @cached_property
+    def extract(self) -> extract.AsyncExtractResourceWithRawResponse:
+        from .resources.extract import AsyncExtractResourceWithRawResponse
+
+        return AsyncExtractResourceWithRawResponse(self._client.extract)
+
+    @cached_property
+    def edit(self) -> edit.AsyncEditResourceWithRawResponse:
+        from .resources.edit import AsyncEditResourceWithRawResponse
+
+        return AsyncEditResourceWithRawResponse(self._client.edit)
+
+    @cached_property
+    def pipeline(self) -> pipeline.AsyncPipelineResourceWithRawResponse:
+        from .resources.pipeline import AsyncPipelineResourceWithRawResponse
+
+        return AsyncPipelineResourceWithRawResponse(self._client.pipeline)
+
+    @cached_property
+    def webhook(self) -> webhook.AsyncWebhookResourceWithRawResponse:
+        from .resources.webhook import AsyncWebhookResourceWithRawResponse
+
+        return AsyncWebhookResourceWithRawResponse(self._client.webhook)
+
 
 class ReductoWithStreamedResponse:
+    _client: Reducto
+
     def __init__(self, client: Reducto) -> None:
-        self.job = job.JobResourceWithStreamingResponse(client.job)
-        self.split = split.SplitResourceWithStreamingResponse(client.split)
-        self.parse = parse.ParseResourceWithStreamingResponse(client.parse)
-        self.extract = extract.ExtractResourceWithStreamingResponse(client.extract)
-        self.edit = edit.EditResourceWithStreamingResponse(client.edit)
-        self.pipeline = pipeline.PipelineResourceWithStreamingResponse(client.pipeline)
-        self.webhook = webhook.WebhookResourceWithStreamingResponse(client.webhook)
+        self._client = client
 
         self.api_version = to_streamed_response_wrapper(
             client.api_version,
@@ -663,16 +805,54 @@ class ReductoWithStreamedResponse:
             client.upload,
         )
 
+    @cached_property
+    def job(self) -> job.JobResourceWithStreamingResponse:
+        from .resources.job import JobResourceWithStreamingResponse
+
+        return JobResourceWithStreamingResponse(self._client.job)
+
+    @cached_property
+    def split(self) -> split.SplitResourceWithStreamingResponse:
+        from .resources.split import SplitResourceWithStreamingResponse
+
+        return SplitResourceWithStreamingResponse(self._client.split)
+
+    @cached_property
+    def parse(self) -> parse.ParseResourceWithStreamingResponse:
+        from .resources.parse import ParseResourceWithStreamingResponse
+
+        return ParseResourceWithStreamingResponse(self._client.parse)
+
+    @cached_property
+    def extract(self) -> extract.ExtractResourceWithStreamingResponse:
+        from .resources.extract import ExtractResourceWithStreamingResponse
+
+        return ExtractResourceWithStreamingResponse(self._client.extract)
+
+    @cached_property
+    def edit(self) -> edit.EditResourceWithStreamingResponse:
+        from .resources.edit import EditResourceWithStreamingResponse
+
+        return EditResourceWithStreamingResponse(self._client.edit)
+
+    @cached_property
+    def pipeline(self) -> pipeline.PipelineResourceWithStreamingResponse:
+        from .resources.pipeline import PipelineResourceWithStreamingResponse
+
+        return PipelineResourceWithStreamingResponse(self._client.pipeline)
+
+    @cached_property
+    def webhook(self) -> webhook.WebhookResourceWithStreamingResponse:
+        from .resources.webhook import WebhookResourceWithStreamingResponse
+
+        return WebhookResourceWithStreamingResponse(self._client.webhook)
+
 
 class AsyncReductoWithStreamedResponse:
+    _client: AsyncReducto
+
     def __init__(self, client: AsyncReducto) -> None:
-        self.job = job.AsyncJobResourceWithStreamingResponse(client.job)
-        self.split = split.AsyncSplitResourceWithStreamingResponse(client.split)
-        self.parse = parse.AsyncParseResourceWithStreamingResponse(client.parse)
-        self.extract = extract.AsyncExtractResourceWithStreamingResponse(client.extract)
-        self.edit = edit.AsyncEditResourceWithStreamingResponse(client.edit)
-        self.pipeline = pipeline.AsyncPipelineResourceWithStreamingResponse(client.pipeline)
-        self.webhook = webhook.AsyncWebhookResourceWithStreamingResponse(client.webhook)
+        self._client = client
 
         self.api_version = async_to_streamed_response_wrapper(
             client.api_version,
@@ -680,6 +860,48 @@ class AsyncReductoWithStreamedResponse:
         self.upload = async_to_streamed_response_wrapper(
             client.upload,
         )
+
+    @cached_property
+    def job(self) -> job.AsyncJobResourceWithStreamingResponse:
+        from .resources.job import AsyncJobResourceWithStreamingResponse
+
+        return AsyncJobResourceWithStreamingResponse(self._client.job)
+
+    @cached_property
+    def split(self) -> split.AsyncSplitResourceWithStreamingResponse:
+        from .resources.split import AsyncSplitResourceWithStreamingResponse
+
+        return AsyncSplitResourceWithStreamingResponse(self._client.split)
+
+    @cached_property
+    def parse(self) -> parse.AsyncParseResourceWithStreamingResponse:
+        from .resources.parse import AsyncParseResourceWithStreamingResponse
+
+        return AsyncParseResourceWithStreamingResponse(self._client.parse)
+
+    @cached_property
+    def extract(self) -> extract.AsyncExtractResourceWithStreamingResponse:
+        from .resources.extract import AsyncExtractResourceWithStreamingResponse
+
+        return AsyncExtractResourceWithStreamingResponse(self._client.extract)
+
+    @cached_property
+    def edit(self) -> edit.AsyncEditResourceWithStreamingResponse:
+        from .resources.edit import AsyncEditResourceWithStreamingResponse
+
+        return AsyncEditResourceWithStreamingResponse(self._client.edit)
+
+    @cached_property
+    def pipeline(self) -> pipeline.AsyncPipelineResourceWithStreamingResponse:
+        from .resources.pipeline import AsyncPipelineResourceWithStreamingResponse
+
+        return AsyncPipelineResourceWithStreamingResponse(self._client.pipeline)
+
+    @cached_property
+    def webhook(self) -> webhook.AsyncWebhookResourceWithStreamingResponse:
+        from .resources.webhook import AsyncWebhookResourceWithStreamingResponse
+
+        return AsyncWebhookResourceWithStreamingResponse(self._client.webhook)
 
 
 Client = Reducto
