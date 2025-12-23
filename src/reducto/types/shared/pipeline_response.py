@@ -17,6 +17,7 @@ __all__ = [
     "ResultExtract",
     "ResultExtractUnionMember0",
     "ResultExtractUnionMember0Result",
+    "ResultParse",
 ]
 
 ResultExtractUnionMember0Result: TypeAlias = Union[ExtractResponse, V3ExtractResponse]
@@ -36,11 +37,13 @@ class ResultExtractUnionMember0(BaseModel):
 
 ResultExtract: TypeAlias = Union[List[ResultExtractUnionMember0], ExtractResponse, V3ExtractResponse, None]
 
+ResultParse: TypeAlias = Union[ParseResponse, List[ParseResponse], None]
+
 
 class Result(BaseModel):
     extract: Optional[ResultExtract] = None
 
-    parse: Optional[ParseResponse] = None
+    parse: Optional[ResultParse] = None
 
     split: Optional[SplitResponse] = None
 
