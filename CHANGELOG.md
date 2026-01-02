@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.16.0 (2026-01-02)
+
+Full Changelog: [v0.15.0...v0.16.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.15.0...v0.16.0)
+
+### Features
+
+* **api:** api update ([cebabec](https://github.com/reductoai/reducto-python-sdk/commit/cebabec8f081100741999500e3da52350e5f6895))
+* **api:** api update ([25decbd](https://github.com/reductoai/reducto-python-sdk/commit/25decbd0891b57339065e5725453dc4164cb49f8))
+* **api:** api update ([be22051](https://github.com/reductoai/reducto-python-sdk/commit/be2205198f436b0af17cce3884b3c61469c7f578))
+* **files:** add support for string alternative to file upload type ([7d22f01](https://github.com/reductoai/reducto-python-sdk/commit/7d22f0167a3cfb7bd3cee37d885d127c55ec232f))
+
+
+### Bug Fixes
+
+* use async_to_httpx_files in patch method ([10f2c81](https://github.com/reductoai/reducto-python-sdk/commit/10f2c81400612c64ef97bfd9e94d3fa2ccf7e759))
+
+
+### Chores
+
+* **internal:** add `--fix` argument to lint script ([9e11380](https://github.com/reductoai/reducto-python-sdk/commit/9e1138005b05714f3f9783e619b65495803cbc44))
+* **internal:** add missing files argument to base client ([cf93219](https://github.com/reductoai/reducto-python-sdk/commit/cf93219122ea01ce518b9e25a680e680657c0779))
+* speedup initial import ([7e88fa2](https://github.com/reductoai/reducto-python-sdk/commit/7e88fa2b58f6b9420c3f5aa92dc6ac9278df8af3))
+
 ## 0.15.0 (2025-12-12)
 
 Full Changelog: [v0.14.0...v0.15.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.14.0...v0.15.0)
