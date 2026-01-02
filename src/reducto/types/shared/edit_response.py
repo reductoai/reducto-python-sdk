@@ -17,7 +17,7 @@ class FormSchema(BaseModel):
     description: str
     """Description of the widget extracted from the document"""
 
-    type: Literal["text", "checkbox", "dropdown", "barcode"]
+    type: Literal["text", "checkbox", "radio", "dropdown", "barcode"]
     """Type of the form widget"""
 
     fill: Optional[bool] = None

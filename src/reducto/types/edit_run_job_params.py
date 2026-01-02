@@ -71,7 +71,7 @@ class FormSchema(TypedDict, total=False):
     description: Required[str]
     """Description of the widget extracted from the document"""
 
-    type: Required[Literal["text", "checkbox", "dropdown", "barcode"]]
+    type: Required[Literal["text", "checkbox", "radio", "dropdown", "barcode"]]
     """Type of the form widget"""
 
     fill: bool
