@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import Union
 from typing_extensions import Required, Annotated, TypeAlias, TypedDict
 
+from .._types import SequenceNotStr
 from .._utils import PropertyInfo
 from .shared_params.upload import Upload
 from .shared_params.parse_options import ParseOptions
@@ -20,7 +21,8 @@ class ExtractRunJobParams(TypedDict, total=False):
     You can provide one of the following: 1. A publicly available URL 2. A presigned
     S3 URL 3. A reducto:// prefixed URL obtained from the /upload endpoint after
     directly uploading a document 4. A jobid:// prefixed URL obtained from a
-    previous /parse invocation
+    previous /parse invocation 5. A list of URLs (for multi-document pipelines, V3
+    API only)
 
                 For edit pipelines, this should be a string containing the edit instructions
     """
@@ -42,7 +44,7 @@ class ExtractRunJobParams(TypedDict, total=False):
     """The settings to use for the extraction."""
 
 
-Input: TypeAlias = Union[str, Upload]
+Input: TypeAlias = Union[str, SequenceNotStr[str], Upload]
 
 
 class Instructions(TypedDict, total=False):

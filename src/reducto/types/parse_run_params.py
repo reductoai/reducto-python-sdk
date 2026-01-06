@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import Union
 from typing_extensions import Required, Annotated, TypeAlias, TypedDict
 
+from .._types import SequenceNotStr
 from .._utils import PropertyInfo
 from .shared_params.upload import Upload
 from .shared_params.enhance import Enhance
@@ -24,7 +25,8 @@ class SyncParseConfig(TypedDict, total=False):
     You can provide one of the following: 1. A publicly available URL 2. A presigned
     S3 URL 3. A reducto:// prefixed URL obtained from the /upload endpoint after
     directly uploading a document 4. A jobid:// prefixed URL obtained from a
-    previous /parse invocation
+    previous /parse invocation 5. A list of URLs (for multi-document pipelines, V3
+    API only)
 
                 For edit pipelines, this should be a string containing the edit instructions
     """
@@ -40,7 +42,7 @@ class SyncParseConfig(TypedDict, total=False):
     spreadsheet: Spreadsheet
 
 
-SyncParseConfigInput: TypeAlias = Union[str, Upload]
+SyncParseConfigInput: TypeAlias = Union[str, SequenceNotStr[str], Upload]
 
 
 class AsyncParseConfig(TypedDict, total=False):
@@ -50,7 +52,8 @@ class AsyncParseConfig(TypedDict, total=False):
     You can provide one of the following: 1. A publicly available URL 2. A presigned
     S3 URL 3. A reducto:// prefixed URL obtained from the /upload endpoint after
     directly uploading a document 4. A jobid:// prefixed URL obtained from a
-    previous /parse invocation
+    previous /parse invocation 5. A list of URLs (for multi-document pipelines, V3
+    API only)
 
                 For edit pipelines, this should be a string containing the edit instructions
     """
@@ -69,6 +72,6 @@ class AsyncParseConfig(TypedDict, total=False):
     spreadsheet: Spreadsheet
 
 
-AsyncParseConfigInput: TypeAlias = Union[str, Upload]
+AsyncParseConfigInput: TypeAlias = Union[str, SequenceNotStr[str], Upload]
 
 ParseRunParams: TypeAlias = Union[SyncParseConfig, AsyncParseConfig]

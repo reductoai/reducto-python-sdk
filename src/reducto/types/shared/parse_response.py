@@ -12,6 +12,8 @@ __all__ = [
     "Result",
     "ResultFullResult",
     "ResultFullResultChunk",
+    "ResultFullResultChunkBlock",
+    "ResultFullResultChunkBlockGranularConfidence",
     "ResultFullResultOcr",
     "ResultFullResultOcrLine",
     "ResultFullResultOcrWord",
@@ -19,8 +21,72 @@ __all__ = [
 ]
 
 
+class ResultFullResultChunkBlockGranularConfidence(BaseModel):
+    """Granular confidence scores for the block.
+
+    It is a dictionary of confidence scores for the block. The confidence scores will not be None if the user has enabled numeric confidence scores.
+    """
+
+    extract_confidence: Optional[float] = None
+
+    parse_confidence: Optional[float] = None
+
+
+class ResultFullResultChunkBlock(BaseModel):
+    bbox: BoundingBox
+    """The bounding box of the block extracted from the document."""
+
+    content: str
+    """The content of the block extracted from the document."""
+
+    type: Literal[
+        "Header",
+        "Footer",
+        "Title",
+        "Section Header",
+        "Page Number",
+        "List Item",
+        "Figure",
+        "Table",
+        "Key Value",
+        "Text",
+        "Comment",
+        "Signature",
+    ]
+    """The type of block extracted from the document."""
+
+    chart_data: Optional[List[str]] = None
+    """
+    (Experimental) The URL/link to chart data JSON for figure blocks processed by
+    chart agent.
+    """
+
+    confidence: Optional[str] = None
+    """The confidence for the block.
+
+    It is either low or high and takes into account factors like OCR and table
+    structure
+    """
+
+    extra: Optional[Dict[str, object]] = None
+    """Extra metadata fields for the block.
+
+    Fields like 'is_chart' will only appear when set to True.
+    """
+
+    granular_confidence: Optional[ResultFullResultChunkBlockGranularConfidence] = None
+    """Granular confidence scores for the block.
+
+    It is a dictionary of confidence scores for the block. The confidence scores
+    will not be None if the user has enabled numeric confidence scores.
+    """
+
+    image_url: Optional[str] = None
+    """(Experimental) The URL of the image associated with the block."""
+
+
 class ResultFullResultChunk(BaseModel):
-    blocks: List[Dict[str, object]]
+    blocks: List[ResultFullResultChunkBlock]
 
     content: str
     """The content of the chunk extracted from the document."""
