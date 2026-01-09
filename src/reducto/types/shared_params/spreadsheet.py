@@ -21,7 +21,7 @@ class Spreadsheet(TypedDict, total=False):
     exclude: List[Literal["hidden_sheets", "hidden_rows", "hidden_cols", "styling", "spreadsheet_images"]]
     """Whether to exclude hidden sheets, rows, or columns in the output."""
 
-    include: List[Literal["cell_colors", "formula"]]
-    """Whether to include cell color and formula information in the output."""
+    include: List[Literal["cell_colors", "formula", "dropdowns"]]
+    """Whether to include cell color, formula, and dropdown information in the output."""
 
     split_large_tables: SplitLargeTables
