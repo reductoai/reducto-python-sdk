@@ -60,6 +60,12 @@ class AdvancedProcessingOptions(BaseModel):
     LaTeX colour commands.
     """
 
+    include_dropdown_information: Optional[bool] = None
+    """
+    If True, include dropdown options and the selected value when rendering
+    spreadsheet cells.
+    """
+
     include_formula_information: Optional[bool] = None
     """
     If True, preserve formula information in spreadsheet cells by wrapping text with

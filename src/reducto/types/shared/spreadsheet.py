@@ -22,7 +22,7 @@ class Spreadsheet(BaseModel):
     )
     """Whether to exclude hidden sheets, rows, or columns in the output."""
 
-    include: Optional[List[Literal["cell_colors", "formula"]]] = None
-    """Whether to include cell color and formula information in the output."""
+    include: Optional[List[Literal["cell_colors", "formula", "dropdowns"]]] = None
+    """Whether to include cell color, formula, and dropdown information in the output."""
 
     split_large_tables: Optional[SplitLargeTables] = None
