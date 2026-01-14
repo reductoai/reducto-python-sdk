@@ -54,6 +54,9 @@ class AdvancedProcessingOptions(BaseModel):
     force_file_extension: Optional[str] = None
     """Force the URL to be downloaded as a specific file extension (e.g. .png)."""
 
+    ignore_watermarks: Optional[bool] = None
+    """If True, ignore and remove watermarks from OCR output. Defaults to False."""
+
     include_color_information: Optional[bool] = None
     """
     If True, preserve Excel cell colours in the extracted spreadsheet text using
