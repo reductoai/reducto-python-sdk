@@ -16,12 +16,36 @@ __all__ = [
     "JobGetResponse",
     "AsyncJobResponse",
     "AsyncJobResponseResult",
+    "AsyncJobResponseResultClassifyResponse",
+    "AsyncJobResponseResultClassifyResponseResult",
     "EnhancedAsyncJobResponse",
     "EnhancedAsyncJobResponseResult",
+    "EnhancedAsyncJobResponseResultClassifyResponse",
+    "EnhancedAsyncJobResponseResultClassifyResponseResult",
 ]
 
+
+class AsyncJobResponseResultClassifyResponseResult(BaseModel):
+    category: str
+
+
+class AsyncJobResponseResultClassifyResponse(BaseModel):
+    """Response from classify job - returned when polling /job/{job_id}"""
+
+    job_id: str
+
+    result: AsyncJobResponseResultClassifyResponseResult
+
+
 AsyncJobResponseResult: TypeAlias = Union[
-    ParseResponse, ExtractResponse, SplitResponse, EditResponse, PipelineResponse, V3ExtractResponse, None
+    ParseResponse,
+    ExtractResponse,
+    SplitResponse,
+    EditResponse,
+    PipelineResponse,
+    V3ExtractResponse,
+    AsyncJobResponseResultClassifyResponse,
+    None,
 ]
 
 
@@ -33,10 +57,30 @@ class AsyncJobResponse(BaseModel):
     reason: Optional[str] = None
 
     result: Optional[AsyncJobResponseResult] = None
+    """Response from classify job - returned when polling /job/{job_id}"""
+
+
+class EnhancedAsyncJobResponseResultClassifyResponseResult(BaseModel):
+    category: str
+
+
+class EnhancedAsyncJobResponseResultClassifyResponse(BaseModel):
+    """Response from classify job - returned when polling /job/{job_id}"""
+
+    job_id: str
+
+    result: EnhancedAsyncJobResponseResultClassifyResponseResult
 
 
 EnhancedAsyncJobResponseResult: TypeAlias = Union[
-    ParseResponse, ExtractResponse, SplitResponse, EditResponse, PipelineResponse, V3ExtractResponse, None
+    ParseResponse,
+    ExtractResponse,
+    SplitResponse,
+    EditResponse,
+    PipelineResponse,
+    V3ExtractResponse,
+    EnhancedAsyncJobResponseResultClassifyResponse,
+    None,
 ]
 
 
@@ -58,12 +102,13 @@ class EnhancedAsyncJobResponse(BaseModel):
     reason: Optional[str] = None
 
     result: Optional[EnhancedAsyncJobResponseResult] = None
+    """Response from classify job - returned when polling /job/{job_id}"""
 
     source: Optional[object] = None
 
     total_pages: Optional[int] = None
 
-    type: Optional[Literal["Parse", "Extract", "Split", "Edit", "Pipeline"]] = None
+    type: Optional[Literal["Parse", "Extract", "Split", "Edit", "Pipeline", "Classify"]] = None
 
 
 JobGetResponse: TypeAlias = Union[AsyncJobResponse, EnhancedAsyncJobResponse]
