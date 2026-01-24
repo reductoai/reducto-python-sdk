@@ -52,6 +52,7 @@ class TestSplit:
                             "prompt": "prompt",
                         }
                     ],
+                    "intelligent_ordering": True,
                     "summarize_figures": True,
                 },
                 "formatting": {
@@ -179,6 +180,7 @@ class TestSplit:
                             "prompt": "prompt",
                         }
                     ],
+                    "intelligent_ordering": True,
                     "summarize_figures": True,
                 },
                 "formatting": {
@@ -304,6 +306,7 @@ class TestAsyncSplit:
                             "prompt": "prompt",
                         }
                     ],
+                    "intelligent_ordering": True,
                     "summarize_figures": True,
                 },
                 "formatting": {
@@ -431,6 +434,7 @@ class TestAsyncSplit:
                             "prompt": "prompt",
                         }
                     ],
+                    "intelligent_ordering": True,
                     "summarize_figures": True,
                 },
                 "formatting": {

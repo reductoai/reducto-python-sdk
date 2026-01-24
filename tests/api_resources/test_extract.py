@@ -42,6 +42,7 @@ class TestExtract:
                             "prompt": "prompt",
                         }
                     ],
+                    "intelligent_ordering": True,
                     "summarize_figures": True,
                 },
                 "formatting": {
@@ -155,6 +156,7 @@ class TestExtract:
                             "prompt": "prompt",
                         }
                     ],
+                    "intelligent_ordering": True,
                     "summarize_figures": True,
                 },
                 "formatting": {
@@ -268,6 +270,7 @@ class TestExtract:
                             "prompt": "prompt",
                         }
                     ],
+                    "intelligent_ordering": True,
                     "summarize_figures": True,
                 },
                 "formatting": {
@@ -379,6 +382,7 @@ class TestAsyncExtract:
                             "prompt": "prompt",
                         }
                     ],
+                    "intelligent_ordering": True,
                     "summarize_figures": True,
                 },
                 "formatting": {
@@ -492,6 +496,7 @@ class TestAsyncExtract:
                             "prompt": "prompt",
                         }
                     ],
+                    "intelligent_ordering": True,
                     "summarize_figures": True,
                 },
                 "formatting": {
@@ -605,6 +610,7 @@ class TestAsyncExtract:
                             "prompt": "prompt",
                         }
                     ],
+                    "intelligent_ordering": True,
                     "summarize_figures": True,
                 },
                 "formatting": {
