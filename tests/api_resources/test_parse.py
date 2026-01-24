@@ -37,6 +37,7 @@ class TestParse:
                         "prompt": "prompt",
                     }
                 ],
+                "intelligent_ordering": True,
                 "summarize_figures": True,
             },
             formatting={
@@ -135,6 +136,7 @@ class TestParse:
                         "prompt": "prompt",
                     }
                 ],
+                "intelligent_ordering": True,
                 "summarize_figures": True,
             },
             formatting={
@@ -233,6 +235,7 @@ class TestParse:
                         "prompt": "prompt",
                     }
                 ],
+                "intelligent_ordering": True,
                 "summarize_figures": True,
             },
             formatting={
@@ -329,6 +332,7 @@ class TestAsyncParse:
                         "prompt": "prompt",
                     }
                 ],
+                "intelligent_ordering": True,
                 "summarize_figures": True,
             },
             formatting={
@@ -427,6 +431,7 @@ class TestAsyncParse:
                         "prompt": "prompt",
                     }
                 ],
+                "intelligent_ordering": True,
                 "summarize_figures": True,
             },
             formatting={
@@ -525,6 +530,7 @@ class TestAsyncParse:
                         "prompt": "prompt",
                     }
                 ],
+                "intelligent_ordering": True,
                 "summarize_figures": True,
             },
             formatting={

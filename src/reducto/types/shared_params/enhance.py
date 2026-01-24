@@ -21,6 +21,12 @@ class Enhance(TypedDict, total=False):
     different types of extraction. This will incur a cost and latency increase.
     """
 
+    intelligent_ordering: bool
+    """
+    If True, use an advanced vision language model to improve reading order
+    accuracy, with a small increase in latency. Defaults to False.
+    """
+
     summarize_figures: bool
     """If True, summarize figures using a small vision language model.
 
