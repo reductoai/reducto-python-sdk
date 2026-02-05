@@ -21,7 +21,7 @@ class TestClient:
     @parametrize
     def test_method_api_version(self, client: Reducto) -> None:
         client_ = client.api_version()
-        assert_matches_type(object, client_, path=["response"])
+        assert_matches_type(str, client_, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -31,7 +31,7 @@ class TestClient:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         client_ = response.parse()
-        assert_matches_type(object, client_, path=["response"])
+        assert_matches_type(str, client_, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -41,7 +41,7 @@ class TestClient:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             client_ = response.parse()
-            assert_matches_type(object, client_, path=["response"])
+            assert_matches_type(str, client_, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -92,7 +92,7 @@ class TestAsyncClient:
     @parametrize
     async def test_method_api_version(self, async_client: AsyncReducto) -> None:
         client = await async_client.api_version()
-        assert_matches_type(object, client, path=["response"])
+        assert_matches_type(str, client, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -102,7 +102,7 @@ class TestAsyncClient:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         client = await response.parse()
-        assert_matches_type(object, client, path=["response"])
+        assert_matches_type(str, client, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -112,7 +112,7 @@ class TestAsyncClient:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             client = await response.parse()
-            assert_matches_type(object, client, path=["response"])
+            assert_matches_type(str, client, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
