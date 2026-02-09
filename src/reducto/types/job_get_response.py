@@ -66,6 +66,9 @@ class AsyncJobResponseResultClassifyResponse(BaseModel):
 
     result: AsyncJobResponseResultClassifyResponseResult
 
+    duration: Optional[float] = None
+    """The duration of the classify request in seconds."""
+
     response_confidence: Optional[AsyncJobResponseResultClassifyResponseResponseConfidence] = None
     """Overall confidence breakdown for classification response."""
 
@@ -129,6 +132,9 @@ class EnhancedAsyncJobResponseResultClassifyResponse(BaseModel):
     job_id: str
 
     result: EnhancedAsyncJobResponseResultClassifyResponseResult
+
+    duration: Optional[float] = None
+    """The duration of the classify request in seconds."""
 
     response_confidence: Optional[EnhancedAsyncJobResponseResultClassifyResponseResponseConfidence] = None
     """Overall confidence breakdown for classification response."""
