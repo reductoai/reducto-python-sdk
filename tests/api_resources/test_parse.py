@@ -17,7 +17,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestParse:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_run_overload_1(self, client: Reducto) -> None:
         parse = client.parse.run(
@@ -25,7 +25,7 @@ class TestParse:
         )
         assert_matches_type(ParseRunResponse, parse, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_run_with_all_params_overload_1(self, client: Reducto) -> None:
         parse = client.parse.run(
@@ -82,7 +82,7 @@ class TestParse:
         )
         assert_matches_type(ParseRunResponse, parse, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_run_overload_1(self, client: Reducto) -> None:
         response = client.parse.with_raw_response.run(
@@ -94,7 +94,7 @@ class TestParse:
         parse = response.parse()
         assert_matches_type(ParseRunResponse, parse, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_run_overload_1(self, client: Reducto) -> None:
         with client.parse.with_streaming_response.run(
@@ -108,7 +108,7 @@ class TestParse:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_run_overload_2(self, client: Reducto) -> None:
         parse = client.parse.run(
@@ -116,7 +116,7 @@ class TestParse:
         )
         assert_matches_type(ParseRunResponse, parse, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_run_with_all_params_overload_2(self, client: Reducto) -> None:
         parse = client.parse.run(
@@ -181,7 +181,7 @@ class TestParse:
         )
         assert_matches_type(ParseRunResponse, parse, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_run_overload_2(self, client: Reducto) -> None:
         response = client.parse.with_raw_response.run(
@@ -193,7 +193,7 @@ class TestParse:
         parse = response.parse()
         assert_matches_type(ParseRunResponse, parse, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_run_overload_2(self, client: Reducto) -> None:
         with client.parse.with_streaming_response.run(
@@ -207,7 +207,7 @@ class TestParse:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_run_job(self, client: Reducto) -> None:
         parse = client.parse.run_job(
@@ -215,7 +215,7 @@ class TestParse:
         )
         assert_matches_type(ParseRunJobResponse, parse, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_run_job_with_all_params(self, client: Reducto) -> None:
         parse = client.parse.run_job(
@@ -280,7 +280,7 @@ class TestParse:
         )
         assert_matches_type(ParseRunJobResponse, parse, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_run_job(self, client: Reducto) -> None:
         response = client.parse.with_raw_response.run_job(
@@ -292,7 +292,7 @@ class TestParse:
         parse = response.parse()
         assert_matches_type(ParseRunJobResponse, parse, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_run_job(self, client: Reducto) -> None:
         with client.parse.with_streaming_response.run_job(
@@ -312,7 +312,7 @@ class TestAsyncParse:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_run_overload_1(self, async_client: AsyncReducto) -> None:
         parse = await async_client.parse.run(
@@ -320,7 +320,7 @@ class TestAsyncParse:
         )
         assert_matches_type(ParseRunResponse, parse, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_run_with_all_params_overload_1(self, async_client: AsyncReducto) -> None:
         parse = await async_client.parse.run(
@@ -377,7 +377,7 @@ class TestAsyncParse:
         )
         assert_matches_type(ParseRunResponse, parse, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_run_overload_1(self, async_client: AsyncReducto) -> None:
         response = await async_client.parse.with_raw_response.run(
@@ -389,7 +389,7 @@ class TestAsyncParse:
         parse = await response.parse()
         assert_matches_type(ParseRunResponse, parse, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_run_overload_1(self, async_client: AsyncReducto) -> None:
         async with async_client.parse.with_streaming_response.run(
@@ -403,7 +403,7 @@ class TestAsyncParse:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_run_overload_2(self, async_client: AsyncReducto) -> None:
         parse = await async_client.parse.run(
@@ -411,7 +411,7 @@ class TestAsyncParse:
         )
         assert_matches_type(ParseRunResponse, parse, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_run_with_all_params_overload_2(self, async_client: AsyncReducto) -> None:
         parse = await async_client.parse.run(
@@ -476,7 +476,7 @@ class TestAsyncParse:
         )
         assert_matches_type(ParseRunResponse, parse, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_run_overload_2(self, async_client: AsyncReducto) -> None:
         response = await async_client.parse.with_raw_response.run(
@@ -488,7 +488,7 @@ class TestAsyncParse:
         parse = await response.parse()
         assert_matches_type(ParseRunResponse, parse, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_run_overload_2(self, async_client: AsyncReducto) -> None:
         async with async_client.parse.with_streaming_response.run(
@@ -502,7 +502,7 @@ class TestAsyncParse:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_run_job(self, async_client: AsyncReducto) -> None:
         parse = await async_client.parse.run_job(
@@ -510,7 +510,7 @@ class TestAsyncParse:
         )
         assert_matches_type(ParseRunJobResponse, parse, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_run_job_with_all_params(self, async_client: AsyncReducto) -> None:
         parse = await async_client.parse.run_job(
@@ -575,7 +575,7 @@ class TestAsyncParse:
         )
         assert_matches_type(ParseRunJobResponse, parse, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_run_job(self, async_client: AsyncReducto) -> None:
         response = await async_client.parse.with_raw_response.run_job(
@@ -587,7 +587,7 @@ class TestAsyncParse:
         parse = await response.parse()
         assert_matches_type(ParseRunJobResponse, parse, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_run_job(self, async_client: AsyncReducto) -> None:
         async with async_client.parse.with_streaming_response.run_job(
