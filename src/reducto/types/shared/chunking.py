@@ -18,6 +18,9 @@ class Chunking(BaseModel):
     single chunk.
     """
 
+    chunk_overlap: Optional[int] = None
+    """Number of characters of overlap to include from adjacent chunks. Defaults to 0."""
+
     chunk_size: Optional[int] = None
     """
     The approximate size of chunks (in characters) that the document will be split

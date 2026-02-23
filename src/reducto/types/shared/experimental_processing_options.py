@@ -79,6 +79,12 @@ class ExperimentalProcessingOptions(BaseModel):
     convert files. This is slower but more accurate.
     """
 
+    promptable_agentic_text_on_regular_blocks: Optional[bool] = None
+    """
+    If True, enable two-stage LLM pipeline for agentic text correction on regular
+    text blocks. Defaults to False.
+    """
+
     return_figure_images: Optional[bool] = None
     """If figure images should be returned in the result. Defaults to False."""
 

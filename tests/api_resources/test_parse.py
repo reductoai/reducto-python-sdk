@@ -49,6 +49,7 @@ class TestParse:
             retrieval={
                 "chunking": {
                     "chunk_mode": "variable",
+                    "chunk_overlap": 0,
                     "chunk_size": 0,
                 },
                 "embedding_optimized": True,
@@ -148,6 +149,7 @@ class TestParse:
             retrieval={
                 "chunking": {
                     "chunk_mode": "variable",
+                    "chunk_overlap": 0,
                     "chunk_size": 0,
                 },
                 "embedding_optimized": True,
@@ -247,6 +249,7 @@ class TestParse:
             retrieval={
                 "chunking": {
                     "chunk_mode": "variable",
+                    "chunk_overlap": 0,
                     "chunk_size": 0,
                 },
                 "embedding_optimized": True,
@@ -344,6 +347,7 @@ class TestAsyncParse:
             retrieval={
                 "chunking": {
                     "chunk_mode": "variable",
+                    "chunk_overlap": 0,
                     "chunk_size": 0,
                 },
                 "embedding_optimized": True,
@@ -443,6 +447,7 @@ class TestAsyncParse:
             retrieval={
                 "chunking": {
                     "chunk_mode": "variable",
+                    "chunk_overlap": 0,
                     "chunk_size": 0,
                 },
                 "embedding_optimized": True,
@@ -542,6 +547,7 @@ class TestAsyncParse:
             retrieval={
                 "chunking": {
                     "chunk_mode": "variable",
+                    "chunk_overlap": 0,
                     "chunk_size": 0,
                 },
                 "embedding_optimized": True,
