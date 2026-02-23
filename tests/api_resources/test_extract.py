@@ -54,6 +54,7 @@ class TestExtract:
                 "retrieval": {
                     "chunking": {
                         "chunk_mode": "variable",
+                        "chunk_overlap": 0,
                         "chunk_size": 0,
                     },
                     "embedding_optimized": True,
@@ -168,6 +169,7 @@ class TestExtract:
                 "retrieval": {
                     "chunking": {
                         "chunk_mode": "variable",
+                        "chunk_overlap": 0,
                         "chunk_size": 0,
                     },
                     "embedding_optimized": True,
@@ -282,6 +284,7 @@ class TestExtract:
                 "retrieval": {
                     "chunking": {
                         "chunk_mode": "variable",
+                        "chunk_overlap": 0,
                         "chunk_size": 0,
                     },
                     "embedding_optimized": True,
@@ -394,6 +397,7 @@ class TestAsyncExtract:
                 "retrieval": {
                     "chunking": {
                         "chunk_mode": "variable",
+                        "chunk_overlap": 0,
                         "chunk_size": 0,
                     },
                     "embedding_optimized": True,
@@ -508,6 +512,7 @@ class TestAsyncExtract:
                 "retrieval": {
                     "chunking": {
                         "chunk_mode": "variable",
+                        "chunk_overlap": 0,
                         "chunk_size": 0,
                     },
                     "embedding_optimized": True,
@@ -622,6 +627,7 @@ class TestAsyncExtract:
                 "retrieval": {
                     "chunking": {
                         "chunk_mode": "variable",
+                        "chunk_overlap": 0,
                         "chunk_size": 0,
                     },
                     "embedding_optimized": True,

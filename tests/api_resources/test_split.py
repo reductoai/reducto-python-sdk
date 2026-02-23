@@ -64,6 +64,7 @@ class TestSplit:
                 "retrieval": {
                     "chunking": {
                         "chunk_mode": "variable",
+                        "chunk_overlap": 0,
                         "chunk_size": 0,
                     },
                     "embedding_optimized": True,
@@ -192,6 +193,7 @@ class TestSplit:
                 "retrieval": {
                     "chunking": {
                         "chunk_mode": "variable",
+                        "chunk_overlap": 0,
                         "chunk_size": 0,
                     },
                     "embedding_optimized": True,
@@ -318,6 +320,7 @@ class TestAsyncSplit:
                 "retrieval": {
                     "chunking": {
                         "chunk_mode": "variable",
+                        "chunk_overlap": 0,
                         "chunk_size": 0,
                     },
                     "embedding_optimized": True,
@@ -446,6 +449,7 @@ class TestAsyncSplit:
                 "retrieval": {
                     "chunking": {
                         "chunk_mode": "variable",
+                        "chunk_overlap": 0,
                         "chunk_size": 0,
                     },
                     "embedding_optimized": True,
