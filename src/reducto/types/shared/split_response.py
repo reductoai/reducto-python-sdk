@@ -1,15 +1,26 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
-from typing_extensions import Literal
+from typing import Dict, List, Union, Optional
+from typing_extensions import Literal, TypeAlias
 
 from ..._models import BaseModel
 from .parse_usage import ParseUsage
 
-__all__ = ["SplitResponse", "Result", "ResultSplit", "ResultSplitPartition"]
+__all__ = [
+    "SplitResponse",
+    "Result",
+    "ResultSplitResult",
+    "ResultSplitResultSplit",
+    "ResultSplitResultSplitPartition",
+    "ResultDeepSplitResult",
+    "ResultDeepSplitResultSplit",
+    "ResultDeepSplitResultSplitPage",
+    "ResultDeepSplitResultSplitPartition",
+    "ResultDeepSplitResultSplitPartitionPage",
+]
 
 
-class ResultSplitPartition(BaseModel):
+class ResultSplitResultSplitPartition(BaseModel):
     name: str
 
     pages: List[int]
@@ -17,22 +28,53 @@ class ResultSplitPartition(BaseModel):
     conf: Optional[Literal["high", "low"]] = None
 
 
-class ResultSplit(BaseModel):
+class ResultSplitResultSplit(BaseModel):
     name: str
 
     pages: List[int]
 
     conf: Optional[Literal["high", "low"]] = None
 
-    partitions: Optional[List[ResultSplitPartition]] = None
+    partitions: Optional[List[ResultSplitResultSplitPartition]] = None
 
 
-class Result(BaseModel):
-    """The split result."""
-
+class ResultSplitResult(BaseModel):
     section_mapping: Optional[Dict[str, List[int]]] = None
 
-    splits: List[ResultSplit]
+    splits: List[ResultSplitResultSplit]
+
+
+class ResultDeepSplitResultSplitPage(BaseModel):
+    evidence: str
+
+    page_number: int
+
+
+class ResultDeepSplitResultSplitPartitionPage(BaseModel):
+    evidence: str
+
+    page_number: int
+
+
+class ResultDeepSplitResultSplitPartition(BaseModel):
+    name: str
+
+    pages: List[ResultDeepSplitResultSplitPartitionPage]
+
+
+class ResultDeepSplitResultSplit(BaseModel):
+    name: str
+
+    pages: List[ResultDeepSplitResultSplitPage]
+
+    partitions: Optional[List[ResultDeepSplitResultSplitPartition]] = None
+
+
+class ResultDeepSplitResult(BaseModel):
+    splits: List[ResultDeepSplitResultSplit]
+
+
+Result: TypeAlias = Union[ResultSplitResult, ResultDeepSplitResult]
 
 
 class SplitResponse(BaseModel):
