@@ -8,7 +8,7 @@ from ..._models import BaseModel
 
 __all__ = ["Settings", "PageRange"]
 
-PageRange: TypeAlias = Union[page_range.PageRange, List[page_range.PageRange], List[int], None]
+PageRange: TypeAlias = Union[page_range.PageRange, List[page_range.PageRange], List[int], List[str], None]
 
 
 class Settings(BaseModel):
@@ -41,7 +41,8 @@ class Settings(BaseModel):
     page_range: Optional[PageRange] = None
     """The page range to process (1-indexed).
 
-    By default, the entire document is processed.
+    By default, the entire document is processed. For spreadsheets, you can also
+    provide a list of sheet names.
     """
 
     persist_results: Optional[bool] = None

@@ -6,10 +6,11 @@ from typing import List, Union, Iterable, Optional
 from typing_extensions import Literal, TypeAlias, TypedDict
 
 from . import page_range
+from ..._types import SequenceNotStr
 
 __all__ = ["Settings", "PageRange"]
 
-PageRange: TypeAlias = Union[page_range.PageRange, Iterable[page_range.PageRange], Iterable[int]]
+PageRange: TypeAlias = Union[page_range.PageRange, Iterable[page_range.PageRange], Iterable[int], SequenceNotStr[str]]
 
 
 class Settings(TypedDict, total=False):
@@ -42,7 +43,8 @@ class Settings(TypedDict, total=False):
     page_range: Optional[PageRange]
     """The page range to process (1-indexed).
 
-    By default, the entire document is processed.
+    By default, the entire document is processed. For spreadsheets, you can also
+    provide a list of sheet names.
     """
 
     persist_results: bool

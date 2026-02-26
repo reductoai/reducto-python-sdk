@@ -9,7 +9,7 @@ from .large_table_chunking_config import LargeTableChunkingConfig
 
 __all__ = ["AdvancedProcessingOptions", "PageRange"]
 
-PageRange: TypeAlias = Union[page_range.PageRange, List[page_range.PageRange], List[int]]
+PageRange: TypeAlias = Union[page_range.PageRange, List[page_range.PageRange], List[int], List[str]]
 
 
 class AdvancedProcessingOptions(BaseModel):
@@ -100,7 +100,8 @@ class AdvancedProcessingOptions(BaseModel):
     page_range: Optional[PageRange] = None
     """The page range to process (1-indexed).
 
-    By default, the entire document is processed.
+    By default, the entire document is processed. For spreadsheets, you can also
+    provide a list of sheet names.
     """
 
     persist_results: Optional[bool] = None
