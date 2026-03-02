@@ -67,7 +67,7 @@ class ExperimentalProcessingOptions(BaseModel):
     performance at the cost of increased latency. Defaults to False.
     """
 
-    layout_model: Optional[Literal["default", "beta"]] = None
+    layout_model: Optional[Literal["default", "beta", "rfdetr"]] = None
     """The layout model to use for the document.
 
     This will be deprecated in the future.
