@@ -50,10 +50,10 @@ class Settings(TypedDict, total=False):
     persist_results: bool
     """If True, persist the results indefinitely. Defaults to False."""
 
-    return_images: List[Literal["figure", "table"]]
+    return_images: List[Literal["figure", "table", "page"]]
     """Whether to return images for the specified block types.
 
-    By default, no images are returned.
+    'page' returns full page images. By default, no images are returned.
     """
 
     return_ocr_data: bool
