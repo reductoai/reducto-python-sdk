@@ -48,10 +48,10 @@ class Settings(BaseModel):
     persist_results: Optional[bool] = None
     """If True, persist the results indefinitely. Defaults to False."""
 
-    return_images: Optional[List[Literal["figure", "table"]]] = None
+    return_images: Optional[List[Literal["figure", "table", "page"]]] = None
     """Whether to return images for the specified block types.
 
-    By default, no images are returned.
+    'page' returns full page images. By default, no images are returned.
     """
 
     return_ocr_data: Optional[bool] = None
