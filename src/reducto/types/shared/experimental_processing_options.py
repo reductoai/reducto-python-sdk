@@ -28,6 +28,12 @@ class ExperimentalProcessingOptions(BaseModel):
     detect_signatures: Optional[bool] = None
     """If True, detect signatures in the document. Defaults to False."""
 
+    disable_office_external_links: Optional[bool] = None
+    """
+    If True, configure LibreOffice conversion to block linked content from untrusted
+    documents. Defaults to True on-prem and False elsewhere.
+    """
+
     embed_text_metadata_pdf: Optional[bool] = None
     """
     If extracted OCR text metadata should be embedded back into the returned PDF,
