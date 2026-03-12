@@ -63,6 +63,13 @@ class EditOptions(TypedDict, total=False):
     Defaults to False.
     """
 
+    font_size: Optional[float]
+    """The font size (in points) to use for filled text fields.
+
+    If not specified, font size is automatically calculated based on field
+    dimensions.
+    """
+
     llm_provider_preference: Optional[Literal["openai", "anthropic", "google"]]
     """The LLM provider to use for edit processing.
 

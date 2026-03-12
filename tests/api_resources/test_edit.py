@@ -37,6 +37,7 @@ class TestEdit:
                 "color": "#e1cb97",
                 "enable_overflow_pages": True,
                 "flatten": True,
+                "font_size": 1,
                 "llm_provider_preference": "openai",
             },
             form_schema=[
@@ -106,6 +107,7 @@ class TestEdit:
                 "color": "#e1cb97",
                 "enable_overflow_pages": True,
                 "flatten": True,
+                "font_size": 1,
                 "llm_provider_preference": "openai",
             },
             form_schema=[
@@ -187,6 +189,7 @@ class TestAsyncEdit:
                 "color": "#e1cb97",
                 "enable_overflow_pages": True,
                 "flatten": True,
+                "font_size": 1,
                 "llm_provider_preference": "openai",
             },
             form_schema=[
@@ -256,6 +259,7 @@ class TestAsyncEdit:
                 "color": "#e1cb97",
                 "enable_overflow_pages": True,
                 "flatten": True,
+                "font_size": 1,
                 "llm_provider_preference": "openai",
             },
             form_schema=[
