@@ -64,5 +64,12 @@ class Webhook(TypedDict, total=False):
     Defaults to 'disabled'. We recommend using 'svix' for production environments.
     """
 
+    font_size: Optional[float]
+    """The font size (in points) to use for filled text fields.
+
+    If not specified, font size is automatically calculated based on field
+    dimensions.
+    """
+
     url: str
     """The URL to send the webhook to (if using direct webhoook)."""
