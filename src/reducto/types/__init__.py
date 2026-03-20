@@ -2,67 +2,59 @@
 
 from __future__ import annotations
 
-from .shared import (
-    Upload as Upload,
-    Enhance as Enhance,
-    Chunking as Chunking,
-    Settings as Settings,
-    PageRange as PageRange,
-    Retrieval as Retrieval,
-    Formatting as Formatting,
-    ParseUsage as ParseUsage,
-    BoundingBox as BoundingBox,
-    Spreadsheet as Spreadsheet,
-    TextAgentic as TextAgentic,
-    EditResponse as EditResponse,
-    EnrichConfig as EnrichConfig,
-    ExtractUsage as ExtractUsage,
-    ParseOptions as ParseOptions,
-    TableAgentic as TableAgentic,
-    FigureAgentic as FigureAgentic,
-    ParseResponse as ParseResponse,
-    SplitCategory as SplitCategory,
-    SplitResponse as SplitResponse,
-    ChunkingConfig as ChunkingConfig,
-    ExtractResponse as ExtractResponse,
-    PipelineResponse as PipelineResponse,
-    SplitLargeTables as SplitLargeTables,
-    WebhookConfigNew as WebhookConfigNew,
-    SvixWebhookConfig as SvixWebhookConfig,
-    V3ExtractResponse as V3ExtractResponse,
-    ArrayExtractConfig as ArrayExtractConfig,
-    TableSummaryConfig as TableSummaryConfig,
-    ConfigV3AsyncConfig as ConfigV3AsyncConfig,
-    DirectWebhookConfig as DirectWebhookConfig,
-    FigureSummaryConfig as FigureSummaryConfig,
-    BaseProcessingOptions as BaseProcessingOptions,
-    AdvancedCitationsConfig as AdvancedCitationsConfig,
-    LargeTableChunkingConfig as LargeTableChunkingConfig,
-    AdvancedProcessingOptions as AdvancedProcessingOptions,
-    ExperimentalProcessingOptions as ExperimentalProcessingOptions,
-)
-from .edit_run_params import EditRunParams as EditRunParams
-from .job_get_response import JobGetResponse as JobGetResponse
-from .parse_run_params import ParseRunParams as ParseRunParams
-from .split_run_params import SplitRunParams as SplitRunParams
-from .extract_run_params import ExtractRunParams as ExtractRunParams
-from .job_get_all_params import JobGetAllParams as JobGetAllParams
-from .parse_run_response import ParseRunResponse as ParseRunResponse
-from .edit_run_job_params import EditRunJobParams as EditRunJobParams
-from .pipeline_run_params import PipelineRunParams as PipelineRunParams
-from .api_version_response import APIVersionResponse as APIVersionResponse
-from .client_upload_params import ClientUploadParams as ClientUploadParams
-from .extract_run_response import ExtractRunResponse as ExtractRunResponse
-from .job_get_all_response import JobGetAllResponse as JobGetAllResponse
-from .parse_run_job_params import ParseRunJobParams as ParseRunJobParams
-from .split_run_job_params import SplitRunJobParams as SplitRunJobParams
-from .webhook_run_response import WebhookRunResponse as WebhookRunResponse
-from .edit_run_job_response import EditRunJobResponse as EditRunJobResponse
-from .classify_create_params import ClassifyCreateParams as ClassifyCreateParams
-from .extract_run_job_params import ExtractRunJobParams as ExtractRunJobParams
-from .parse_run_job_response import ParseRunJobResponse as ParseRunJobResponse
-from .split_run_job_response import SplitRunJobResponse as SplitRunJobResponse
-from .pipeline_run_job_params import PipelineRunJobParams as PipelineRunJobParams
-from .classify_create_response import ClassifyCreateResponse as ClassifyCreateResponse
-from .extract_run_job_response import ExtractRunJobResponse as ExtractRunJobResponse
-from .pipeline_run_job_response import PipelineRunJobResponse as PipelineRunJobResponse
+from .v3_extract import V3Extract as V3Extract
+from .edit_widget import EditWidget as EditWidget
+from .parse_usage import ParseUsage as ParseUsage
+from .bounding_box import BoundingBox as BoundingBox
+from .edit_response import EditResponse as EditResponse
+from .enhance_param import EnhanceParam as EnhanceParam
+from .extract_usage import ExtractUsage as ExtractUsage
+from .parse_response import ParseResponse as ParseResponse
+from .settings_param import SettingsParam as SettingsParam
+from .split_response import SplitResponse as SplitResponse
+from .job_list_params import JobListParams as JobListParams
+from .retrieval_param import RetrievalParam as RetrievalParam
+from .upload_response import UploadResponse as UploadResponse
+from .extract_response import ExtractResponse as ExtractResponse
+from .formatting_param import FormattingParam as FormattingParam
+from .page_range_param import PageRangeParam as PageRangeParam
+from .classify_response import ClassifyResponse as ClassifyResponse
+from .edit_widget_param import EditWidgetParam as EditWidgetParam
+from .job_list_response import JobListResponse as JobListResponse
+from .pipeline_response import PipelineResponse as PipelineResponse
+from .spreadsheet_param import SpreadsheetParam as SpreadsheetParam
+from .bounding_box_param import BoundingBoxParam as BoundingBoxParam
+from .edit_options_param import EditOptionsParam as EditOptionsParam
+from .edit_submit_params import EditSubmitParams as EditSubmitParams
+from .instructions_param import InstructionsParam as InstructionsParam
+from .parse_create_params import ParseCreateParams as ParseCreateParams
+from .parse_options_param import ParseOptionsParam as ParseOptionsParam
+from .split_create_params import SplitCreateParams as SplitCreateParams
+from .async_parse_response import AsyncParseResponse as AsyncParseResponse
+from .split_category_param import SplitCategoryParam as SplitCategoryParam
+from .upload_create_params import UploadCreateParams as UploadCreateParams
+from .async_config_v3_param import AsyncConfigV3Param as AsyncConfigV3Param
+from .extract_create_params import ExtractCreateParams as ExtractCreateParams
+from .job_retrieve_response import JobRetrieveResponse as JobRetrieveResponse
+from .parse_create_response import ParseCreateResponse as ParseCreateResponse
+from .upload_response_param import UploadResponseParam as UploadResponseParam
+from .async_extract_response import AsyncExtractResponse as AsyncExtractResponse
+from .extract_settings_param import ExtractSettingsParam as ExtractSettingsParam
+from .pipeline_create_params import PipelineCreateParams as PipelineCreateParams
+from .extract_create_response import ExtractCreateResponse as ExtractCreateResponse
+from .pipeline_settings_param import PipelineSettingsParam as PipelineSettingsParam
+from .async_parse_config_param import AsyncParseConfigParam as AsyncParseConfigParam
+from .classify_classify_params import ClassifyClassifyParams as ClassifyClassifyParams
+from .deep_split_page_evidence import DeepSplitPageEvidence as DeepSplitPageEvidence
+from .edit_async_create_params import EditAsyncCreateParams as EditAsyncCreateParams
+from .parse_async_create_params import ParseAsyncCreateParams as ParseAsyncCreateParams
+from .split_async_create_params import SplitAsyncCreateParams as SplitAsyncCreateParams
+from .split_table_options_param import SplitTableOptionsParam as SplitTableOptionsParam
+from .version_retrieve_response import VersionRetrieveResponse as VersionRetrieveResponse
+from .async_extract_config_param import AsyncExtractConfigParam as AsyncExtractConfigParam
+from .edit_async_create_response import EditAsyncCreateResponse as EditAsyncCreateResponse
+from .extract_async_create_params import ExtractAsyncCreateParams as ExtractAsyncCreateParams
+from .split_async_create_response import SplitAsyncCreateResponse as SplitAsyncCreateResponse
+from .pipeline_async_create_params import PipelineAsyncCreateParams as PipelineAsyncCreateParams
+from .pipeline_async_create_response import PipelineAsyncCreateResponse as PipelineAsyncCreateResponse
+from .configure_webhook_create_response import ConfigureWebhookCreateResponse as ConfigureWebhookCreateResponse

@@ -29,20 +29,20 @@ import os
 from reducto import Reducto
 
 client = Reducto(
-    api_key=os.environ.get("REDUCTO_API_KEY"),  # This is the default and can be omitted
+    bearer_token=os.environ.get("REDUCTOAI_BEARER_TOKEN"),  # This is the default and can be omitted
     # or 'production' | 'au'; defaults to "production".
     environment="eu",
 )
 
-response = client.parse.run(
+parse = client.parse.create(
     input="https://pdfobject.com/pdf/sample.pdf",
 )
 ```
 
-While you can provide an `api_key` keyword argument,
+While you can provide a `bearer_token` keyword argument,
 we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
-to add `REDUCTO_API_KEY="My API Key"` to your `.env` file
-so that your API Key is not stored in source control.
+to add `REDUCTOAI_BEARER_TOKEN="My Bearer Token"` to your `.env` file
+so that your Bearer Token is not stored in source control.
 
 ## Async usage
 
@@ -54,14 +54,14 @@ import asyncio
 from reducto import AsyncReducto
 
 client = AsyncReducto(
-    api_key=os.environ.get("REDUCTO_API_KEY"),  # This is the default and can be omitted
+    bearer_token=os.environ.get("REDUCTOAI_BEARER_TOKEN"),  # This is the default and can be omitted
     # or 'production' | 'au'; defaults to "production".
     environment="eu",
 )
 
 
 async def main() -> None:
-    response = await client.parse.run(
+    parse = await client.parse.create(
         input="https://pdfobject.com/pdf/sample.pdf",
     )
 
@@ -93,10 +93,12 @@ from reducto import AsyncReducto
 
 async def main() -> None:
     async with AsyncReducto(
-        api_key=os.environ.get("REDUCTO_API_KEY"),  # This is the default and can be omitted
+        bearer_token=os.environ.get(
+            "REDUCTOAI_BEARER_TOKEN"
+        ),  # This is the default and can be omitted
         http_client=DefaultAioHttpClient(),
     ) as client:
-        response = await client.parse.run(
+        parse = await client.parse.create(
             input="https://pdfobject.com/pdf/sample.pdf",
         )
 
@@ -122,11 +124,11 @@ from reducto import Reducto
 
 client = Reducto()
 
-response = client.parse.run(
+parse = client.parse.create(
     input="string",
     enhance={},
 )
-print(response.enhance)
+print(parse.enhance)
 ```
 
 ## Handling errors
@@ -145,7 +147,7 @@ from reducto import Reducto
 client = Reducto()
 
 try:
-    client.parse.run(
+    client.parse.create(
         input="https://pdfobject.com/pdf/sample.pdf",
     )
 except reducto.APIConnectionError as e:
@@ -190,14 +192,14 @@ client = Reducto(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).parse.run(
+client.with_options(max_retries=5).parse.create(
     input="https://pdfobject.com/pdf/sample.pdf",
 )
 ```
 
 ### Timeouts
 
-By default requests time out after 1 hour. You can configure this with a `timeout` option,
+By default requests time out after 1 minute. You can configure this with a `timeout` option,
 which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/timeouts/#fine-tuning-the-configuration) object:
 
 ```python
@@ -205,7 +207,7 @@ from reducto import Reducto
 
 # Configure the default for all requests:
 client = Reducto(
-    # 20 seconds (default is 1 hour)
+    # 20 seconds (default is 1 minute)
     timeout=20.0,
 )
 
@@ -215,7 +217,7 @@ client = Reducto(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).parse.run(
+client.with_options(timeout=5.0).parse.create(
     input="https://pdfobject.com/pdf/sample.pdf",
 )
 ```
@@ -258,12 +260,12 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from reducto import Reducto
 
 client = Reducto()
-response = client.parse.with_raw_response.run(
+response = client.parse.with_raw_response.create(
     input="https://pdfobject.com/pdf/sample.pdf",
 )
 print(response.headers.get('X-My-Header'))
 
-parse = response.parse()  # get the object that `parse.run()` would have returned
+parse = response.parse()  # get the object that `parse.create()` would have returned
 print(parse)
 ```
 
@@ -278,7 +280,7 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.parse.with_streaming_response.run(
+with client.parse.with_streaming_response.create(
     input="https://pdfobject.com/pdf/sample.pdf",
 ) as response:
     print(response.headers.get("X-My-Header"))
