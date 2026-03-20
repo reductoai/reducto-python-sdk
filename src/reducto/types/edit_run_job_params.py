@@ -93,6 +93,13 @@ class FormSchema(TypedDict, total=False):
     If False, the widget will be created but intentionally left unfilled.
     """
 
+    font_size: Optional[float]
+    """Font size in points for this specific field.
+
+    Takes priority over the global font_size in EditOptions. If not set, falls back
+    to the global font_size, then to auto-calculated sizing.
+    """
+
     value: Optional[str]
     """
     If provided, this value will be used directly instead of attempting to

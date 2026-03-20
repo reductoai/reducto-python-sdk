@@ -53,6 +53,7 @@ class TestEdit:
                     "description": "description",
                     "type": "text",
                     "fill": True,
+                    "font_size": 1,
                     "value": "value",
                 }
             ],
@@ -123,6 +124,7 @@ class TestEdit:
                     "description": "description",
                     "type": "text",
                     "fill": True,
+                    "font_size": 1,
                     "value": "value",
                 }
             ],
@@ -205,6 +207,7 @@ class TestAsyncEdit:
                     "description": "description",
                     "type": "text",
                     "fill": True,
+                    "font_size": 1,
                     "value": "value",
                 }
             ],
@@ -275,6 +278,7 @@ class TestAsyncEdit:
                     "description": "description",
                     "type": "text",
                     "fill": True,
+                    "font_size": 1,
                     "value": "value",
                 }
             ],
