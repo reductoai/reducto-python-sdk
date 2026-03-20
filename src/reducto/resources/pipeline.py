@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import httpx
 
-from ..types import pipeline_run_params, pipeline_run_job_params
+from ..types import pipeline_create_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -16,9 +16,8 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
-from ..types.shared.pipeline_response import PipelineResponse
-from ..types.pipeline_run_job_response import PipelineRunJobResponse
-from ..types.shared_params.config_v3_async_config import ConfigV3AsyncConfig
+from ..types.pipeline_response import PipelineResponse
+from ..types.pipeline_settings_param import PipelineSettingsParam
 
 __all__ = ["PipelineResource", "AsyncPipelineResource"]
 
@@ -43,12 +42,12 @@ class PipelineResource(SyncAPIResource):
         """
         return PipelineResourceWithStreamingResponse(self)
 
-    def run(
+    def create(
         self,
         *,
-        input: pipeline_run_params.Input,
+        input: pipeline_create_params.Input,
         pipeline_id: str,
-        settings: pipeline_run_params.Settings | Omit = omit,
+        settings: PipelineSettingsParam | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -89,70 +88,12 @@ class PipelineResource(SyncAPIResource):
                     "pipeline_id": pipeline_id,
                     "settings": settings,
                 },
-                pipeline_run_params.PipelineRunParams,
+                pipeline_create_params.PipelineCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=PipelineResponse,
-        )
-
-    def run_job(
-        self,
-        *,
-        input: pipeline_run_job_params.Input,
-        pipeline_id: str,
-        async_: ConfigV3AsyncConfig | Omit = omit,
-        settings: pipeline_run_job_params.Settings | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PipelineRunJobResponse:
-        """
-        Pipeline Async
-
-        Args:
-          input: For parse/split/extract pipelines, the URL of the document to be processed. You
-              can provide one of the following: 1. A publicly available URL 2. A presigned S3
-              URL 3. A reducto:// prefixed URL obtained from the /upload endpoint after
-              directly uploading a document 4. A jobid:// prefixed URL obtained from a
-              previous /parse invocation 5. A list of URLs (for multi-document pipelines, V3
-              API only)
-
-                          For edit pipelines, this should be a string containing the edit instructions
-
-          pipeline_id: The ID of the pipeline to use for the document.
-
-          async_: The configuration options for asynchronous processing (default synchronous).
-
-          settings: Settings for pipeline execution that override pipeline defaults.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._post(
-            "/pipeline_async",
-            body=maybe_transform(
-                {
-                    "input": input,
-                    "pipeline_id": pipeline_id,
-                    "async_": async_,
-                    "settings": settings,
-                },
-                pipeline_run_job_params.PipelineRunJobParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=PipelineRunJobResponse,
         )
 
 
@@ -176,12 +117,12 @@ class AsyncPipelineResource(AsyncAPIResource):
         """
         return AsyncPipelineResourceWithStreamingResponse(self)
 
-    async def run(
+    async def create(
         self,
         *,
-        input: pipeline_run_params.Input,
+        input: pipeline_create_params.Input,
         pipeline_id: str,
-        settings: pipeline_run_params.Settings | Omit = omit,
+        settings: PipelineSettingsParam | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -222,7 +163,7 @@ class AsyncPipelineResource(AsyncAPIResource):
                     "pipeline_id": pipeline_id,
                     "settings": settings,
                 },
-                pipeline_run_params.PipelineRunParams,
+                pipeline_create_params.PipelineCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -230,74 +171,13 @@ class AsyncPipelineResource(AsyncAPIResource):
             cast_to=PipelineResponse,
         )
 
-    async def run_job(
-        self,
-        *,
-        input: pipeline_run_job_params.Input,
-        pipeline_id: str,
-        async_: ConfigV3AsyncConfig | Omit = omit,
-        settings: pipeline_run_job_params.Settings | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PipelineRunJobResponse:
-        """
-        Pipeline Async
-
-        Args:
-          input: For parse/split/extract pipelines, the URL of the document to be processed. You
-              can provide one of the following: 1. A publicly available URL 2. A presigned S3
-              URL 3. A reducto:// prefixed URL obtained from the /upload endpoint after
-              directly uploading a document 4. A jobid:// prefixed URL obtained from a
-              previous /parse invocation 5. A list of URLs (for multi-document pipelines, V3
-              API only)
-
-                          For edit pipelines, this should be a string containing the edit instructions
-
-          pipeline_id: The ID of the pipeline to use for the document.
-
-          async_: The configuration options for asynchronous processing (default synchronous).
-
-          settings: Settings for pipeline execution that override pipeline defaults.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._post(
-            "/pipeline_async",
-            body=await async_maybe_transform(
-                {
-                    "input": input,
-                    "pipeline_id": pipeline_id,
-                    "async_": async_,
-                    "settings": settings,
-                },
-                pipeline_run_job_params.PipelineRunJobParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=PipelineRunJobResponse,
-        )
-
 
 class PipelineResourceWithRawResponse:
     def __init__(self, pipeline: PipelineResource) -> None:
         self._pipeline = pipeline
 
-        self.run = to_raw_response_wrapper(
-            pipeline.run,
-        )
-        self.run_job = to_raw_response_wrapper(
-            pipeline.run_job,
+        self.create = to_raw_response_wrapper(
+            pipeline.create,
         )
 
 
@@ -305,11 +185,8 @@ class AsyncPipelineResourceWithRawResponse:
     def __init__(self, pipeline: AsyncPipelineResource) -> None:
         self._pipeline = pipeline
 
-        self.run = async_to_raw_response_wrapper(
-            pipeline.run,
-        )
-        self.run_job = async_to_raw_response_wrapper(
-            pipeline.run_job,
+        self.create = async_to_raw_response_wrapper(
+            pipeline.create,
         )
 
 
@@ -317,11 +194,8 @@ class PipelineResourceWithStreamingResponse:
     def __init__(self, pipeline: PipelineResource) -> None:
         self._pipeline = pipeline
 
-        self.run = to_streamed_response_wrapper(
-            pipeline.run,
-        )
-        self.run_job = to_streamed_response_wrapper(
-            pipeline.run_job,
+        self.create = to_streamed_response_wrapper(
+            pipeline.create,
         )
 
 
@@ -329,9 +203,6 @@ class AsyncPipelineResourceWithStreamingResponse:
     def __init__(self, pipeline: AsyncPipelineResource) -> None:
         self._pipeline = pipeline
 
-        self.run = async_to_streamed_response_wrapper(
-            pipeline.run,
-        )
-        self.run_job = async_to_streamed_response_wrapper(
-            pipeline.run_job,
+        self.create = async_to_streamed_response_wrapper(
+            pipeline.create,
         )
