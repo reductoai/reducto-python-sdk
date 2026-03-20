@@ -58,9 +58,11 @@ from .parse_run_job_params import ParseRunJobParams as ParseRunJobParams
 from .split_run_job_params import SplitRunJobParams as SplitRunJobParams
 from .webhook_run_response import WebhookRunResponse as WebhookRunResponse
 from .edit_run_job_response import EditRunJobResponse as EditRunJobResponse
+from .classify_create_params import ClassifyCreateParams as ClassifyCreateParams
 from .extract_run_job_params import ExtractRunJobParams as ExtractRunJobParams
 from .parse_run_job_response import ParseRunJobResponse as ParseRunJobResponse
 from .split_run_job_response import SplitRunJobResponse as SplitRunJobResponse
 from .pipeline_run_job_params import PipelineRunJobParams as PipelineRunJobParams
+from .classify_create_response import ClassifyCreateResponse as ClassifyCreateResponse
 from .extract_run_job_response import ExtractRunJobResponse as ExtractRunJobResponse
 from .pipeline_run_job_response import PipelineRunJobResponse as PipelineRunJobResponse

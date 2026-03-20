@@ -153,3 +153,15 @@ Types:
 ```python
 from reducto.types import ExtractConfig, ParseConfig
 ```
+
+# Classify
+
+Types:
+
+```python
+from reducto.types import ClassifyCreateResponse
+```
+
+Methods:
+
+- <code title="post /classify">client.classify.<a href="./src/reducto/resources/classify.py">create</a>(\*\*<a href="src/reducto/types/classify_create_params.py">params</a>) -> <a href="./src/reducto/types/classify_create_response.py">ClassifyCreateResponse</a></code>

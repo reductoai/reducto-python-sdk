@@ -48,6 +48,14 @@ from .webhook import (
     WebhookResourceWithStreamingResponse,
     AsyncWebhookResourceWithStreamingResponse,
 )
+from .classify import (
+    ClassifyResource,
+    AsyncClassifyResource,
+    ClassifyResourceWithRawResponse,
+    AsyncClassifyResourceWithRawResponse,
+    ClassifyResourceWithStreamingResponse,
+    AsyncClassifyResourceWithStreamingResponse,
+)
 from .pipeline import (
     PipelineResource,
     AsyncPipelineResource,
@@ -100,4 +108,10 @@ __all__ = [
     "AsyncWebhookResourceWithRawResponse",
     "WebhookResourceWithStreamingResponse",
     "AsyncWebhookResourceWithStreamingResponse",
+    "ClassifyResource",
+    "AsyncClassifyResource",
+    "ClassifyResourceWithRawResponse",
+    "AsyncClassifyResourceWithRawResponse",
+    "ClassifyResourceWithStreamingResponse",
+    "AsyncClassifyResourceWithStreamingResponse",
 ]

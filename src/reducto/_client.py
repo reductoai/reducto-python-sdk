@@ -49,13 +49,14 @@ from ._base_client import (
 from .types.shared.upload import Upload
 
 if TYPE_CHECKING:
-    from .resources import job, edit, parse, split, extract, webhook, pipeline
+    from .resources import job, edit, parse, split, extract, webhook, classify, pipeline
     from .resources.job import JobResource, AsyncJobResource
     from .resources.edit import EditResource, AsyncEditResource
     from .resources.parse import ParseResource, AsyncParseResource
     from .resources.split import SplitResource, AsyncSplitResource
     from .resources.extract import ExtractResource, AsyncExtractResource
     from .resources.webhook import WebhookResource, AsyncWebhookResource
+    from .resources.classify import ClassifyResource, AsyncClassifyResource
     from .resources.pipeline import PipelineResource, AsyncPipelineResource
 
 __all__ = [
@@ -197,6 +198,12 @@ class Reducto(SyncAPIClient):
         from .resources.webhook import WebhookResource
 
         return WebhookResource(self)
+
+    @cached_property
+    def classify(self) -> ClassifyResource:
+        from .resources.classify import ClassifyResource
+
+        return ClassifyResource(self)
 
     @cached_property
     def with_raw_response(self) -> ReductoWithRawResponse:
@@ -491,6 +498,12 @@ class AsyncReducto(AsyncAPIClient):
         return AsyncWebhookResource(self)
 
     @cached_property
+    def classify(self) -> AsyncClassifyResource:
+        from .resources.classify import AsyncClassifyResource
+
+        return AsyncClassifyResource(self)
+
+    @cached_property
     def with_raw_response(self) -> AsyncReductoWithRawResponse:
         return AsyncReductoWithRawResponse(self)
 
@@ -716,6 +729,12 @@ class ReductoWithRawResponse:
 
         return WebhookResourceWithRawResponse(self._client.webhook)
 
+    @cached_property
+    def classify(self) -> classify.ClassifyResourceWithRawResponse:
+        from .resources.classify import ClassifyResourceWithRawResponse
+
+        return ClassifyResourceWithRawResponse(self._client.classify)
+
 
 class AsyncReductoWithRawResponse:
     _client: AsyncReducto
@@ -771,6 +790,12 @@ class AsyncReductoWithRawResponse:
         from .resources.webhook import AsyncWebhookResourceWithRawResponse
 
         return AsyncWebhookResourceWithRawResponse(self._client.webhook)
+
+    @cached_property
+    def classify(self) -> classify.AsyncClassifyResourceWithRawResponse:
+        from .resources.classify import AsyncClassifyResourceWithRawResponse
+
+        return AsyncClassifyResourceWithRawResponse(self._client.classify)
 
 
 class ReductoWithStreamedResponse:
@@ -828,6 +853,12 @@ class ReductoWithStreamedResponse:
 
         return WebhookResourceWithStreamingResponse(self._client.webhook)
 
+    @cached_property
+    def classify(self) -> classify.ClassifyResourceWithStreamingResponse:
+        from .resources.classify import ClassifyResourceWithStreamingResponse
+
+        return ClassifyResourceWithStreamingResponse(self._client.classify)
+
 
 class AsyncReductoWithStreamedResponse:
     _client: AsyncReducto
@@ -883,6 +914,12 @@ class AsyncReductoWithStreamedResponse:
         from .resources.webhook import AsyncWebhookResourceWithStreamingResponse
 
         return AsyncWebhookResourceWithStreamingResponse(self._client.webhook)
+
+    @cached_property
+    def classify(self) -> classify.AsyncClassifyResourceWithStreamingResponse:
+        from .resources.classify import AsyncClassifyResourceWithStreamingResponse
+
+        return AsyncClassifyResourceWithStreamingResponse(self._client.classify)
 
 
 Client = Reducto
