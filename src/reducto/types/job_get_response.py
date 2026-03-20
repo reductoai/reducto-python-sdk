@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Union, Optional
+from typing import List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, TypeAlias
 
@@ -16,12 +16,72 @@ __all__ = [
     "JobGetResponse",
     "AsyncJobResponse",
     "AsyncJobResponseResult",
+    "AsyncJobResponseResultClassifyResponse",
+    "AsyncJobResponseResultClassifyResponseResult",
+    "AsyncJobResponseResultClassifyResponseResponseConfidence",
+    "AsyncJobResponseResultClassifyResponseResponseConfidenceCategory",
+    "AsyncJobResponseResultClassifyResponseResponseConfidenceCategoryCriteriaConfidence",
     "EnhancedAsyncJobResponse",
     "EnhancedAsyncJobResponseResult",
+    "EnhancedAsyncJobResponseResultClassifyResponse",
+    "EnhancedAsyncJobResponseResultClassifyResponseResult",
+    "EnhancedAsyncJobResponseResultClassifyResponseResponseConfidence",
+    "EnhancedAsyncJobResponseResultClassifyResponseResponseConfidenceCategory",
+    "EnhancedAsyncJobResponseResultClassifyResponseResponseConfidenceCategoryCriteriaConfidence",
 ]
 
+
+class AsyncJobResponseResultClassifyResponseResult(BaseModel):
+    category: str
+
+
+class AsyncJobResponseResultClassifyResponseResponseConfidenceCategoryCriteriaConfidence(BaseModel):
+    """Confidence result for a single criterion."""
+
+    confidence: Literal["high", "low"]
+
+    criterion: str
+
+
+class AsyncJobResponseResultClassifyResponseResponseConfidenceCategory(BaseModel):
+    """Confidence result for a category."""
+
+    category: str
+
+    confidence: float
+
+    criteria_confidence: List[AsyncJobResponseResultClassifyResponseResponseConfidenceCategoryCriteriaConfidence]
+
+
+class AsyncJobResponseResultClassifyResponseResponseConfidence(BaseModel):
+    """Overall confidence breakdown for classification response."""
+
+    categories: List[AsyncJobResponseResultClassifyResponseResponseConfidenceCategory]
+
+
+class AsyncJobResponseResultClassifyResponse(BaseModel):
+    """Response from classify job - returned when polling /job/{job_id}"""
+
+    job_id: str
+
+    result: AsyncJobResponseResultClassifyResponseResult
+
+    duration: Optional[float] = None
+    """The duration of the classify request in seconds."""
+
+    response_confidence: Optional[AsyncJobResponseResultClassifyResponseResponseConfidence] = None
+    """Overall confidence breakdown for classification response."""
+
+
 AsyncJobResponseResult: TypeAlias = Union[
-    ParseResponse, ExtractResponse, SplitResponse, EditResponse, PipelineResponse, V3ExtractResponse, None
+    ParseResponse,
+    ExtractResponse,
+    SplitResponse,
+    EditResponse,
+    PipelineResponse,
+    V3ExtractResponse,
+    AsyncJobResponseResultClassifyResponse,
+    None,
 ]
 
 
@@ -33,10 +93,62 @@ class AsyncJobResponse(BaseModel):
     reason: Optional[str] = None
 
     result: Optional[AsyncJobResponseResult] = None
+    """Response from classify job - returned when polling /job/{job_id}"""
+
+
+class EnhancedAsyncJobResponseResultClassifyResponseResult(BaseModel):
+    category: str
+
+
+class EnhancedAsyncJobResponseResultClassifyResponseResponseConfidenceCategoryCriteriaConfidence(BaseModel):
+    """Confidence result for a single criterion."""
+
+    confidence: Literal["high", "low"]
+
+    criterion: str
+
+
+class EnhancedAsyncJobResponseResultClassifyResponseResponseConfidenceCategory(BaseModel):
+    """Confidence result for a category."""
+
+    category: str
+
+    confidence: float
+
+    criteria_confidence: List[
+        EnhancedAsyncJobResponseResultClassifyResponseResponseConfidenceCategoryCriteriaConfidence
+    ]
+
+
+class EnhancedAsyncJobResponseResultClassifyResponseResponseConfidence(BaseModel):
+    """Overall confidence breakdown for classification response."""
+
+    categories: List[EnhancedAsyncJobResponseResultClassifyResponseResponseConfidenceCategory]
+
+
+class EnhancedAsyncJobResponseResultClassifyResponse(BaseModel):
+    """Response from classify job - returned when polling /job/{job_id}"""
+
+    job_id: str
+
+    result: EnhancedAsyncJobResponseResultClassifyResponseResult
+
+    duration: Optional[float] = None
+    """The duration of the classify request in seconds."""
+
+    response_confidence: Optional[EnhancedAsyncJobResponseResultClassifyResponseResponseConfidence] = None
+    """Overall confidence breakdown for classification response."""
 
 
 EnhancedAsyncJobResponseResult: TypeAlias = Union[
-    ParseResponse, ExtractResponse, SplitResponse, EditResponse, PipelineResponse, V3ExtractResponse, None
+    ParseResponse,
+    ExtractResponse,
+    SplitResponse,
+    EditResponse,
+    PipelineResponse,
+    V3ExtractResponse,
+    EnhancedAsyncJobResponseResultClassifyResponse,
+    None,
 ]
 
 
@@ -58,12 +170,13 @@ class EnhancedAsyncJobResponse(BaseModel):
     reason: Optional[str] = None
 
     result: Optional[EnhancedAsyncJobResponseResult] = None
+    """Response from classify job - returned when polling /job/{job_id}"""
 
     source: Optional[object] = None
 
     total_pages: Optional[int] = None
 
-    type: Optional[Literal["Parse", "Extract", "Split", "Edit", "Pipeline"]] = None
+    type: Optional[Literal["Parse", "Extract", "Split", "Edit", "Pipeline", "Classify"]] = None
 
 
 JobGetResponse: TypeAlias = Union[AsyncJobResponse, EnhancedAsyncJobResponse]

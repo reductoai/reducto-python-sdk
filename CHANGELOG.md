@@ -1,5 +1,42 @@
 # Changelog
 
+## 0.17.0 (2026-03-02)
+
+Full Changelog: [v0.16.0...v0.17.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.16.0...v0.17.0)
+
+### Features
+
+* **api:** api update ([5567990](https://github.com/reductoai/reducto-python-sdk/commit/556799061384a308984304555b864243cf672041))
+* **api:** api update ([8a7bfc1](https://github.com/reductoai/reducto-python-sdk/commit/8a7bfc129867ce49dfd58afe32e8ab721fc8ea32))
+* **api:** api update ([08de79c](https://github.com/reductoai/reducto-python-sdk/commit/08de79c93c0ff17a41a47ba27be7f1616e431f36))
+* **api:** api update ([8d8e23a](https://github.com/reductoai/reducto-python-sdk/commit/8d8e23a7cd027817edd8e25334f6346626a8d20c))
+* **api:** api update ([f55689c](https://github.com/reductoai/reducto-python-sdk/commit/f55689cd19c699d2aabbf0154bfea4e02a2ce389))
+* **api:** api update ([99a4d13](https://github.com/reductoai/reducto-python-sdk/commit/99a4d13c0f5adb600acee1fe97fc1c183d78cfab))
+* **api:** api update ([9abbcc8](https://github.com/reductoai/reducto-python-sdk/commit/9abbcc80e876b1e45140a3126e2a772806b61cd9))
+* **api:** api update ([aa7e9ca](https://github.com/reductoai/reducto-python-sdk/commit/aa7e9ca54a1f3892366a0582a31379738e74d132))
+* **api:** api update ([7b56b3e](https://github.com/reductoai/reducto-python-sdk/commit/7b56b3e5c38c80d344dd8cdff67800062523ba08))
+* **api:** api update ([6759351](https://github.com/reductoai/reducto-python-sdk/commit/67593515da9b22521874a8166126e5fbe2d97c9b))
+* **api:** api update ([e589627](https://github.com/reductoai/reducto-python-sdk/commit/e58962711b6f219f48d6481228337244eb3fd020))
+* **api:** api update ([5a09c7a](https://github.com/reductoai/reducto-python-sdk/commit/5a09c7a046f0452cfa01cbdc3681c8ff04db7c76))
+* **api:** api update ([237ee65](https://github.com/reductoai/reducto-python-sdk/commit/237ee65be58ef28aa3dd1f79942b6670811cedca))
+* **api:** api update ([3233b72](https://github.com/reductoai/reducto-python-sdk/commit/3233b72f57774b02f3793f9b8c4f43508eae442a))
+* **client:** add custom JSON encoder for extended type support ([1638d63](https://github.com/reductoai/reducto-python-sdk/commit/1638d632d573ee982c16ba74591dcc693fdbac35))
+* **client:** add support for binary request streaming ([a6ba082](https://github.com/reductoai/reducto-python-sdk/commit/a6ba082caa1be83e09f7ff58adea2c1420d90568))
+
+
+### Chores
+
+* **ci:** upgrade `actions/github-script` ([a0ef8aa](https://github.com/reductoai/reducto-python-sdk/commit/a0ef8aabd0d360a684c45f61b2badf7f44ab4399))
+* format all `api.md` files ([bda2dd2](https://github.com/reductoai/reducto-python-sdk/commit/bda2dd2b86d7ad2af19a5ccf84a40e473159f01a))
+* **internal:** add request options to SSE classes ([d1a1143](https://github.com/reductoai/reducto-python-sdk/commit/d1a1143e6da73b3756f690e7f0104f1c636721cf))
+* **internal:** bump dependencies ([60979b5](https://github.com/reductoai/reducto-python-sdk/commit/60979b5e75abc9b5632ac6d105251d3be7b7f15e))
+* **internal:** fix lint error on Python 3.14 ([5be7a43](https://github.com/reductoai/reducto-python-sdk/commit/5be7a434eb1b7d1917d8b6ca53122bcfb4a0c947))
+* **internal:** make `test_proxy_environment_variables` more resilient ([f8c15f3](https://github.com/reductoai/reducto-python-sdk/commit/f8c15f3f3d20775615faf971680146fcaffe9ce1))
+* **internal:** make `test_proxy_environment_variables` more resilient to env ([75914f0](https://github.com/reductoai/reducto-python-sdk/commit/75914f0f368e5ac11f31b0de3850440e5101d544))
+* **internal:** remove mock server code ([a0cd0a0](https://github.com/reductoai/reducto-python-sdk/commit/a0cd0a04d81d7500fb74862878aed6dc677b8fa8))
+* **internal:** update `actions/checkout` version ([356433d](https://github.com/reductoai/reducto-python-sdk/commit/356433dcf618021381aec84229ffe5547b84f40e))
+* update mock server docs ([63aef54](https://github.com/reductoai/reducto-python-sdk/commit/63aef54bd216cb1f6d600cdae28082abe7cd5b31))
+
 ## 0.16.0 (2026-01-02)
 
 Full Changelog: [v0.15.0...v0.16.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.15.0...v0.16.0)

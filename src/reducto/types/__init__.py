@@ -50,6 +50,7 @@ from .job_get_all_params import JobGetAllParams as JobGetAllParams
 from .parse_run_response import ParseRunResponse as ParseRunResponse
 from .edit_run_job_params import EditRunJobParams as EditRunJobParams
 from .pipeline_run_params import PipelineRunParams as PipelineRunParams
+from .api_version_response import APIVersionResponse as APIVersionResponse
 from .client_upload_params import ClientUploadParams as ClientUploadParams
 from .extract_run_response import ExtractRunResponse as ExtractRunResponse
 from .job_get_all_response import JobGetAllResponse as JobGetAllResponse

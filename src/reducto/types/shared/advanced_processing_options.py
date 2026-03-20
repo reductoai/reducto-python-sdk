@@ -9,7 +9,7 @@ from .large_table_chunking_config import LargeTableChunkingConfig
 
 __all__ = ["AdvancedProcessingOptions", "PageRange"]
 
-PageRange: TypeAlias = Union[page_range.PageRange, List[page_range.PageRange], List[int]]
+PageRange: TypeAlias = Union[page_range.PageRange, List[page_range.PageRange], List[int], List[str]]
 
 
 class AdvancedProcessingOptions(BaseModel):
@@ -54,10 +54,19 @@ class AdvancedProcessingOptions(BaseModel):
     force_file_extension: Optional[str] = None
     """Force the URL to be downloaded as a specific file extension (e.g. .png)."""
 
+    ignore_watermarks: Optional[bool] = None
+    """If True, ignore and remove watermarks from OCR output. Defaults to False."""
+
     include_color_information: Optional[bool] = None
     """
     If True, preserve Excel cell colours in the extracted spreadsheet text using
     LaTeX colour commands.
+    """
+
+    include_dropdown_information: Optional[bool] = None
+    """
+    If True, include dropdown options and the selected value when rendering
+    spreadsheet cells.
     """
 
     include_formula_information: Optional[bool] = None
@@ -81,7 +90,7 @@ class AdvancedProcessingOptions(BaseModel):
     be merged across breaks and spaces.
     """
 
-    ocr_system: Optional[Literal["highres", "multilingual", "combined", "reducto", "legacy"]] = None
+    ocr_system: Optional[Literal["highres", "multilingual", "combined", "reducto", "legacy", "reducto-v2"]] = None
     """The OCR system to use.
 
     Highres is recommended for documents with English characters. Legacy uses an
@@ -91,7 +100,8 @@ class AdvancedProcessingOptions(BaseModel):
     page_range: Optional[PageRange] = None
     """The page range to process (1-indexed).
 
-    By default, the entire document is processed.
+    By default, the entire document is processed. For spreadsheets, you can also
+    provide a list of sheet names.
     """
 
     persist_results: Optional[bool] = None

@@ -17,7 +17,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestExtract:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_run_overload_1(self, client: Reducto) -> None:
         extract = client.extract.run(
@@ -25,7 +25,7 @@ class TestExtract:
         )
         assert_matches_type(ExtractRunResponse, extract, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_run_with_all_params_overload_1(self, client: Reducto) -> None:
         extract = client.extract.run(
@@ -42,6 +42,7 @@ class TestExtract:
                             "prompt": "prompt",
                         }
                     ],
+                    "intelligent_ordering": True,
                     "summarize_figures": True,
                 },
                 "formatting": {
@@ -53,6 +54,7 @@ class TestExtract:
                 "retrieval": {
                     "chunking": {
                         "chunk_mode": "variable",
+                        "chunk_overlap": 0,
                         "chunk_size": 0,
                     },
                     "embedding_optimized": True,
@@ -96,7 +98,7 @@ class TestExtract:
         )
         assert_matches_type(ExtractRunResponse, extract, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_run_overload_1(self, client: Reducto) -> None:
         response = client.extract.with_raw_response.run(
@@ -108,7 +110,7 @@ class TestExtract:
         extract = response.parse()
         assert_matches_type(ExtractRunResponse, extract, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_run_overload_1(self, client: Reducto) -> None:
         with client.extract.with_streaming_response.run(
@@ -122,7 +124,7 @@ class TestExtract:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_run_overload_2(self, client: Reducto) -> None:
         extract = client.extract.run(
@@ -130,7 +132,7 @@ class TestExtract:
         )
         assert_matches_type(ExtractRunResponse, extract, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_run_with_all_params_overload_2(self, client: Reducto) -> None:
         extract = client.extract.run(
@@ -155,6 +157,7 @@ class TestExtract:
                             "prompt": "prompt",
                         }
                     ],
+                    "intelligent_ordering": True,
                     "summarize_figures": True,
                 },
                 "formatting": {
@@ -166,6 +169,7 @@ class TestExtract:
                 "retrieval": {
                     "chunking": {
                         "chunk_mode": "variable",
+                        "chunk_overlap": 0,
                         "chunk_size": 0,
                     },
                     "embedding_optimized": True,
@@ -209,7 +213,7 @@ class TestExtract:
         )
         assert_matches_type(ExtractRunResponse, extract, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_run_overload_2(self, client: Reducto) -> None:
         response = client.extract.with_raw_response.run(
@@ -221,7 +225,7 @@ class TestExtract:
         extract = response.parse()
         assert_matches_type(ExtractRunResponse, extract, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_run_overload_2(self, client: Reducto) -> None:
         with client.extract.with_streaming_response.run(
@@ -235,7 +239,7 @@ class TestExtract:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_run_job(self, client: Reducto) -> None:
         extract = client.extract.run_job(
@@ -243,7 +247,7 @@ class TestExtract:
         )
         assert_matches_type(ExtractRunJobResponse, extract, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_run_job_with_all_params(self, client: Reducto) -> None:
         extract = client.extract.run_job(
@@ -268,6 +272,7 @@ class TestExtract:
                             "prompt": "prompt",
                         }
                     ],
+                    "intelligent_ordering": True,
                     "summarize_figures": True,
                 },
                 "formatting": {
@@ -279,6 +284,7 @@ class TestExtract:
                 "retrieval": {
                     "chunking": {
                         "chunk_mode": "variable",
+                        "chunk_overlap": 0,
                         "chunk_size": 0,
                     },
                     "embedding_optimized": True,
@@ -322,7 +328,7 @@ class TestExtract:
         )
         assert_matches_type(ExtractRunJobResponse, extract, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_run_job(self, client: Reducto) -> None:
         response = client.extract.with_raw_response.run_job(
@@ -334,7 +340,7 @@ class TestExtract:
         extract = response.parse()
         assert_matches_type(ExtractRunJobResponse, extract, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_run_job(self, client: Reducto) -> None:
         with client.extract.with_streaming_response.run_job(
@@ -354,7 +360,7 @@ class TestAsyncExtract:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_run_overload_1(self, async_client: AsyncReducto) -> None:
         extract = await async_client.extract.run(
@@ -362,7 +368,7 @@ class TestAsyncExtract:
         )
         assert_matches_type(ExtractRunResponse, extract, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_run_with_all_params_overload_1(self, async_client: AsyncReducto) -> None:
         extract = await async_client.extract.run(
@@ -379,6 +385,7 @@ class TestAsyncExtract:
                             "prompt": "prompt",
                         }
                     ],
+                    "intelligent_ordering": True,
                     "summarize_figures": True,
                 },
                 "formatting": {
@@ -390,6 +397,7 @@ class TestAsyncExtract:
                 "retrieval": {
                     "chunking": {
                         "chunk_mode": "variable",
+                        "chunk_overlap": 0,
                         "chunk_size": 0,
                     },
                     "embedding_optimized": True,
@@ -433,7 +441,7 @@ class TestAsyncExtract:
         )
         assert_matches_type(ExtractRunResponse, extract, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_run_overload_1(self, async_client: AsyncReducto) -> None:
         response = await async_client.extract.with_raw_response.run(
@@ -445,7 +453,7 @@ class TestAsyncExtract:
         extract = await response.parse()
         assert_matches_type(ExtractRunResponse, extract, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_run_overload_1(self, async_client: AsyncReducto) -> None:
         async with async_client.extract.with_streaming_response.run(
@@ -459,7 +467,7 @@ class TestAsyncExtract:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_run_overload_2(self, async_client: AsyncReducto) -> None:
         extract = await async_client.extract.run(
@@ -467,7 +475,7 @@ class TestAsyncExtract:
         )
         assert_matches_type(ExtractRunResponse, extract, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_run_with_all_params_overload_2(self, async_client: AsyncReducto) -> None:
         extract = await async_client.extract.run(
@@ -492,6 +500,7 @@ class TestAsyncExtract:
                             "prompt": "prompt",
                         }
                     ],
+                    "intelligent_ordering": True,
                     "summarize_figures": True,
                 },
                 "formatting": {
@@ -503,6 +512,7 @@ class TestAsyncExtract:
                 "retrieval": {
                     "chunking": {
                         "chunk_mode": "variable",
+                        "chunk_overlap": 0,
                         "chunk_size": 0,
                     },
                     "embedding_optimized": True,
@@ -546,7 +556,7 @@ class TestAsyncExtract:
         )
         assert_matches_type(ExtractRunResponse, extract, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_run_overload_2(self, async_client: AsyncReducto) -> None:
         response = await async_client.extract.with_raw_response.run(
@@ -558,7 +568,7 @@ class TestAsyncExtract:
         extract = await response.parse()
         assert_matches_type(ExtractRunResponse, extract, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_run_overload_2(self, async_client: AsyncReducto) -> None:
         async with async_client.extract.with_streaming_response.run(
@@ -572,7 +582,7 @@ class TestAsyncExtract:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_run_job(self, async_client: AsyncReducto) -> None:
         extract = await async_client.extract.run_job(
@@ -580,7 +590,7 @@ class TestAsyncExtract:
         )
         assert_matches_type(ExtractRunJobResponse, extract, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_run_job_with_all_params(self, async_client: AsyncReducto) -> None:
         extract = await async_client.extract.run_job(
@@ -605,6 +615,7 @@ class TestAsyncExtract:
                             "prompt": "prompt",
                         }
                     ],
+                    "intelligent_ordering": True,
                     "summarize_figures": True,
                 },
                 "formatting": {
@@ -616,6 +627,7 @@ class TestAsyncExtract:
                 "retrieval": {
                     "chunking": {
                         "chunk_mode": "variable",
+                        "chunk_overlap": 0,
                         "chunk_size": 0,
                     },
                     "embedding_optimized": True,
@@ -659,7 +671,7 @@ class TestAsyncExtract:
         )
         assert_matches_type(ExtractRunJobResponse, extract, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_run_job(self, async_client: AsyncReducto) -> None:
         response = await async_client.extract.with_raw_response.run_job(
@@ -671,7 +683,7 @@ class TestAsyncExtract:
         extract = await response.parse()
         assert_matches_type(ExtractRunJobResponse, extract, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_run_job(self, async_client: AsyncReducto) -> None:
         async with async_client.extract.with_streaming_response.run_job(

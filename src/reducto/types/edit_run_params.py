@@ -54,6 +54,12 @@ class EditOptions(TypedDict, total=False):
     Defaults to False.
     """
 
+    flatten: bool
+    """If True, flattens form fields after filling, converting them to static content.
+
+    Defaults to False.
+    """
+
     llm_provider_preference: Optional[Literal["openai", "anthropic", "google"]]
     """The LLM provider to use for edit processing.
 

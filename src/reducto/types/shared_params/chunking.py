@@ -18,6 +18,9 @@ class Chunking(TypedDict, total=False):
     single chunk.
     """
 
+    chunk_overlap: int
+    """Number of characters of overlap to include from adjacent chunks. Defaults to 0."""
+
     chunk_size: Optional[int]
     """
     The approximate size of chunks (in characters) that the document will be split
