@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.18.0 (2026-03-20)
+
+Full Changelog: [v0.17.0...v0.18.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.17.0...v0.18.0)
+
+### Features
+
+* **api:** api update ([d6480b0](https://github.com/reductoai/reducto-python-sdk/commit/d6480b09477401274eb072eec30e8067e8a19912))
+* **api:** api update ([8fdaf94](https://github.com/reductoai/reducto-python-sdk/commit/8fdaf94efbce1bce35e0eed3b48c888ac9ae7015))
+* **api:** manual updates ([babaa62](https://github.com/reductoai/reducto-python-sdk/commit/babaa62fa010bb05f63a57867684293f9b7449c4))
+* **api:** manual updates ([0c87408](https://github.com/reductoai/reducto-python-sdk/commit/0c87408250e1c80004527f29d9142aa2bb429116))
+* **api:** manual updates ([633a6d2](https://github.com/reductoai/reducto-python-sdk/commit/633a6d2fb464278078de08901c34cedf1cc39868))
+
+
+### Chores
+
+* **internal:** version bump ([97c600d](https://github.com/reductoai/reducto-python-sdk/commit/97c600d5d387f64e08be9dfb07b45a5b4f86cff0))
+
 ## 0.17.0 (2026-03-02)
 
 Full Changelog: [v0.16.0...v0.17.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.16.0...v0.17.0)
