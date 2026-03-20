@@ -29,7 +29,7 @@ import os
 from reducto import Reducto
 
 client = Reducto(
-    bearer_token=os.environ.get("REDUCTOAI_BEARER_TOKEN"),  # This is the default and can be omitted
+    api_key=os.environ.get("REDUCTO_API_KEY"),  # This is the default and can be omitted
     # or 'production' | 'au'; defaults to "production".
     environment="eu",
 )
@@ -39,10 +39,10 @@ parse = client.parse.create(
 )
 ```
 
-While you can provide a `bearer_token` keyword argument,
+While you can provide an `api_key` keyword argument,
 we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
-to add `REDUCTOAI_BEARER_TOKEN="My Bearer Token"` to your `.env` file
-so that your Bearer Token is not stored in source control.
+to add `REDUCTO_API_KEY="My API Key"` to your `.env` file
+so that your API Key is not stored in source control.
 
 ## Async usage
 
@@ -54,7 +54,7 @@ import asyncio
 from reducto import AsyncReducto
 
 client = AsyncReducto(
-    bearer_token=os.environ.get("REDUCTOAI_BEARER_TOKEN"),  # This is the default and can be omitted
+    api_key=os.environ.get("REDUCTO_API_KEY"),  # This is the default and can be omitted
     # or 'production' | 'au'; defaults to "production".
     environment="eu",
 )
@@ -93,9 +93,7 @@ from reducto import AsyncReducto
 
 async def main() -> None:
     async with AsyncReducto(
-        bearer_token=os.environ.get(
-            "REDUCTOAI_BEARER_TOKEN"
-        ),  # This is the default and can be omitted
+        api_key=os.environ.get("REDUCTO_API_KEY"),  # This is the default and can be omitted
         http_client=DefaultAioHttpClient(),
     ) as client:
         parse = await client.parse.create(
@@ -199,7 +197,7 @@ client.with_options(max_retries=5).parse.create(
 
 ### Timeouts
 
-By default requests time out after 1 minute. You can configure this with a `timeout` option,
+By default requests time out after 1 hour. You can configure this with a `timeout` option,
 which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/timeouts/#fine-tuning-the-configuration) object:
 
 ```python
@@ -207,7 +205,7 @@ from reducto import Reducto
 
 # Configure the default for all requests:
 client = Reducto(
-    # 20 seconds (default is 1 minute)
+    # 20 seconds (default is 1 hour)
     timeout=20.0,
 )
 
