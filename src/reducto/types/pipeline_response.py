@@ -15,27 +15,27 @@ __all__ = [
     "PipelineResponse",
     "Result",
     "ResultExtract",
-    "ResultExtractUnionMember0",
-    "ResultExtractUnionMember0Result",
+    "ResultExtractExtractVariant0",
+    "ResultExtractExtractVariant0Result",
     "ResultParse",
 ]
 
-ResultExtractUnionMember0Result: TypeAlias = Union[ExtractResponse, V3Extract]
+ResultExtractExtractVariant0Result: TypeAlias = Union[ExtractResponse, V3Extract]
 
 
-class ResultExtractUnionMember0(BaseModel):
+class ResultExtractExtractVariant0(BaseModel):
     """This is the response format for Extract -> Split Pipelines"""
 
     page_range: List[int]
 
-    result: ResultExtractUnionMember0Result
+    result: ResultExtractExtractVariant0Result
 
     split_name: str
 
     partition: Optional[str] = None
 
 
-ResultExtract: TypeAlias = Union[List[ResultExtractUnionMember0], ExtractResponse, V3Extract, None]
+ResultExtract: TypeAlias = Union[List[ResultExtractExtractVariant0], ExtractResponse, V3Extract, None]
 
 ResultParse: TypeAlias = Union[ParseResponse, List[ParseResponse], None]
 
