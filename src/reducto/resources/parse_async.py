@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing_extensions import Literal
+
 import httpx
 
 from ..types import parse_async_create_params
@@ -54,6 +56,7 @@ class ParseAsyncResource(SyncAPIResource):
         async_: AsyncConfigV3Param | Omit = omit,
         enhance: EnhanceParam | Omit = omit,
         formatting: FormattingParam | Omit = omit,
+        queue_priority: Literal["auto", "batch"] | Omit = omit,
         retrieval: RetrievalParam | Omit = omit,
         settings: SettingsParam | Omit = omit,
         spreadsheet: SpreadsheetParam | Omit = omit,
@@ -79,6 +82,9 @@ class ParseAsyncResource(SyncAPIResource):
 
           async_: The configuration options for asynchronous processing (default synchronous).
 
+          queue_priority: Queue priority. 'batch' for non-urgent work that processes when spare GPU
+              capacity is available.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -95,6 +101,7 @@ class ParseAsyncResource(SyncAPIResource):
                     "async_": async_,
                     "enhance": enhance,
                     "formatting": formatting,
+                    "queue_priority": queue_priority,
                     "retrieval": retrieval,
                     "settings": settings,
                     "spreadsheet": spreadsheet,
@@ -135,6 +142,7 @@ class AsyncParseAsyncResource(AsyncAPIResource):
         async_: AsyncConfigV3Param | Omit = omit,
         enhance: EnhanceParam | Omit = omit,
         formatting: FormattingParam | Omit = omit,
+        queue_priority: Literal["auto", "batch"] | Omit = omit,
         retrieval: RetrievalParam | Omit = omit,
         settings: SettingsParam | Omit = omit,
         spreadsheet: SpreadsheetParam | Omit = omit,
@@ -160,6 +168,9 @@ class AsyncParseAsyncResource(AsyncAPIResource):
 
           async_: The configuration options for asynchronous processing (default synchronous).
 
+          queue_priority: Queue priority. 'batch' for non-urgent work that processes when spare GPU
+              capacity is available.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -176,6 +187,7 @@ class AsyncParseAsyncResource(AsyncAPIResource):
                     "async_": async_,
                     "enhance": enhance,
                     "formatting": formatting,
+                    "queue_priority": queue_priority,
                     "retrieval": retrieval,
                     "settings": settings,
                     "spreadsheet": spreadsheet,

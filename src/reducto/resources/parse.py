@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Any, cast
-from typing_extensions import overload
+from typing_extensions import Literal, overload
 
 import httpx
 
@@ -98,6 +98,7 @@ class ParseResource(SyncAPIResource):
         async_: AsyncConfigV3Param | Omit = omit,
         enhance: EnhanceParam | Omit = omit,
         formatting: FormattingParam | Omit = omit,
+        queue_priority: Literal["auto", "batch"] | Omit = omit,
         retrieval: RetrievalParam | Omit = omit,
         settings: SettingsParam | Omit = omit,
         spreadsheet: SpreadsheetParam | Omit = omit,
@@ -123,6 +124,9 @@ class ParseResource(SyncAPIResource):
 
           async_: The configuration options for asynchronous processing (default synchronous).
 
+          queue_priority: Queue priority. 'batch' for non-urgent work that processes when spare GPU
+              capacity is available.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -144,6 +148,7 @@ class ParseResource(SyncAPIResource):
         settings: SettingsParam | Omit = omit,
         spreadsheet: SpreadsheetParam | Omit = omit,
         async_: AsyncConfigV3Param | Omit = omit,
+        queue_priority: Literal["auto", "batch"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -164,6 +169,7 @@ class ParseResource(SyncAPIResource):
                         "settings": settings,
                         "spreadsheet": spreadsheet,
                         "async_": async_,
+                        "queue_priority": queue_priority,
                     },
                     parse_create_params.ParseCreateParams,
                 ),
@@ -245,6 +251,7 @@ class AsyncParseResource(AsyncAPIResource):
         async_: AsyncConfigV3Param | Omit = omit,
         enhance: EnhanceParam | Omit = omit,
         formatting: FormattingParam | Omit = omit,
+        queue_priority: Literal["auto", "batch"] | Omit = omit,
         retrieval: RetrievalParam | Omit = omit,
         settings: SettingsParam | Omit = omit,
         spreadsheet: SpreadsheetParam | Omit = omit,
@@ -270,6 +277,9 @@ class AsyncParseResource(AsyncAPIResource):
 
           async_: The configuration options for asynchronous processing (default synchronous).
 
+          queue_priority: Queue priority. 'batch' for non-urgent work that processes when spare GPU
+              capacity is available.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -291,6 +301,7 @@ class AsyncParseResource(AsyncAPIResource):
         settings: SettingsParam | Omit = omit,
         spreadsheet: SpreadsheetParam | Omit = omit,
         async_: AsyncConfigV3Param | Omit = omit,
+        queue_priority: Literal["auto", "batch"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -311,6 +322,7 @@ class AsyncParseResource(AsyncAPIResource):
                         "settings": settings,
                         "spreadsheet": spreadsheet,
                         "async_": async_,
+                        "queue_priority": queue_priority,
                     },
                     parse_create_params.ParseCreateParams,
                 ),
