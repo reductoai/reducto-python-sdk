@@ -39,12 +39,12 @@ from .job_retrieve_response import JobRetrieveResponse as JobRetrieveResponse
 from .parse_create_response import ParseCreateResponse as ParseCreateResponse
 from .upload_response_param import UploadResponseParam as UploadResponseParam
 from .async_extract_response import AsyncExtractResponse as AsyncExtractResponse
+from .classify_create_params import ClassifyCreateParams as ClassifyCreateParams
 from .extract_settings_param import ExtractSettingsParam as ExtractSettingsParam
 from .pipeline_create_params import PipelineCreateParams as PipelineCreateParams
 from .extract_create_response import ExtractCreateResponse as ExtractCreateResponse
 from .pipeline_settings_param import PipelineSettingsParam as PipelineSettingsParam
 from .async_parse_config_param import AsyncParseConfigParam as AsyncParseConfigParam
-from .classify_classify_params import ClassifyClassifyParams as ClassifyClassifyParams
 from .deep_split_page_evidence import DeepSplitPageEvidence as DeepSplitPageEvidence
 from .edit_async_create_params import EditAsyncCreateParams as EditAsyncCreateParams
 from .parse_async_create_params import ParseAsyncCreateParams as ParseAsyncCreateParams

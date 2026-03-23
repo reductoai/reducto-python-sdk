@@ -19,16 +19,16 @@ class TestClassify:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_classify(self, client: Reducto) -> None:
-        classify = client.classify.classify(
+    def test_method_create(self, client: Reducto) -> None:
+        classify = client.classify.create(
             input="string",
         )
         assert_matches_type(ClassifyResponse, classify, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_classify_with_all_params(self, client: Reducto) -> None:
-        classify = client.classify.classify(
+    def test_method_create_with_all_params(self, client: Reducto) -> None:
+        classify = client.classify.create(
             input="string",
             classification_schema=[
                 {
@@ -47,8 +47,8 @@ class TestClassify:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_classify(self, client: Reducto) -> None:
-        response = client.classify.with_raw_response.classify(
+    def test_raw_response_create(self, client: Reducto) -> None:
+        response = client.classify.with_raw_response.create(
             input="string",
         )
 
@@ -59,8 +59,8 @@ class TestClassify:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_classify(self, client: Reducto) -> None:
-        with client.classify.with_streaming_response.classify(
+    def test_streaming_response_create(self, client: Reducto) -> None:
+        with client.classify.with_streaming_response.create(
             input="string",
         ) as response:
             assert not response.is_closed
@@ -79,16 +79,16 @@ class TestAsyncClassify:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_classify(self, async_client: AsyncReducto) -> None:
-        classify = await async_client.classify.classify(
+    async def test_method_create(self, async_client: AsyncReducto) -> None:
+        classify = await async_client.classify.create(
             input="string",
         )
         assert_matches_type(ClassifyResponse, classify, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_classify_with_all_params(self, async_client: AsyncReducto) -> None:
-        classify = await async_client.classify.classify(
+    async def test_method_create_with_all_params(self, async_client: AsyncReducto) -> None:
+        classify = await async_client.classify.create(
             input="string",
             classification_schema=[
                 {
@@ -107,8 +107,8 @@ class TestAsyncClassify:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_classify(self, async_client: AsyncReducto) -> None:
-        response = await async_client.classify.with_raw_response.classify(
+    async def test_raw_response_create(self, async_client: AsyncReducto) -> None:
+        response = await async_client.classify.with_raw_response.create(
             input="string",
         )
 
@@ -119,8 +119,8 @@ class TestAsyncClassify:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_classify(self, async_client: AsyncReducto) -> None:
-        async with async_client.classify.with_streaming_response.classify(
+    async def test_streaming_response_create(self, async_client: AsyncReducto) -> None:
+        async with async_client.classify.with_streaming_response.create(
             input="string",
         ) as response:
             assert not response.is_closed
