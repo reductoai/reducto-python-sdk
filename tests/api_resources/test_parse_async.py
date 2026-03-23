@@ -56,6 +56,7 @@ class TestParseAsync:
                 "merge_tables": True,
                 "table_output_format": "html",
             },
+            queue_priority="auto",
             retrieval={
                 "chunking": {
                     "chunk_mode": "variable",
@@ -162,6 +163,7 @@ class TestAsyncParseAsync:
                 "merge_tables": True,
                 "table_output_format": "html",
             },
+            queue_priority="auto",
             retrieval={
                 "chunking": {
                     "chunk_mode": "variable",

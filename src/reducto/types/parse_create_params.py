@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Union
-from typing_extensions import Required, Annotated, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
 from .._utils import PropertyInfo
@@ -64,6 +64,12 @@ class AsyncParseConfig(TypedDict, total=False):
     enhance: EnhanceParam
 
     formatting: FormattingParam
+
+    queue_priority: Literal["auto", "batch"]
+    """Queue priority.
+
+    'batch' for non-urgent work that processes when spare GPU capacity is available.
+    """
 
     retrieval: RetrievalParam
 
