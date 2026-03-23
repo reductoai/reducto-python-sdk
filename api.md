@@ -149,7 +149,7 @@ from reducto.types import ClassifyResponse, PageRange
 
 Methods:
 
-- <code title="post /classify">client.classify.<a href="./src/reducto/resources/classify.py">classify</a>(\*\*<a href="src/reducto/types/classify_classify_params.py">params</a>) -> <a href="./src/reducto/types/classify_response.py">ClassifyResponse</a></code>
+- <code title="post /classify">client.classify.<a href="./src/reducto/resources/classify.py">create</a>(\*\*<a href="src/reducto/types/classify_create_params.py">params</a>) -> <a href="./src/reducto/types/classify_response.py">ClassifyResponse</a></code>
 
 # Cancel
 
