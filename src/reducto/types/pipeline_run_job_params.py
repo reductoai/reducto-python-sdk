@@ -2,15 +2,16 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import Union
 from typing_extensions import Required, Annotated, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
 from .._utils import PropertyInfo
-from .shared_params.upload import Upload
-from .shared_params.config_v3_async_config import ConfigV3AsyncConfig
+from .async_config_v3_param import AsyncConfigV3Param
+from .upload_response_param import UploadResponseParam
+from .pipeline_settings_param import PipelineSettingsParam
 
-__all__ = ["PipelineRunJobParams", "Input", "Settings"]
+__all__ = ["PipelineRunJobParams", "Input"]
 
 
 class PipelineRunJobParams(TypedDict, total=False):
@@ -29,18 +30,11 @@ class PipelineRunJobParams(TypedDict, total=False):
     pipeline_id: Required[str]
     """The ID of the pipeline to use for the document."""
 
-    async_: Annotated[ConfigV3AsyncConfig, PropertyInfo(alias="async")]
+    async_: Annotated[AsyncConfigV3Param, PropertyInfo(alias="async")]
     """The configuration options for asynchronous processing (default synchronous)."""
 
-    settings: Settings
+    settings: PipelineSettingsParam
     """Settings for pipeline execution that override pipeline defaults."""
 
 
-Input: TypeAlias = Union[str, SequenceNotStr[str], Upload]
-
-
-class Settings(TypedDict, total=False):
-    """Settings for pipeline execution that override pipeline defaults."""
-
-    document_password: Optional[str]
-    """Password to decrypt password-protected documents."""
+Input: TypeAlias = Union[str, SequenceNotStr[str], UploadResponseParam]

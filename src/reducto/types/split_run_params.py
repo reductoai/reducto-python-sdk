@@ -3,14 +3,15 @@
 from __future__ import annotations
 
 from typing import Union, Iterable
-from typing_extensions import Literal, Required, TypeAlias, TypedDict
+from typing_extensions import Required, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
-from .shared_params.upload import Upload
-from .shared_params.parse_options import ParseOptions
-from .shared_params.split_category import SplitCategory
+from .parse_options_param import ParseOptionsParam
+from .split_category_param import SplitCategoryParam
+from .upload_response_param import UploadResponseParam
+from .split_table_options_param import SplitTableOptionsParam
 
-__all__ = ["SplitRunParams", "Input", "Settings"]
+__all__ = ["SplitRunParams", "Input"]
 
 
 class SplitRunParams(TypedDict, total=False):
@@ -26,33 +27,21 @@ class SplitRunParams(TypedDict, total=False):
                 For edit pipelines, this should be a string containing the edit instructions
     """
 
-    split_description: Required[Iterable[SplitCategory]]
+    split_description: Required[Iterable[SplitCategoryParam]]
     """The configuration options for processing the document."""
 
-    parsing: ParseOptions
+    parsing: ParseOptionsParam
     """The configuration options for parsing the document.
 
     If you are passing in a jobid:// URL for the file, then this configuration will
     be ignored.
     """
 
-    settings: Settings
+    settings: SplitTableOptionsParam
     """The settings for split processing."""
 
     split_rules: str
     """The prompt that describes rules for splitting the document."""
 
 
-Input: TypeAlias = Union[str, SequenceNotStr[str], Upload]
-
-
-class Settings(TypedDict, total=False):
-    """The settings for split processing."""
-
-    table_cutoff: Literal["truncate", "preserve"]
-    """
-    If tables should be truncated to the first few rows or if all content should be
-    preserved. truncate improves latency, preserve is recommended for cases where
-    partition_key is being used and the partition_key may be included within the
-    table. Defaults to truncate
-    """
+Input: TypeAlias = Union[str, SequenceNotStr[str], UploadResponseParam]

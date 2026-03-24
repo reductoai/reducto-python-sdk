@@ -2,13 +2,14 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import Union
 from typing_extensions import Required, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
-from .shared_params.upload import Upload
+from .upload_response_param import UploadResponseParam
+from .pipeline_settings_param import PipelineSettingsParam
 
-__all__ = ["PipelineRunParams", "Input", "Settings"]
+__all__ = ["PipelineRunParams", "Input"]
 
 
 class PipelineRunParams(TypedDict, total=False):
@@ -27,15 +28,8 @@ class PipelineRunParams(TypedDict, total=False):
     pipeline_id: Required[str]
     """The ID of the pipeline to use for the document."""
 
-    settings: Settings
+    settings: PipelineSettingsParam
     """Settings for pipeline execution that override pipeline defaults."""
 
 
-Input: TypeAlias = Union[str, SequenceNotStr[str], Upload]
-
-
-class Settings(TypedDict, total=False):
-    """Settings for pipeline execution that override pipeline defaults."""
-
-    document_password: Optional[str]
-    """Password to decrypt password-protected documents."""
+Input: TypeAlias = Union[str, SequenceNotStr[str], UploadResponseParam]

@@ -3,14 +3,9 @@
 from typing import Union
 from typing_extensions import TypeAlias
 
-from .._models import BaseModel
-from .shared.v3_extract_response import V3ExtractResponse
+from .v3_extract import V3Extract
+from .async_extract_response import AsyncExtractResponse
 
-__all__ = ["ExtractRunResponse", "AsyncExtractResponse"]
+__all__ = ["ExtractRunResponse"]
 
-
-class AsyncExtractResponse(BaseModel):
-    job_id: str
-
-
-ExtractRunResponse: TypeAlias = Union[V3ExtractResponse, AsyncExtractResponse]
+ExtractRunResponse: TypeAlias = Union[V3Extract, AsyncExtractResponse]

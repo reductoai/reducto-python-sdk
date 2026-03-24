@@ -3,16 +3,17 @@
 from __future__ import annotations
 
 from typing import Union, Iterable
-from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
+from typing_extensions import Required, Annotated, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
 from .._utils import PropertyInfo
-from .shared_params.upload import Upload
-from .shared_params.parse_options import ParseOptions
-from .shared_params.split_category import SplitCategory
-from .shared_params.config_v3_async_config import ConfigV3AsyncConfig
+from .parse_options_param import ParseOptionsParam
+from .split_category_param import SplitCategoryParam
+from .async_config_v3_param import AsyncConfigV3Param
+from .upload_response_param import UploadResponseParam
+from .split_table_options_param import SplitTableOptionsParam
 
-__all__ = ["SplitRunJobParams", "Input", "Settings"]
+__all__ = ["SplitRunJobParams", "Input"]
 
 
 class SplitRunJobParams(TypedDict, total=False):
@@ -28,36 +29,24 @@ class SplitRunJobParams(TypedDict, total=False):
                 For edit pipelines, this should be a string containing the edit instructions
     """
 
-    split_description: Required[Iterable[SplitCategory]]
+    split_description: Required[Iterable[SplitCategoryParam]]
     """The configuration options for processing the document."""
 
-    async_: Annotated[ConfigV3AsyncConfig, PropertyInfo(alias="async")]
+    async_: Annotated[AsyncConfigV3Param, PropertyInfo(alias="async")]
     """The configuration options for asynchronous processing (default synchronous)."""
 
-    parsing: ParseOptions
+    parsing: ParseOptionsParam
     """The configuration options for parsing the document.
 
     If you are passing in a jobid:// URL for the file, then this configuration will
     be ignored.
     """
 
-    settings: Settings
+    settings: SplitTableOptionsParam
     """The settings for split processing."""
 
     split_rules: str
     """The prompt that describes rules for splitting the document."""
 
 
-Input: TypeAlias = Union[str, SequenceNotStr[str], Upload]
-
-
-class Settings(TypedDict, total=False):
-    """The settings for split processing."""
-
-    table_cutoff: Literal["truncate", "preserve"]
-    """
-    If tables should be truncated to the first few rows or if all content should be
-    preserved. truncate improves latency, preserve is recommended for cases where
-    partition_key is being used and the partition_key may be included within the
-    table. Defaults to truncate
-    """
+Input: TypeAlias = Union[str, SequenceNotStr[str], UploadResponseParam]

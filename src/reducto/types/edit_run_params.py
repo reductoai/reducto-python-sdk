@@ -3,12 +3,13 @@
 from __future__ import annotations
 
 from typing import Union, Iterable, Optional
-from typing_extensions import Literal, Required, TypeAlias, TypedDict
+from typing_extensions import Required, TypeAlias, TypedDict
 
-from .shared_params.upload import Upload
-from .shared_params.bounding_box import BoundingBox
+from .edit_widget_param import EditWidgetParam
+from .edit_options_param import EditOptionsParam
+from .upload_response_param import UploadResponseParam
 
-__all__ = ["EditRunParams", "DocumentURL", "EditOptions", "FormSchema"]
+__all__ = ["EditRunParams", "DocumentURL"]
 
 
 class EditRunParams(TypedDict, total=False):
@@ -24,9 +25,9 @@ class EditRunParams(TypedDict, total=False):
     edit_instructions: Required[str]
     """The instructions for the edit."""
 
-    edit_options: EditOptions
+    edit_options: EditOptionsParam
 
-    form_schema: Optional[Iterable[FormSchema]]
+    form_schema: Optional[Iterable[EditWidgetParam]]
     """Form schema for PDF forms.
 
     List of widgets with their types, descriptions, and bounding boxes. Only works
@@ -41,50 +42,4 @@ class EditRunParams(TypedDict, total=False):
     """
 
 
-DocumentURL: TypeAlias = Union[str, Upload]
-
-
-class EditOptions(TypedDict, total=False):
-    color: str
-    """The color to use for edits, in hex format."""
-
-    enable_overflow_pages: bool
-    """If True, creates overflow pages for text that doesn't fit in form fields.
-
-    Defaults to False.
-    """
-
-    flatten: bool
-    """If True, flattens form fields after filling, converting them to static content.
-
-    Defaults to False.
-    """
-
-    llm_provider_preference: Optional[Literal["openai", "anthropic", "google"]]
-    """The LLM provider to use for edit processing.
-
-    If not specified, defaults to 'google'
-    """
-
-
-class FormSchema(TypedDict, total=False):
-    bbox: Required[BoundingBox]
-    """Bounding box coordinates of the widget"""
-
-    description: Required[str]
-    """Description of the widget extracted from the document"""
-
-    type: Required[Literal["text", "checkbox", "radio", "dropdown", "barcode"]]
-    """Type of the form widget"""
-
-    fill: bool
-    """If True (default), the system will attempt to fill this widget.
-
-    If False, the widget will be created but intentionally left unfilled.
-    """
-
-    value: Optional[str]
-    """
-    If provided, this value will be used directly instead of attempting to
-    intelligently determine the field value.
-    """
+DocumentURL: TypeAlias = Union[str, UploadResponseParam]

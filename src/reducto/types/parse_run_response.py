@@ -3,14 +3,9 @@
 from typing import Union
 from typing_extensions import TypeAlias
 
-from .._models import BaseModel
-from .shared.parse_response import ParseResponse
+from .parse_response import ParseResponse
+from .async_parse_response import AsyncParseResponse
 
-__all__ = ["ParseRunResponse", "AsyncParseResponse"]
-
-
-class AsyncParseResponse(BaseModel):
-    job_id: str
-
+__all__ = ["ParseRunResponse"]
 
 ParseRunResponse: TypeAlias = Union[ParseResponse, AsyncParseResponse]

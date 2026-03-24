@@ -3,17 +3,17 @@
 from __future__ import annotations
 
 from typing import Union
-from typing_extensions import Required, Annotated, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
 from .._utils import PropertyInfo
-from .shared_params.upload import Upload
-from .shared_params.enhance import Enhance
-from .shared_params.settings import Settings
-from .shared_params.retrieval import Retrieval
-from .shared_params.formatting import Formatting
-from .shared_params.spreadsheet import Spreadsheet
-from .shared_params.config_v3_async_config import ConfigV3AsyncConfig
+from .enhance_param import EnhanceParam
+from .settings_param import SettingsParam
+from .retrieval_param import RetrievalParam
+from .formatting_param import FormattingParam
+from .spreadsheet_param import SpreadsheetParam
+from .async_config_v3_param import AsyncConfigV3Param
+from .upload_response_param import UploadResponseParam
 
 __all__ = ["ParseRunParams", "SyncParseConfig", "SyncParseConfigInput", "AsyncParseConfig", "AsyncParseConfigInput"]
 
@@ -31,18 +31,18 @@ class SyncParseConfig(TypedDict, total=False):
                 For edit pipelines, this should be a string containing the edit instructions
     """
 
-    enhance: Enhance
+    enhance: EnhanceParam
 
-    formatting: Formatting
+    formatting: FormattingParam
 
-    retrieval: Retrieval
+    retrieval: RetrievalParam
 
-    settings: Settings
+    settings: SettingsParam
 
-    spreadsheet: Spreadsheet
+    spreadsheet: SpreadsheetParam
 
 
-SyncParseConfigInput: TypeAlias = Union[str, SequenceNotStr[str], Upload]
+SyncParseConfigInput: TypeAlias = Union[str, SequenceNotStr[str], UploadResponseParam]
 
 
 class AsyncParseConfig(TypedDict, total=False):
@@ -58,20 +58,26 @@ class AsyncParseConfig(TypedDict, total=False):
                 For edit pipelines, this should be a string containing the edit instructions
     """
 
-    async_: Annotated[ConfigV3AsyncConfig, PropertyInfo(alias="async")]
+    async_: Annotated[AsyncConfigV3Param, PropertyInfo(alias="async")]
     """The configuration options for asynchronous processing (default synchronous)."""
 
-    enhance: Enhance
+    enhance: EnhanceParam
 
-    formatting: Formatting
+    formatting: FormattingParam
 
-    retrieval: Retrieval
+    queue_priority: Literal["auto", "batch"]
+    """Queue priority.
 
-    settings: Settings
+    'batch' for non-urgent work that processes when spare GPU capacity is available.
+    """
 
-    spreadsheet: Spreadsheet
+    retrieval: RetrievalParam
+
+    settings: SettingsParam
+
+    spreadsheet: SpreadsheetParam
 
 
-AsyncParseConfigInput: TypeAlias = Union[str, SequenceNotStr[str], Upload]
+AsyncParseConfigInput: TypeAlias = Union[str, SequenceNotStr[str], UploadResponseParam]
 
 ParseRunParams: TypeAlias = Union[SyncParseConfig, AsyncParseConfig]

@@ -5,11 +5,12 @@ from __future__ import annotations
 from typing import Union, Iterable, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
-from .shared_params.upload import Upload
-from .shared_params.bounding_box import BoundingBox
-from .shared_params.webhook_config_new import WebhookConfigNew
+from .._types import SequenceNotStr
+from .edit_widget_param import EditWidgetParam
+from .edit_options_param import EditOptionsParam
+from .upload_response_param import UploadResponseParam
 
-__all__ = ["EditRunJobParams", "DocumentURL", "EditOptions", "FormSchema"]
+__all__ = ["EditRunJobParams", "DocumentURL", "Webhook"]
 
 
 class EditRunJobParams(TypedDict, total=False):
@@ -25,9 +26,9 @@ class EditRunJobParams(TypedDict, total=False):
     edit_instructions: Required[str]
     """The instructions for the edit."""
 
-    edit_options: EditOptions
+    edit_options: EditOptionsParam
 
-    form_schema: Optional[Iterable[FormSchema]]
+    form_schema: Optional[Iterable[EditWidgetParam]]
     """Form schema for PDF forms.
 
     List of widgets with their types, descriptions, and bounding boxes. Only works
@@ -41,53 +42,27 @@ class EditRunJobParams(TypedDict, total=False):
     jobs.
     """
 
-    webhook: WebhookConfigNew
+    webhook: Webhook
 
 
-DocumentURL: TypeAlias = Union[str, Upload]
+DocumentURL: TypeAlias = Union[str, UploadResponseParam]
 
 
-class EditOptions(TypedDict, total=False):
-    color: str
-    """The color to use for edits, in hex format."""
-
-    enable_overflow_pages: bool
-    """If True, creates overflow pages for text that doesn't fit in form fields.
-
-    Defaults to False.
+class Webhook(TypedDict, total=False):
+    channels: SequenceNotStr[str]
+    """
+    A list of Svix channels the message will be delivered down, omit to send to all
+    channels.
     """
 
-    flatten: bool
-    """If True, flattens form fields after filling, converting them to static content.
+    metadata: object
+    """JSON metadata included in webhook request body"""
 
-    Defaults to False.
+    mode: Literal["disabled", "svix", "direct"]
+    """The mode to use for webhook delivery.
+
+    Defaults to 'disabled'. We recommend using 'svix' for production environments.
     """
 
-    llm_provider_preference: Optional[Literal["openai", "anthropic", "google"]]
-    """The LLM provider to use for edit processing.
-
-    If not specified, defaults to 'google'
-    """
-
-
-class FormSchema(TypedDict, total=False):
-    bbox: Required[BoundingBox]
-    """Bounding box coordinates of the widget"""
-
-    description: Required[str]
-    """Description of the widget extracted from the document"""
-
-    type: Required[Literal["text", "checkbox", "radio", "dropdown", "barcode"]]
-    """Type of the form widget"""
-
-    fill: bool
-    """If True (default), the system will attempt to fill this widget.
-
-    If False, the widget will be created but intentionally left unfilled.
-    """
-
-    value: Optional[str]
-    """
-    If provided, this value will be used directly instead of attempting to
-    intelligently determine the field value.
-    """
+    url: str
+    """The URL to send the webhook to (if using direct webhoook)."""
