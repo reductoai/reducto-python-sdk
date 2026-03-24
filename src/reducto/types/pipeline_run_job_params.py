@@ -3,16 +3,18 @@
 from __future__ import annotations
 
 from typing import Union
-from typing_extensions import Required, TypeAlias, TypedDict
+from typing_extensions import Required, Annotated, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
+from .._utils import PropertyInfo
+from .async_config_v3_param import AsyncConfigV3Param
 from .upload_response_param import UploadResponseParam
 from .pipeline_settings_param import PipelineSettingsParam
 
-__all__ = ["PipelineCreateParams", "Input"]
+__all__ = ["PipelineRunJobParams", "Input"]
 
 
-class PipelineCreateParams(TypedDict, total=False):
+class PipelineRunJobParams(TypedDict, total=False):
     input: Required[Input]
     """For parse/split/extract pipelines, the URL of the document to be processed.
 
@@ -27,6 +29,9 @@ class PipelineCreateParams(TypedDict, total=False):
 
     pipeline_id: Required[str]
     """The ID of the pipeline to use for the document."""
+
+    async_: Annotated[AsyncConfigV3Param, PropertyInfo(alias="async")]
+    """The configuration options for asynchronous processing (default synchronous)."""
 
     settings: PipelineSettingsParam
     """Settings for pipeline execution that override pipeline defaults."""

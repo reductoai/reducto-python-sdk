@@ -9,10 +9,10 @@ from .._types import SequenceNotStr
 from .page_range_param import PageRangeParam
 from .upload_response_param import UploadResponseParam
 
-__all__ = ["ClassifyCreateParams", "Input", "ClassificationSchema", "PageRange"]
+__all__ = ["ClassifyRunParams", "Input", "ClassificationSchema", "PageRange"]
 
 
-class ClassifyCreateParams(TypedDict, total=False):
+class ClassifyRunParams(TypedDict, total=False):
     input: Required[Input]
     """For parse/split/extract pipelines, the URL of the document to be processed.
 

@@ -15,7 +15,7 @@ from .spreadsheet_param import SpreadsheetParam
 from .async_config_v3_param import AsyncConfigV3Param
 from .upload_response_param import UploadResponseParam
 
-__all__ = ["ParseCreateParams", "SyncParseConfig", "SyncParseConfigInput", "AsyncParseConfig", "AsyncParseConfigInput"]
+__all__ = ["ParseRunParams", "SyncParseConfig", "SyncParseConfigInput", "AsyncParseConfig", "AsyncParseConfigInput"]
 
 
 class SyncParseConfig(TypedDict, total=False):
@@ -80,4 +80,4 @@ class AsyncParseConfig(TypedDict, total=False):
 
 AsyncParseConfigInput: TypeAlias = Union[str, SequenceNotStr[str], UploadResponseParam]
 
-ParseCreateParams: TypeAlias = Union[SyncParseConfig, AsyncParseConfig]
+ParseRunParams: TypeAlias = Union[SyncParseConfig, AsyncParseConfig]

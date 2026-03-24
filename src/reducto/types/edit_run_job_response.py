@@ -2,8 +2,8 @@
 
 from .._models import BaseModel
 
-__all__ = ["SplitAsyncCreateResponse"]
+__all__ = ["EditRunJobResponse"]
 
 
-class SplitAsyncCreateResponse(BaseModel):
+class EditRunJobResponse(BaseModel):
     job_id: str

@@ -6,6 +6,6 @@ from typing_extensions import TypeAlias
 from .parse_response import ParseResponse
 from .async_parse_response import AsyncParseResponse
 
-__all__ = ["ParseCreateResponse"]
+__all__ = ["ParseRunResponse"]
 
-ParseCreateResponse: TypeAlias = Union[ParseResponse, AsyncParseResponse]
+ParseRunResponse: TypeAlias = Union[ParseResponse, AsyncParseResponse]
