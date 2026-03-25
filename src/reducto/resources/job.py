@@ -44,6 +44,39 @@ class JobResource(SyncAPIResource):
         """
         return JobResourceWithStreamingResponse(self)
 
+    def cancel(
+        self,
+        job_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> object:
+        """
+        Cancel Job
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not job_id:
+            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
+        return self._post(
+            path_template("/cancel/{job_id}", job_id=job_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=object,
+        )
+
     def get(
         self,
         job_id: str,
@@ -153,6 +186,39 @@ class AsyncJobResource(AsyncAPIResource):
         """
         return AsyncJobResourceWithStreamingResponse(self)
 
+    async def cancel(
+        self,
+        job_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> object:
+        """
+        Cancel Job
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not job_id:
+            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
+        return await self._post(
+            path_template("/cancel/{job_id}", job_id=job_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=object,
+        )
+
     async def get(
         self,
         job_id: str,
@@ -246,6 +312,9 @@ class JobResourceWithRawResponse:
     def __init__(self, job: JobResource) -> None:
         self._job = job
 
+        self.cancel = to_raw_response_wrapper(
+            job.cancel,
+        )
         self.get = to_raw_response_wrapper(
             job.get,
         )
@@ -258,6 +327,9 @@ class AsyncJobResourceWithRawResponse:
     def __init__(self, job: AsyncJobResource) -> None:
         self._job = job
 
+        self.cancel = async_to_raw_response_wrapper(
+            job.cancel,
+        )
         self.get = async_to_raw_response_wrapper(
             job.get,
         )
@@ -270,6 +342,9 @@ class JobResourceWithStreamingResponse:
     def __init__(self, job: JobResource) -> None:
         self._job = job
 
+        self.cancel = to_streamed_response_wrapper(
+            job.cancel,
+        )
         self.get = to_streamed_response_wrapper(
             job.get,
         )
@@ -282,6 +357,9 @@ class AsyncJobResourceWithStreamingResponse:
     def __init__(self, job: AsyncJobResource) -> None:
         self._job = job
 
+        self.cancel = async_to_streamed_response_wrapper(
+            job.cancel,
+        )
         self.get = async_to_streamed_response_wrapper(
             job.get,
         )
