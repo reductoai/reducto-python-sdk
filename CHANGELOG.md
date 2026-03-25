@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.20.0 (2026-03-25)
+
+Full Changelog: [v0.19.0...v0.20.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.19.0...v0.20.0)
+
+### Features
+
+* **api:** manual updates ([4770c92](https://github.com/reductoai/reducto-python-sdk/commit/4770c9254d1c6e353f4b28a2acb651369382b252))
+
+
+### Chores
+
+* **ci:** skip lint on metadata-only changes ([4f2b52a](https://github.com/reductoai/reducto-python-sdk/commit/4f2b52a8207c80af57a33dc859038e7e7ae56837))
+* **internal:** version bump ([b2dd3f2](https://github.com/reductoai/reducto-python-sdk/commit/b2dd3f262640d03d1350df9553fd781f4277cafd))
+
 ## 0.19.0 (2026-03-24)
 
 Full Changelog: [v0.18.0...v0.19.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.18.0...v0.19.0)
