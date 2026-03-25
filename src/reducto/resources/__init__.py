@@ -32,14 +32,6 @@ from .split import (
     SplitResourceWithStreamingResponse,
     AsyncSplitResourceWithStreamingResponse,
 )
-from .cancel import (
-    CancelResource,
-    AsyncCancelResource,
-    CancelResourceWithRawResponse,
-    AsyncCancelResourceWithRawResponse,
-    CancelResourceWithStreamingResponse,
-    AsyncCancelResourceWithStreamingResponse,
-)
 from .extract import (
     ExtractResource,
     AsyncExtractResource,
@@ -48,13 +40,13 @@ from .extract import (
     ExtractResourceWithStreamingResponse,
     AsyncExtractResourceWithStreamingResponse,
 )
-from .version import (
-    VersionResource,
-    AsyncVersionResource,
-    VersionResourceWithRawResponse,
-    AsyncVersionResourceWithRawResponse,
-    VersionResourceWithStreamingResponse,
-    AsyncVersionResourceWithStreamingResponse,
+from .webhook import (
+    WebhookResource,
+    AsyncWebhookResource,
+    WebhookResourceWithRawResponse,
+    AsyncWebhookResourceWithRawResponse,
+    WebhookResourceWithStreamingResponse,
+    AsyncWebhookResourceWithStreamingResponse,
 )
 from .classify import (
     ClassifyResource,
@@ -71,14 +63,6 @@ from .pipeline import (
     AsyncPipelineResourceWithRawResponse,
     PipelineResourceWithStreamingResponse,
     AsyncPipelineResourceWithStreamingResponse,
-)
-from .configure_webhook import (
-    ConfigureWebhookResource,
-    AsyncConfigureWebhookResource,
-    ConfigureWebhookResourceWithRawResponse,
-    AsyncConfigureWebhookResourceWithRawResponse,
-    ConfigureWebhookResourceWithStreamingResponse,
-    AsyncConfigureWebhookResourceWithStreamingResponse,
 )
 
 __all__ = [
@@ -118,24 +102,12 @@ __all__ = [
     "AsyncClassifyResourceWithRawResponse",
     "ClassifyResourceWithStreamingResponse",
     "AsyncClassifyResourceWithStreamingResponse",
-    "CancelResource",
-    "AsyncCancelResource",
-    "CancelResourceWithRawResponse",
-    "AsyncCancelResourceWithRawResponse",
-    "CancelResourceWithStreamingResponse",
-    "AsyncCancelResourceWithStreamingResponse",
-    "ConfigureWebhookResource",
-    "AsyncConfigureWebhookResource",
-    "ConfigureWebhookResourceWithRawResponse",
-    "AsyncConfigureWebhookResourceWithRawResponse",
-    "ConfigureWebhookResourceWithStreamingResponse",
-    "AsyncConfigureWebhookResourceWithStreamingResponse",
-    "VersionResource",
-    "AsyncVersionResource",
-    "VersionResourceWithRawResponse",
-    "AsyncVersionResourceWithRawResponse",
-    "VersionResourceWithStreamingResponse",
-    "AsyncVersionResourceWithStreamingResponse",
+    "WebhookResource",
+    "AsyncWebhookResource",
+    "WebhookResourceWithRawResponse",
+    "AsyncWebhookResourceWithRawResponse",
+    "WebhookResourceWithStreamingResponse",
+    "AsyncWebhookResourceWithStreamingResponse",
     "JobResource",
     "AsyncJobResource",
     "JobResourceWithRawResponse",
