@@ -9,8 +9,8 @@ from .._types import SequenceNotStr
 from .._utils import PropertyInfo
 from .instructions_param import InstructionsParam
 from .parse_options_param import ParseOptionsParam
+from .shared_params.upload import Upload
 from .async_config_v3_param import AsyncConfigV3Param
-from .upload_response_param import UploadResponseParam
 from .extract_settings_param import ExtractSettingsParam
 
 __all__ = ["ExtractRunJobParams", "Input"]
@@ -46,4 +46,4 @@ class ExtractRunJobParams(TypedDict, total=False):
     """The settings to use for the extraction."""
 
 
-Input: TypeAlias = Union[str, SequenceNotStr[str], UploadResponseParam]
+Input: TypeAlias = Union[str, SequenceNotStr[str], Upload]

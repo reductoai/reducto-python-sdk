@@ -2,12 +2,12 @@
 
 from typing import Optional
 
-from .._models import BaseModel
+from ..._models import BaseModel
 
-__all__ = ["UploadResponse"]
+__all__ = ["Upload"]
 
 
-class UploadResponse(BaseModel):
+class Upload(BaseModel):
     file_id: str
 
     presigned_url: Optional[str] = None

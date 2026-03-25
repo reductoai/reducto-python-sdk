@@ -12,8 +12,8 @@ from .settings_param import SettingsParam
 from .retrieval_param import RetrievalParam
 from .formatting_param import FormattingParam
 from .spreadsheet_param import SpreadsheetParam
+from .shared_params.upload import Upload
 from .async_config_v3_param import AsyncConfigV3Param
-from .upload_response_param import UploadResponseParam
 
 __all__ = ["ParseRunParams", "SyncParseConfig", "SyncParseConfigInput", "AsyncParseConfig", "AsyncParseConfigInput"]
 
@@ -42,7 +42,7 @@ class SyncParseConfig(TypedDict, total=False):
     spreadsheet: SpreadsheetParam
 
 
-SyncParseConfigInput: TypeAlias = Union[str, SequenceNotStr[str], UploadResponseParam]
+SyncParseConfigInput: TypeAlias = Union[str, SequenceNotStr[str], Upload]
 
 
 class AsyncParseConfig(TypedDict, total=False):
@@ -78,6 +78,6 @@ class AsyncParseConfig(TypedDict, total=False):
     spreadsheet: SpreadsheetParam
 
 
-AsyncParseConfigInput: TypeAlias = Union[str, SequenceNotStr[str], UploadResponseParam]
+AsyncParseConfigInput: TypeAlias = Union[str, SequenceNotStr[str], Upload]
 
 ParseRunParams: TypeAlias = Union[SyncParseConfig, AsyncParseConfig]

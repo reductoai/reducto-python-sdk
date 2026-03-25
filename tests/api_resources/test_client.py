@@ -9,90 +9,90 @@ import pytest
 
 from reducto import Reducto, AsyncReducto
 from tests.utils import assert_matches_type
-from reducto.types import UploadResponse
+from reducto.types.shared import Upload
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
 
-class TestUpload:
+class TestClient:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_create(self, client: Reducto) -> None:
-        upload = client.upload.create()
-        assert_matches_type(UploadResponse, upload, path=["response"])
+    def test_method_upload(self, client: Reducto) -> None:
+        client_ = client.upload()
+        assert_matches_type(Upload, client_, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_create_with_all_params(self, client: Reducto) -> None:
-        upload = client.upload.create(
+    def test_method_upload_with_all_params(self, client: Reducto) -> None:
+        client_ = client.upload(
             extension="extension",
             file="file",
         )
-        assert_matches_type(UploadResponse, upload, path=["response"])
+        assert_matches_type(Upload, client_, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_create(self, client: Reducto) -> None:
-        response = client.upload.with_raw_response.create()
+    def test_raw_response_upload(self, client: Reducto) -> None:
+        response = client.with_raw_response.upload()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        upload = response.parse()
-        assert_matches_type(UploadResponse, upload, path=["response"])
+        client_ = response.parse()
+        assert_matches_type(Upload, client_, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_create(self, client: Reducto) -> None:
-        with client.upload.with_streaming_response.create() as response:
+    def test_streaming_response_upload(self, client: Reducto) -> None:
+        with client.with_streaming_response.upload() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            upload = response.parse()
-            assert_matches_type(UploadResponse, upload, path=["response"])
+            client_ = response.parse()
+            assert_matches_type(Upload, client_, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
 
-class TestAsyncUpload:
+class TestAsyncClient:
     parametrize = pytest.mark.parametrize(
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_create(self, async_client: AsyncReducto) -> None:
-        upload = await async_client.upload.create()
-        assert_matches_type(UploadResponse, upload, path=["response"])
+    async def test_method_upload(self, async_client: AsyncReducto) -> None:
+        client = await async_client.upload()
+        assert_matches_type(Upload, client, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncReducto) -> None:
-        upload = await async_client.upload.create(
+    async def test_method_upload_with_all_params(self, async_client: AsyncReducto) -> None:
+        client = await async_client.upload(
             extension="extension",
             file="file",
         )
-        assert_matches_type(UploadResponse, upload, path=["response"])
+        assert_matches_type(Upload, client, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncReducto) -> None:
-        response = await async_client.upload.with_raw_response.create()
+    async def test_raw_response_upload(self, async_client: AsyncReducto) -> None:
+        response = await async_client.with_raw_response.upload()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        upload = await response.parse()
-        assert_matches_type(UploadResponse, upload, path=["response"])
+        client = await response.parse()
+        assert_matches_type(Upload, client, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncReducto) -> None:
-        async with async_client.upload.with_streaming_response.create() as response:
+    async def test_streaming_response_upload(self, async_client: AsyncReducto) -> None:
+        async with async_client.with_streaming_response.upload() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            upload = await response.parse()
-            assert_matches_type(UploadResponse, upload, path=["response"])
+            client = await response.parse()
+            assert_matches_type(Upload, client, path=["response"])
 
         assert cast(Any, response.is_closed) is True

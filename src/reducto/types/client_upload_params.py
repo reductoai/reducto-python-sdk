@@ -5,10 +5,10 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import TypedDict
 
-__all__ = ["UploadCreateParams"]
+__all__ = ["ClientUploadParams"]
 
 
-class UploadCreateParams(TypedDict, total=False):
+class ClientUploadParams(TypedDict, total=False):
     extension: Optional[str]
 
     file: Optional[str]
