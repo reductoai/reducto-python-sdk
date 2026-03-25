@@ -8,7 +8,7 @@ from typing_extensions import Literal, Required, TypeAlias, TypedDict
 from .._types import SequenceNotStr
 from .edit_widget_param import EditWidgetParam
 from .edit_options_param import EditOptionsParam
-from .upload_response_param import UploadResponseParam
+from .shared_params.upload import Upload
 
 __all__ = ["EditRunJobParams", "DocumentURL", "Webhook"]
 
@@ -45,7 +45,7 @@ class EditRunJobParams(TypedDict, total=False):
     webhook: Webhook
 
 
-DocumentURL: TypeAlias = Union[str, UploadResponseParam]
+DocumentURL: TypeAlias = Union[str, Upload]
 
 
 class Webhook(TypedDict, total=False):

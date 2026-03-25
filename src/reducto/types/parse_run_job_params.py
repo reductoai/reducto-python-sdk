@@ -12,8 +12,8 @@ from .settings_param import SettingsParam
 from .retrieval_param import RetrievalParam
 from .formatting_param import FormattingParam
 from .spreadsheet_param import SpreadsheetParam
+from .shared_params.upload import Upload
 from .async_config_v3_param import AsyncConfigV3Param
-from .upload_response_param import UploadResponseParam
 
 __all__ = ["ParseRunJobParams", "Input"]
 
@@ -51,4 +51,4 @@ class ParseRunJobParams(TypedDict, total=False):
     spreadsheet: SpreadsheetParam
 
 
-Input: TypeAlias = Union[str, SequenceNotStr[str], UploadResponseParam]
+Input: TypeAlias = Union[str, SequenceNotStr[str], Upload]

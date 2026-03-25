@@ -7,7 +7,7 @@ from typing_extensions import Required, TypeAlias, TypedDict
 
 from .edit_widget_param import EditWidgetParam
 from .edit_options_param import EditOptionsParam
-from .upload_response_param import UploadResponseParam
+from .shared_params.upload import Upload
 
 __all__ = ["EditRunParams", "DocumentURL"]
 
@@ -42,4 +42,4 @@ class EditRunParams(TypedDict, total=False):
     """
 
 
-DocumentURL: TypeAlias = Union[str, UploadResponseParam]
+DocumentURL: TypeAlias = Union[str, Upload]

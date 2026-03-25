@@ -6,7 +6,7 @@ from typing import Any, Optional, cast
 
 import httpx
 
-from ..types import job_list_params
+from ..types import job_get_all_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -18,8 +18,8 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
-from ..types.job_list_response import JobListResponse
-from ..types.job_retrieve_response import JobRetrieveResponse
+from ..types.job_get_response import JobGetResponse
+from ..types.job_get_all_response import JobGetAllResponse
 
 __all__ = ["JobResource", "AsyncJobResource"]
 
@@ -44,7 +44,7 @@ class JobResource(SyncAPIResource):
         """
         return JobResourceWithStreamingResponse(self)
 
-    def retrieve(
+    def get(
         self,
         job_id: str,
         *,
@@ -54,7 +54,7 @@ class JobResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> JobRetrieveResponse:
+    ) -> JobGetResponse:
         """
         Retrieve Parse
 
@@ -70,19 +70,17 @@ class JobResource(SyncAPIResource):
         if not job_id:
             raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
         return cast(
-            JobRetrieveResponse,
+            JobGetResponse,
             self._get(
                 path_template("/job/{job_id}", job_id=job_id),
                 options=make_request_options(
                     extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
                 ),
-                cast_to=cast(
-                    Any, JobRetrieveResponse
-                ),  # Union types cannot be passed in as arguments in the type system
+                cast_to=cast(Any, JobGetResponse),  # Union types cannot be passed in as arguments in the type system
             ),
         )
 
-    def list(
+    def get_all(
         self,
         *,
         cursor: Optional[str] | Omit = omit,
@@ -94,7 +92,7 @@ class JobResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> JobListResponse:
+    ) -> JobGetAllResponse:
         """Get Jobs
 
         Args:
@@ -128,10 +126,10 @@ class JobResource(SyncAPIResource):
                         "exclude_configs": exclude_configs,
                         "limit": limit,
                     },
-                    job_list_params.JobListParams,
+                    job_get_all_params.JobGetAllParams,
                 ),
             ),
-            cast_to=JobListResponse,
+            cast_to=JobGetAllResponse,
         )
 
 
@@ -155,7 +153,7 @@ class AsyncJobResource(AsyncAPIResource):
         """
         return AsyncJobResourceWithStreamingResponse(self)
 
-    async def retrieve(
+    async def get(
         self,
         job_id: str,
         *,
@@ -165,7 +163,7 @@ class AsyncJobResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> JobRetrieveResponse:
+    ) -> JobGetResponse:
         """
         Retrieve Parse
 
@@ -181,19 +179,17 @@ class AsyncJobResource(AsyncAPIResource):
         if not job_id:
             raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
         return cast(
-            JobRetrieveResponse,
+            JobGetResponse,
             await self._get(
                 path_template("/job/{job_id}", job_id=job_id),
                 options=make_request_options(
                     extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
                 ),
-                cast_to=cast(
-                    Any, JobRetrieveResponse
-                ),  # Union types cannot be passed in as arguments in the type system
+                cast_to=cast(Any, JobGetResponse),  # Union types cannot be passed in as arguments in the type system
             ),
         )
 
-    async def list(
+    async def get_all(
         self,
         *,
         cursor: Optional[str] | Omit = omit,
@@ -205,7 +201,7 @@ class AsyncJobResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> JobListResponse:
+    ) -> JobGetAllResponse:
         """Get Jobs
 
         Args:
@@ -239,10 +235,10 @@ class AsyncJobResource(AsyncAPIResource):
                         "exclude_configs": exclude_configs,
                         "limit": limit,
                     },
-                    job_list_params.JobListParams,
+                    job_get_all_params.JobGetAllParams,
                 ),
             ),
-            cast_to=JobListResponse,
+            cast_to=JobGetAllResponse,
         )
 
 
@@ -250,11 +246,11 @@ class JobResourceWithRawResponse:
     def __init__(self, job: JobResource) -> None:
         self._job = job
 
-        self.retrieve = to_raw_response_wrapper(
-            job.retrieve,
+        self.get = to_raw_response_wrapper(
+            job.get,
         )
-        self.list = to_raw_response_wrapper(
-            job.list,
+        self.get_all = to_raw_response_wrapper(
+            job.get_all,
         )
 
 
@@ -262,11 +258,11 @@ class AsyncJobResourceWithRawResponse:
     def __init__(self, job: AsyncJobResource) -> None:
         self._job = job
 
-        self.retrieve = async_to_raw_response_wrapper(
-            job.retrieve,
+        self.get = async_to_raw_response_wrapper(
+            job.get,
         )
-        self.list = async_to_raw_response_wrapper(
-            job.list,
+        self.get_all = async_to_raw_response_wrapper(
+            job.get_all,
         )
 
 
@@ -274,11 +270,11 @@ class JobResourceWithStreamingResponse:
     def __init__(self, job: JobResource) -> None:
         self._job = job
 
-        self.retrieve = to_streamed_response_wrapper(
-            job.retrieve,
+        self.get = to_streamed_response_wrapper(
+            job.get,
         )
-        self.list = to_streamed_response_wrapper(
-            job.list,
+        self.get_all = to_streamed_response_wrapper(
+            job.get_all,
         )
 
 
@@ -286,9 +282,9 @@ class AsyncJobResourceWithStreamingResponse:
     def __init__(self, job: AsyncJobResource) -> None:
         self._job = job
 
-        self.retrieve = async_to_streamed_response_wrapper(
-            job.retrieve,
+        self.get = async_to_streamed_response_wrapper(
+            job.get,
         )
-        self.list = async_to_streamed_response_wrapper(
-            job.list,
+        self.get_all = async_to_streamed_response_wrapper(
+            job.get_all,
         )

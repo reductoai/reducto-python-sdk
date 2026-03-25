@@ -14,7 +14,7 @@ from .classify_response import ClassifyResponse
 from .pipeline_response import PipelineResponse
 
 __all__ = [
-    "JobRetrieveResponse",
+    "JobGetResponse",
     "AsyncJobResponse",
     "AsyncJobResponseResult",
     "EnhancedAsyncJobResponse",
@@ -69,4 +69,4 @@ class EnhancedAsyncJobResponse(BaseModel):
     type: Optional[Literal["Parse", "Extract", "Split", "Edit", "Pipeline", "Classify"]] = None
 
 
-JobRetrieveResponse: TypeAlias = Union[AsyncJobResponse, EnhancedAsyncJobResponse]
+JobGetResponse: TypeAlias = Union[AsyncJobResponse, EnhancedAsyncJobResponse]
