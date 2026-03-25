@@ -27,4 +27,4 @@ jobs:
       - name: Run E2E tests
         env:
           REDUCTO_API_KEY: ${{ secrets.REDUCTO_API_KEY }}
-        run: pytest tests/e2e/ -v -x -p no:xdist
+        run: pytest tests/e2e/ -v -x -o "addopts="
