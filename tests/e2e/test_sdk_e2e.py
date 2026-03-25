@@ -150,7 +150,7 @@ class TestUpload:
         assert response.file_id
         assert response.presigned_url
 
-    def test_upload_file_id_usable_with_parse(self, client: Reducto) -> None:
+    def test_upload_with_extension(self, client: Reducto) -> None:
         upload = client.upload(extension="pdf")
         assert upload.file_id
         assert upload.presigned_url
