@@ -9,8 +9,8 @@ from .._types import SequenceNotStr
 from .._utils import PropertyInfo
 from .instructions_param import InstructionsParam
 from .parse_options_param import ParseOptionsParam
+from .shared_params.upload import Upload
 from .async_config_v3_param import AsyncConfigV3Param
-from .upload_response_param import UploadResponseParam
 from .extract_settings_param import ExtractSettingsParam
 
 __all__ = [
@@ -49,7 +49,7 @@ class SyncExtractConfig(TypedDict, total=False):
     """The settings to use for the extraction."""
 
 
-SyncExtractConfigInput: TypeAlias = Union[str, SequenceNotStr[str], UploadResponseParam]
+SyncExtractConfigInput: TypeAlias = Union[str, SequenceNotStr[str], Upload]
 
 
 class AsyncExtractConfig(TypedDict, total=False):
@@ -82,6 +82,6 @@ class AsyncExtractConfig(TypedDict, total=False):
     """The settings to use for the extraction."""
 
 
-AsyncExtractConfigInput: TypeAlias = Union[str, SequenceNotStr[str], UploadResponseParam]
+AsyncExtractConfigInput: TypeAlias = Union[str, SequenceNotStr[str], Upload]
 
 ExtractRunParams: TypeAlias = Union[SyncExtractConfig, AsyncExtractConfig]

@@ -40,14 +40,6 @@ from .cancel import (
     CancelResourceWithStreamingResponse,
     AsyncCancelResourceWithStreamingResponse,
 )
-from .upload import (
-    UploadResource,
-    AsyncUploadResource,
-    UploadResourceWithRawResponse,
-    AsyncUploadResourceWithRawResponse,
-    UploadResourceWithStreamingResponse,
-    AsyncUploadResourceWithStreamingResponse,
-)
 from .extract import (
     ExtractResource,
     AsyncExtractResource,
@@ -132,12 +124,6 @@ __all__ = [
     "AsyncCancelResourceWithRawResponse",
     "CancelResourceWithStreamingResponse",
     "AsyncCancelResourceWithStreamingResponse",
-    "UploadResource",
-    "AsyncUploadResource",
-    "UploadResourceWithRawResponse",
-    "AsyncUploadResourceWithRawResponse",
-    "UploadResourceWithStreamingResponse",
-    "AsyncUploadResourceWithStreamingResponse",
     "ConfigureWebhookResource",
     "AsyncConfigureWebhookResource",
     "ConfigureWebhookResourceWithRawResponse",

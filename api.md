@@ -1,3 +1,15 @@
+# Shared Types
+
+```python
+from reducto.types import Upload
+```
+
+# Reducto
+
+Methods:
+
+- <code title="post /upload">client.<a href="./src/reducto/_client.py">upload</a>(\*\*<a href="src/reducto/types/client_upload_params.py">params</a>) -> <a href="./src/reducto/types/shared/upload.py">Upload</a></code>
+
 # Parse
 
 Types:
@@ -108,18 +120,6 @@ Methods:
 
 - <code title="post /cancel/{job_id}">client.cancel.<a href="./src/reducto/resources/cancel.py">cancel_job</a>(job_id) -> object</code>
 
-# Upload
-
-Types:
-
-```python
-from reducto.types import UploadResponse
-```
-
-Methods:
-
-- <code title="post /upload">client.upload.<a href="./src/reducto/resources/upload.py">create</a>(\*\*<a href="src/reducto/types/upload_create_params.py">params</a>) -> <a href="./src/reducto/types/upload_response.py">UploadResponse</a></code>
-
 # ConfigureWebhook
 
 Types:
@@ -149,10 +149,10 @@ Methods:
 Types:
 
 ```python
-from reducto.types import ExtractResponse, JobRetrieveResponse, JobListResponse
+from reducto.types import ExtractResponse, JobGetResponse, JobGetAllResponse
 ```
 
 Methods:
 
-- <code title="get /job/{job_id}">client.job.<a href="./src/reducto/resources/job.py">retrieve</a>(job_id) -> <a href="./src/reducto/types/job_retrieve_response.py">JobRetrieveResponse</a></code>
-- <code title="get /jobs">client.job.<a href="./src/reducto/resources/job.py">list</a>(\*\*<a href="src/reducto/types/job_list_params.py">params</a>) -> <a href="./src/reducto/types/job_list_response.py">JobListResponse</a></code>
+- <code title="get /job/{job_id}">client.job.<a href="./src/reducto/resources/job.py">get</a>(job_id) -> <a href="./src/reducto/types/job_get_response.py">JobGetResponse</a></code>
+- <code title="get /jobs">client.job.<a href="./src/reducto/resources/job.py">get_all</a>(\*\*<a href="src/reducto/types/job_get_all_params.py">params</a>) -> <a href="./src/reducto/types/job_get_all_response.py">JobGetAllResponse</a></code>

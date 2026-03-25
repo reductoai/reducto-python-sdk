@@ -7,8 +7,8 @@ from typing_extensions import Required, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
 from .parse_options_param import ParseOptionsParam
+from .shared_params.upload import Upload
 from .split_category_param import SplitCategoryParam
-from .upload_response_param import UploadResponseParam
 from .split_table_options_param import SplitTableOptionsParam
 
 __all__ = ["SplitRunParams", "Input"]
@@ -44,4 +44,4 @@ class SplitRunParams(TypedDict, total=False):
     """The prompt that describes rules for splitting the document."""
 
 
-Input: TypeAlias = Union[str, SequenceNotStr[str], UploadResponseParam]
+Input: TypeAlias = Union[str, SequenceNotStr[str], Upload]

@@ -7,8 +7,8 @@ from typing_extensions import Required, Annotated, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
 from .._utils import PropertyInfo
+from .shared_params.upload import Upload
 from .async_config_v3_param import AsyncConfigV3Param
-from .upload_response_param import UploadResponseParam
 from .pipeline_settings_param import PipelineSettingsParam
 
 __all__ = ["PipelineRunJobParams", "Input"]
@@ -37,4 +37,4 @@ class PipelineRunJobParams(TypedDict, total=False):
     """Settings for pipeline execution that override pipeline defaults."""
 
 
-Input: TypeAlias = Union[str, SequenceNotStr[str], UploadResponseParam]
+Input: TypeAlias = Union[str, SequenceNotStr[str], Upload]

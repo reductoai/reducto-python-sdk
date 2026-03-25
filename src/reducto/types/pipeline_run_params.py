@@ -6,7 +6,7 @@ from typing import Union
 from typing_extensions import Required, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
-from .upload_response_param import UploadResponseParam
+from .shared_params.upload import Upload
 from .pipeline_settings_param import PipelineSettingsParam
 
 __all__ = ["PipelineRunParams", "Input"]
@@ -32,4 +32,4 @@ class PipelineRunParams(TypedDict, total=False):
     """Settings for pipeline execution that override pipeline defaults."""
 
 
-Input: TypeAlias = Union[str, SequenceNotStr[str], UploadResponseParam]
+Input: TypeAlias = Union[str, SequenceNotStr[str], Upload]

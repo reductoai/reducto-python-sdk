@@ -3,54 +3,59 @@
 from __future__ import annotations
 
 import os
-from typing import TYPE_CHECKING, Any, Dict, Mapping, cast
+from typing import TYPE_CHECKING, Any, Dict, Mapping, Optional, cast
 from typing_extensions import Self, Literal, override
 
 import httpx
 
 from . import _exceptions
 from ._qs import Querystring
+from .types import client_upload_params
 from ._types import (
+    Body,
     Omit,
+    Query,
+    Headers,
     Timeout,
     NotGiven,
     Transport,
     ProxiesTypes,
     RequestOptions,
+    omit,
     not_given,
 )
-from ._utils import is_given, get_async_library
+from ._utils import (
+    is_given,
+    maybe_transform,
+    get_async_library,
+    async_maybe_transform,
+)
 from ._compat import cached_property
 from ._models import SecurityOptions
 from ._version import __version__
+from ._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import ReductoError, APIStatusError
 from ._base_client import (
     DEFAULT_MAX_RETRIES,
     SyncAPIClient,
     AsyncAPIClient,
+    make_request_options,
 )
+from .types.shared.upload import Upload
 
 if TYPE_CHECKING:
-    from .resources import (
-        job,
-        edit,
-        parse,
-        split,
-        cancel,
-        upload,
-        extract,
-        version,
-        classify,
-        pipeline,
-        configure_webhook,
-    )
+    from .resources import job, edit, parse, split, cancel, extract, version, classify, pipeline, configure_webhook
     from .resources.job import JobResource, AsyncJobResource
     from .resources.edit import EditResource, AsyncEditResource
     from .resources.parse import ParseResource, AsyncParseResource
     from .resources.split import SplitResource, AsyncSplitResource
     from .resources.cancel import CancelResource, AsyncCancelResource
-    from .resources.upload import UploadResource, AsyncUploadResource
     from .resources.extract import ExtractResource, AsyncExtractResource
     from .resources.version import VersionResource, AsyncVersionResource
     from .resources.classify import ClassifyResource, AsyncClassifyResource
@@ -198,12 +203,6 @@ class Reducto(SyncAPIClient):
         return CancelResource(self)
 
     @cached_property
-    def upload(self) -> UploadResource:
-        from .resources.upload import UploadResource
-
-        return UploadResource(self)
-
-    @cached_property
     def configure_webhook(self) -> ConfigureWebhookResource:
         from .resources.configure_webhook import ConfigureWebhookResource
 
@@ -306,6 +305,43 @@ class Reducto(SyncAPIClient):
     # Alias for `copy` for nicer inline usage, e.g.
     # client.with_options(timeout=10).foo.create(...)
     with_options = copy
+
+    def upload(
+        self,
+        *,
+        extension: Optional[str] | Omit = omit,
+        file: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Upload:
+        """
+        Upload
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self.post(
+            "/upload",
+            body=maybe_transform({"file": file}, client_upload_params.ClientUploadParams),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"extension": extension}, client_upload_params.ClientUploadParams),
+            ),
+            cast_to=Upload,
+        )
 
     @override
     def _make_status_error(
@@ -463,12 +499,6 @@ class AsyncReducto(AsyncAPIClient):
         return AsyncCancelResource(self)
 
     @cached_property
-    def upload(self) -> AsyncUploadResource:
-        from .resources.upload import AsyncUploadResource
-
-        return AsyncUploadResource(self)
-
-    @cached_property
     def configure_webhook(self) -> AsyncConfigureWebhookResource:
         from .resources.configure_webhook import AsyncConfigureWebhookResource
 
@@ -572,6 +602,43 @@ class AsyncReducto(AsyncAPIClient):
     # client.with_options(timeout=10).foo.create(...)
     with_options = copy
 
+    async def upload(
+        self,
+        *,
+        extension: Optional[str] | Omit = omit,
+        file: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Upload:
+        """
+        Upload
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self.post(
+            "/upload",
+            body=await async_maybe_transform({"file": file}, client_upload_params.ClientUploadParams),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"extension": extension}, client_upload_params.ClientUploadParams),
+            ),
+            cast_to=Upload,
+        )
+
     @override
     def _make_status_error(
         self,
@@ -611,6 +678,10 @@ class ReductoWithRawResponse:
 
     def __init__(self, client: Reducto) -> None:
         self._client = client
+
+        self.upload = to_raw_response_wrapper(
+            client.upload,
+        )
 
     @cached_property
     def parse(self) -> parse.ParseResourceWithRawResponse:
@@ -655,12 +726,6 @@ class ReductoWithRawResponse:
         return CancelResourceWithRawResponse(self._client.cancel)
 
     @cached_property
-    def upload(self) -> upload.UploadResourceWithRawResponse:
-        from .resources.upload import UploadResourceWithRawResponse
-
-        return UploadResourceWithRawResponse(self._client.upload)
-
-    @cached_property
     def configure_webhook(self) -> configure_webhook.ConfigureWebhookResourceWithRawResponse:
         from .resources.configure_webhook import ConfigureWebhookResourceWithRawResponse
 
@@ -684,6 +749,10 @@ class AsyncReductoWithRawResponse:
 
     def __init__(self, client: AsyncReducto) -> None:
         self._client = client
+
+        self.upload = async_to_raw_response_wrapper(
+            client.upload,
+        )
 
     @cached_property
     def parse(self) -> parse.AsyncParseResourceWithRawResponse:
@@ -728,12 +797,6 @@ class AsyncReductoWithRawResponse:
         return AsyncCancelResourceWithRawResponse(self._client.cancel)
 
     @cached_property
-    def upload(self) -> upload.AsyncUploadResourceWithRawResponse:
-        from .resources.upload import AsyncUploadResourceWithRawResponse
-
-        return AsyncUploadResourceWithRawResponse(self._client.upload)
-
-    @cached_property
     def configure_webhook(self) -> configure_webhook.AsyncConfigureWebhookResourceWithRawResponse:
         from .resources.configure_webhook import AsyncConfigureWebhookResourceWithRawResponse
 
@@ -757,6 +820,10 @@ class ReductoWithStreamedResponse:
 
     def __init__(self, client: Reducto) -> None:
         self._client = client
+
+        self.upload = to_streamed_response_wrapper(
+            client.upload,
+        )
 
     @cached_property
     def parse(self) -> parse.ParseResourceWithStreamingResponse:
@@ -801,12 +868,6 @@ class ReductoWithStreamedResponse:
         return CancelResourceWithStreamingResponse(self._client.cancel)
 
     @cached_property
-    def upload(self) -> upload.UploadResourceWithStreamingResponse:
-        from .resources.upload import UploadResourceWithStreamingResponse
-
-        return UploadResourceWithStreamingResponse(self._client.upload)
-
-    @cached_property
     def configure_webhook(self) -> configure_webhook.ConfigureWebhookResourceWithStreamingResponse:
         from .resources.configure_webhook import ConfigureWebhookResourceWithStreamingResponse
 
@@ -830,6 +891,10 @@ class AsyncReductoWithStreamedResponse:
 
     def __init__(self, client: AsyncReducto) -> None:
         self._client = client
+
+        self.upload = async_to_streamed_response_wrapper(
+            client.upload,
+        )
 
     @cached_property
     def parse(self) -> parse.AsyncParseResourceWithStreamingResponse:
@@ -872,12 +937,6 @@ class AsyncReductoWithStreamedResponse:
         from .resources.cancel import AsyncCancelResourceWithStreamingResponse
 
         return AsyncCancelResourceWithStreamingResponse(self._client.cancel)
-
-    @cached_property
-    def upload(self) -> upload.AsyncUploadResourceWithStreamingResponse:
-        from .resources.upload import AsyncUploadResourceWithStreamingResponse
-
-        return AsyncUploadResourceWithStreamingResponse(self._client.upload)
 
     @cached_property
     def configure_webhook(self) -> configure_webhook.AsyncConfigureWebhookResourceWithStreamingResponse:
