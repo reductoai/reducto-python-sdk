@@ -5,7 +5,6 @@ from __future__ import annotations
 import httpx
 
 from .._types import Body, Query, Headers, NotGiven, not_given
-from .._utils import path_template
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -16,32 +15,31 @@ from .._response import (
 )
 from .._base_client import make_request_options
 
-__all__ = ["CancelResource", "AsyncCancelResource"]
+__all__ = ["WebhookResource", "AsyncWebhookResource"]
 
 
-class CancelResource(SyncAPIResource):
+class WebhookResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> CancelResourceWithRawResponse:
+    def with_raw_response(self) -> WebhookResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/reductoai/reducto-python-sdk#accessing-raw-response-data-eg-headers
         """
-        return CancelResourceWithRawResponse(self)
+        return WebhookResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> CancelResourceWithStreamingResponse:
+    def with_streaming_response(self) -> WebhookResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/reductoai/reducto-python-sdk#with_streaming_response
         """
-        return CancelResourceWithStreamingResponse(self)
+        return WebhookResourceWithStreamingResponse(self)
 
-    def cancel_job(
+    def run(
         self,
-        job_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -49,53 +47,39 @@ class CancelResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> object:
-        """
-        Cancel Job
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not job_id:
-            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
+    ) -> str:
+        """Webhook Portal"""
         return self._post(
-            path_template("/cancel/{job_id}", job_id=job_id),
+            "/configure_webhook",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=object,
+            cast_to=str,
         )
 
 
-class AsyncCancelResource(AsyncAPIResource):
+class AsyncWebhookResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncCancelResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncWebhookResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/reductoai/reducto-python-sdk#accessing-raw-response-data-eg-headers
         """
-        return AsyncCancelResourceWithRawResponse(self)
+        return AsyncWebhookResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncCancelResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncWebhookResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/reductoai/reducto-python-sdk#with_streaming_response
         """
-        return AsyncCancelResourceWithStreamingResponse(self)
+        return AsyncWebhookResourceWithStreamingResponse(self)
 
-    async def cancel_job(
+    async def run(
         self,
-        job_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -103,61 +87,48 @@ class AsyncCancelResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> object:
-        """
-        Cancel Job
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not job_id:
-            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
+    ) -> str:
+        """Webhook Portal"""
         return await self._post(
-            path_template("/cancel/{job_id}", job_id=job_id),
+            "/configure_webhook",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=object,
+            cast_to=str,
         )
 
 
-class CancelResourceWithRawResponse:
-    def __init__(self, cancel: CancelResource) -> None:
-        self._cancel = cancel
+class WebhookResourceWithRawResponse:
+    def __init__(self, webhook: WebhookResource) -> None:
+        self._webhook = webhook
 
-        self.cancel_job = to_raw_response_wrapper(
-            cancel.cancel_job,
+        self.run = to_raw_response_wrapper(
+            webhook.run,
         )
 
 
-class AsyncCancelResourceWithRawResponse:
-    def __init__(self, cancel: AsyncCancelResource) -> None:
-        self._cancel = cancel
+class AsyncWebhookResourceWithRawResponse:
+    def __init__(self, webhook: AsyncWebhookResource) -> None:
+        self._webhook = webhook
 
-        self.cancel_job = async_to_raw_response_wrapper(
-            cancel.cancel_job,
+        self.run = async_to_raw_response_wrapper(
+            webhook.run,
         )
 
 
-class CancelResourceWithStreamingResponse:
-    def __init__(self, cancel: CancelResource) -> None:
-        self._cancel = cancel
+class WebhookResourceWithStreamingResponse:
+    def __init__(self, webhook: WebhookResource) -> None:
+        self._webhook = webhook
 
-        self.cancel_job = to_streamed_response_wrapper(
-            cancel.cancel_job,
+        self.run = to_streamed_response_wrapper(
+            webhook.run,
         )
 
 
-class AsyncCancelResourceWithStreamingResponse:
-    def __init__(self, cancel: AsyncCancelResource) -> None:
-        self._cancel = cancel
+class AsyncWebhookResourceWithStreamingResponse:
+    def __init__(self, webhook: AsyncWebhookResource) -> None:
+        self._webhook = webhook
 
-        self.cancel_job = async_to_streamed_response_wrapper(
-            cancel.cancel_job,
+        self.run = async_to_streamed_response_wrapper(
+            webhook.run,
         )

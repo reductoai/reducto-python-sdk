@@ -2,6 +2,6 @@
 
 from typing_extensions import TypeAlias
 
-__all__ = ["ConfigureWebhookCreateResponse"]
+__all__ = ["WebhookRunResponse"]
 
-ConfigureWebhookCreateResponse: TypeAlias = str
+WebhookRunResponse: TypeAlias = str
