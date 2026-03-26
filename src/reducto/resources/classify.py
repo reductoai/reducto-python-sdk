@@ -18,7 +18,7 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
-from ..types.classify_response import ClassifyResponse
+from ..types.shared.classify_response import ClassifyResponse
 
 __all__ = ["ClassifyResource", "AsyncClassifyResource"]
 

@@ -2,9 +2,9 @@
 
 from typing import List, Optional
 
-from .._models import BaseModel
-from .edit_widget import EditWidget
-from .parse_usage import ParseUsage
+from ..._models import BaseModel
+from ..edit_widget import EditWidget
+from ..parse_usage import ParseUsage
 
 __all__ = ["EditResponse"]
 

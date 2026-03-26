@@ -1,9 +1,9 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from .._models import BaseModel
+from ..._models import BaseModel
 
-__all__ = ["SplitRunJobResponse"]
+__all__ = ["AsyncSplitResponse"]
 
 
-class SplitRunJobResponse(BaseModel):
+class AsyncSplitResponse(BaseModel):
     job_id: str

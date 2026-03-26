@@ -9,10 +9,7 @@ import pytest
 
 from reducto import Reducto, AsyncReducto
 from tests.utils import assert_matches_type
-from reducto.types import (
-    SplitResponse,
-    SplitRunJobResponse,
-)
+from reducto.types.shared import SplitResponse, AsyncSplitResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -153,7 +150,7 @@ class TestSplit:
                 }
             ],
         )
-        assert_matches_type(SplitRunJobResponse, split, path=["response"])
+        assert_matches_type(AsyncSplitResponse, split, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -230,7 +227,7 @@ class TestSplit:
             settings={"table_cutoff": "truncate"},
             split_rules="split_rules",
         )
-        assert_matches_type(SplitRunJobResponse, split, path=["response"])
+        assert_matches_type(AsyncSplitResponse, split, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -248,7 +245,7 @@ class TestSplit:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         split = response.parse()
-        assert_matches_type(SplitRunJobResponse, split, path=["response"])
+        assert_matches_type(AsyncSplitResponse, split, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -266,7 +263,7 @@ class TestSplit:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             split = response.parse()
-            assert_matches_type(SplitRunJobResponse, split, path=["response"])
+            assert_matches_type(AsyncSplitResponse, split, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -409,7 +406,7 @@ class TestAsyncSplit:
                 }
             ],
         )
-        assert_matches_type(SplitRunJobResponse, split, path=["response"])
+        assert_matches_type(AsyncSplitResponse, split, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -486,7 +483,7 @@ class TestAsyncSplit:
             settings={"table_cutoff": "truncate"},
             split_rules="split_rules",
         )
-        assert_matches_type(SplitRunJobResponse, split, path=["response"])
+        assert_matches_type(AsyncSplitResponse, split, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -504,7 +501,7 @@ class TestAsyncSplit:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         split = await response.parse()
-        assert_matches_type(SplitRunJobResponse, split, path=["response"])
+        assert_matches_type(AsyncSplitResponse, split, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -522,6 +519,6 @@ class TestAsyncSplit:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             split = await response.parse()
-            assert_matches_type(SplitRunJobResponse, split, path=["response"])
+            assert_matches_type(AsyncSplitResponse, split, path=["response"])
 
         assert cast(Any, response.is_closed) is True

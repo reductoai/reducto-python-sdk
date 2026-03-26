@@ -28,8 +28,8 @@ from ..types.retrieval_param import RetrievalParam
 from ..types.formatting_param import FormattingParam
 from ..types.spreadsheet_param import SpreadsheetParam
 from ..types.parse_run_response import ParseRunResponse
-from ..types.async_parse_response import AsyncParseResponse
 from ..types.async_config_v3_param import AsyncConfigV3Param
+from ..types.shared.async_parse_response import AsyncParseResponse
 
 __all__ = ["ParseResource", "AsyncParseResource"]
 

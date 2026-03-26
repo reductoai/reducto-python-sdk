@@ -3,14 +3,14 @@
 from __future__ import annotations
 
 from typing import Union, Iterable, Optional
-from typing_extensions import Literal, Required, TypeAlias, TypedDict
+from typing_extensions import Required, TypeAlias, TypedDict
 
-from .._types import SequenceNotStr
 from .edit_widget_param import EditWidgetParam
 from .edit_options_param import EditOptionsParam
 from .shared_params.upload import Upload
+from .shared_params.webhook_config_new import WebhookConfigNew
 
-__all__ = ["EditRunJobParams", "DocumentURL", "Webhook"]
+__all__ = ["EditRunJobParams", "DocumentURL"]
 
 
 class EditRunJobParams(TypedDict, total=False):
@@ -42,27 +42,7 @@ class EditRunJobParams(TypedDict, total=False):
     jobs.
     """
 
-    webhook: Webhook
+    webhook: WebhookConfigNew
 
 
 DocumentURL: TypeAlias = Union[str, Upload]
-
-
-class Webhook(TypedDict, total=False):
-    channels: SequenceNotStr[str]
-    """
-    A list of Svix channels the message will be delivered down, omit to send to all
-    channels.
-    """
-
-    metadata: object
-    """JSON metadata included in webhook request body"""
-
-    mode: Literal["disabled", "svix", "direct"]
-    """The mode to use for webhook delivery.
-
-    Defaults to 'disabled'. We recommend using 'svix' for production environments.
-    """
-
-    url: str
-    """The URL to send the webhook to (if using direct webhoook)."""

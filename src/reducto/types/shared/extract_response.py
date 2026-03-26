@@ -2,8 +2,8 @@
 
 from typing import List, Optional
 
-from .._models import BaseModel
-from .extract_usage import ExtractUsage
+from ..._models import BaseModel
+from ..extract_usage import ExtractUsage
 
 __all__ = ["ExtractResponse"]
 
