@@ -2,40 +2,12 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
-from typing_extensions import Literal, TypeAlias, TypedDict
+from typing import List
+from typing_extensions import Literal, TypedDict
 
-__all__ = ["SpreadsheetParam", "SplitLargeTables", "SplitLargeTablesSize", "SplitLargeTablesSizeSplitLargeTableSizes"]
+from .shared_params.split_large_tables import SplitLargeTables
 
-
-class SplitLargeTablesSizeSplitLargeTableSizes(TypedDict, total=False):
-    column: Optional[int]
-    """The number of columns to include in each chunk when splitting large tables.
-
-    Does not chunk columns if set to None.
-    """
-
-    row: Optional[int]
-    """The number of rows to include in each chunk when splitting large tables.
-
-    Does not chunk rows if set to None.
-    """
-
-
-SplitLargeTablesSize: TypeAlias = Union[int, SplitLargeTablesSizeSplitLargeTableSizes]
-
-
-class SplitLargeTables(TypedDict, total=False):
-    enabled: bool
-    """If True, split large tables into smaller tables. Defaults to True."""
-
-    size: SplitLargeTablesSize
-    """The size of the tables to split into.
-
-    Defaults to 50. Use 'row' and 'column' to independently specify the number of
-    rows and columns to include when splitting. If you only want to split by rows or
-    columns, set the other value to None.
-    """
+__all__ = ["SpreadsheetParam"]
 
 
 class SpreadsheetParam(TypedDict, total=False):

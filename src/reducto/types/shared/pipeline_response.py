@@ -3,9 +3,9 @@
 from typing import List, Union, Optional
 from typing_extensions import TypeAlias
 
-from .._models import BaseModel
-from .v3_extract import V3Extract
-from .parse_usage import ParseUsage
+from ..._models import BaseModel
+from ..v3_extract import V3Extract
+from ..parse_usage import ParseUsage
 from .edit_response import EditResponse
 from .parse_response import ParseResponse
 from .split_response import SplitResponse

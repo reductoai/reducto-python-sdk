@@ -6,12 +6,12 @@ from typing_extensions import Literal, TypeAlias
 
 from .._models import BaseModel
 from .v3_extract import V3Extract
-from .edit_response import EditResponse
-from .parse_response import ParseResponse
-from .split_response import SplitResponse
-from .extract_response import ExtractResponse
-from .classify_response import ClassifyResponse
-from .pipeline_response import PipelineResponse
+from .shared.edit_response import EditResponse
+from .shared.parse_response import ParseResponse
+from .shared.split_response import SplitResponse
+from .shared.extract_response import ExtractResponse
+from .shared.classify_response import ClassifyResponse
+from .shared.pipeline_response import PipelineResponse
 
 __all__ = [
     "JobGetResponse",

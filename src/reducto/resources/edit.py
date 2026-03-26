@@ -18,10 +18,11 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
-from ..types.edit_response import EditResponse
 from ..types.edit_widget_param import EditWidgetParam
 from ..types.edit_options_param import EditOptionsParam
-from ..types.edit_run_job_response import EditRunJobResponse
+from ..types.shared.edit_response import EditResponse
+from ..types.shared.async_edit_response import AsyncEditResponse
+from ..types.shared_params.webhook_config_new import WebhookConfigNew
 
 __all__ = ["EditResource", "AsyncEditResource"]
 
@@ -117,14 +118,14 @@ class EditResource(SyncAPIResource):
         edit_options: EditOptionsParam | Omit = omit,
         form_schema: Optional[Iterable[EditWidgetParam]] | Omit = omit,
         priority: bool | Omit = omit,
-        webhook: edit_run_job_params.Webhook | Omit = omit,
+        webhook: WebhookConfigNew | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> EditRunJobResponse:
+    ) -> AsyncEditResponse:
         """Edit Async
 
         Args:
@@ -171,7 +172,7 @@ class EditResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=EditRunJobResponse,
+            cast_to=AsyncEditResponse,
         )
 
 
@@ -266,14 +267,14 @@ class AsyncEditResource(AsyncAPIResource):
         edit_options: EditOptionsParam | Omit = omit,
         form_schema: Optional[Iterable[EditWidgetParam]] | Omit = omit,
         priority: bool | Omit = omit,
-        webhook: edit_run_job_params.Webhook | Omit = omit,
+        webhook: WebhookConfigNew | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> EditRunJobResponse:
+    ) -> AsyncEditResponse:
         """Edit Async
 
         Args:
@@ -320,7 +321,7 @@ class AsyncEditResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=EditRunJobResponse,
+            cast_to=AsyncEditResponse,
         )
 
 

@@ -1,3 +1,32 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from .upload import Upload as Upload
+from .chunking import Chunking as Chunking
+from .text_agentic import TextAgentic as TextAgentic
+from .edit_response import EditResponse as EditResponse
+from .enrich_config import EnrichConfig as EnrichConfig
+from .table_agentic import TableAgentic as TableAgentic
+from .figure_agentic import FigureAgentic as FigureAgentic
+from .parse_response import ParseResponse as ParseResponse
+from .split_response import SplitResponse as SplitResponse
+from .chunking_config import ChunkingConfig as ChunkingConfig
+from .extract_response import ExtractResponse as ExtractResponse
+from .classify_response import ClassifyResponse as ClassifyResponse
+from .pipeline_response import PipelineResponse as PipelineResponse
+from .split_large_tables import SplitLargeTables as SplitLargeTables
+from .webhook_config_new import WebhookConfigNew as WebhookConfigNew
+from .async_edit_response import AsyncEditResponse as AsyncEditResponse
+from .svix_webhook_config import SvixWebhookConfig as SvixWebhookConfig
+from .array_extract_config import ArrayExtractConfig as ArrayExtractConfig
+from .async_parse_response import AsyncParseResponse as AsyncParseResponse
+from .async_split_response import AsyncSplitResponse as AsyncSplitResponse
+from .table_summary_config import TableSummaryConfig as TableSummaryConfig
+from .direct_webhook_config import DirectWebhookConfig as DirectWebhookConfig
+from .figure_summary_config import FigureSummaryConfig as FigureSummaryConfig
+from .async_extract_response import AsyncExtractResponse as AsyncExtractResponse
+from .async_pipeline_response import AsyncPipelineResponse as AsyncPipelineResponse
+from .base_processing_options import BaseProcessingOptions as BaseProcessingOptions
+from .advanced_citations_config import AdvancedCitationsConfig as AdvancedCitationsConfig
+from .advanced_processing_options import AdvancedProcessingOptions as AdvancedProcessingOptions
+from .large_table_chunking_config import LargeTableChunkingConfig as LargeTableChunkingConfig
+from .experimental_processing_options import ExperimentalProcessingOptions as ExperimentalProcessingOptions

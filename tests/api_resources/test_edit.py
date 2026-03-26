@@ -9,7 +9,7 @@ import pytest
 
 from reducto import Reducto, AsyncReducto
 from tests.utils import assert_matches_type
-from reducto.types import EditResponse, EditRunJobResponse
+from reducto.types.shared import EditResponse, AsyncEditResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -95,7 +95,7 @@ class TestEdit:
             document_url="string",
             edit_instructions="edit_instructions",
         )
-        assert_matches_type(EditRunJobResponse, edit, path=["response"])
+        assert_matches_type(AsyncEditResponse, edit, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -135,7 +135,7 @@ class TestEdit:
                 "url": "url",
             },
         )
-        assert_matches_type(EditRunJobResponse, edit, path=["response"])
+        assert_matches_type(AsyncEditResponse, edit, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -148,7 +148,7 @@ class TestEdit:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         edit = response.parse()
-        assert_matches_type(EditRunJobResponse, edit, path=["response"])
+        assert_matches_type(AsyncEditResponse, edit, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -161,7 +161,7 @@ class TestEdit:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             edit = response.parse()
-            assert_matches_type(EditRunJobResponse, edit, path=["response"])
+            assert_matches_type(AsyncEditResponse, edit, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -249,7 +249,7 @@ class TestAsyncEdit:
             document_url="string",
             edit_instructions="edit_instructions",
         )
-        assert_matches_type(EditRunJobResponse, edit, path=["response"])
+        assert_matches_type(AsyncEditResponse, edit, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -289,7 +289,7 @@ class TestAsyncEdit:
                 "url": "url",
             },
         )
-        assert_matches_type(EditRunJobResponse, edit, path=["response"])
+        assert_matches_type(AsyncEditResponse, edit, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -302,7 +302,7 @@ class TestAsyncEdit:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         edit = await response.parse()
-        assert_matches_type(EditRunJobResponse, edit, path=["response"])
+        assert_matches_type(AsyncEditResponse, edit, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -315,6 +315,6 @@ class TestAsyncEdit:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             edit = await response.parse()
-            assert_matches_type(EditRunJobResponse, edit, path=["response"])
+            assert_matches_type(AsyncEditResponse, edit, path=["response"])
 
         assert cast(Any, response.is_closed) is True

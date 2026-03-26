@@ -26,8 +26,8 @@ from ..types.instructions_param import InstructionsParam
 from ..types.parse_options_param import ParseOptionsParam
 from ..types.extract_run_response import ExtractRunResponse
 from ..types.async_config_v3_param import AsyncConfigV3Param
-from ..types.async_extract_response import AsyncExtractResponse
 from ..types.extract_settings_param import ExtractSettingsParam
+from ..types.shared.async_extract_response import AsyncExtractResponse
 
 __all__ = ["ExtractResource", "AsyncExtractResource"]
 

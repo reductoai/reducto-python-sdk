@@ -9,10 +9,7 @@ import pytest
 
 from reducto import Reducto, AsyncReducto
 from tests.utils import assert_matches_type
-from reducto.types import (
-    PipelineResponse,
-    PipelineRunJobResponse,
-)
+from reducto.types.shared import PipelineResponse, AsyncPipelineResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -74,7 +71,7 @@ class TestPipeline:
             input="string",
             pipeline_id="pipeline_id",
         )
-        assert_matches_type(PipelineRunJobResponse, pipeline, path=["response"])
+        assert_matches_type(AsyncPipelineResponse, pipeline, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -92,7 +89,7 @@ class TestPipeline:
             },
             settings={"document_password": "document_password"},
         )
-        assert_matches_type(PipelineRunJobResponse, pipeline, path=["response"])
+        assert_matches_type(AsyncPipelineResponse, pipeline, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -105,7 +102,7 @@ class TestPipeline:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         pipeline = response.parse()
-        assert_matches_type(PipelineRunJobResponse, pipeline, path=["response"])
+        assert_matches_type(AsyncPipelineResponse, pipeline, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -118,7 +115,7 @@ class TestPipeline:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             pipeline = response.parse()
-            assert_matches_type(PipelineRunJobResponse, pipeline, path=["response"])
+            assert_matches_type(AsyncPipelineResponse, pipeline, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -182,7 +179,7 @@ class TestAsyncPipeline:
             input="string",
             pipeline_id="pipeline_id",
         )
-        assert_matches_type(PipelineRunJobResponse, pipeline, path=["response"])
+        assert_matches_type(AsyncPipelineResponse, pipeline, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -200,7 +197,7 @@ class TestAsyncPipeline:
             },
             settings={"document_password": "document_password"},
         )
-        assert_matches_type(PipelineRunJobResponse, pipeline, path=["response"])
+        assert_matches_type(AsyncPipelineResponse, pipeline, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -213,7 +210,7 @@ class TestAsyncPipeline:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         pipeline = await response.parse()
-        assert_matches_type(PipelineRunJobResponse, pipeline, path=["response"])
+        assert_matches_type(AsyncPipelineResponse, pipeline, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -226,6 +223,6 @@ class TestAsyncPipeline:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             pipeline = await response.parse()
-            assert_matches_type(PipelineRunJobResponse, pipeline, path=["response"])
+            assert_matches_type(AsyncPipelineResponse, pipeline, path=["response"])
 
         assert cast(Any, response.is_closed) is True

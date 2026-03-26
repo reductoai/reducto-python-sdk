@@ -3,9 +3,9 @@
 from typing import Dict, List, Union, Optional
 from typing_extensions import Literal, TypeAlias
 
-from .._models import BaseModel
-from .parse_usage import ParseUsage
-from .deep_split_page_evidence import DeepSplitPageEvidence
+from ..._models import BaseModel
+from ..parse_usage import ParseUsage
+from ..deep_split_page_evidence import DeepSplitPageEvidence
 
 __all__ = [
     "SplitResponse",
