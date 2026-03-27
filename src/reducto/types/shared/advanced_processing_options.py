@@ -3,7 +3,7 @@
 from typing import List, Union, Optional
 from typing_extensions import Literal, TypeAlias
 
-from .. import page_range
+from . import page_range
 from ..._models import BaseModel
 from .large_table_chunking_config import LargeTableChunkingConfig
 
