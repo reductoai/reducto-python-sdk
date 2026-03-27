@@ -1,0 +1,30 @@
+name: E2E Tests
+on:
+  pull_request:
+    branches:
+      - main
+      - next
+
+jobs:
+  e2e:
+    timeout-minutes: 15
+    name: e2e
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install SDK from source
+        run: pip install -e ".[aiohttp]"
+
+      - name: Install test dependencies
+        run: pip install pytest pytest-asyncio
+
+      - name: Run E2E tests
+        env:
+          REDUCTO_API_KEY: ${{ secrets.REDUCTO_API_KEY }}
+        run: pytest tests/e2e/ -v -x -o "addopts="
