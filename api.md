@@ -22,6 +22,7 @@ from reducto.types import (
     FigureAgentic,
     FigureSummaryConfig,
     LargeTableChunkingConfig,
+    PageRange,
     ParseResponse,
     PipelineResponse,
     SplitLargeTables,
@@ -131,12 +132,6 @@ Methods:
 - <code title="post /pipeline_async">client.pipeline.<a href="./src/reducto/resources/pipeline.py">run_job</a>(\*\*<a href="src/reducto/types/pipeline_run_job_params.py">params</a>) -> <a href="./src/reducto/types/shared/async_pipeline_response.py">AsyncPipelineResponse</a></code>
 
 # Classify
-
-Types:
-
-```python
-from reducto.types import PageRange
-```
 
 Methods:
 

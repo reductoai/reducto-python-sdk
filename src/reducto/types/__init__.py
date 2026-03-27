@@ -5,6 +5,7 @@ from __future__ import annotations
 from .shared import (
     Upload as Upload,
     Chunking as Chunking,
+    PageRange as PageRange,
     TextAgentic as TextAgentic,
     EditResponse as EditResponse,
     EnrichConfig as EnrichConfig,
@@ -45,7 +46,6 @@ from .edit_run_params import EditRunParams as EditRunParams
 from .retrieval_param import RetrievalParam as RetrievalParam
 from .formatting_param import FormattingParam as FormattingParam
 from .job_get_response import JobGetResponse as JobGetResponse
-from .page_range_param import PageRangeParam as PageRangeParam
 from .parse_run_params import ParseRunParams as ParseRunParams
 from .split_run_params import SplitRunParams as SplitRunParams
 from .edit_widget_param import EditWidgetParam as EditWidgetParam

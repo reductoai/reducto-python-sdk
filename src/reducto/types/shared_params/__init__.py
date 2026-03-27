@@ -2,6 +2,7 @@
 
 from .upload import Upload as Upload
 from .chunking import Chunking as Chunking
+from .page_range import PageRange as PageRange
 from .text_agentic import TextAgentic as TextAgentic
 from .table_agentic import TableAgentic as TableAgentic
 from .figure_agentic import FigureAgentic as FigureAgentic

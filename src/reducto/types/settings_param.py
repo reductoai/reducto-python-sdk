@@ -6,11 +6,11 @@ from typing import List, Union, Iterable, Optional
 from typing_extensions import Literal, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
-from .page_range_param import PageRangeParam
+from .shared_params import page_range
 
 __all__ = ["SettingsParam", "PageRange"]
 
-PageRange: TypeAlias = Union[PageRangeParam, Iterable[PageRangeParam], Iterable[int], SequenceNotStr[str]]
+PageRange: TypeAlias = Union[page_range.PageRange, Iterable[page_range.PageRange], Iterable[int], SequenceNotStr[str]]
 
 
 class SettingsParam(TypedDict, total=False):

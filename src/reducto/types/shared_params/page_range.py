@@ -5,10 +5,10 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import TypedDict
 
-__all__ = ["PageRangeParam"]
+__all__ = ["PageRange"]
 
 
-class PageRangeParam(TypedDict, total=False):
+class PageRange(TypedDict, total=False):
     end: Optional[int]
     """The page number to stop processing at (1-indexed)."""
 
