@@ -13,6 +13,8 @@ from __future__ import annotations
 
 import os
 import time
+import tempfile
+from pathlib import Path
 
 import pytest
 
@@ -39,7 +41,7 @@ TRIVIAL_SCHEMA = {
 def client() -> Reducto:
     api_key = os.environ.get("REDUCTO_API_KEY")
     if not api_key:
-        pytest.skip("REDUCTO_API_KEY not set")
+        pytest.fail("REDUCTO_API_KEY environment variable is required for E2E tests")
     return Reducto(api_key=api_key)
 
 
@@ -156,6 +158,19 @@ class TestUpload:
         assert upload.presigned_url
         # Verify the file_id is a valid reducto:// URI format
         assert upload.file_id.startswith("reducto://")
+
+    def test_upload_with_file_path(self, client: Reducto) -> None:
+        """Test upload with file=Path() — verifies the SDK handles local file paths."""
+        # Create a minimal PDF file for upload
+        with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as f:
+            f.write(b"%PDF-1.4 minimal test file")
+            tmp_path = Path(f.name)
+        try:
+            upload = client.upload(file=tmp_path)
+            assert upload.file_id
+            assert upload.file_id.startswith("reducto://")
+        finally:
+            tmp_path.unlink()
 
 
 class TestJob:
