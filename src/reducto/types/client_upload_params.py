@@ -3,12 +3,14 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import TypedDict
+from typing_extensions import Annotated, TypedDict
+
+from .._utils import PropertyInfo
 
 __all__ = ["ClientUploadParams"]
 
 
 class ClientUploadParams(TypedDict, total=False):
-    extension: Optional[str]
+    query_extension: Annotated[Optional[str], PropertyInfo(alias="extension")]
 
-    file: Optional[str]
+    body_extension: Annotated[str, PropertyInfo(alias="extension")]
