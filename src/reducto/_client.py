@@ -314,8 +314,7 @@ class Reducto(SyncAPIClient):
     def upload(
         self,
         *,
-        query_extension: Optional[str] | Omit = omit,
-        body_extension: str | Omit = omit,
+        extension: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -337,13 +336,12 @@ class Reducto(SyncAPIClient):
         """
         return self.post(
             "/upload",
-            body=maybe_transform({"body_extension": body_extension}, client_upload_params.ClientUploadParams),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"query_extension": query_extension}, client_upload_params.ClientUploadParams),
+                query=maybe_transform({"extension": extension}, client_upload_params.ClientUploadParams),
             ),
             cast_to=Upload,
         )
@@ -617,8 +615,7 @@ class AsyncReducto(AsyncAPIClient):
     async def upload(
         self,
         *,
-        query_extension: Optional[str] | Omit = omit,
-        body_extension: str | Omit = omit,
+        extension: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -640,17 +637,12 @@ class AsyncReducto(AsyncAPIClient):
         """
         return await self.post(
             "/upload",
-            body=await async_maybe_transform(
-                {"body_extension": body_extension}, client_upload_params.ClientUploadParams
-            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
-                    {"query_extension": query_extension}, client_upload_params.ClientUploadParams
-                ),
+                query=await async_maybe_transform({"extension": extension}, client_upload_params.ClientUploadParams),
             ),
             cast_to=Upload,
         )
