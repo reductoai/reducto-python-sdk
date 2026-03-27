@@ -335,10 +335,6 @@ class Reducto(SyncAPIClient):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        # It should be noted that the actual Content-Type header that will be
-        # sent to the server will contain a `boundary` parameter, e.g.
-        # multipart/form-data; boundary=---abc--
-        extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
         return self.post(
             "/upload",
             body=maybe_transform({"file": file}, client_upload_params.ClientUploadParams),
@@ -642,10 +638,6 @@ class AsyncReducto(AsyncAPIClient):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        # It should be noted that the actual Content-Type header that will be
-        # sent to the server will contain a `boundary` parameter, e.g.
-        # multipart/form-data; boundary=---abc--
-        extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
         return await self.post(
             "/upload",
             body=await async_maybe_transform({"file": file}, client_upload_params.ClientUploadParams),
