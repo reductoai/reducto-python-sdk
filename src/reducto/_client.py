@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import TYPE_CHECKING, Any, Dict, Mapping, Optional, cast
+from typing import TYPE_CHECKING, Any, Dict, Union, Mapping, Optional, cast
 from typing_extensions import Self, Literal, override
 
 import httpx
@@ -318,7 +318,7 @@ class Reducto(SyncAPIClient):
         self,
         *,
         extension: Optional[str] | Omit = omit,
-        file: Optional[FileTypes] | Omit = omit,
+        file: Union[FileTypes, str, None] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -629,7 +629,7 @@ class AsyncReducto(AsyncAPIClient):
         self,
         *,
         extension: Optional[str] | Omit = omit,
-        file: Optional[FileTypes] | Omit = omit,
+        file: Union[FileTypes, str, None] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
