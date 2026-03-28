@@ -49,11 +49,15 @@ class ResultDeepSplitResultSplitPage(BaseModel):
 
     page_number: int
 
+    confidence: Optional[Literal["high", "medium", "low"]] = None
+
 
 class ResultDeepSplitResultSplitPartitionPage(BaseModel):
     evidence: str
 
     page_number: int
+
+    confidence: Optional[Literal["high", "medium", "low"]] = None
 
 
 class ResultDeepSplitResultSplitPartition(BaseModel):
