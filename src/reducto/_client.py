@@ -18,6 +18,7 @@ from ._types import (
     Headers,
     Timeout,
     NotGiven,
+    FileTypes,
     Transport,
     ProxiesTypes,
     RequestOptions,
@@ -317,6 +318,7 @@ class Reducto(SyncAPIClient):
         self,
         *,
         extension: Optional[str] | Omit = omit,
+        file: Optional[FileTypes] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -336,7 +338,7 @@ class Reducto(SyncAPIClient):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        body = deepcopy_minimal({})
+        body = deepcopy_minimal({"file": file})
         files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
         if files:
             # It should be noted that the actual Content-Type header that will be
@@ -345,6 +347,7 @@ class Reducto(SyncAPIClient):
             extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
         return self.post(
             "/upload",
+            body=maybe_transform(body, client_upload_params.ClientUploadParams),
             files=files,
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -626,6 +629,7 @@ class AsyncReducto(AsyncAPIClient):
         self,
         *,
         extension: Optional[str] | Omit = omit,
+        file: Optional[FileTypes] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -645,7 +649,7 @@ class AsyncReducto(AsyncAPIClient):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        body = deepcopy_minimal({})
+        body = deepcopy_minimal({"file": file})
         files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
         if files:
             # It should be noted that the actual Content-Type header that will be
@@ -654,6 +658,7 @@ class AsyncReducto(AsyncAPIClient):
             extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
         return await self.post(
             "/upload",
+            body=await async_maybe_transform(body, client_upload_params.ClientUploadParams),
             files=files,
             options=make_request_options(
                 extra_headers=extra_headers,
