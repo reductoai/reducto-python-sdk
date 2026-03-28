@@ -1,5 +1,32 @@
 # Changelog
 
+## 0.21.0 (2026-03-28)
+
+Full Changelog: [v0.20.0...v0.21.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.20.0...v0.21.0)
+
+### Features
+
+* **api:** api update ([f847016](https://github.com/reductoai/reducto-python-sdk/commit/f8470168079a16d78fa9e2c96b8c12b3742a6de6))
+* **api:** api update ([f52285b](https://github.com/reductoai/reducto-python-sdk/commit/f52285baa33df0572b62ce26c9b5127e623ed579))
+* **api:** api update ([4d1860f](https://github.com/reductoai/reducto-python-sdk/commit/4d1860fc86dd694ca021fb1cdf49174ad038d407))
+* **api:** api update ([4bed8ba](https://github.com/reductoai/reducto-python-sdk/commit/4bed8ba113966d363fd33125af7a8ec871f5e88c))
+* **api:** api update ([d9c0883](https://github.com/reductoai/reducto-python-sdk/commit/d9c088332394617e53899e4c84df7494deb5467c))
+* **api:** api update ([eb08dff](https://github.com/reductoai/reducto-python-sdk/commit/eb08dff9b8da144fcd10023aca5febe9b98a3933))
+* **api:** api update ([e0e6204](https://github.com/reductoai/reducto-python-sdk/commit/e0e6204c05e6ef93dacf402e8e7c98f3fef75559))
+* **api:** manual updates ([6e6d4d1](https://github.com/reductoai/reducto-python-sdk/commit/6e6d4d1e46168e74c87a8c1619a333839e83bcfb))
+
+
+### Bug Fixes
+
+* remove --timeout flag (no pytest-timeout), rename misleading test ([8ae585a](https://github.com/reductoai/reducto-python-sdk/commit/8ae585a35559484abf662772e2ecd26da84f78c9))
+* restore file upload support in upload method ([d704af4](https://github.com/reductoai/reducto-python-sdk/commit/d704af4f1b5126f921a67d2f08cdf782093bfc2d))
+* sort imports in _client.py to satisfy ruff I001 ([0322db7](https://github.com/reductoai/reducto-python-sdk/commit/0322db7dd1f64921ba6c604dfa84d4b11b4cd99d))
+
+
+### Chores
+
+* **internal:** version bump ([c3f3b8d](https://github.com/reductoai/reducto-python-sdk/commit/c3f3b8d8ab4a30d36603648c4367e01205ada533))
+
 ## 0.20.0 (2026-03-25)
 
 Full Changelog: [v0.19.0...v0.20.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.19.0...v0.20.0)
