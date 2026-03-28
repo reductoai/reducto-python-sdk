@@ -56,6 +56,7 @@ class TestClient:
     def test_method_upload_with_all_params(self, client: Reducto) -> None:
         client_ = client.upload(
             extension="extension",
+            file=b"Example data",
         )
         assert_matches_type(Upload, client_, path=["response"])
 
@@ -126,6 +127,7 @@ class TestAsyncClient:
     async def test_method_upload_with_all_params(self, async_client: AsyncReducto) -> None:
         client = await async_client.upload(
             extension="extension",
+            file=b"Example data",
         )
         assert_matches_type(Upload, client, path=["response"])
 
