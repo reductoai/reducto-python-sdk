@@ -3,8 +3,8 @@
 from typing import Union
 from typing_extensions import TypeAlias
 
-from .parse_response import ParseResponse
-from .async_parse_response import AsyncParseResponse
+from .shared.parse_response import ParseResponse
+from .shared.async_parse_response import AsyncParseResponse
 
 __all__ = ["ParseRunResponse"]
 

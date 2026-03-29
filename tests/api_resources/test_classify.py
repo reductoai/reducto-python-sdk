@@ -9,7 +9,7 @@ import pytest
 
 from reducto import Reducto, AsyncReducto
 from tests.utils import assert_matches_type
-from reducto.types import ClassifyResponse
+from reducto.types.shared import ClassifyResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 

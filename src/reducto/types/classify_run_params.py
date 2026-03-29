@@ -6,7 +6,7 @@ from typing import Union, Iterable, Optional
 from typing_extensions import Required, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
-from .page_range_param import PageRangeParam
+from .shared_params import page_range
 from .shared_params.upload import Upload
 
 __all__ = ["ClassifyRunParams", "Input", "ClassificationSchema", "PageRange"]
@@ -63,4 +63,4 @@ class ClassificationSchema(TypedDict, total=False):
     """
 
 
-PageRange: TypeAlias = Union[PageRangeParam, Iterable[PageRangeParam], Iterable[int]]
+PageRange: TypeAlias = Union[page_range.PageRange, Iterable[page_range.PageRange], Iterable[int]]

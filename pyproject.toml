@@ -150,6 +150,8 @@ exclude = [
     ".venv",
     ".nox",
     ".git",
+    "src/reducto/lib",
+    "tests/e2e",
 ]
 
 reportImplicitOverride = true
@@ -168,7 +170,7 @@ show_error_codes = true
 #
 # We also exclude our `tests` as mypy doesn't always infer
 # types correctly and Pyright will still catch any type errors.
-exclude = ['src/reducto/_files.py', '_dev/.*.py', 'tests/.*']
+exclude = ['src/reducto/_files.py', 'src/reducto/lib/.*', '_dev/.*.py', 'tests/.*']
 
 strict_equality = true
 implicit_reexport = true

@@ -18,12 +18,12 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
-from ..types.split_response import SplitResponse
 from ..types.parse_options_param import ParseOptionsParam
 from ..types.split_category_param import SplitCategoryParam
 from ..types.async_config_v3_param import AsyncConfigV3Param
-from ..types.split_run_job_response import SplitRunJobResponse
+from ..types.shared.split_response import SplitResponse
 from ..types.split_table_options_param import SplitTableOptionsParam
+from ..types.shared.async_split_response import AsyncSplitResponse
 
 __all__ = ["SplitResource", "AsyncSplitResource"]
 
@@ -126,7 +126,7 @@ class SplitResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SplitRunJobResponse:
+    ) -> AsyncSplitResponse:
         """
         Split Async
 
@@ -175,7 +175,7 @@ class SplitResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=SplitRunJobResponse,
+            cast_to=AsyncSplitResponse,
         )
 
 
@@ -277,7 +277,7 @@ class AsyncSplitResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SplitRunJobResponse:
+    ) -> AsyncSplitResponse:
         """
         Split Async
 
@@ -326,7 +326,7 @@ class AsyncSplitResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=SplitRunJobResponse,
+            cast_to=AsyncSplitResponse,
         )
 
 

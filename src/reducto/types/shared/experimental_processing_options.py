@@ -28,6 +28,12 @@ class ExperimentalProcessingOptions(BaseModel):
     detect_signatures: Optional[bool] = None
     """If True, detect signatures in the document. Defaults to False."""
 
+    disable_office_external_links: Optional[bool] = None
+    """
+    If True, configure LibreOffice conversion to block linked content from untrusted
+    documents. Defaults to True on-prem and False elsewhere.
+    """
+
     embed_text_metadata_pdf: Optional[bool] = None
     """
     If extracted OCR text metadata should be embedded back into the returned PDF,
@@ -67,7 +73,11 @@ class ExperimentalProcessingOptions(BaseModel):
     performance at the cost of increased latency. Defaults to False.
     """
 
-    layout_model: Optional[Literal["default", "beta", "rfdetr"]] = None
+    layout_model: Optional[
+        Literal[
+            "default", "beta", "rfdetr", "rfdetr0302", "rfdetr0303", "rfdetrbase0218", "rfdetr0304", "qwen35_27b_0317"
+        ]
+    ] = None
     """The layout model to use for the document.
 
     This will be deprecated in the future.
@@ -87,6 +97,9 @@ class ExperimentalProcessingOptions(BaseModel):
 
     return_figure_images: Optional[bool] = None
     """If figure images should be returned in the result. Defaults to False."""
+
+    return_page_images: Optional[bool] = None
+    """If full page images should be returned in the result. Defaults to False."""
 
     return_table_images: Optional[bool] = None
     """If table images should be returned in the result. Defaults to False."""

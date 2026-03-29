@@ -16,10 +16,10 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
-from ..types.pipeline_response import PipelineResponse
 from ..types.async_config_v3_param import AsyncConfigV3Param
 from ..types.pipeline_settings_param import PipelineSettingsParam
-from ..types.pipeline_run_job_response import PipelineRunJobResponse
+from ..types.shared.pipeline_response import PipelineResponse
+from ..types.shared.async_pipeline_response import AsyncPipelineResponse
 
 __all__ = ["PipelineResource", "AsyncPipelineResource"]
 
@@ -111,7 +111,7 @@ class PipelineResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PipelineRunJobResponse:
+    ) -> AsyncPipelineResponse:
         """
         Pipeline Async
 
@@ -153,7 +153,7 @@ class PipelineResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PipelineRunJobResponse,
+            cast_to=AsyncPipelineResponse,
         )
 
 
@@ -244,7 +244,7 @@ class AsyncPipelineResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PipelineRunJobResponse:
+    ) -> AsyncPipelineResponse:
         """
         Pipeline Async
 
@@ -286,7 +286,7 @@ class AsyncPipelineResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PipelineRunJobResponse,
+            cast_to=AsyncPipelineResponse,
         )
 
 

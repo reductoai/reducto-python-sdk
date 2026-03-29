@@ -4,7 +4,8 @@ from typing import Dict, List, Union, Optional
 from typing_extensions import Literal, TypeAlias
 
 from ..._models import BaseModel
-from .parse_usage import ParseUsage
+from ..parse_usage import ParseUsage
+from ..deep_split_page_evidence import DeepSplitPageEvidence
 
 __all__ = [
     "SplitResponse",
@@ -14,9 +15,7 @@ __all__ = [
     "ResultSplitResultSplitPartition",
     "ResultDeepSplitResult",
     "ResultDeepSplitResultSplit",
-    "ResultDeepSplitResultSplitPage",
     "ResultDeepSplitResultSplitPartition",
-    "ResultDeepSplitResultSplitPartitionPage",
 ]
 
 
@@ -44,28 +43,16 @@ class ResultSplitResult(BaseModel):
     splits: List[ResultSplitResultSplit]
 
 
-class ResultDeepSplitResultSplitPage(BaseModel):
-    evidence: str
-
-    page_number: int
-
-
-class ResultDeepSplitResultSplitPartitionPage(BaseModel):
-    evidence: str
-
-    page_number: int
-
-
 class ResultDeepSplitResultSplitPartition(BaseModel):
     name: str
 
-    pages: List[ResultDeepSplitResultSplitPartitionPage]
+    pages: List[DeepSplitPageEvidence]
 
 
 class ResultDeepSplitResultSplit(BaseModel):
     name: str
 
-    pages: List[ResultDeepSplitResultSplitPage]
+    pages: List[DeepSplitPageEvidence]
 
     partitions: Optional[List[ResultDeepSplitResultSplitPartition]] = None
 

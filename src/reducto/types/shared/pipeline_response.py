@@ -4,12 +4,12 @@ from typing import List, Union, Optional
 from typing_extensions import TypeAlias
 
 from ..._models import BaseModel
-from .parse_usage import ParseUsage
+from ..v3_extract import V3Extract
+from ..parse_usage import ParseUsage
 from .edit_response import EditResponse
 from .parse_response import ParseResponse
 from .split_response import SplitResponse
 from .extract_response import ExtractResponse
-from .v3_extract_response import V3ExtractResponse
 
 __all__ = [
     "PipelineResponse",
@@ -20,7 +20,7 @@ __all__ = [
     "ResultParse",
 ]
 
-ResultExtractUnionMember0Result: TypeAlias = Union[ExtractResponse, V3ExtractResponse]
+ResultExtractUnionMember0Result: TypeAlias = Union[ExtractResponse, V3Extract]
 
 
 class ResultExtractUnionMember0(BaseModel):
@@ -35,7 +35,7 @@ class ResultExtractUnionMember0(BaseModel):
     partition: Optional[str] = None
 
 
-ResultExtract: TypeAlias = Union[List[ResultExtractUnionMember0], ExtractResponse, V3ExtractResponse, None]
+ResultExtract: TypeAlias = Union[List[ResultExtractUnionMember0], ExtractResponse, V3Extract, None]
 
 ResultParse: TypeAlias = Union[ParseResponse, List[ParseResponse], None]
 

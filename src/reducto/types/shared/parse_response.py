@@ -4,8 +4,8 @@ from typing import Dict, List, Union, Optional
 from typing_extensions import Literal, TypeAlias
 
 from ..._models import BaseModel
-from .parse_usage import ParseUsage
-from .bounding_box import BoundingBox
+from ..parse_usage import ParseUsage
+from ..bounding_box import BoundingBox
 
 __all__ = [
     "ParseResponse",

@@ -19,9 +19,8 @@ from pathlib import Path
 import pytest
 
 from reducto import Reducto
-from reducto.types import V3Extract, ParseResponse, AsyncParseResponse
+from reducto.types import V3Extract, ParseResponse, AsyncParseResponse, AsyncExtractResponse
 from reducto.types.job_get_response import AsyncJobResponse, EnhancedAsyncJobResponse
-from reducto.types.async_extract_response import AsyncExtractResponse
 
 DOCUMENT_URL = "https://ci.reducto.ai/onepager.pdf"
 

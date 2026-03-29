@@ -3,30 +3,14 @@
 from __future__ import annotations
 
 from typing import Union, Optional
-from typing_extensions import Literal, Required, TypeAlias, TypedDict
+from typing_extensions import TypeAlias, TypedDict
 
-from .._types import SequenceNotStr
+from .shared_params.svix_webhook_config import SvixWebhookConfig
+from .shared_params.direct_webhook_config import DirectWebhookConfig
 
-__all__ = ["AsyncConfigV3Param", "Webhook", "WebhookSvixWebhookConfig", "WebhookDirectWebhookConfig"]
+__all__ = ["AsyncConfigV3Param", "Webhook"]
 
-
-class WebhookSvixWebhookConfig(TypedDict, total=False):
-    channels: SequenceNotStr[str]
-    """
-    A list of Svix channels the message will be delivered down, omit to send to all
-    channels.
-    """
-
-    mode: Literal["svix"]
-
-
-class WebhookDirectWebhookConfig(TypedDict, total=False):
-    url: Required[str]
-
-    mode: Literal["direct"]
-
-
-Webhook: TypeAlias = Union[WebhookSvixWebhookConfig, WebhookDirectWebhookConfig]
+Webhook: TypeAlias = Union[SvixWebhookConfig, DirectWebhookConfig]
 
 
 class AsyncConfigV3Param(TypedDict, total=False):

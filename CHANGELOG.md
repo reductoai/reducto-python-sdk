@@ -1,5 +1,54 @@
 # Changelog
 
+## 0.21.0 (2026-03-29)
+
+Full Changelog: [v0.20.0...v0.21.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.20.0...v0.21.0)
+
+### Features
+
+* **api:** Add transform to fix file upload type for /upload endpoint ([1bcd5c4](https://github.com/reductoai/reducto-python-sdk/commit/1bcd5c49171dc0100cb464b4c8974dc074000760))
+* **api:** api update ([9912007](https://github.com/reductoai/reducto-python-sdk/commit/9912007a82a9e6a7f24247512081cd6244f199b1))
+* **api:** api update ([1d69aad](https://github.com/reductoai/reducto-python-sdk/commit/1d69aadb52790aa7ddd9813af033d194486da1e5))
+* **api:** api update ([e250b46](https://github.com/reductoai/reducto-python-sdk/commit/e250b467dec5eb5d4593a12bb3a73b73df576483))
+* **api:** api update ([f52285b](https://github.com/reductoai/reducto-python-sdk/commit/f52285baa33df0572b62ce26c9b5127e623ed579))
+* **api:** api update ([4d1860f](https://github.com/reductoai/reducto-python-sdk/commit/4d1860fc86dd694ca021fb1cdf49174ad038d407))
+* **api:** api update ([4bed8ba](https://github.com/reductoai/reducto-python-sdk/commit/4bed8ba113966d363fd33125af7a8ec871f5e88c))
+* **api:** api update ([d9c0883](https://github.com/reductoai/reducto-python-sdk/commit/d9c088332394617e53899e4c84df7494deb5467c))
+* **api:** api update ([eb08dff](https://github.com/reductoai/reducto-python-sdk/commit/eb08dff9b8da144fcd10023aca5febe9b98a3933))
+* **api:** api update ([e0e6204](https://github.com/reductoai/reducto-python-sdk/commit/e0e6204c05e6ef93dacf402e8e7c98f3fef75559))
+* **api:** manual updates ([b50d772](https://github.com/reductoai/reducto-python-sdk/commit/b50d77281c38e1daf313b60d52bee459e6e1f38e))
+* **api:** manual updates ([7e626d1](https://github.com/reductoai/reducto-python-sdk/commit/7e626d16df06174602f4908fd15d22a7ced017e2))
+* **api:** manual updates ([384462c](https://github.com/reductoai/reducto-python-sdk/commit/384462cf52f1004d415a0c5a0f502dfb5408227a))
+* **api:** manual updates ([ece09d5](https://github.com/reductoai/reducto-python-sdk/commit/ece09d54e707e27d32c5e554f041b09a50ddd063))
+* **api:** manual updates ([c43d09d](https://github.com/reductoai/reducto-python-sdk/commit/c43d09dba47cf0ee24af3f17991387e2ca6df017))
+* **api:** manual updates ([2b38db6](https://github.com/reductoai/reducto-python-sdk/commit/2b38db6811543a28a488e57072faa0296f2c506f))
+* **api:** manual updates ([aaa837b](https://github.com/reductoai/reducto-python-sdk/commit/aaa837b29afc684ef85c0a16fba2704c73274bbe))
+* **api:** manual updates ([72d4809](https://github.com/reductoai/reducto-python-sdk/commit/72d4809d4f069f943ab2f2b085629b03eba3093d))
+* **api:** manual updates ([604e97d](https://github.com/reductoai/reducto-python-sdk/commit/604e97daa567337d25e589b7397c9242675078e7))
+* **api:** manual updates ([bdb33e5](https://github.com/reductoai/reducto-python-sdk/commit/bdb33e5a7381c7d3599d263b0c48e9dec3f354b7))
+* **api:** manual updates ([9e209b1](https://github.com/reductoai/reducto-python-sdk/commit/9e209b10ca5d7a9e428fe5aafd50001030ce39ac))
+* **api:** manual updates ([4ccb9c8](https://github.com/reductoai/reducto-python-sdk/commit/4ccb9c8db5ea081856355a164d760d2af25841ce))
+* **api:** manual updates ([212ba81](https://github.com/reductoai/reducto-python-sdk/commit/212ba81bf64f0d7839be5776c42cbe5b0f98b52a))
+* **api:** manual updates ([427be5e](https://github.com/reductoai/reducto-python-sdk/commit/427be5e18768e437fa5d29cb330f3f97039c02e4))
+* **api:** manual updates ([adf1225](https://github.com/reductoai/reducto-python-sdk/commit/adf12259a7c2a8e7cdf76eb422f3900bddda0031))
+* **api:** manual updates ([a09cf4d](https://github.com/reductoai/reducto-python-sdk/commit/a09cf4d989a42903d59ca9f6f675df921bdca7f4))
+* **api:** manual updates ([b8e03e6](https://github.com/reductoai/reducto-python-sdk/commit/b8e03e62834e4f7e4dc6e6d6d599fd12fbd6714c))
+* **api:** manual updates ([6e6d4d1](https://github.com/reductoai/reducto-python-sdk/commit/6e6d4d1e46168e74c87a8c1619a333839e83bcfb))
+* **api:** remove transforms ([1c95009](https://github.com/reductoai/reducto-python-sdk/commit/1c95009aa523c18b9d49eeb8dea5a670c721222a))
+* **internal:** implement indices array format for query and form serialization ([5e1af96](https://github.com/reductoai/reducto-python-sdk/commit/5e1af967617333333599819c33c11e3c59a241d8))
+
+
+### Bug Fixes
+
+* remove --timeout flag (no pytest-timeout), rename misleading test ([8ae585a](https://github.com/reductoai/reducto-python-sdk/commit/8ae585a35559484abf662772e2ecd26da84f78c9))
+* restore file upload support in upload method ([d704af4](https://github.com/reductoai/reducto-python-sdk/commit/d704af4f1b5126f921a67d2f08cdf782093bfc2d))
+* sort imports in _client.py to satisfy ruff I001 ([0322db7](https://github.com/reductoai/reducto-python-sdk/commit/0322db7dd1f64921ba6c604dfa84d4b11b4cd99d))
+
+
+### Chores
+
+* **internal:** version bump ([c3f3b8d](https://github.com/reductoai/reducto-python-sdk/commit/c3f3b8d8ab4a30d36603648c4367e01205ada533))
+
 ## 0.20.0 (2026-03-25)
 
 Full Changelog: [v0.19.0...v0.20.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.19.0...v0.20.0)

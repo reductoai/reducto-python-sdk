@@ -2,47 +2,16 @@
 
 from __future__ import annotations
 
-from typing import Union, Iterable, Optional
-from typing_extensions import Literal, Required, TypeAlias, TypedDict
+from typing import Union, Iterable
+from typing_extensions import TypeAlias, TypedDict
 
-__all__ = ["EnhanceParam", "Agentic", "AgenticTableAgentic", "AgenticFigureAgentic", "AgenticTextAgentic"]
+from .shared_params.text_agentic import TextAgentic
+from .shared_params.table_agentic import TableAgentic
+from .shared_params.figure_agentic import FigureAgentic
 
+__all__ = ["EnhanceParam", "Agentic"]
 
-class AgenticTableAgentic(TypedDict, total=False):
-    scope: Required[Literal["table"]]
-
-    prompt: Optional[str]
-    """Custom prompt for table agentic."""
-
-
-class AgenticFigureAgentic(TypedDict, total=False):
-    scope: Required[Literal["figure"]]
-
-    advanced_chart_agent: bool
-    """If True, use the advanced chart agent. Defaults to False."""
-
-    prompt: Optional[str]
-    """Custom prompt for figure agentic."""
-
-    return_overlays: bool
-    """If True, return overlays for the figure.
-
-    This is so you can use the overlays to double check the quality of the
-    extraction
-    """
-
-
-class AgenticTextAgentic(TypedDict, total=False):
-    scope: Required[Literal["text"]]
-
-    prompt: Optional[str]
-    """Custom instructions for agentic text.
-
-    Note: This only applies to form regions (key-value).
-    """
-
-
-Agentic: TypeAlias = Union[AgenticTableAgentic, AgenticFigureAgentic, AgenticTextAgentic]
+Agentic: TypeAlias = Union[TableAgentic, FigureAgentic, TextAgentic]
 
 
 class EnhanceParam(TypedDict, total=False):
