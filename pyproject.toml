@@ -150,6 +150,8 @@ exclude = [
     ".venv",
     ".nox",
     ".git",
+    "src/reducto/lib",
+    "tests/e2e",
 ]
 
 reportImplicitOverride = true
