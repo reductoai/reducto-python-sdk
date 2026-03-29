@@ -108,10 +108,4 @@ __all__ = [
     "AsyncWebhookResourceWithRawResponse",
     "WebhookResourceWithStreamingResponse",
     "AsyncWebhookResourceWithStreamingResponse",
-    "JobResource",
-    "AsyncJobResource",
-    "JobResourceWithRawResponse",
-    "AsyncJobResourceWithRawResponse",
-    "JobResourceWithStreamingResponse",
-    "AsyncJobResourceWithStreamingResponse",
 ]

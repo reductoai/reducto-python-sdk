@@ -141,8 +141,14 @@ Types:
 from reducto.types import ExtractResponse, JobGetResponse, JobGetAllResponse
 ```
 
+# Classify
+
+Types:
+
+```python
+from reducto.types import ClassifyCreateResponse
+```
+
 Methods:
 
-- <code title="post /cancel/{job_id}">client.job.<a href="./src/reducto/resources/job.py">cancel</a>(job_id) -> object</code>
-- <code title="get /job/{job_id}">client.job.<a href="./src/reducto/resources/job.py">get</a>(job_id) -> <a href="./src/reducto/types/job_get_response.py">JobGetResponse</a></code>
-- <code title="get /jobs">client.job.<a href="./src/reducto/resources/job.py">get_all</a>(\*\*<a href="src/reducto/types/job_get_all_params.py">params</a>) -> <a href="./src/reducto/types/job_get_all_response.py">JobGetAllResponse</a></code>
+- <code title="post /classify">client.classify.<a href="./src/reducto/resources/classify.py">create</a>(\*\*<a href="src/reducto/types/classify_create_params.py">params</a>) -> <a href="./src/reducto/types/classify_create_response.py">ClassifyCreateResponse</a></code>

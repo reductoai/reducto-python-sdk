@@ -201,12 +201,6 @@ class Reducto(SyncAPIClient):
         return WebhookResource(self)
 
     @cached_property
-    def job(self) -> JobResource:
-        from .resources.job import JobResource
-
-        return JobResource(self)
-
-    @cached_property
     def with_raw_response(self) -> ReductoWithRawResponse:
         return ReductoWithRawResponse(self)
 
@@ -504,12 +498,6 @@ class AsyncReducto(AsyncAPIClient):
         return AsyncWebhookResource(self)
 
     @cached_property
-    def job(self) -> AsyncJobResource:
-        from .resources.job import AsyncJobResource
-
-        return AsyncJobResource(self)
-
-    @cached_property
     def with_raw_response(self) -> AsyncReductoWithRawResponse:
         return AsyncReductoWithRawResponse(self)
 
@@ -740,11 +728,6 @@ class ReductoWithRawResponse:
 
         return WebhookResourceWithRawResponse(self._client.webhook)
 
-    @cached_property
-    def job(self) -> job.JobResourceWithRawResponse:
-        from .resources.job import JobResourceWithRawResponse
-
-        return JobResourceWithRawResponse(self._client.job)
 
 
 class AsyncReductoWithRawResponse:
@@ -802,11 +785,6 @@ class AsyncReductoWithRawResponse:
 
         return AsyncWebhookResourceWithRawResponse(self._client.webhook)
 
-    @cached_property
-    def job(self) -> job.AsyncJobResourceWithRawResponse:
-        from .resources.job import AsyncJobResourceWithRawResponse
-
-        return AsyncJobResourceWithRawResponse(self._client.job)
 
 
 class ReductoWithStreamedResponse:
@@ -864,11 +842,6 @@ class ReductoWithStreamedResponse:
 
         return WebhookResourceWithStreamingResponse(self._client.webhook)
 
-    @cached_property
-    def job(self) -> job.JobResourceWithStreamingResponse:
-        from .resources.job import JobResourceWithStreamingResponse
-
-        return JobResourceWithStreamingResponse(self._client.job)
 
 
 class AsyncReductoWithStreamedResponse:
@@ -926,11 +899,6 @@ class AsyncReductoWithStreamedResponse:
 
         return AsyncWebhookResourceWithStreamingResponse(self._client.webhook)
 
-    @cached_property
-    def job(self) -> job.AsyncJobResourceWithStreamingResponse:
-        from .resources.job import AsyncJobResourceWithStreamingResponse
-
-        return AsyncJobResourceWithStreamingResponse(self._client.job)
 
 
 Client = Reducto
