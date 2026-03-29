@@ -3,7 +3,7 @@ from typing import Optional
 import httpx
 from pydantic import BaseModel
 
-from reducto.types import ParseResponse, ParseUsage
+from reducto.types import ParseUsage, ParseResponse
 from reducto.types.shared.parse_response import ResultFullResult
 
 __all__ = ["FullParseResponse", "handle_url_response", "ParseResponse"]
