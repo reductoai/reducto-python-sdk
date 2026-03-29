@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Union
-from typing_extensions import Literal, Required, TypeAlias, TypedDict
+from typing_extensions import Required, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
 from .enhance_param import EnhanceParam
@@ -11,12 +11,12 @@ from .settings_param import SettingsParam
 from .retrieval_param import RetrievalParam
 from .formatting_param import FormattingParam
 from .spreadsheet_param import SpreadsheetParam
-from .shared_params.upload import Upload
 from .async_config_v3_param import AsyncConfigV3Param
+from .upload_response_param import UploadResponseParam
 
 __all__ = ["AsyncParseConfigParam", "Input"]
 
-Input: TypeAlias = Union[str, SequenceNotStr[str], Upload]
+Input: TypeAlias = Union[str, SequenceNotStr[str], UploadResponseParam]
 
 _AsyncParseConfigParamReservedKeywords = TypedDict(
     "_AsyncParseConfigParamReservedKeywords",
@@ -43,12 +43,6 @@ class AsyncParseConfigParam(_AsyncParseConfigParamReservedKeywords, total=False)
     enhance: EnhanceParam
 
     formatting: FormattingParam
-
-    queue_priority: Literal["auto", "batch"]
-    """Queue priority.
-
-    'batch' for non-urgent work that processes when spare GPU capacity is available.
-    """
 
     retrieval: RetrievalParam
 

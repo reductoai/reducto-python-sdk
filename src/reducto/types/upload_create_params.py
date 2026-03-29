@@ -1,0 +1,14 @@
+# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+from __future__ import annotations
+
+from typing import Optional
+from typing_extensions import TypedDict
+
+__all__ = ["UploadCreateParams"]
+
+
+class UploadCreateParams(TypedDict, total=False):
+    extension: Optional[str]
+
+    file: Optional[str]

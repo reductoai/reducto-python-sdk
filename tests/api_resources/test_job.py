@@ -9,7 +9,7 @@ import pytest
 
 from reducto import Reducto, AsyncReducto
 from tests.utils import assert_matches_type
-from reducto.types import JobGetResponse, JobGetAllResponse
+from reducto.types import JobListResponse, JobRetrieveResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -19,123 +19,81 @@ class TestJob:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_cancel(self, client: Reducto) -> None:
-        job = client.job.cancel(
+    def test_method_retrieve(self, client: Reducto) -> None:
+        job = client.job.retrieve(
             "job_id",
         )
-        assert_matches_type(object, job, path=["response"])
+        assert_matches_type(JobRetrieveResponse, job, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_cancel(self, client: Reducto) -> None:
-        response = client.job.with_raw_response.cancel(
-            "job_id",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        job = response.parse()
-        assert_matches_type(object, job, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_streaming_response_cancel(self, client: Reducto) -> None:
-        with client.job.with_streaming_response.cancel(
-            "job_id",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            job = response.parse()
-            assert_matches_type(object, job, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_path_params_cancel(self, client: Reducto) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `job_id` but received ''"):
-            client.job.with_raw_response.cancel(
-                "",
-            )
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_get(self, client: Reducto) -> None:
-        job = client.job.get(
-            "job_id",
-        )
-        assert_matches_type(JobGetResponse, job, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_raw_response_get(self, client: Reducto) -> None:
-        response = client.job.with_raw_response.get(
+    def test_raw_response_retrieve(self, client: Reducto) -> None:
+        response = client.job.with_raw_response.retrieve(
             "job_id",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         job = response.parse()
-        assert_matches_type(JobGetResponse, job, path=["response"])
+        assert_matches_type(JobRetrieveResponse, job, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_get(self, client: Reducto) -> None:
-        with client.job.with_streaming_response.get(
+    def test_streaming_response_retrieve(self, client: Reducto) -> None:
+        with client.job.with_streaming_response.retrieve(
             "job_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             job = response.parse()
-            assert_matches_type(JobGetResponse, job, path=["response"])
+            assert_matches_type(JobRetrieveResponse, job, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_path_params_get(self, client: Reducto) -> None:
+    def test_path_params_retrieve(self, client: Reducto) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `job_id` but received ''"):
-            client.job.with_raw_response.get(
+            client.job.with_raw_response.retrieve(
                 "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_get_all(self, client: Reducto) -> None:
-        job = client.job.get_all()
-        assert_matches_type(JobGetAllResponse, job, path=["response"])
+    def test_method_list(self, client: Reducto) -> None:
+        job = client.job.list()
+        assert_matches_type(JobListResponse, job, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_get_all_with_all_params(self, client: Reducto) -> None:
-        job = client.job.get_all(
+    def test_method_list_with_all_params(self, client: Reducto) -> None:
+        job = client.job.list(
             cursor="cursor",
             exclude_configs=True,
             limit=1,
         )
-        assert_matches_type(JobGetAllResponse, job, path=["response"])
+        assert_matches_type(JobListResponse, job, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_get_all(self, client: Reducto) -> None:
-        response = client.job.with_raw_response.get_all()
+    def test_raw_response_list(self, client: Reducto) -> None:
+        response = client.job.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         job = response.parse()
-        assert_matches_type(JobGetAllResponse, job, path=["response"])
+        assert_matches_type(JobListResponse, job, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_get_all(self, client: Reducto) -> None:
-        with client.job.with_streaming_response.get_all() as response:
+    def test_streaming_response_list(self, client: Reducto) -> None:
+        with client.job.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             job = response.parse()
-            assert_matches_type(JobGetAllResponse, job, path=["response"])
+            assert_matches_type(JobListResponse, job, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -147,122 +105,80 @@ class TestAsyncJob:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_cancel(self, async_client: AsyncReducto) -> None:
-        job = await async_client.job.cancel(
+    async def test_method_retrieve(self, async_client: AsyncReducto) -> None:
+        job = await async_client.job.retrieve(
             "job_id",
         )
-        assert_matches_type(object, job, path=["response"])
+        assert_matches_type(JobRetrieveResponse, job, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_cancel(self, async_client: AsyncReducto) -> None:
-        response = await async_client.job.with_raw_response.cancel(
-            "job_id",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        job = await response.parse()
-        assert_matches_type(object, job, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_streaming_response_cancel(self, async_client: AsyncReducto) -> None:
-        async with async_client.job.with_streaming_response.cancel(
-            "job_id",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            job = await response.parse()
-            assert_matches_type(object, job, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_path_params_cancel(self, async_client: AsyncReducto) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `job_id` but received ''"):
-            await async_client.job.with_raw_response.cancel(
-                "",
-            )
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_get(self, async_client: AsyncReducto) -> None:
-        job = await async_client.job.get(
-            "job_id",
-        )
-        assert_matches_type(JobGetResponse, job, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_raw_response_get(self, async_client: AsyncReducto) -> None:
-        response = await async_client.job.with_raw_response.get(
+    async def test_raw_response_retrieve(self, async_client: AsyncReducto) -> None:
+        response = await async_client.job.with_raw_response.retrieve(
             "job_id",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         job = await response.parse()
-        assert_matches_type(JobGetResponse, job, path=["response"])
+        assert_matches_type(JobRetrieveResponse, job, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_get(self, async_client: AsyncReducto) -> None:
-        async with async_client.job.with_streaming_response.get(
+    async def test_streaming_response_retrieve(self, async_client: AsyncReducto) -> None:
+        async with async_client.job.with_streaming_response.retrieve(
             "job_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             job = await response.parse()
-            assert_matches_type(JobGetResponse, job, path=["response"])
+            assert_matches_type(JobRetrieveResponse, job, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_path_params_get(self, async_client: AsyncReducto) -> None:
+    async def test_path_params_retrieve(self, async_client: AsyncReducto) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `job_id` but received ''"):
-            await async_client.job.with_raw_response.get(
+            await async_client.job.with_raw_response.retrieve(
                 "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_get_all(self, async_client: AsyncReducto) -> None:
-        job = await async_client.job.get_all()
-        assert_matches_type(JobGetAllResponse, job, path=["response"])
+    async def test_method_list(self, async_client: AsyncReducto) -> None:
+        job = await async_client.job.list()
+        assert_matches_type(JobListResponse, job, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_get_all_with_all_params(self, async_client: AsyncReducto) -> None:
-        job = await async_client.job.get_all(
+    async def test_method_list_with_all_params(self, async_client: AsyncReducto) -> None:
+        job = await async_client.job.list(
             cursor="cursor",
             exclude_configs=True,
             limit=1,
         )
-        assert_matches_type(JobGetAllResponse, job, path=["response"])
+        assert_matches_type(JobListResponse, job, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_get_all(self, async_client: AsyncReducto) -> None:
-        response = await async_client.job.with_raw_response.get_all()
+    async def test_raw_response_list(self, async_client: AsyncReducto) -> None:
+        response = await async_client.job.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         job = await response.parse()
-        assert_matches_type(JobGetAllResponse, job, path=["response"])
+        assert_matches_type(JobListResponse, job, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_get_all(self, async_client: AsyncReducto) -> None:
-        async with async_client.job.with_streaming_response.get_all() as response:
+    async def test_streaming_response_list(self, async_client: AsyncReducto) -> None:
+        async with async_client.job.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             job = await response.parse()
-            assert_matches_type(JobGetAllResponse, job, path=["response"])
+            assert_matches_type(JobListResponse, job, path=["response"])
 
         assert cast(Any, response.is_closed) is True

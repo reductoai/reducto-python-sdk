@@ -39,7 +39,7 @@ from .utils import update_env
 
 T = TypeVar("T")
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
-api_key = "My API Key"
+bearer_token = "My Bearer Token"
 
 
 def _get_params(client: BaseClient[Any, Any]) -> dict[str, str]:
@@ -136,9 +136,9 @@ class TestReducto:
         copied = client.copy()
         assert id(copied) != id(client)
 
-        copied = client.copy(api_key="another My API Key")
-        assert copied.api_key == "another My API Key"
-        assert client.api_key == "My API Key"
+        copied = client.copy(bearer_token="another My Bearer Token")
+        assert copied.bearer_token == "another My Bearer Token"
+        assert client.bearer_token == "My Bearer Token"
 
     def test_copy_default_options(self, client: Reducto) -> None:
         # options that have a default are overridden correctly
@@ -158,7 +158,10 @@ class TestReducto:
 
     def test_copy_default_headers(self) -> None:
         client = Reducto(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
+            base_url=base_url,
+            bearer_token=bearer_token,
+            _strict_response_validation=True,
+            default_headers={"X-Foo": "bar"},
         )
         assert client.default_headers["X-Foo"] == "bar"
 
@@ -193,7 +196,7 @@ class TestReducto:
 
     def test_copy_default_query(self) -> None:
         client = Reducto(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"foo": "bar"}
+            base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True, default_query={"foo": "bar"}
         )
         assert _get_params(client)["foo"] == "bar"
 
@@ -318,7 +321,9 @@ class TestReducto:
         assert timeout == httpx.Timeout(100.0)
 
     def test_client_timeout_option(self) -> None:
-        client = Reducto(base_url=base_url, api_key=api_key, _strict_response_validation=True, timeout=httpx.Timeout(0))
+        client = Reducto(
+            base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True, timeout=httpx.Timeout(0)
+        )
 
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         timeout = httpx.Timeout(**request.extensions["timeout"])  # type: ignore
@@ -330,7 +335,7 @@ class TestReducto:
         # custom timeout given to the httpx client should be used
         with httpx.Client(timeout=None) as http_client:
             client = Reducto(
-                base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
+                base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True, http_client=http_client
             )
 
             request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -342,7 +347,7 @@ class TestReducto:
         # no timeout given to the httpx client should not use the httpx default
         with httpx.Client() as http_client:
             client = Reducto(
-                base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
+                base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True, http_client=http_client
             )
 
             request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -354,7 +359,7 @@ class TestReducto:
         # explicitly passing the default timeout currently results in it being ignored
         with httpx.Client(timeout=HTTPX_DEFAULT_TIMEOUT) as http_client:
             client = Reducto(
-                base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
+                base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True, http_client=http_client
             )
 
             request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -368,14 +373,17 @@ class TestReducto:
             async with httpx.AsyncClient() as http_client:
                 Reducto(
                     base_url=base_url,
-                    api_key=api_key,
+                    bearer_token=bearer_token,
                     _strict_response_validation=True,
                     http_client=cast(Any, http_client),
                 )
 
     def test_default_headers_option(self) -> None:
         test_client = Reducto(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
+            base_url=base_url,
+            bearer_token=bearer_token,
+            _strict_response_validation=True,
+            default_headers={"X-Foo": "bar"},
         )
         request = test_client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "bar"
@@ -383,7 +391,7 @@ class TestReducto:
 
         test_client2 = Reducto(
             base_url=base_url,
-            api_key=api_key,
+            bearer_token=bearer_token,
             _strict_response_validation=True,
             default_headers={
                 "X-Foo": "stainless",
@@ -398,18 +406,21 @@ class TestReducto:
         test_client2.close()
 
     def test_validate_headers(self) -> None:
-        client = Reducto(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = Reducto(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
-        assert request.headers.get("Authorization") == f"Bearer {api_key}"
+        assert request.headers.get("Authorization") == f"Bearer {bearer_token}"
 
         with pytest.raises(ReductoError):
-            with update_env(**{"REDUCTO_API_KEY": Omit()}):
-                client2 = Reducto(base_url=base_url, api_key=None, _strict_response_validation=True)
+            with update_env(**{"REDUCTOAI_BEARER_TOKEN": Omit()}):
+                client2 = Reducto(base_url=base_url, bearer_token=None, _strict_response_validation=True)
             _ = client2
 
     def test_default_query_option(self) -> None:
         client = Reducto(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"query_param": "bar"}
+            base_url=base_url,
+            bearer_token=bearer_token,
+            _strict_response_validation=True,
+            default_query={"query_param": "bar"},
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         url = httpx.URL(request.url)
@@ -581,7 +592,7 @@ class TestReducto:
 
         with Reducto(
             base_url=base_url,
-            api_key=api_key,
+            bearer_token=bearer_token,
             _strict_response_validation=True,
             http_client=httpx.Client(transport=MockTransport(handler=mock_handler)),
         ) as client:
@@ -675,7 +686,9 @@ class TestReducto:
         assert response.foo == 2
 
     def test_base_url_setter(self) -> None:
-        client = Reducto(base_url="https://example.com/from_init", api_key=api_key, _strict_response_validation=True)
+        client = Reducto(
+            base_url="https://example.com/from_init", bearer_token=bearer_token, _strict_response_validation=True
+        )
         assert client.base_url == "https://example.com/from_init/"
 
         client.base_url = "https://example.com/from_setter"  # type: ignore[assignment]
@@ -686,15 +699,17 @@ class TestReducto:
 
     def test_base_url_env(self) -> None:
         with update_env(REDUCTO_BASE_URL="http://localhost:5000/from/env"):
-            client = Reducto(api_key=api_key, _strict_response_validation=True)
+            client = Reducto(bearer_token=bearer_token, _strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
 
         # explicit environment arg requires explicitness
         with update_env(REDUCTO_BASE_URL="http://localhost:5000/from/env"):
             with pytest.raises(ValueError, match=r"you must pass base_url=None"):
-                Reducto(api_key=api_key, _strict_response_validation=True, environment="production")
+                Reducto(bearer_token=bearer_token, _strict_response_validation=True, environment="production")
 
-            client = Reducto(base_url=None, api_key=api_key, _strict_response_validation=True, environment="production")
+            client = Reducto(
+                base_url=None, bearer_token=bearer_token, _strict_response_validation=True, environment="production"
+            )
             assert str(client.base_url).startswith("https://platform.reducto.ai")
 
             client.close()
@@ -702,10 +717,14 @@ class TestReducto:
     @pytest.mark.parametrize(
         "client",
         [
-            Reducto(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
             Reducto(
                 base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
+                bearer_token=bearer_token,
+                _strict_response_validation=True,
+            ),
+            Reducto(
+                base_url="http://localhost:5000/custom/path/",
+                bearer_token=bearer_token,
                 _strict_response_validation=True,
                 http_client=httpx.Client(),
             ),
@@ -726,10 +745,14 @@ class TestReducto:
     @pytest.mark.parametrize(
         "client",
         [
-            Reducto(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
             Reducto(
                 base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
+                bearer_token=bearer_token,
+                _strict_response_validation=True,
+            ),
+            Reducto(
+                base_url="http://localhost:5000/custom/path/",
+                bearer_token=bearer_token,
                 _strict_response_validation=True,
                 http_client=httpx.Client(),
             ),
@@ -750,10 +773,14 @@ class TestReducto:
     @pytest.mark.parametrize(
         "client",
         [
-            Reducto(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
             Reducto(
                 base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
+                bearer_token=bearer_token,
+                _strict_response_validation=True,
+            ),
+            Reducto(
+                base_url="http://localhost:5000/custom/path/",
+                bearer_token=bearer_token,
                 _strict_response_validation=True,
                 http_client=httpx.Client(),
             ),
@@ -772,7 +799,7 @@ class TestReducto:
         client.close()
 
     def test_copied_client_does_not_close_http(self) -> None:
-        test_client = Reducto(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        test_client = Reducto(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
         assert not test_client.is_closed()
 
         copied = test_client.copy()
@@ -783,7 +810,7 @@ class TestReducto:
         assert not test_client.is_closed()
 
     def test_client_context_manager(self) -> None:
-        test_client = Reducto(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        test_client = Reducto(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
         with test_client as c2:
             assert c2 is test_client
             assert not c2.is_closed()
@@ -804,7 +831,12 @@ class TestReducto:
 
     def test_client_max_retries_validation(self) -> None:
         with pytest.raises(TypeError, match=r"max_retries cannot be None"):
-            Reducto(base_url=base_url, api_key=api_key, _strict_response_validation=True, max_retries=cast(Any, None))
+            Reducto(
+                base_url=base_url,
+                bearer_token=bearer_token,
+                _strict_response_validation=True,
+                max_retries=cast(Any, None),
+            )
 
     @pytest.mark.respx(base_url=base_url)
     def test_received_text_for_expected_json(self, respx_mock: MockRouter) -> None:
@@ -813,12 +845,12 @@ class TestReducto:
 
         respx_mock.get("/foo").mock(return_value=httpx.Response(200, text="my-custom-format"))
 
-        strict_client = Reducto(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        strict_client = Reducto(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
 
         with pytest.raises(APIResponseValidationError):
             strict_client.get("/foo", cast_to=Model)
 
-        non_strict_client = Reducto(base_url=base_url, api_key=api_key, _strict_response_validation=False)
+        non_strict_client = Reducto(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=False)
 
         response = non_strict_client.get("/foo", cast_to=Model)
         assert isinstance(response, str)  # type: ignore[unreachable]
@@ -862,7 +894,7 @@ class TestReducto:
         respx_mock.post("/parse").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            client.parse.with_streaming_response.run(input="string").__enter__()
+            client.parse.with_streaming_response.create(input="string").__enter__()
 
         assert _get_open_connections(client) == 0
 
@@ -872,7 +904,7 @@ class TestReducto:
         respx_mock.post("/parse").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            client.parse.with_streaming_response.run(input="string").__enter__()
+            client.parse.with_streaming_response.create(input="string").__enter__()
         assert _get_open_connections(client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
@@ -901,7 +933,7 @@ class TestReducto:
 
         respx_mock.post("/parse").mock(side_effect=retry_handler)
 
-        response = client.parse.with_raw_response.run(input="string")
+        response = client.parse.with_raw_response.create(input="string")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -925,7 +957,9 @@ class TestReducto:
 
         respx_mock.post("/parse").mock(side_effect=retry_handler)
 
-        response = client.parse.with_raw_response.run(input="string", extra_headers={"x-stainless-retry-count": Omit()})
+        response = client.parse.with_raw_response.create(
+            input="string", extra_headers={"x-stainless-retry-count": Omit()}
+        )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
@@ -948,7 +982,9 @@ class TestReducto:
 
         respx_mock.post("/parse").mock(side_effect=retry_handler)
 
-        response = client.parse.with_raw_response.run(input="string", extra_headers={"x-stainless-retry-count": "42"})
+        response = client.parse.with_raw_response.create(
+            input="string", extra_headers={"x-stainless-retry-count": "42"}
+        )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
 
@@ -1033,9 +1069,9 @@ class TestAsyncReducto:
         copied = async_client.copy()
         assert id(copied) != id(async_client)
 
-        copied = async_client.copy(api_key="another My API Key")
-        assert copied.api_key == "another My API Key"
-        assert async_client.api_key == "My API Key"
+        copied = async_client.copy(bearer_token="another My Bearer Token")
+        assert copied.bearer_token == "another My Bearer Token"
+        assert async_client.bearer_token == "My Bearer Token"
 
     def test_copy_default_options(self, async_client: AsyncReducto) -> None:
         # options that have a default are overridden correctly
@@ -1055,7 +1091,10 @@ class TestAsyncReducto:
 
     async def test_copy_default_headers(self) -> None:
         client = AsyncReducto(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
+            base_url=base_url,
+            bearer_token=bearer_token,
+            _strict_response_validation=True,
+            default_headers={"X-Foo": "bar"},
         )
         assert client.default_headers["X-Foo"] == "bar"
 
@@ -1090,7 +1129,7 @@ class TestAsyncReducto:
 
     async def test_copy_default_query(self) -> None:
         client = AsyncReducto(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"foo": "bar"}
+            base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True, default_query={"foo": "bar"}
         )
         assert _get_params(client)["foo"] == "bar"
 
@@ -1218,7 +1257,7 @@ class TestAsyncReducto:
 
     async def test_client_timeout_option(self) -> None:
         client = AsyncReducto(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, timeout=httpx.Timeout(0)
+            base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True, timeout=httpx.Timeout(0)
         )
 
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -1231,7 +1270,7 @@ class TestAsyncReducto:
         # custom timeout given to the httpx client should be used
         async with httpx.AsyncClient(timeout=None) as http_client:
             client = AsyncReducto(
-                base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
+                base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True, http_client=http_client
             )
 
             request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -1243,7 +1282,7 @@ class TestAsyncReducto:
         # no timeout given to the httpx client should not use the httpx default
         async with httpx.AsyncClient() as http_client:
             client = AsyncReducto(
-                base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
+                base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True, http_client=http_client
             )
 
             request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -1255,7 +1294,7 @@ class TestAsyncReducto:
         # explicitly passing the default timeout currently results in it being ignored
         async with httpx.AsyncClient(timeout=HTTPX_DEFAULT_TIMEOUT) as http_client:
             client = AsyncReducto(
-                base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
+                base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True, http_client=http_client
             )
 
             request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -1269,14 +1308,17 @@ class TestAsyncReducto:
             with httpx.Client() as http_client:
                 AsyncReducto(
                     base_url=base_url,
-                    api_key=api_key,
+                    bearer_token=bearer_token,
                     _strict_response_validation=True,
                     http_client=cast(Any, http_client),
                 )
 
     async def test_default_headers_option(self) -> None:
         test_client = AsyncReducto(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
+            base_url=base_url,
+            bearer_token=bearer_token,
+            _strict_response_validation=True,
+            default_headers={"X-Foo": "bar"},
         )
         request = test_client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "bar"
@@ -1284,7 +1326,7 @@ class TestAsyncReducto:
 
         test_client2 = AsyncReducto(
             base_url=base_url,
-            api_key=api_key,
+            bearer_token=bearer_token,
             _strict_response_validation=True,
             default_headers={
                 "X-Foo": "stainless",
@@ -1299,18 +1341,21 @@ class TestAsyncReducto:
         await test_client2.close()
 
     def test_validate_headers(self) -> None:
-        client = AsyncReducto(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = AsyncReducto(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
-        assert request.headers.get("Authorization") == f"Bearer {api_key}"
+        assert request.headers.get("Authorization") == f"Bearer {bearer_token}"
 
         with pytest.raises(ReductoError):
-            with update_env(**{"REDUCTO_API_KEY": Omit()}):
-                client2 = AsyncReducto(base_url=base_url, api_key=None, _strict_response_validation=True)
+            with update_env(**{"REDUCTOAI_BEARER_TOKEN": Omit()}):
+                client2 = AsyncReducto(base_url=base_url, bearer_token=None, _strict_response_validation=True)
             _ = client2
 
     async def test_default_query_option(self) -> None:
         client = AsyncReducto(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"query_param": "bar"}
+            base_url=base_url,
+            bearer_token=bearer_token,
+            _strict_response_validation=True,
+            default_query={"query_param": "bar"},
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         url = httpx.URL(request.url)
@@ -1482,7 +1527,7 @@ class TestAsyncReducto:
 
         async with AsyncReducto(
             base_url=base_url,
-            api_key=api_key,
+            bearer_token=bearer_token,
             _strict_response_validation=True,
             http_client=httpx.AsyncClient(transport=MockTransport(handler=mock_handler)),
         ) as client:
@@ -1581,7 +1626,7 @@ class TestAsyncReducto:
 
     async def test_base_url_setter(self) -> None:
         client = AsyncReducto(
-            base_url="https://example.com/from_init", api_key=api_key, _strict_response_validation=True
+            base_url="https://example.com/from_init", bearer_token=bearer_token, _strict_response_validation=True
         )
         assert client.base_url == "https://example.com/from_init/"
 
@@ -1593,16 +1638,16 @@ class TestAsyncReducto:
 
     async def test_base_url_env(self) -> None:
         with update_env(REDUCTO_BASE_URL="http://localhost:5000/from/env"):
-            client = AsyncReducto(api_key=api_key, _strict_response_validation=True)
+            client = AsyncReducto(bearer_token=bearer_token, _strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
 
         # explicit environment arg requires explicitness
         with update_env(REDUCTO_BASE_URL="http://localhost:5000/from/env"):
             with pytest.raises(ValueError, match=r"you must pass base_url=None"):
-                AsyncReducto(api_key=api_key, _strict_response_validation=True, environment="production")
+                AsyncReducto(bearer_token=bearer_token, _strict_response_validation=True, environment="production")
 
             client = AsyncReducto(
-                base_url=None, api_key=api_key, _strict_response_validation=True, environment="production"
+                base_url=None, bearer_token=bearer_token, _strict_response_validation=True, environment="production"
             )
             assert str(client.base_url).startswith("https://platform.reducto.ai")
 
@@ -1612,11 +1657,13 @@ class TestAsyncReducto:
         "client",
         [
             AsyncReducto(
-                base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
+                base_url="http://localhost:5000/custom/path/",
+                bearer_token=bearer_token,
+                _strict_response_validation=True,
             ),
             AsyncReducto(
                 base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
+                bearer_token=bearer_token,
                 _strict_response_validation=True,
                 http_client=httpx.AsyncClient(),
             ),
@@ -1638,11 +1685,13 @@ class TestAsyncReducto:
         "client",
         [
             AsyncReducto(
-                base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
+                base_url="http://localhost:5000/custom/path/",
+                bearer_token=bearer_token,
+                _strict_response_validation=True,
             ),
             AsyncReducto(
                 base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
+                bearer_token=bearer_token,
                 _strict_response_validation=True,
                 http_client=httpx.AsyncClient(),
             ),
@@ -1664,11 +1713,13 @@ class TestAsyncReducto:
         "client",
         [
             AsyncReducto(
-                base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
+                base_url="http://localhost:5000/custom/path/",
+                bearer_token=bearer_token,
+                _strict_response_validation=True,
             ),
             AsyncReducto(
                 base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
+                bearer_token=bearer_token,
                 _strict_response_validation=True,
                 http_client=httpx.AsyncClient(),
             ),
@@ -1687,7 +1738,7 @@ class TestAsyncReducto:
         await client.close()
 
     async def test_copied_client_does_not_close_http(self) -> None:
-        test_client = AsyncReducto(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        test_client = AsyncReducto(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
         assert not test_client.is_closed()
 
         copied = test_client.copy()
@@ -1699,7 +1750,7 @@ class TestAsyncReducto:
         assert not test_client.is_closed()
 
     async def test_client_context_manager(self) -> None:
-        test_client = AsyncReducto(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        test_client = AsyncReducto(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
         async with test_client as c2:
             assert c2 is test_client
             assert not c2.is_closed()
@@ -1721,7 +1772,10 @@ class TestAsyncReducto:
     async def test_client_max_retries_validation(self) -> None:
         with pytest.raises(TypeError, match=r"max_retries cannot be None"):
             AsyncReducto(
-                base_url=base_url, api_key=api_key, _strict_response_validation=True, max_retries=cast(Any, None)
+                base_url=base_url,
+                bearer_token=bearer_token,
+                _strict_response_validation=True,
+                max_retries=cast(Any, None),
             )
 
     @pytest.mark.respx(base_url=base_url)
@@ -1731,12 +1785,14 @@ class TestAsyncReducto:
 
         respx_mock.get("/foo").mock(return_value=httpx.Response(200, text="my-custom-format"))
 
-        strict_client = AsyncReducto(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        strict_client = AsyncReducto(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
 
         with pytest.raises(APIResponseValidationError):
             await strict_client.get("/foo", cast_to=Model)
 
-        non_strict_client = AsyncReducto(base_url=base_url, api_key=api_key, _strict_response_validation=False)
+        non_strict_client = AsyncReducto(
+            base_url=base_url, bearer_token=bearer_token, _strict_response_validation=False
+        )
 
         response = await non_strict_client.get("/foo", cast_to=Model)
         assert isinstance(response, str)  # type: ignore[unreachable]
@@ -1782,7 +1838,7 @@ class TestAsyncReducto:
         respx_mock.post("/parse").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            await async_client.parse.with_streaming_response.run(input="string").__aenter__()
+            await async_client.parse.with_streaming_response.create(input="string").__aenter__()
 
         assert _get_open_connections(async_client) == 0
 
@@ -1792,7 +1848,7 @@ class TestAsyncReducto:
         respx_mock.post("/parse").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            await async_client.parse.with_streaming_response.run(input="string").__aenter__()
+            await async_client.parse.with_streaming_response.create(input="string").__aenter__()
         assert _get_open_connections(async_client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
@@ -1821,7 +1877,7 @@ class TestAsyncReducto:
 
         respx_mock.post("/parse").mock(side_effect=retry_handler)
 
-        response = await client.parse.with_raw_response.run(input="string")
+        response = await client.parse.with_raw_response.create(input="string")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -1845,7 +1901,7 @@ class TestAsyncReducto:
 
         respx_mock.post("/parse").mock(side_effect=retry_handler)
 
-        response = await client.parse.with_raw_response.run(
+        response = await client.parse.with_raw_response.create(
             input="string", extra_headers={"x-stainless-retry-count": Omit()}
         )
 
@@ -1870,7 +1926,7 @@ class TestAsyncReducto:
 
         respx_mock.post("/parse").mock(side_effect=retry_handler)
 
-        response = await client.parse.with_raw_response.run(
+        response = await client.parse.with_raw_response.create(
             input="string", extra_headers={"x-stainless-retry-count": "42"}
         )
 

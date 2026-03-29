@@ -8,13 +8,13 @@ from typing_extensions import Required, TypeAlias, TypedDict
 from .._types import SequenceNotStr
 from .instructions_param import InstructionsParam
 from .parse_options_param import ParseOptionsParam
-from .shared_params.upload import Upload
 from .async_config_v3_param import AsyncConfigV3Param
+from .upload_response_param import UploadResponseParam
 from .extract_settings_param import ExtractSettingsParam
 
 __all__ = ["AsyncExtractConfigParam", "Input"]
 
-Input: TypeAlias = Union[str, SequenceNotStr[str], Upload]
+Input: TypeAlias = Union[str, SequenceNotStr[str], UploadResponseParam]
 
 _AsyncExtractConfigParamReservedKeywords = TypedDict(
     "_AsyncExtractConfigParamReservedKeywords",

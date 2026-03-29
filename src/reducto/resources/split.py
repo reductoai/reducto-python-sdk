@@ -6,7 +6,7 @@ from typing import Iterable
 
 import httpx
 
-from ..types import split_run_params, split_run_job_params
+from ..types import split_create_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -21,8 +21,6 @@ from .._base_client import make_request_options
 from ..types.split_response import SplitResponse
 from ..types.parse_options_param import ParseOptionsParam
 from ..types.split_category_param import SplitCategoryParam
-from ..types.async_config_v3_param import AsyncConfigV3Param
-from ..types.split_run_job_response import SplitRunJobResponse
 from ..types.split_table_options_param import SplitTableOptionsParam
 
 __all__ = ["SplitResource", "AsyncSplitResource"]
@@ -48,10 +46,10 @@ class SplitResource(SyncAPIResource):
         """
         return SplitResourceWithStreamingResponse(self)
 
-    def run(
+    def create(
         self,
         *,
-        input: split_run_params.Input,
+        input: split_create_params.Input,
         split_description: Iterable[SplitCategoryParam],
         parsing: ParseOptionsParam | Omit = omit,
         settings: SplitTableOptionsParam | Omit = omit,
@@ -103,79 +101,12 @@ class SplitResource(SyncAPIResource):
                     "settings": settings,
                     "split_rules": split_rules,
                 },
-                split_run_params.SplitRunParams,
+                split_create_params.SplitCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=SplitResponse,
-        )
-
-    def run_job(
-        self,
-        *,
-        input: split_run_job_params.Input,
-        split_description: Iterable[SplitCategoryParam],
-        async_: AsyncConfigV3Param | Omit = omit,
-        parsing: ParseOptionsParam | Omit = omit,
-        settings: SplitTableOptionsParam | Omit = omit,
-        split_rules: str | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SplitRunJobResponse:
-        """
-        Split Async
-
-        Args:
-          input: For parse/split/extract pipelines, the URL of the document to be processed. You
-              can provide one of the following: 1. A publicly available URL 2. A presigned S3
-              URL 3. A reducto:// prefixed URL obtained from the /upload endpoint after
-              directly uploading a document 4. A jobid:// prefixed URL obtained from a
-              previous /parse invocation 5. A list of URLs (for multi-document pipelines, V3
-              API only)
-
-                          For edit pipelines, this should be a string containing the edit instructions
-
-          split_description: The configuration options for processing the document.
-
-          async_: The configuration options for asynchronous processing (default synchronous).
-
-          parsing: The configuration options for parsing the document. If you are passing in a
-              jobid:// URL for the file, then this configuration will be ignored.
-
-          settings: The settings for split processing.
-
-          split_rules: The prompt that describes rules for splitting the document.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._post(
-            "/split_async",
-            body=maybe_transform(
-                {
-                    "input": input,
-                    "split_description": split_description,
-                    "async_": async_,
-                    "parsing": parsing,
-                    "settings": settings,
-                    "split_rules": split_rules,
-                },
-                split_run_job_params.SplitRunJobParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=SplitRunJobResponse,
         )
 
 
@@ -199,10 +130,10 @@ class AsyncSplitResource(AsyncAPIResource):
         """
         return AsyncSplitResourceWithStreamingResponse(self)
 
-    async def run(
+    async def create(
         self,
         *,
-        input: split_run_params.Input,
+        input: split_create_params.Input,
         split_description: Iterable[SplitCategoryParam],
         parsing: ParseOptionsParam | Omit = omit,
         settings: SplitTableOptionsParam | Omit = omit,
@@ -254,7 +185,7 @@ class AsyncSplitResource(AsyncAPIResource):
                     "settings": settings,
                     "split_rules": split_rules,
                 },
-                split_run_params.SplitRunParams,
+                split_create_params.SplitCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -262,83 +193,13 @@ class AsyncSplitResource(AsyncAPIResource):
             cast_to=SplitResponse,
         )
 
-    async def run_job(
-        self,
-        *,
-        input: split_run_job_params.Input,
-        split_description: Iterable[SplitCategoryParam],
-        async_: AsyncConfigV3Param | Omit = omit,
-        parsing: ParseOptionsParam | Omit = omit,
-        settings: SplitTableOptionsParam | Omit = omit,
-        split_rules: str | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SplitRunJobResponse:
-        """
-        Split Async
-
-        Args:
-          input: For parse/split/extract pipelines, the URL of the document to be processed. You
-              can provide one of the following: 1. A publicly available URL 2. A presigned S3
-              URL 3. A reducto:// prefixed URL obtained from the /upload endpoint after
-              directly uploading a document 4. A jobid:// prefixed URL obtained from a
-              previous /parse invocation 5. A list of URLs (for multi-document pipelines, V3
-              API only)
-
-                          For edit pipelines, this should be a string containing the edit instructions
-
-          split_description: The configuration options for processing the document.
-
-          async_: The configuration options for asynchronous processing (default synchronous).
-
-          parsing: The configuration options for parsing the document. If you are passing in a
-              jobid:// URL for the file, then this configuration will be ignored.
-
-          settings: The settings for split processing.
-
-          split_rules: The prompt that describes rules for splitting the document.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._post(
-            "/split_async",
-            body=await async_maybe_transform(
-                {
-                    "input": input,
-                    "split_description": split_description,
-                    "async_": async_,
-                    "parsing": parsing,
-                    "settings": settings,
-                    "split_rules": split_rules,
-                },
-                split_run_job_params.SplitRunJobParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=SplitRunJobResponse,
-        )
-
 
 class SplitResourceWithRawResponse:
     def __init__(self, split: SplitResource) -> None:
         self._split = split
 
-        self.run = to_raw_response_wrapper(
-            split.run,
-        )
-        self.run_job = to_raw_response_wrapper(
-            split.run_job,
+        self.create = to_raw_response_wrapper(
+            split.create,
         )
 
 
@@ -346,11 +207,8 @@ class AsyncSplitResourceWithRawResponse:
     def __init__(self, split: AsyncSplitResource) -> None:
         self._split = split
 
-        self.run = async_to_raw_response_wrapper(
-            split.run,
-        )
-        self.run_job = async_to_raw_response_wrapper(
-            split.run_job,
+        self.create = async_to_raw_response_wrapper(
+            split.create,
         )
 
 
@@ -358,11 +216,8 @@ class SplitResourceWithStreamingResponse:
     def __init__(self, split: SplitResource) -> None:
         self._split = split
 
-        self.run = to_streamed_response_wrapper(
-            split.run,
-        )
-        self.run_job = to_streamed_response_wrapper(
-            split.run_job,
+        self.create = to_streamed_response_wrapper(
+            split.create,
         )
 
 
@@ -370,9 +225,6 @@ class AsyncSplitResourceWithStreamingResponse:
     def __init__(self, split: AsyncSplitResource) -> None:
         self._split = split
 
-        self.run = async_to_streamed_response_wrapper(
-            split.run,
-        )
-        self.run_job = async_to_streamed_response_wrapper(
-            split.run_job,
+        self.create = async_to_streamed_response_wrapper(
+            split.create,
         )

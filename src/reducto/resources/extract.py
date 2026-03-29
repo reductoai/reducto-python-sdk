@@ -7,10 +7,7 @@ from typing_extensions import overload
 
 import httpx
 
-from ..types import (
-    extract_run_params,
-    extract_run_job_params,
-)
+from ..types import extract_create_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import required_args, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -24,10 +21,9 @@ from .._response import (
 from .._base_client import make_request_options
 from ..types.instructions_param import InstructionsParam
 from ..types.parse_options_param import ParseOptionsParam
-from ..types.extract_run_response import ExtractRunResponse
 from ..types.async_config_v3_param import AsyncConfigV3Param
-from ..types.async_extract_response import AsyncExtractResponse
 from ..types.extract_settings_param import ExtractSettingsParam
+from ..types.extract_create_response import ExtractCreateResponse
 
 __all__ = ["ExtractResource", "AsyncExtractResource"]
 
@@ -53,10 +49,10 @@ class ExtractResource(SyncAPIResource):
         return ExtractResourceWithStreamingResponse(self)
 
     @overload
-    def run(
+    def create(
         self,
         *,
-        input: extract_run_params.SyncExtractConfigInput,
+        input: extract_create_params.SyncExtractConfigInput,
         instructions: InstructionsParam | Omit = omit,
         parsing: ParseOptionsParam | Omit = omit,
         settings: ExtractSettingsParam | Omit = omit,
@@ -66,7 +62,7 @@ class ExtractResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ExtractRunResponse:
+    ) -> ExtractCreateResponse:
         """
         Extract
 
@@ -98,10 +94,10 @@ class ExtractResource(SyncAPIResource):
         ...
 
     @overload
-    def run(
+    def create(
         self,
         *,
-        input: extract_run_params.AsyncExtractConfigInput,
+        input: extract_create_params.AsyncExtractConfigInput,
         async_: AsyncConfigV3Param | Omit = omit,
         instructions: InstructionsParam | Omit = omit,
         parsing: ParseOptionsParam | Omit = omit,
@@ -112,7 +108,7 @@ class ExtractResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ExtractRunResponse:
+    ) -> ExtractCreateResponse:
         """
         Extract
 
@@ -146,10 +142,10 @@ class ExtractResource(SyncAPIResource):
         ...
 
     @required_args(["input"])
-    def run(
+    def create(
         self,
         *,
-        input: extract_run_params.SyncExtractConfigInput | extract_run_params.AsyncExtractConfigInput,
+        input: extract_create_params.SyncExtractConfigInput | extract_create_params.AsyncExtractConfigInput,
         instructions: InstructionsParam | Omit = omit,
         parsing: ParseOptionsParam | Omit = omit,
         settings: ExtractSettingsParam | Omit = omit,
@@ -160,9 +156,9 @@ class ExtractResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ExtractRunResponse:
+    ) -> ExtractCreateResponse:
         return cast(
-            ExtractRunResponse,
+            ExtractCreateResponse,
             self._post(
                 "/extract",
                 body=maybe_transform(
@@ -173,78 +169,15 @@ class ExtractResource(SyncAPIResource):
                         "settings": settings,
                         "async_": async_,
                     },
-                    extract_run_params.ExtractRunParams,
+                    extract_create_params.ExtractCreateParams,
                 ),
                 options=make_request_options(
                     extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
                 ),
                 cast_to=cast(
-                    Any, ExtractRunResponse
+                    Any, ExtractCreateResponse
                 ),  # Union types cannot be passed in as arguments in the type system
             ),
-        )
-
-    def run_job(
-        self,
-        *,
-        input: extract_run_job_params.Input,
-        async_: AsyncConfigV3Param | Omit = omit,
-        instructions: InstructionsParam | Omit = omit,
-        parsing: ParseOptionsParam | Omit = omit,
-        settings: ExtractSettingsParam | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncExtractResponse:
-        """
-        Extract Async
-
-        Args:
-          input: For parse/split/extract pipelines, the URL of the document to be processed. You
-              can provide one of the following: 1. A publicly available URL 2. A presigned S3
-              URL 3. A reducto:// prefixed URL obtained from the /upload endpoint after
-              directly uploading a document 4. A jobid:// prefixed URL obtained from a
-              previous /parse invocation 5. A list of URLs (for multi-document pipelines, V3
-              API only)
-
-                          For edit pipelines, this should be a string containing the edit instructions
-
-          async_: The configuration options for asynchronous processing (default synchronous).
-
-          instructions: The instructions to use for the extraction.
-
-          parsing: The configuration options for parsing the document. If you are passing in a
-              jobid:// URL for the file, then this configuration will be ignored.
-
-          settings: The settings to use for the extraction.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._post(
-            "/extract_async",
-            body=maybe_transform(
-                {
-                    "input": input,
-                    "async_": async_,
-                    "instructions": instructions,
-                    "parsing": parsing,
-                    "settings": settings,
-                },
-                extract_run_job_params.ExtractRunJobParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=AsyncExtractResponse,
         )
 
 
@@ -269,10 +202,10 @@ class AsyncExtractResource(AsyncAPIResource):
         return AsyncExtractResourceWithStreamingResponse(self)
 
     @overload
-    async def run(
+    async def create(
         self,
         *,
-        input: extract_run_params.SyncExtractConfigInput,
+        input: extract_create_params.SyncExtractConfigInput,
         instructions: InstructionsParam | Omit = omit,
         parsing: ParseOptionsParam | Omit = omit,
         settings: ExtractSettingsParam | Omit = omit,
@@ -282,7 +215,7 @@ class AsyncExtractResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ExtractRunResponse:
+    ) -> ExtractCreateResponse:
         """
         Extract
 
@@ -314,10 +247,10 @@ class AsyncExtractResource(AsyncAPIResource):
         ...
 
     @overload
-    async def run(
+    async def create(
         self,
         *,
-        input: extract_run_params.AsyncExtractConfigInput,
+        input: extract_create_params.AsyncExtractConfigInput,
         async_: AsyncConfigV3Param | Omit = omit,
         instructions: InstructionsParam | Omit = omit,
         parsing: ParseOptionsParam | Omit = omit,
@@ -328,7 +261,7 @@ class AsyncExtractResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ExtractRunResponse:
+    ) -> ExtractCreateResponse:
         """
         Extract
 
@@ -362,10 +295,10 @@ class AsyncExtractResource(AsyncAPIResource):
         ...
 
     @required_args(["input"])
-    async def run(
+    async def create(
         self,
         *,
-        input: extract_run_params.SyncExtractConfigInput | extract_run_params.AsyncExtractConfigInput,
+        input: extract_create_params.SyncExtractConfigInput | extract_create_params.AsyncExtractConfigInput,
         instructions: InstructionsParam | Omit = omit,
         parsing: ParseOptionsParam | Omit = omit,
         settings: ExtractSettingsParam | Omit = omit,
@@ -376,9 +309,9 @@ class AsyncExtractResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ExtractRunResponse:
+    ) -> ExtractCreateResponse:
         return cast(
-            ExtractRunResponse,
+            ExtractCreateResponse,
             await self._post(
                 "/extract",
                 body=await async_maybe_transform(
@@ -389,78 +322,15 @@ class AsyncExtractResource(AsyncAPIResource):
                         "settings": settings,
                         "async_": async_,
                     },
-                    extract_run_params.ExtractRunParams,
+                    extract_create_params.ExtractCreateParams,
                 ),
                 options=make_request_options(
                     extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
                 ),
                 cast_to=cast(
-                    Any, ExtractRunResponse
+                    Any, ExtractCreateResponse
                 ),  # Union types cannot be passed in as arguments in the type system
             ),
-        )
-
-    async def run_job(
-        self,
-        *,
-        input: extract_run_job_params.Input,
-        async_: AsyncConfigV3Param | Omit = omit,
-        instructions: InstructionsParam | Omit = omit,
-        parsing: ParseOptionsParam | Omit = omit,
-        settings: ExtractSettingsParam | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncExtractResponse:
-        """
-        Extract Async
-
-        Args:
-          input: For parse/split/extract pipelines, the URL of the document to be processed. You
-              can provide one of the following: 1. A publicly available URL 2. A presigned S3
-              URL 3. A reducto:// prefixed URL obtained from the /upload endpoint after
-              directly uploading a document 4. A jobid:// prefixed URL obtained from a
-              previous /parse invocation 5. A list of URLs (for multi-document pipelines, V3
-              API only)
-
-                          For edit pipelines, this should be a string containing the edit instructions
-
-          async_: The configuration options for asynchronous processing (default synchronous).
-
-          instructions: The instructions to use for the extraction.
-
-          parsing: The configuration options for parsing the document. If you are passing in a
-              jobid:// URL for the file, then this configuration will be ignored.
-
-          settings: The settings to use for the extraction.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._post(
-            "/extract_async",
-            body=await async_maybe_transform(
-                {
-                    "input": input,
-                    "async_": async_,
-                    "instructions": instructions,
-                    "parsing": parsing,
-                    "settings": settings,
-                },
-                extract_run_job_params.ExtractRunJobParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=AsyncExtractResponse,
         )
 
 
@@ -468,11 +338,8 @@ class ExtractResourceWithRawResponse:
     def __init__(self, extract: ExtractResource) -> None:
         self._extract = extract
 
-        self.run = to_raw_response_wrapper(
-            extract.run,
-        )
-        self.run_job = to_raw_response_wrapper(
-            extract.run_job,
+        self.create = to_raw_response_wrapper(
+            extract.create,
         )
 
 
@@ -480,11 +347,8 @@ class AsyncExtractResourceWithRawResponse:
     def __init__(self, extract: AsyncExtractResource) -> None:
         self._extract = extract
 
-        self.run = async_to_raw_response_wrapper(
-            extract.run,
-        )
-        self.run_job = async_to_raw_response_wrapper(
-            extract.run_job,
+        self.create = async_to_raw_response_wrapper(
+            extract.create,
         )
 
 
@@ -492,11 +356,8 @@ class ExtractResourceWithStreamingResponse:
     def __init__(self, extract: ExtractResource) -> None:
         self._extract = extract
 
-        self.run = to_streamed_response_wrapper(
-            extract.run,
-        )
-        self.run_job = to_streamed_response_wrapper(
-            extract.run_job,
+        self.create = to_streamed_response_wrapper(
+            extract.create,
         )
 
 
@@ -504,9 +365,6 @@ class AsyncExtractResourceWithStreamingResponse:
     def __init__(self, extract: AsyncExtractResource) -> None:
         self._extract = extract
 
-        self.run = async_to_streamed_response_wrapper(
-            extract.run,
-        )
-        self.run_job = async_to_streamed_response_wrapper(
-            extract.run_job,
+        self.create = async_to_streamed_response_wrapper(
+            extract.create,
         )
