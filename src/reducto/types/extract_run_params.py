@@ -14,7 +14,7 @@ from .upload_response_param import UploadResponseParam
 from .extract_settings_param import ExtractSettingsParam
 
 __all__ = [
-    "ExtractCreateParams",
+    "ExtractRunParams",
     "SyncExtractConfig",
     "SyncExtractConfigInput",
     "AsyncExtractConfig",
@@ -84,4 +84,4 @@ class AsyncExtractConfig(TypedDict, total=False):
 
 AsyncExtractConfigInput: TypeAlias = Union[str, SequenceNotStr[str], UploadResponseParam]
 
-ExtractCreateParams: TypeAlias = Union[SyncExtractConfig, AsyncExtractConfig]
+ExtractRunParams: TypeAlias = Union[SyncExtractConfig, AsyncExtractConfig]

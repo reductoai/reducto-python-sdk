@@ -6,7 +6,7 @@ from typing import Iterable, Optional
 
 import httpx
 
-from ..types import edit_submit_params
+from ..types import edit_run_params, edit_run_job_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -21,6 +21,7 @@ from .._base_client import make_request_options
 from ..types.edit_response import EditResponse
 from ..types.edit_widget_param import EditWidgetParam
 from ..types.edit_options_param import EditOptionsParam
+from ..types.edit_run_job_response import EditRunJobResponse
 
 __all__ = ["EditResource", "AsyncEditResource"]
 
@@ -45,10 +46,10 @@ class EditResource(SyncAPIResource):
         """
         return EditResourceWithStreamingResponse(self)
 
-    def submit(
+    def run(
         self,
         *,
-        document_url: edit_submit_params.DocumentURL,
+        document_url: edit_run_params.DocumentURL,
         edit_instructions: str,
         edit_options: EditOptionsParam | Omit = omit,
         form_schema: Optional[Iterable[EditWidgetParam]] | Omit = omit,
@@ -100,12 +101,77 @@ class EditResource(SyncAPIResource):
                     "form_schema": form_schema,
                     "priority": priority,
                 },
-                edit_submit_params.EditSubmitParams,
+                edit_run_params.EditRunParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=EditResponse,
+        )
+
+    def run_job(
+        self,
+        *,
+        document_url: edit_run_job_params.DocumentURL,
+        edit_instructions: str,
+        edit_options: EditOptionsParam | Omit = omit,
+        form_schema: Optional[Iterable[EditWidgetParam]] | Omit = omit,
+        priority: bool | Omit = omit,
+        webhook: edit_run_job_params.Webhook | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> EditRunJobResponse:
+        """Edit Async
+
+        Args:
+          document_url:
+              The URL of the document to be processed.
+
+        You can provide one of the following:
+
+              1. A publicly available URL
+              2. A presigned S3 URL
+              3. A reducto:// prefixed URL obtained from the /upload endpoint after directly
+                 uploading a document
+
+          edit_instructions: The instructions for the edit.
+
+          form_schema: Form schema for PDF forms. List of widgets with their types, descriptions, and
+              bounding boxes. Only works for PDFs.
+
+          priority: If True, attempts to process the job with priority if the user has priority
+              processing budget available; by default, sync jobs are prioritized above async
+              jobs.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/edit_async",
+            body=maybe_transform(
+                {
+                    "document_url": document_url,
+                    "edit_instructions": edit_instructions,
+                    "edit_options": edit_options,
+                    "form_schema": form_schema,
+                    "priority": priority,
+                    "webhook": webhook,
+                },
+                edit_run_job_params.EditRunJobParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=EditRunJobResponse,
         )
 
 
@@ -129,10 +195,10 @@ class AsyncEditResource(AsyncAPIResource):
         """
         return AsyncEditResourceWithStreamingResponse(self)
 
-    async def submit(
+    async def run(
         self,
         *,
-        document_url: edit_submit_params.DocumentURL,
+        document_url: edit_run_params.DocumentURL,
         edit_instructions: str,
         edit_options: EditOptionsParam | Omit = omit,
         form_schema: Optional[Iterable[EditWidgetParam]] | Omit = omit,
@@ -184,7 +250,7 @@ class AsyncEditResource(AsyncAPIResource):
                     "form_schema": form_schema,
                     "priority": priority,
                 },
-                edit_submit_params.EditSubmitParams,
+                edit_run_params.EditRunParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -192,13 +258,81 @@ class AsyncEditResource(AsyncAPIResource):
             cast_to=EditResponse,
         )
 
+    async def run_job(
+        self,
+        *,
+        document_url: edit_run_job_params.DocumentURL,
+        edit_instructions: str,
+        edit_options: EditOptionsParam | Omit = omit,
+        form_schema: Optional[Iterable[EditWidgetParam]] | Omit = omit,
+        priority: bool | Omit = omit,
+        webhook: edit_run_job_params.Webhook | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> EditRunJobResponse:
+        """Edit Async
+
+        Args:
+          document_url:
+              The URL of the document to be processed.
+
+        You can provide one of the following:
+
+              1. A publicly available URL
+              2. A presigned S3 URL
+              3. A reducto:// prefixed URL obtained from the /upload endpoint after directly
+                 uploading a document
+
+          edit_instructions: The instructions for the edit.
+
+          form_schema: Form schema for PDF forms. List of widgets with their types, descriptions, and
+              bounding boxes. Only works for PDFs.
+
+          priority: If True, attempts to process the job with priority if the user has priority
+              processing budget available; by default, sync jobs are prioritized above async
+              jobs.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/edit_async",
+            body=await async_maybe_transform(
+                {
+                    "document_url": document_url,
+                    "edit_instructions": edit_instructions,
+                    "edit_options": edit_options,
+                    "form_schema": form_schema,
+                    "priority": priority,
+                    "webhook": webhook,
+                },
+                edit_run_job_params.EditRunJobParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=EditRunJobResponse,
+        )
+
 
 class EditResourceWithRawResponse:
     def __init__(self, edit: EditResource) -> None:
         self._edit = edit
 
-        self.submit = to_raw_response_wrapper(
-            edit.submit,
+        self.run = to_raw_response_wrapper(
+            edit.run,
+        )
+        self.run_job = to_raw_response_wrapper(
+            edit.run_job,
         )
 
 
@@ -206,8 +340,11 @@ class AsyncEditResourceWithRawResponse:
     def __init__(self, edit: AsyncEditResource) -> None:
         self._edit = edit
 
-        self.submit = async_to_raw_response_wrapper(
-            edit.submit,
+        self.run = async_to_raw_response_wrapper(
+            edit.run,
+        )
+        self.run_job = async_to_raw_response_wrapper(
+            edit.run_job,
         )
 
 
@@ -215,8 +352,11 @@ class EditResourceWithStreamingResponse:
     def __init__(self, edit: EditResource) -> None:
         self._edit = edit
 
-        self.submit = to_streamed_response_wrapper(
-            edit.submit,
+        self.run = to_streamed_response_wrapper(
+            edit.run,
+        )
+        self.run_job = to_streamed_response_wrapper(
+            edit.run_job,
         )
 
 
@@ -224,6 +364,9 @@ class AsyncEditResourceWithStreamingResponse:
     def __init__(self, edit: AsyncEditResource) -> None:
         self._edit = edit
 
-        self.submit = async_to_streamed_response_wrapper(
-            edit.submit,
+        self.run = async_to_streamed_response_wrapper(
+            edit.run,
+        )
+        self.run_job = async_to_streamed_response_wrapper(
+            edit.run_job,
         )

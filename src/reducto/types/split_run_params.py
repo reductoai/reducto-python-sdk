@@ -3,20 +3,18 @@
 from __future__ import annotations
 
 from typing import Union, Iterable
-from typing_extensions import Required, Annotated, TypeAlias, TypedDict
+from typing_extensions import Required, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
-from .._utils import PropertyInfo
 from .parse_options_param import ParseOptionsParam
 from .split_category_param import SplitCategoryParam
-from .async_config_v3_param import AsyncConfigV3Param
 from .upload_response_param import UploadResponseParam
 from .split_table_options_param import SplitTableOptionsParam
 
-__all__ = ["SplitAsyncCreateParams", "Input"]
+__all__ = ["SplitRunParams", "Input"]
 
 
-class SplitAsyncCreateParams(TypedDict, total=False):
+class SplitRunParams(TypedDict, total=False):
     input: Required[Input]
     """For parse/split/extract pipelines, the URL of the document to be processed.
 
@@ -31,9 +29,6 @@ class SplitAsyncCreateParams(TypedDict, total=False):
 
     split_description: Required[Iterable[SplitCategoryParam]]
     """The configuration options for processing the document."""
-
-    async_: Annotated[AsyncConfigV3Param, PropertyInfo(alias="async")]
-    """The configuration options for asynchronous processing (default synchronous)."""
 
     parsing: ParseOptionsParam
     """The configuration options for parsing the document.

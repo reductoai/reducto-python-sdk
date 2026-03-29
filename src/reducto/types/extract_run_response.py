@@ -6,6 +6,6 @@ from typing_extensions import TypeAlias
 from .v3_extract import V3Extract
 from .async_extract_response import AsyncExtractResponse
 
-__all__ = ["ExtractCreateResponse"]
+__all__ = ["ExtractRunResponse"]
 
-ExtractCreateResponse: TypeAlias = Union[V3Extract, AsyncExtractResponse]
+ExtractRunResponse: TypeAlias = Union[V3Extract, AsyncExtractResponse]

@@ -43,11 +43,6 @@ if TYPE_CHECKING:
         version,
         classify,
         pipeline,
-        edit_async,
-        parse_async,
-        split_async,
-        extract_async,
-        pipeline_async,
         configure_webhook,
     )
     from .resources.job import JobResource, AsyncJobResource
@@ -60,11 +55,6 @@ if TYPE_CHECKING:
     from .resources.version import VersionResource, AsyncVersionResource
     from .resources.classify import ClassifyResource, AsyncClassifyResource
     from .resources.pipeline import PipelineResource, AsyncPipelineResource
-    from .resources.edit_async import EditAsyncResource, AsyncEditAsyncResource
-    from .resources.parse_async import ParseAsyncResource, AsyncParseAsyncResource
-    from .resources.split_async import SplitAsyncResource, AsyncSplitAsyncResource
-    from .resources.extract_async import ExtractAsyncResource, AsyncExtractAsyncResource
-    from .resources.pipeline_async import PipelineAsyncResource, AsyncPipelineAsyncResource
     from .resources.configure_webhook import ConfigureWebhookResource, AsyncConfigureWebhookResource
 
 __all__ = [
@@ -172,22 +162,10 @@ class Reducto(SyncAPIClient):
         return ParseResource(self)
 
     @cached_property
-    def parse_async(self) -> ParseAsyncResource:
-        from .resources.parse_async import ParseAsyncResource
-
-        return ParseAsyncResource(self)
-
-    @cached_property
     def extract(self) -> ExtractResource:
         from .resources.extract import ExtractResource
 
         return ExtractResource(self)
-
-    @cached_property
-    def extract_async(self) -> ExtractAsyncResource:
-        from .resources.extract_async import ExtractAsyncResource
-
-        return ExtractAsyncResource(self)
 
     @cached_property
     def split(self) -> SplitResource:
@@ -196,34 +174,16 @@ class Reducto(SyncAPIClient):
         return SplitResource(self)
 
     @cached_property
-    def split_async(self) -> SplitAsyncResource:
-        from .resources.split_async import SplitAsyncResource
-
-        return SplitAsyncResource(self)
-
-    @cached_property
     def edit(self) -> EditResource:
         from .resources.edit import EditResource
 
         return EditResource(self)
 
     @cached_property
-    def edit_async(self) -> EditAsyncResource:
-        from .resources.edit_async import EditAsyncResource
-
-        return EditAsyncResource(self)
-
-    @cached_property
     def pipeline(self) -> PipelineResource:
         from .resources.pipeline import PipelineResource
 
         return PipelineResource(self)
-
-    @cached_property
-    def pipeline_async(self) -> PipelineAsyncResource:
-        from .resources.pipeline_async import PipelineAsyncResource
-
-        return PipelineAsyncResource(self)
 
     @cached_property
     def classify(self) -> ClassifyResource:
@@ -467,22 +427,10 @@ class AsyncReducto(AsyncAPIClient):
         return AsyncParseResource(self)
 
     @cached_property
-    def parse_async(self) -> AsyncParseAsyncResource:
-        from .resources.parse_async import AsyncParseAsyncResource
-
-        return AsyncParseAsyncResource(self)
-
-    @cached_property
     def extract(self) -> AsyncExtractResource:
         from .resources.extract import AsyncExtractResource
 
         return AsyncExtractResource(self)
-
-    @cached_property
-    def extract_async(self) -> AsyncExtractAsyncResource:
-        from .resources.extract_async import AsyncExtractAsyncResource
-
-        return AsyncExtractAsyncResource(self)
 
     @cached_property
     def split(self) -> AsyncSplitResource:
@@ -491,34 +439,16 @@ class AsyncReducto(AsyncAPIClient):
         return AsyncSplitResource(self)
 
     @cached_property
-    def split_async(self) -> AsyncSplitAsyncResource:
-        from .resources.split_async import AsyncSplitAsyncResource
-
-        return AsyncSplitAsyncResource(self)
-
-    @cached_property
     def edit(self) -> AsyncEditResource:
         from .resources.edit import AsyncEditResource
 
         return AsyncEditResource(self)
 
     @cached_property
-    def edit_async(self) -> AsyncEditAsyncResource:
-        from .resources.edit_async import AsyncEditAsyncResource
-
-        return AsyncEditAsyncResource(self)
-
-    @cached_property
     def pipeline(self) -> AsyncPipelineResource:
         from .resources.pipeline import AsyncPipelineResource
 
         return AsyncPipelineResource(self)
-
-    @cached_property
-    def pipeline_async(self) -> AsyncPipelineAsyncResource:
-        from .resources.pipeline_async import AsyncPipelineAsyncResource
-
-        return AsyncPipelineAsyncResource(self)
 
     @cached_property
     def classify(self) -> AsyncClassifyResource:
@@ -689,22 +619,10 @@ class ReductoWithRawResponse:
         return ParseResourceWithRawResponse(self._client.parse)
 
     @cached_property
-    def parse_async(self) -> parse_async.ParseAsyncResourceWithRawResponse:
-        from .resources.parse_async import ParseAsyncResourceWithRawResponse
-
-        return ParseAsyncResourceWithRawResponse(self._client.parse_async)
-
-    @cached_property
     def extract(self) -> extract.ExtractResourceWithRawResponse:
         from .resources.extract import ExtractResourceWithRawResponse
 
         return ExtractResourceWithRawResponse(self._client.extract)
-
-    @cached_property
-    def extract_async(self) -> extract_async.ExtractAsyncResourceWithRawResponse:
-        from .resources.extract_async import ExtractAsyncResourceWithRawResponse
-
-        return ExtractAsyncResourceWithRawResponse(self._client.extract_async)
 
     @cached_property
     def split(self) -> split.SplitResourceWithRawResponse:
@@ -713,34 +631,16 @@ class ReductoWithRawResponse:
         return SplitResourceWithRawResponse(self._client.split)
 
     @cached_property
-    def split_async(self) -> split_async.SplitAsyncResourceWithRawResponse:
-        from .resources.split_async import SplitAsyncResourceWithRawResponse
-
-        return SplitAsyncResourceWithRawResponse(self._client.split_async)
-
-    @cached_property
     def edit(self) -> edit.EditResourceWithRawResponse:
         from .resources.edit import EditResourceWithRawResponse
 
         return EditResourceWithRawResponse(self._client.edit)
 
     @cached_property
-    def edit_async(self) -> edit_async.EditAsyncResourceWithRawResponse:
-        from .resources.edit_async import EditAsyncResourceWithRawResponse
-
-        return EditAsyncResourceWithRawResponse(self._client.edit_async)
-
-    @cached_property
     def pipeline(self) -> pipeline.PipelineResourceWithRawResponse:
         from .resources.pipeline import PipelineResourceWithRawResponse
 
         return PipelineResourceWithRawResponse(self._client.pipeline)
-
-    @cached_property
-    def pipeline_async(self) -> pipeline_async.PipelineAsyncResourceWithRawResponse:
-        from .resources.pipeline_async import PipelineAsyncResourceWithRawResponse
-
-        return PipelineAsyncResourceWithRawResponse(self._client.pipeline_async)
 
     @cached_property
     def classify(self) -> classify.ClassifyResourceWithRawResponse:
@@ -792,22 +692,10 @@ class AsyncReductoWithRawResponse:
         return AsyncParseResourceWithRawResponse(self._client.parse)
 
     @cached_property
-    def parse_async(self) -> parse_async.AsyncParseAsyncResourceWithRawResponse:
-        from .resources.parse_async import AsyncParseAsyncResourceWithRawResponse
-
-        return AsyncParseAsyncResourceWithRawResponse(self._client.parse_async)
-
-    @cached_property
     def extract(self) -> extract.AsyncExtractResourceWithRawResponse:
         from .resources.extract import AsyncExtractResourceWithRawResponse
 
         return AsyncExtractResourceWithRawResponse(self._client.extract)
-
-    @cached_property
-    def extract_async(self) -> extract_async.AsyncExtractAsyncResourceWithRawResponse:
-        from .resources.extract_async import AsyncExtractAsyncResourceWithRawResponse
-
-        return AsyncExtractAsyncResourceWithRawResponse(self._client.extract_async)
 
     @cached_property
     def split(self) -> split.AsyncSplitResourceWithRawResponse:
@@ -816,34 +704,16 @@ class AsyncReductoWithRawResponse:
         return AsyncSplitResourceWithRawResponse(self._client.split)
 
     @cached_property
-    def split_async(self) -> split_async.AsyncSplitAsyncResourceWithRawResponse:
-        from .resources.split_async import AsyncSplitAsyncResourceWithRawResponse
-
-        return AsyncSplitAsyncResourceWithRawResponse(self._client.split_async)
-
-    @cached_property
     def edit(self) -> edit.AsyncEditResourceWithRawResponse:
         from .resources.edit import AsyncEditResourceWithRawResponse
 
         return AsyncEditResourceWithRawResponse(self._client.edit)
 
     @cached_property
-    def edit_async(self) -> edit_async.AsyncEditAsyncResourceWithRawResponse:
-        from .resources.edit_async import AsyncEditAsyncResourceWithRawResponse
-
-        return AsyncEditAsyncResourceWithRawResponse(self._client.edit_async)
-
-    @cached_property
     def pipeline(self) -> pipeline.AsyncPipelineResourceWithRawResponse:
         from .resources.pipeline import AsyncPipelineResourceWithRawResponse
 
         return AsyncPipelineResourceWithRawResponse(self._client.pipeline)
-
-    @cached_property
-    def pipeline_async(self) -> pipeline_async.AsyncPipelineAsyncResourceWithRawResponse:
-        from .resources.pipeline_async import AsyncPipelineAsyncResourceWithRawResponse
-
-        return AsyncPipelineAsyncResourceWithRawResponse(self._client.pipeline_async)
 
     @cached_property
     def classify(self) -> classify.AsyncClassifyResourceWithRawResponse:
@@ -895,22 +765,10 @@ class ReductoWithStreamedResponse:
         return ParseResourceWithStreamingResponse(self._client.parse)
 
     @cached_property
-    def parse_async(self) -> parse_async.ParseAsyncResourceWithStreamingResponse:
-        from .resources.parse_async import ParseAsyncResourceWithStreamingResponse
-
-        return ParseAsyncResourceWithStreamingResponse(self._client.parse_async)
-
-    @cached_property
     def extract(self) -> extract.ExtractResourceWithStreamingResponse:
         from .resources.extract import ExtractResourceWithStreamingResponse
 
         return ExtractResourceWithStreamingResponse(self._client.extract)
-
-    @cached_property
-    def extract_async(self) -> extract_async.ExtractAsyncResourceWithStreamingResponse:
-        from .resources.extract_async import ExtractAsyncResourceWithStreamingResponse
-
-        return ExtractAsyncResourceWithStreamingResponse(self._client.extract_async)
 
     @cached_property
     def split(self) -> split.SplitResourceWithStreamingResponse:
@@ -919,34 +777,16 @@ class ReductoWithStreamedResponse:
         return SplitResourceWithStreamingResponse(self._client.split)
 
     @cached_property
-    def split_async(self) -> split_async.SplitAsyncResourceWithStreamingResponse:
-        from .resources.split_async import SplitAsyncResourceWithStreamingResponse
-
-        return SplitAsyncResourceWithStreamingResponse(self._client.split_async)
-
-    @cached_property
     def edit(self) -> edit.EditResourceWithStreamingResponse:
         from .resources.edit import EditResourceWithStreamingResponse
 
         return EditResourceWithStreamingResponse(self._client.edit)
 
     @cached_property
-    def edit_async(self) -> edit_async.EditAsyncResourceWithStreamingResponse:
-        from .resources.edit_async import EditAsyncResourceWithStreamingResponse
-
-        return EditAsyncResourceWithStreamingResponse(self._client.edit_async)
-
-    @cached_property
     def pipeline(self) -> pipeline.PipelineResourceWithStreamingResponse:
         from .resources.pipeline import PipelineResourceWithStreamingResponse
 
         return PipelineResourceWithStreamingResponse(self._client.pipeline)
-
-    @cached_property
-    def pipeline_async(self) -> pipeline_async.PipelineAsyncResourceWithStreamingResponse:
-        from .resources.pipeline_async import PipelineAsyncResourceWithStreamingResponse
-
-        return PipelineAsyncResourceWithStreamingResponse(self._client.pipeline_async)
 
     @cached_property
     def classify(self) -> classify.ClassifyResourceWithStreamingResponse:
@@ -998,22 +838,10 @@ class AsyncReductoWithStreamedResponse:
         return AsyncParseResourceWithStreamingResponse(self._client.parse)
 
     @cached_property
-    def parse_async(self) -> parse_async.AsyncParseAsyncResourceWithStreamingResponse:
-        from .resources.parse_async import AsyncParseAsyncResourceWithStreamingResponse
-
-        return AsyncParseAsyncResourceWithStreamingResponse(self._client.parse_async)
-
-    @cached_property
     def extract(self) -> extract.AsyncExtractResourceWithStreamingResponse:
         from .resources.extract import AsyncExtractResourceWithStreamingResponse
 
         return AsyncExtractResourceWithStreamingResponse(self._client.extract)
-
-    @cached_property
-    def extract_async(self) -> extract_async.AsyncExtractAsyncResourceWithStreamingResponse:
-        from .resources.extract_async import AsyncExtractAsyncResourceWithStreamingResponse
-
-        return AsyncExtractAsyncResourceWithStreamingResponse(self._client.extract_async)
 
     @cached_property
     def split(self) -> split.AsyncSplitResourceWithStreamingResponse:
@@ -1022,34 +850,16 @@ class AsyncReductoWithStreamedResponse:
         return AsyncSplitResourceWithStreamingResponse(self._client.split)
 
     @cached_property
-    def split_async(self) -> split_async.AsyncSplitAsyncResourceWithStreamingResponse:
-        from .resources.split_async import AsyncSplitAsyncResourceWithStreamingResponse
-
-        return AsyncSplitAsyncResourceWithStreamingResponse(self._client.split_async)
-
-    @cached_property
     def edit(self) -> edit.AsyncEditResourceWithStreamingResponse:
         from .resources.edit import AsyncEditResourceWithStreamingResponse
 
         return AsyncEditResourceWithStreamingResponse(self._client.edit)
 
     @cached_property
-    def edit_async(self) -> edit_async.AsyncEditAsyncResourceWithStreamingResponse:
-        from .resources.edit_async import AsyncEditAsyncResourceWithStreamingResponse
-
-        return AsyncEditAsyncResourceWithStreamingResponse(self._client.edit_async)
-
-    @cached_property
     def pipeline(self) -> pipeline.AsyncPipelineResourceWithStreamingResponse:
         from .resources.pipeline import AsyncPipelineResourceWithStreamingResponse
 
         return AsyncPipelineResourceWithStreamingResponse(self._client.pipeline)
-
-    @cached_property
-    def pipeline_async(self) -> pipeline_async.AsyncPipelineAsyncResourceWithStreamingResponse:
-        from .resources.pipeline_async import AsyncPipelineAsyncResourceWithStreamingResponse
-
-        return AsyncPipelineAsyncResourceWithStreamingResponse(self._client.pipeline_async)
 
     @cached_property
     def classify(self) -> classify.AsyncClassifyResourceWithStreamingResponse:

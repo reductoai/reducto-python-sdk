@@ -7,7 +7,7 @@ from typing_extensions import Required, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
 from .page_range_param import PageRangeParam
-from .shared_params.upload import Upload
+from .upload_response_param import UploadResponseParam
 
 __all__ = ["ClassifyRunParams", "Input", "ClassificationSchema", "PageRange"]
 
@@ -43,7 +43,7 @@ class ClassifyRunParams(TypedDict, total=False):
     """If True, persist the results indefinitely. Defaults to False."""
 
 
-Input: TypeAlias = Union[str, SequenceNotStr[str], Upload]
+Input: TypeAlias = Union[str, SequenceNotStr[str], UploadResponseParam]
 
 
 class ClassificationSchema(TypedDict, total=False):

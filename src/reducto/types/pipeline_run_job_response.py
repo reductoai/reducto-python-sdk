@@ -2,8 +2,8 @@
 
 from .._models import BaseModel
 
-__all__ = ["EditAsyncCreateResponse"]
+__all__ = ["PipelineRunJobResponse"]
 
 
-class EditAsyncCreateResponse(BaseModel):
+class PipelineRunJobResponse(BaseModel):
     job_id: str

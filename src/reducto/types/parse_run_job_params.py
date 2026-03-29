@@ -15,10 +15,10 @@ from .spreadsheet_param import SpreadsheetParam
 from .async_config_v3_param import AsyncConfigV3Param
 from .upload_response_param import UploadResponseParam
 
-__all__ = ["ParseAsyncCreateParams", "Input"]
+__all__ = ["ParseRunJobParams", "Input"]
 
 
-class ParseAsyncCreateParams(TypedDict, total=False):
+class ParseRunJobParams(TypedDict, total=False):
     input: Required[Input]
     """For parse/split/extract pipelines, the URL of the document to be processed.
 

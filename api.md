@@ -3,47 +3,26 @@
 Types:
 
 ```python
-from reducto.types import ParseResponse, ParseCreateResponse
-```
-
-Methods:
-
-- <code title="post /parse">client.parse.<a href="./src/reducto/resources/parse.py">create</a>(\*\*<a href="src/reducto/types/parse_create_params.py">params</a>) -> <a href="./src/reducto/types/parse_create_response.py">ParseCreateResponse</a></code>
-
-# ParseAsync
-
-Types:
-
-```python
 from reducto.types import (
     AsyncConfigV3,
     AsyncParseConfig,
     AsyncParseResponse,
     Enhance,
     Formatting,
+    ParseResponse,
     Retrieval,
     Settings,
     Spreadsheet,
+    ParseRunResponse,
 )
 ```
 
 Methods:
 
-- <code title="post /parse_async">client.parse_async.<a href="./src/reducto/resources/parse_async.py">create</a>(\*\*<a href="src/reducto/types/parse_async_create_params.py">params</a>) -> <a href="./src/reducto/types/async_parse_response.py">AsyncParseResponse</a></code>
+- <code title="post /parse">client.parse.<a href="./src/reducto/resources/parse.py">run</a>(\*\*<a href="src/reducto/types/parse_run_params.py">params</a>) -> <a href="./src/reducto/types/parse_run_response.py">ParseRunResponse</a></code>
+- <code title="post /parse_async">client.parse.<a href="./src/reducto/resources/parse.py">run_job</a>(\*\*<a href="src/reducto/types/parse_run_job_params.py">params</a>) -> <a href="./src/reducto/types/async_parse_response.py">AsyncParseResponse</a></code>
 
 # Extract
-
-Types:
-
-```python
-from reducto.types import ExtractUsage, V3Extract, ExtractCreateResponse
-```
-
-Methods:
-
-- <code title="post /extract">client.extract.<a href="./src/reducto/resources/extract.py">create</a>(\*\*<a href="src/reducto/types/extract_create_params.py">params</a>) -> <a href="./src/reducto/types/extract_create_response.py">ExtractCreateResponse</a></code>
-
-# ExtractAsync
 
 Types:
 
@@ -52,14 +31,18 @@ from reducto.types import (
     AsyncExtractConfig,
     AsyncExtractResponse,
     ExtractSettings,
+    ExtractUsage,
     Instructions,
     ParseOptions,
+    V3Extract,
+    ExtractRunResponse,
 )
 ```
 
 Methods:
 
-- <code title="post /extract_async">client.extract_async.<a href="./src/reducto/resources/extract_async.py">create</a>(\*\*<a href="src/reducto/types/extract_async_create_params.py">params</a>) -> <a href="./src/reducto/types/async_extract_response.py">AsyncExtractResponse</a></code>
+- <code title="post /extract">client.extract.<a href="./src/reducto/resources/extract.py">run</a>(\*\*<a href="src/reducto/types/extract_run_params.py">params</a>) -> <a href="./src/reducto/types/extract_run_response.py">ExtractRunResponse</a></code>
+- <code title="post /extract_async">client.extract.<a href="./src/reducto/resources/extract.py">run_job</a>(\*\*<a href="src/reducto/types/extract_run_job_params.py">params</a>) -> <a href="./src/reducto/types/async_extract_response.py">AsyncExtractResponse</a></code>
 
 # Split
 
@@ -72,72 +55,40 @@ from reducto.types import (
     SplitCategory,
     SplitResponse,
     SplitTableOptions,
+    SplitRunJobResponse,
 )
 ```
 
 Methods:
 
-- <code title="post /split">client.split.<a href="./src/reducto/resources/split.py">create</a>(\*\*<a href="src/reducto/types/split_create_params.py">params</a>) -> <a href="./src/reducto/types/split_response.py">SplitResponse</a></code>
-
-# SplitAsync
-
-Types:
-
-```python
-from reducto.types import SplitAsyncCreateResponse
-```
-
-Methods:
-
-- <code title="post /split_async">client.split_async.<a href="./src/reducto/resources/split_async.py">create</a>(\*\*<a href="src/reducto/types/split_async_create_params.py">params</a>) -> <a href="./src/reducto/types/split_async_create_response.py">SplitAsyncCreateResponse</a></code>
+- <code title="post /split">client.split.<a href="./src/reducto/resources/split.py">run</a>(\*\*<a href="src/reducto/types/split_run_params.py">params</a>) -> <a href="./src/reducto/types/split_response.py">SplitResponse</a></code>
+- <code title="post /split_async">client.split.<a href="./src/reducto/resources/split.py">run_job</a>(\*\*<a href="src/reducto/types/split_run_job_params.py">params</a>) -> <a href="./src/reducto/types/split_run_job_response.py">SplitRunJobResponse</a></code>
 
 # Edit
 
 Types:
 
 ```python
-from reducto.types import BoundingBox, EditOptions, EditResponse, EditWidget
+from reducto.types import BoundingBox, EditOptions, EditResponse, EditWidget, EditRunJobResponse
 ```
 
 Methods:
 
-- <code title="post /edit">client.edit.<a href="./src/reducto/resources/edit.py">submit</a>(\*\*<a href="src/reducto/types/edit_submit_params.py">params</a>) -> <a href="./src/reducto/types/edit_response.py">EditResponse</a></code>
-
-# EditAsync
-
-Types:
-
-```python
-from reducto.types import EditAsyncCreateResponse
-```
-
-Methods:
-
-- <code title="post /edit_async">client.edit_async.<a href="./src/reducto/resources/edit_async.py">create</a>(\*\*<a href="src/reducto/types/edit_async_create_params.py">params</a>) -> <a href="./src/reducto/types/edit_async_create_response.py">EditAsyncCreateResponse</a></code>
+- <code title="post /edit">client.edit.<a href="./src/reducto/resources/edit.py">run</a>(\*\*<a href="src/reducto/types/edit_run_params.py">params</a>) -> <a href="./src/reducto/types/edit_response.py">EditResponse</a></code>
+- <code title="post /edit_async">client.edit.<a href="./src/reducto/resources/edit.py">run_job</a>(\*\*<a href="src/reducto/types/edit_run_job_params.py">params</a>) -> <a href="./src/reducto/types/edit_run_job_response.py">EditRunJobResponse</a></code>
 
 # Pipeline
 
 Types:
 
 ```python
-from reducto.types import PipelineResponse, PipelineSettings
+from reducto.types import PipelineResponse, PipelineSettings, PipelineRunJobResponse
 ```
 
 Methods:
 
-- <code title="post /pipeline">client.pipeline.<a href="./src/reducto/resources/pipeline.py">create</a>(\*\*<a href="src/reducto/types/pipeline_create_params.py">params</a>) -> <a href="./src/reducto/types/pipeline_response.py">PipelineResponse</a></code>
-
-# PipelineAsync
-
-Types:
-
-```python
-from reducto.types import PipelineAsyncCreateResponse
-```
-
-Methods:
-
-- <code title="post /pipeline_async">client.pipeline_async.<a href="./src/reducto/resources/pipeline_async.py">create</a>(\*\*<a href="src/reducto/types/pipeline_async_create_params.py">params</a>) -> <a href="./src/reducto/types/pipeline_async_create_response.py">PipelineAsyncCreateResponse</a></code>
+- <code title="post /pipeline">client.pipeline.<a href="./src/reducto/resources/pipeline.py">run</a>(\*\*<a href="src/reducto/types/pipeline_run_params.py">params</a>) -> <a href="./src/reducto/types/pipeline_response.py">PipelineResponse</a></code>
+- <code title="post /pipeline_async">client.pipeline.<a href="./src/reducto/resources/pipeline.py">run_job</a>(\*\*<a href="src/reducto/types/pipeline_run_job_params.py">params</a>) -> <a href="./src/reducto/types/pipeline_run_job_response.py">PipelineRunJobResponse</a></code>
 
 # Classify
 
@@ -149,7 +100,7 @@ from reducto.types import ClassifyResponse, PageRange
 
 Methods:
 
-- <code title="post /classify">client.classify.<a href="./src/reducto/resources/classify.py">create</a>(\*\*<a href="src/reducto/types/classify_create_params.py">params</a>) -> <a href="./src/reducto/types/classify_response.py">ClassifyResponse</a></code>
+- <code title="post /classify">client.classify.<a href="./src/reducto/resources/classify.py">run</a>(\*\*<a href="src/reducto/types/classify_run_params.py">params</a>) -> <a href="./src/reducto/types/classify_response.py">ClassifyResponse</a></code>
 
 # Cancel
 

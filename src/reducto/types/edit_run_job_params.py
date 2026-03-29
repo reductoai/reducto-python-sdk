@@ -10,10 +10,10 @@ from .edit_widget_param import EditWidgetParam
 from .edit_options_param import EditOptionsParam
 from .upload_response_param import UploadResponseParam
 
-__all__ = ["EditAsyncCreateParams", "DocumentURL", "Webhook"]
+__all__ = ["EditRunJobParams", "DocumentURL", "Webhook"]
 
 
-class EditAsyncCreateParams(TypedDict, total=False):
+class EditRunJobParams(TypedDict, total=False):
     document_url: Required[DocumentURL]
     """The URL of the document to be processed. You can provide one of the following:
 

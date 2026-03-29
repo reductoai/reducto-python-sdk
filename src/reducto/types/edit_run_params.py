@@ -9,10 +9,10 @@ from .edit_widget_param import EditWidgetParam
 from .edit_options_param import EditOptionsParam
 from .upload_response_param import UploadResponseParam
 
-__all__ = ["EditSubmitParams", "DocumentURL"]
+__all__ = ["EditRunParams", "DocumentURL"]
 
 
-class EditSubmitParams(TypedDict, total=False):
+class EditRunParams(TypedDict, total=False):
     document_url: Required[DocumentURL]
     """The URL of the document to be processed. You can provide one of the following:
 

@@ -13,10 +13,10 @@ from .async_config_v3_param import AsyncConfigV3Param
 from .upload_response_param import UploadResponseParam
 from .extract_settings_param import ExtractSettingsParam
 
-__all__ = ["ExtractAsyncCreateParams", "Input"]
+__all__ = ["ExtractRunJobParams", "Input"]
 
 
-class ExtractAsyncCreateParams(TypedDict, total=False):
+class ExtractRunJobParams(TypedDict, total=False):
     input: Required[Input]
     """For parse/split/extract pipelines, the URL of the document to be processed.
 
