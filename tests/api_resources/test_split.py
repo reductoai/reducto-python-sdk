@@ -95,7 +95,10 @@ class TestSplit:
                     },
                 },
             },
-            settings={"table_cutoff": "truncate"},
+            settings={
+                "allow_page_overlap": True,
+                "table_cutoff": "truncate",
+            },
             split_rules="split_rules",
         )
         assert_matches_type(SplitResponse, split, path=["response"])
@@ -224,7 +227,10 @@ class TestSplit:
                     },
                 },
             },
-            settings={"table_cutoff": "truncate"},
+            settings={
+                "allow_page_overlap": True,
+                "table_cutoff": "truncate",
+            },
             split_rules="split_rules",
         )
         assert_matches_type(AsyncSplitResponse, split, path=["response"])
@@ -351,7 +357,10 @@ class TestAsyncSplit:
                     },
                 },
             },
-            settings={"table_cutoff": "truncate"},
+            settings={
+                "allow_page_overlap": True,
+                "table_cutoff": "truncate",
+            },
             split_rules="split_rules",
         )
         assert_matches_type(SplitResponse, split, path=["response"])
@@ -480,7 +489,10 @@ class TestAsyncSplit:
                     },
                 },
             },
-            settings={"table_cutoff": "truncate"},
+            settings={
+                "allow_page_overlap": True,
+                "table_cutoff": "truncate",
+            },
             split_rules="split_rules",
         )
         assert_matches_type(AsyncSplitResponse, split, path=["response"])
