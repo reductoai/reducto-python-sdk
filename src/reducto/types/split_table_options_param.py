@@ -8,6 +8,12 @@ __all__ = ["SplitTableOptionsParam"]
 
 
 class SplitTableOptionsParam(TypedDict, total=False):
+    allow_page_overlap: bool
+    """If True, a page can belong to multiple categories/partitions.
+
+    If False, each page must belong to exactly one category. Defaults to True.
+    """
+
     table_cutoff: Literal["truncate", "preserve"]
     """
     If tables should be truncated to the first few rows or if all content should be
