@@ -20,7 +20,14 @@ class ParseUsage(BaseModel):
             str,
             List[
                 Literal[
-                    "page", "html_page", "docx_native_page", "agentic", "complex", "chart_agent", "spreadsheet_cells"
+                    "page",
+                    "html_page",
+                    "docx_native_page",
+                    "agentic",
+                    "complex",
+                    "chart_agent",
+                    "spreadsheet_cells",
+                    "billable_spreadsheet_pages",
                 ]
             ],
         ]
