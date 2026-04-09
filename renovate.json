@@ -1,9 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended",
-    "helpers:pinGitHubActionDigestsToSemver"
-  ],
+  "extends": ["config:recommended", "helpers:pinGitHubActionDigestsToSemver"],
   "rebaseWhen": "conflicted",
   "timezone": "America/Los_Angeles",
   "schedule": ["after 10pm on sunday"],
