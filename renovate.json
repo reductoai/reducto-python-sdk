@@ -1,0 +1,38 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", "helpers:pinGitHubActionDigestsToSemver"],
+  "rebaseWhen": "conflicted",
+  "timezone": "America/Los_Angeles",
+  "schedule": ["after 10pm on sunday"],
+  "prConcurrentLimit": 10,
+  "prHourlyLimit": 5,
+  "minimumReleaseAge": "30 days",
+  "enabledManagers": ["github-actions"],
+  "includePaths": [".github/**"],
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "labels": ["security"],
+    "schedule": ["at any time"],
+    "minimumReleaseAge": null
+  },
+  "packageRules": [
+    {
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "github-actions minor and patch updates",
+      "groupSlug": "github-actions-minor-patch"
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["major"],
+      "groupName": "github-actions major updates",
+      "groupSlug": "github-actions-major"
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "matchDepNames": ["python"],
+      "enabled": false,
+      "description": "Do not auto-update Python runtime version; managed manually per pyproject.toml"
+    }
+  ]
+}
