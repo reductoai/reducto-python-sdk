@@ -40,7 +40,6 @@ from .edit_widget import EditWidget as EditWidget
 from .parse_usage import ParseUsage as ParseUsage
 from .bounding_box import BoundingBox as BoundingBox
 from .enhance_param import EnhanceParam as EnhanceParam
-from .extract_usage import ExtractUsage as ExtractUsage
 from .settings_param import SettingsParam as SettingsParam
 from .edit_run_params import EditRunParams as EditRunParams
 from .retrieval_param import RetrievalParam as RetrievalParam
