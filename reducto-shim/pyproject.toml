@@ -7,7 +7,6 @@ name = "reducto"
 version = "VERSION_PLACEHOLDER"
 description = "Alias package — installs the official reductoai SDK. Prefer `pip install reductoai`."
 readme = "README.md"
-license = "Apache-2.0"
 authors = [
   { name = "Reducto", email = "dev-feedback@reductoai.com" },
 ]
@@ -15,6 +14,7 @@ requires-python = ">= 3.9"
 dependencies = ["reductoai==VERSION_PLACEHOLDER"]
 classifiers = [
   "Intended Audience :: Developers",
+  "License :: OSI Approved :: Apache Software License",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",

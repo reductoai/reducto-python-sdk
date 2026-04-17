@@ -54,6 +54,10 @@ jobs:
         working-directory: reducto-shim
         run: python3 -m build
 
+      - name: Validate distribution metadata
+        working-directory: reducto-shim
+        run: python3 -m twine check --strict dist/*
+
       - name: Publish shim to PyPI
         working-directory: reducto-shim
         env:
