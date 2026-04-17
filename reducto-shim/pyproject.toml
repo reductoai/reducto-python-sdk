@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "reducto"
+version = "VERSION_PLACEHOLDER"
+description = "Alias package — installs the official reductoai SDK. Prefer `pip install reductoai`."
+readme = "README.md"
+license = "Apache-2.0"
+authors = [
+  { name = "Reducto", email = "dev-feedback@reductoai.com" },
+]
+requires-python = ">= 3.9"
+dependencies = ["reductoai==VERSION_PLACEHOLDER"]
+classifiers = [
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Operating System :: OS Independent",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+[project.urls]
+Homepage = "https://github.com/reductoai/reducto-python-sdk"
+Repository = "https://github.com/reductoai/reducto-python-sdk"
+
+[tool.setuptools]
+packages = []
+py-modules = []
