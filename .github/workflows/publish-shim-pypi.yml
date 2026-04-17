@@ -1,0 +1,62 @@
+# Publishes the `reducto` PyPI alias package, pinned to the exact `reductoai`
+# version from src/reducto/_version.py. Runs automatically after the main
+# "Publish PyPI" workflow succeeds, and can be run manually.
+name: Publish PyPI (reducto alias)
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Publish PyPI"]
+    types: [completed]
+
+jobs:
+  publish-shim:
+    name: publish-shim
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Resolve reductoai version
+        id: v
+        run: |
+          VERSION=$(python3 -c "import re,pathlib; print(re.search(r'__version__\s*=\s*\"([^\"]+)\"', pathlib.Path('src/reducto/_version.py').read_text()).group(1))")
+          if [ -z "$VERSION" ]; then
+            echo "Failed to resolve version from src/reducto/_version.py"
+            exit 1
+          fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Resolved reductoai version: $VERSION"
+
+      - name: Inject version into shim pyproject
+        working-directory: reducto-shim
+        run: sed -i "s/VERSION_PLACEHOLDER/${{ steps.v.outputs.version }}/g" pyproject.toml
+
+      - name: Wait for reductoai to appear on PyPI
+        run: |
+          VERSION="${{ steps.v.outputs.version }}"
+          for i in $(seq 1 30); do
+            if curl -sfo /dev/null "https://pypi.org/pypi/reductoai/${VERSION}/json"; then
+              echo "reductoai==${VERSION} is available on PyPI"
+              exit 0
+            fi
+            echo "Attempt $i: reductoai==${VERSION} not yet on PyPI; retrying in 10s"
+            sleep 10
+          done
+          echo "Timed out waiting for reductoai==${VERSION} on PyPI"
+          exit 1
+
+      - name: Install build tools
+        run: python3 -m pip install --upgrade build twine
+
+      - name: Build shim
+        working-directory: reducto-shim
+        run: python3 -m build
+
+      - name: Publish shim to PyPI
+        working-directory: reducto-shim
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.REDUCTO_PYPI_TOKEN || secrets.PYPI_TOKEN }}
+        run: python3 -m twine upload --non-interactive dist/*
