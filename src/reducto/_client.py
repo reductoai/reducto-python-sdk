@@ -11,6 +11,7 @@ import httpx
 from . import _exceptions
 from ._qs import Querystring
 from .types import client_upload_params
+from ._files import deepcopy_with_paths
 from ._types import (
     Body,
     Omit,
@@ -29,7 +30,6 @@ from ._utils import (
     is_given,
     extract_files,
     maybe_transform,
-    deepcopy_minimal,
     get_async_library,
     async_maybe_transform,
 )
@@ -338,7 +338,7 @@ class Reducto(SyncAPIClient):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        body = deepcopy_minimal({"file": file})
+        body = deepcopy_with_paths({"file": file}, [["file"]])
         files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
         if files:
             # It should be noted that the actual Content-Type header that will be
@@ -649,7 +649,7 @@ class AsyncReducto(AsyncAPIClient):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        body = deepcopy_minimal({"file": file})
+        body = deepcopy_with_paths({"file": file}, [["file"]])
         files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
         if files:
             # It should be noted that the actual Content-Type header that will be
