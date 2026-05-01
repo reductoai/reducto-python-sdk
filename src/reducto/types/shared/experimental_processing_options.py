@@ -75,7 +75,16 @@ class ExperimentalProcessingOptions(BaseModel):
 
     layout_model: Optional[
         Literal[
-            "default", "beta", "rfdetr", "rfdetr0302", "rfdetr0303", "rfdetrbase0218", "rfdetr0304", "qwen35_27b_0317"
+            "default",
+            "beta",
+            "dfine",
+            "rfdetr",
+            "rfdetr0302",
+            "rfdetr0303",
+            "rfdetrbase0218",
+            "rfdetr0304",
+            "rfdetr0306",
+            "qwen35_27b_0317",
         ]
     ] = None
     """The layout model to use for the document.

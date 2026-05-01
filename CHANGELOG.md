@@ -1,5 +1,47 @@
 # Changelog
 
+## 0.23.0 (2026-05-01)
+
+Full Changelog: [v0.22.0...v0.23.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.22.0...v0.23.0)
+
+### Features
+
+* **api:** api update ([f6a1682](https://github.com/reductoai/reducto-python-sdk/commit/f6a16828595a63b3f026a029b89f2eba36b8203c))
+* **api:** api update ([d413d50](https://github.com/reductoai/reducto-python-sdk/commit/d413d50ae1a168ac2fa06c89fc73293eb5cd60f3))
+* **api:** api update ([808ab77](https://github.com/reductoai/reducto-python-sdk/commit/808ab7734b1690182be6e6fa636689e7d34b6b56))
+* **api:** api update ([c47f11a](https://github.com/reductoai/reducto-python-sdk/commit/c47f11afcacac318209e04b49dc3ba3a4fa549b6))
+* **api:** api update ([f7b90fa](https://github.com/reductoai/reducto-python-sdk/commit/f7b90fa8da10e32ec26f71313bd8eef7aac4bf83))
+* **api:** api update ([604578f](https://github.com/reductoai/reducto-python-sdk/commit/604578fc82a9e0e9cd1c96140b288d5f7e9cfc96))
+* **api:** api update ([117ec65](https://github.com/reductoai/reducto-python-sdk/commit/117ec654884ac13bdbd9e86e40441d7a5169aeda))
+* **api:** api update ([68580e6](https://github.com/reductoai/reducto-python-sdk/commit/68580e616d0743c04631a6a03f8f0c230dae9393))
+* **pypi:** reducto package aliasing ([c19a947](https://github.com/reductoai/reducto-python-sdk/commit/c19a94757e2d42ac015e8aaae4647f1bba2c5ade))
+* support setting headers via env ([6b6b3ad](https://github.com/reductoai/reducto-python-sdk/commit/6b6b3adb6e74e10716fdd5640b310b3d20734c56))
+
+
+### Bug Fixes
+
+* **ci:** `reducto` shim publishing ([48a5558](https://github.com/reductoai/reducto-python-sdk/commit/48a5558ed79ef8c8796890b486eb5bae92cbc21f))
+* **client:** preserve hardcoded query params when merging with user params ([72d4eac](https://github.com/reductoai/reducto-python-sdk/commit/72d4eac3b2514c35b26fdafeecb1e64cc067ea80))
+* ensure file data are only sent as 1 parameter ([5a5d5ee](https://github.com/reductoai/reducto-python-sdk/commit/5a5d5eed5f5bf34df796e73355824dafc30c492b))
+* use correct field name format for multipart file arrays ([00f933d](https://github.com/reductoai/reducto-python-sdk/commit/00f933debb5a49d3ee915f70283a1e85f61fa611))
+
+
+### Performance Improvements
+
+* **client:** optimize file structure copying in multipart requests ([fae7194](https://github.com/reductoai/reducto-python-sdk/commit/fae719428bbc73108ed0e3e569c5c65af3cea90a))
+
+
+### Chores
+
+* add Renovate config and SHA-pin GitHub Actions ([5bbef22](https://github.com/reductoai/reducto-python-sdk/commit/5bbef22b185f99a82a48d4dfe578b86b7931bef6))
+* configure new SDK language ([a54762b](https://github.com/reductoai/reducto-python-sdk/commit/a54762b2a40c2da5e5b7e8dee56717bde8c94e61))
+* **internal:** more robust bootstrap script ([197c371](https://github.com/reductoai/reducto-python-sdk/commit/197c37118331c2b09e73bb7e600e283bd4713cd4))
+
+
+### Styles
+
+* format renovate.json with Prettier ([668ab0e](https://github.com/reductoai/reducto-python-sdk/commit/668ab0ecd82574651f35f1c0b3910e1e845cedd4))
+
 ## 0.21.0 (2026-03-29)
 
 Full Changelog: [v0.20.0...v0.21.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.20.0...v0.21.0)
