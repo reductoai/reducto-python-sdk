@@ -442,6 +442,79 @@ Once \texttt{PipelineResponse} is in the union, smart-union has the option to pi
 Before API PR \#5420 (2026-04-24), \texttt{extract\_response\_to\_v3\_response} (\texttt{src/config/v3.py:1365}) early-returned the v2 \texttt{ExtractResponse} shape when no citations were present. The wire JSON was a v2-style list, which validated cleanly against \texttt{ExtractResponse}. PR \#5420 removed that early-return; v3 jobs now serialize as their native dict shape unconditionally, exposing the smart-union ambiguity above.
 
 % ---------------------------------------------------------------------------
+\section{Audit: Where Else the Pattern Surfaces}
+
+To bound the blast radius, an audit over every union and BaseModel in \texttt{src/reducto/types/} identifies which models could exhibit the same vulnerability. The mechanism that produces the bug is a Pydantic model that validates against an empty \texttt{\{\}} (no required fields) sitting next to less-permissive variants in a smart-union. Empirical results from the SDK at v0.22.0:
+
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Model}                                    & \textbf{Accepts \texttt{\{\}}?} & \textbf{Notes} \\
+\midrule
+\texttt{PipelineResponse.Result}                  & \textbf{yes}                    & The magnet. Drives the bug. \\
+\texttt{PipelineResponse}                         & no                              & Requires \texttt{job\_id}, \texttt{usage}. \\
+\texttt{ResultExtractUnionMember0}                & no                              & Requires \texttt{page\_range}, \texttt{split\_name}. \\
+\texttt{SplitResponse}                            & no                              & Requires \texttt{result}. \\
+\texttt{ParseResponse}                            & no                              & Requires \texttt{duration}. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{The bug surface is one model in two unions}
+
+\texttt{PipelineResponse.Result} is referenced from exactly two response unions:
+
+\begin{lstlisting}[style=py]
+# src/reducto/types/job_get_response.py:24-26 and 40-42
+AsyncJobResponseResult: TypeAlias = Union[
+    ParseResponse, ExtractResponse, SplitResponse, EditResponse,
+    PipelineResponse, V3Extract, ClassifyResponse, None,
+]
+EnhancedAsyncJobResponseResult: TypeAlias = Union[
+    ParseResponse, ExtractResponse, SplitResponse, EditResponse,
+    PipelineResponse, V3Extract, ClassifyResponse, None,
+]
+\end{lstlisting}
+
+The two aliases are byte-identical at the time of writing. Both feed into \texttt{JobGetResponse = Union[AsyncJobResponse, EnhancedAsyncJobResponse]}, which is what \texttt{client.job.get(...)} returns. Either variant of the outer union reproduces the bug; the regression test file covers both with separate test cases.
+
+A single spec-level fix in \texttt{api/src/config/internal.py} (the discriminator approach in the Remediation section) propagates to both regenerated SDK unions in one Stainless cycle. There is no need to repeat the change for each.
+
+\subsection{Inner pipeline-result unions are unaffected}
+
+\texttt{PipelineResponse.Result} contains its own internal unions over the per-stage results:
+
+\begin{lstlisting}[style=py]
+# src/reducto/types/shared/pipeline_response.py:23, 38
+ResultExtractUnionMember0Result: TypeAlias = Union[ExtractResponse, V3Extract]
+ResultExtract: TypeAlias = Union[
+    List[ResultExtractUnionMember0], ExtractResponse, V3Extract, None,
+]
+\end{lstlisting}
+
+These also mix \texttt{ExtractResponse} (\texttt{result: List[object]}) with \texttt{V3Extract} (\texttt{result: Union[List[object], object]}) -- the same shape that creates the smart-union ambiguity at the outer level. Empirical check on a v3 payload: both unions resolve to \texttt{V3Extract} cleanly. They are safe because there is no all-optional sibling competing for the match -- \texttt{ResultExtractUnionMember0} has required fields (\texttt{page\_range}, \texttt{split\_name}) and \texttt{List[ResultExtractUnionMember0]} only matches a list, not the v3 dict. The lesson: the bug needs both \emph{ambiguous structural fit} and \emph{a permissive sibling} to fire; either alone is benign.
+
+\subsection{Sync-path unions are unaffected}
+
+\texttt{ExtractRunResponse = Union[V3Extract, AsyncExtractResponse]} and \texttt{ParseRunResponse = Union[ParseResponse, AsyncParseResponse]} both pair a result-shape model with a \texttt{\{job\_id: str\}} acknowledgement model. Neither contains \texttt{PipelineResponse}, and the acknowledgement models require \texttt{job\_id}, so neither pair is a smart-union magnet. The customer's observation that switching to \texttt{/extract} (sync) avoided the bug is structurally explainable, not coincidence.
+
+\subsection{Why not adjust the scoring algorithm instead}
+
+A natural design alternative is ``don't change the spec, just teach \texttt{construct\_type} to score smarter -- e.g.\ prefer the variant with the fewest extra keys absorbed.'' That fix is the wrong layer for three reasons:
+
+\begin{enumerate}
+  \item \textbf{Scoring is fundamentally a heuristic over an ambiguous input.} Once two variants can both legitimately validate the same payload, any scorer is choosing between equally-valid interpretations. A different heuristic patches this case while breaking others; there is no universally-correct scoring rule for genuinely ambiguous unions. A discriminator removes scoring from the routing decision entirely by making the choice unambiguous in the type.
+  \item \textbf{The runtime layer is generated.} \texttt{construct\_type} lives in \texttt{src/reducto/\_models.py}, which is regenerated by Stainless. Custom scoring logic there is overwritten on every regen unless we maintain a Stainless customization (fragile, undocumented) or fork the file (worse). The discriminator approach lives in the spec and the regenerated types are correct by construction.
+  \item \textbf{The blast radius is wrong.} A scoring-algorithm change applies to \emph{every} union in the SDK. Even a well-motivated tweak risks causing regressions in unions where current behavior is correct. The discriminator change is targeted to one union (or two, identically) and structurally cannot affect anything else.
+\end{enumerate}
+
+The narrow case where scoring-style fixes are appropriate is when one controls the union variants but not their wire format -- e.g.\ consuming a third-party API that emits ambiguous payloads. We control both ends of the Reducto spec, so the discriminator is available and is the correct tool.
+
+\subsection{Conclusion of audit}
+
+The bug is bounded: one BaseModel (\texttt{PipelineResponse.Result}), two reference sites, both identical. Fixing the one model -- by adding a discriminator at the spec level so the regenerated permissiveness becomes irrelevant to routing -- closes both bug sites without further change. No other smart-union magnet exists in the current SDK surface area, so no broader cleanup is justified by this incident.
+
+% ---------------------------------------------------------------------------
 \section{Why the Prior Hypothesis Was Incomplete}
 
 The thread's prior diagnosis -- first sketched by Alvin, later restated by Thomas (who flagged it as not yet validated) -- pointed at the order \texttt{[ExtractResponse, ..., V3Extract]} in \texttt{AsyncJobResponseResult}. The claim was that Stainless's loose \texttt{construct()} would pick \texttt{ExtractResponse} first and fill its required \texttt{citations} with a default \texttt{[]}.

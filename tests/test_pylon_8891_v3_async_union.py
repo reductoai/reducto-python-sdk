@@ -37,19 +37,18 @@ from __future__ import annotations
 
 from typing import Any
 
-import pydantic
 import pytest
+import pydantic
 
 from reducto._models import construct_type
-from reducto.types.extract_run_response import ExtractRunResponse
+from reducto.types.v3_extract import V3Extract
 from reducto.types.job_get_response import (
     AsyncJobResponse,
     AsyncJobResponseResult,
     EnhancedAsyncJobResponse,
 )
+from reducto.types.extract_run_response import ExtractRunResponse
 from reducto.types.shared.pipeline_response import PipelineResponse
-from reducto.types.v3_extract import V3Extract
-
 
 XFAIL_REASON = (
     "Pylon #8891: SDK union resolution picks PipelineResponse for v3 payloads. "
@@ -231,10 +230,9 @@ def test_proposed_discriminator_fix_routes_v3_correctly() -> None:
     construct_type runs before smart-union scoring (_models.py:533), so
     field counts and `extra="allow"` permissiveness stop affecting routing.
     """
-    from typing import Annotated, Literal, Union
+    from typing import Union, Literal, Annotated
 
-    from pydantic import BaseModel as PydBaseModel
-    from pydantic import Discriminator, TypeAdapter
+    from pydantic import BaseModel as PydBaseModel, TypeAdapter, Discriminator
 
     class TaggedV3Extract(PydBaseModel):
         response_type: Literal["v3_extract"] = "v3_extract"
