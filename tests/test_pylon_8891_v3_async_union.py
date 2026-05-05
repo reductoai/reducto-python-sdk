@@ -19,7 +19,7 @@ Fix path: add a Pydantic Discriminator to the spec-side union variants in
 `src/config/internal.py` so dispatch becomes structural and Stainless emits
 the discriminator; smart-union scoring stops mattering.
 
-Full RCA + diagrams: api/users/sravan/pylon-8891-rca.pdf in the API repo.
+Full RCA + diagrams: docs/rca/pylon-8891-rca.tex (compile with pdflatex) in the API repo.
 
 Test markers:
 - async-path bug tests use @pytest.mark.xfail(strict=True): they fail on main
@@ -53,7 +53,7 @@ from reducto.types.v3_extract import V3Extract
 
 XFAIL_REASON = (
     "Pylon #8891: SDK union resolution picks PipelineResponse for v3 payloads. "
-    "See api/users/sravan/pylon-8891-rca.pdf."
+    "See docs/rca/pylon-8891-rca.tex (compile with pdflatex)."
 )
 
 
