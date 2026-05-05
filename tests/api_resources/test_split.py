@@ -48,6 +48,7 @@ class TestSplit:
                     "agentic": [
                         {
                             "scope": "table",
+                            "mode": "default",
                             "prompt": "prompt",
                         }
                     ],
@@ -180,6 +181,7 @@ class TestSplit:
                     "agentic": [
                         {
                             "scope": "table",
+                            "mode": "default",
                             "prompt": "prompt",
                         }
                     ],
@@ -310,6 +312,7 @@ class TestAsyncSplit:
                     "agentic": [
                         {
                             "scope": "table",
+                            "mode": "default",
                             "prompt": "prompt",
                         }
                     ],
@@ -442,6 +445,7 @@ class TestAsyncSplit:
                     "agentic": [
                         {
                             "scope": "table",
+                            "mode": "default",
                             "prompt": "prompt",
                         }
                     ],

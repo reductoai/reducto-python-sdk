@@ -37,6 +37,7 @@ class TestParse:
                 "agentic": [
                     {
                         "scope": "table",
+                        "mode": "default",
                         "prompt": "prompt",
                     }
                 ],
@@ -137,6 +138,7 @@ class TestParse:
                 "agentic": [
                     {
                         "scope": "table",
+                        "mode": "default",
                         "prompt": "prompt",
                     }
                 ],
@@ -238,6 +240,7 @@ class TestParse:
                 "agentic": [
                     {
                         "scope": "table",
+                        "mode": "default",
                         "prompt": "prompt",
                     }
                 ],
@@ -337,6 +340,7 @@ class TestAsyncParse:
                 "agentic": [
                     {
                         "scope": "table",
+                        "mode": "default",
                         "prompt": "prompt",
                     }
                 ],
@@ -437,6 +441,7 @@ class TestAsyncParse:
                 "agentic": [
                     {
                         "scope": "table",
+                        "mode": "default",
                         "prompt": "prompt",
                     }
                 ],
@@ -538,6 +543,7 @@ class TestAsyncParse:
                 "agentic": [
                     {
                         "scope": "table",
+                        "mode": "default",
                         "prompt": "prompt",
                     }
                 ],

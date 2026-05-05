@@ -11,5 +11,11 @@ __all__ = ["TableAgentic"]
 class TableAgentic(BaseModel):
     scope: Literal["table"]
 
+    mode: Optional[Literal["default", "auto"]] = None
+    """
+    Routing mode for table agentic: 'default' runs enrichment on all tables, 'auto'
+    uses the router to skip tables where enrichment is unlikely to help.
+    """
+
     prompt: Optional[str] = None
     """Custom prompt for table agentic."""

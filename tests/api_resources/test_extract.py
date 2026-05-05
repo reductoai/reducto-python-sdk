@@ -42,6 +42,7 @@ class TestExtract:
                     "agentic": [
                         {
                             "scope": "table",
+                            "mode": "default",
                             "prompt": "prompt",
                         }
                     ],
@@ -158,6 +159,7 @@ class TestExtract:
                     "agentic": [
                         {
                             "scope": "table",
+                            "mode": "default",
                             "prompt": "prompt",
                         }
                     ],
@@ -274,6 +276,7 @@ class TestExtract:
                     "agentic": [
                         {
                             "scope": "table",
+                            "mode": "default",
                             "prompt": "prompt",
                         }
                     ],
@@ -388,6 +391,7 @@ class TestAsyncExtract:
                     "agentic": [
                         {
                             "scope": "table",
+                            "mode": "default",
                             "prompt": "prompt",
                         }
                     ],
@@ -504,6 +508,7 @@ class TestAsyncExtract:
                     "agentic": [
                         {
                             "scope": "table",
+                            "mode": "default",
                             "prompt": "prompt",
                         }
                     ],
@@ -620,6 +625,7 @@ class TestAsyncExtract:
                     "agentic": [
                         {
                             "scope": "table",
+                            "mode": "default",
                             "prompt": "prompt",
                         }
                     ],
