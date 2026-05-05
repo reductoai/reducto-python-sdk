@@ -5,19 +5,32 @@ Symptom: after API PR #5420 (2026-04-24) stopped rewriting v3 extract responses
 to v2 ExtractResponse on the wire, customers polling /job/{job_id} see typed
 accessors return None even though the JSON body contains their extracted fields.
 
-Root cause (verified): construct_type tries pydantic smart-union validation
-first (src/reducto/_models.py:515). For the AsyncJobResponseResult union, that
-validation succeeds on PipelineResponse because PipelineResponse.result is a
-Result model with all-Optional fields and the SDK's BaseModel uses
-extra="allow". The customer's v3 payload is absorbed into Result with all four
-typed fields (extract / parse / split / edit) defaulting to None and the actual
-data attached as untyped extras.
+Root cause: Stainless lossy-translates the server-side `T | None` (required-
+nullable) shape of `PipelineResult.parse/extract/split` into the SDK-side
+`Optional[T] = None` (optional-with-default). On the server this means
+`PipelineResult.model_validate(v3_json)` correctly fails (missing required
+keys) and `handlers/job.py`'s ordered loop falls through to V3ExtractResponse.
+On the SDK, the all-Optional `Result` model + the BaseModel `extra="allow"`
+default makes Result validate against any dict, which is what makes
+PipelineResponse the smart-union winner for v3 payloads.
+
+The bug therefore lives entirely in the regenerated SDK, not in the server.
+Fix path: add a Pydantic Discriminator to the spec-side union variants in
+`src/config/internal.py` so dispatch becomes structural and Stainless emits
+the discriminator; smart-union scoring stops mattering.
 
 Full RCA + diagrams: api/users/sravan/pylon-8891-rca.pdf in the API repo.
 
-These tests are marked xfail(strict=True): they fail on main today (proving the
-bug); once the fix lands they will start passing, at which point strict=True
-makes pytest fail the test as XPASSED and forces removal of the xfail marker.
+Test markers:
+- async-path bug tests use @pytest.mark.xfail(strict=True): they fail on main
+  today (proving the bug). Once the fix lands they will start passing, at
+  which point strict=True makes pytest fail XPASSED and forces removal of
+  the marker, turning each test into a permanent regression check.
+- snapshot tests pinning the current (buggy) shape of `Result` are NOT marked
+  xfail. They pass today; once the spec fix lands they will start failing,
+  and that failure is the signal to delete or invert the test.
+- the proposed-fix proof-of-concept test is a self-contained Pydantic example
+  using a local mini-union, independent of the SDK's generated types.
 """
 
 from __future__ import annotations
@@ -143,3 +156,111 @@ def test_v3_extracted_fields_are_reachable_via_typed_path() -> None:
     assert isinstance(extracted, dict)
     assert "company_name" in extracted
     assert extracted["company_name"]["value"] == "Acme Corp"
+
+
+# ---------------------------------------------------------------------------
+# Snapshot tests pinning the SDK-side Result constraint that enables the bug.
+# These tests pass today (they document the lossy-translation result). When
+# the spec is fixed and Stainless regens, they will start failing -- that
+# failure is the signal to delete or invert these tests.
+# ---------------------------------------------------------------------------
+
+
+def test_pipeline_response_result_validates_empty_dict_today() -> None:
+    """
+    Snapshot: SDK-side `PipelineResponse.Result` accepts an empty dict.
+
+    On the server (src/config/internal.py:1132), PipelineResult.parse/extract/
+    split are required-nullable (`T | None` with no default), so the analogous
+    server-side validate would fail on an empty dict for missing required keys.
+    Stainless's regen drops that constraint by inserting `= None` defaults on
+    every field. This test pins that lossy translation: an empty dict validates
+    cleanly today, which is the constraint that makes PipelineResponse a
+    smart-union magnet for v3 payloads.
+
+    Action when this test fails: the SDK's Result has been regenerated against
+    a tighter spec (discriminator added, or required-without-default), the bug
+    is fixed at the spec level, and this snapshot can be removed.
+    """
+    from reducto.types.shared.pipeline_response import Result
+
+    instance = Result.model_validate({})
+    assert instance.extract is None
+    assert instance.parse is None
+    assert instance.split is None
+    assert instance.edit is None
+
+
+def test_pipeline_response_result_absorbs_arbitrary_keys_today() -> None:
+    """
+    Snapshot: SDK-side Result inherits `extra="allow"` from the base BaseModel
+    (src/reducto/_models.py:110), so a v3 payload's keys (`company_name`,
+    `total_amount`, etc.) attach as untyped extras while every typed field
+    stays None. Combined with the empty-dict tolerance above, this is what
+    lets PipelineResponse claim a v3 payload during smart-union scoring.
+
+    Action when this test fails: same as above -- the spec has tightened.
+    """
+    from reducto.types.shared.pipeline_response import Result
+
+    payload = _v3_inner_payload()["result"]  # the dict-shaped v3 result
+    instance = Result.model_validate(payload)
+
+    assert instance.extract is None
+    assert instance.parse is None
+    assert instance.split is None
+    assert instance.edit is None
+
+    dumped = instance.model_dump()
+    assert "company_name" in dumped
+    assert "total_amount" in dumped
+
+
+# ---------------------------------------------------------------------------
+# Proof-of-concept: the recommended fix (discriminator on each union variant)
+# routes correctly without depending on smart-union scoring or field counts.
+# Uses local Pydantic models so it runs independently of the generated SDK.
+# ---------------------------------------------------------------------------
+
+
+def test_proposed_discriminator_fix_routes_v3_correctly() -> None:
+    """
+    Sketch of the recommended fix from the RCA. Adding a `response_type`
+    Literal field to each variant in src/config/internal.py converts the
+    union into a Pydantic discriminated union. Discriminator dispatch in
+    construct_type runs before smart-union scoring (_models.py:533), so
+    field counts and `extra="allow"` permissiveness stop affecting routing.
+    """
+    from typing import Annotated, Literal, Union
+
+    from pydantic import BaseModel as PydBaseModel
+    from pydantic import Discriminator, TypeAdapter
+
+    class TaggedV3Extract(PydBaseModel):
+        response_type: Literal["v3_extract"] = "v3_extract"
+        result: dict[str, object]
+
+    class TaggedPipeline(PydBaseModel):
+        response_type: Literal["pipeline"] = "pipeline"
+        # all-Optional, exactly as the SDK Result is today -- the discriminator
+        # must override smart-union even when this remains permissive.
+        extract: object | None = None
+        parse:   object | None = None
+        split:   object | None = None
+        edit:    object | None = None
+
+    Discriminated = Annotated[
+        Union[TaggedPipeline, TaggedV3Extract], Discriminator("response_type")
+    ]
+    adapter = TypeAdapter(Discriminated)
+
+    v3_payload = {"response_type": "v3_extract", "result": {"company_name": {"value": "X"}}}
+    resolved = adapter.validate_python(v3_payload)
+    assert isinstance(resolved, TaggedV3Extract), (
+        f"Discriminator should route v3_extract payload to TaggedV3Extract; "
+        f"got {type(resolved).__name__}."
+    )
+
+    pipeline_payload = {"response_type": "pipeline", "extract": None, "parse": None, "split": None, "edit": None}
+    resolved = adapter.validate_python(pipeline_payload)
+    assert isinstance(resolved, TaggedPipeline)
