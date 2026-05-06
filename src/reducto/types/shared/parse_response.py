@@ -189,5 +189,7 @@ class ParseResponse(BaseModel):
     pdf_url: Optional[str] = None
     """The storage URL of the converted PDF file."""
 
+    response_type: Optional[Literal["parse"]] = None
+
     studio_link: Optional[str] = None
     """The link to the studio pipeline for the document."""

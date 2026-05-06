@@ -54,3 +54,5 @@ class ClassifyResponse(BaseModel):
 
     response_confidence: Optional[ResponseConfidence] = None
     """Overall confidence breakdown for classification response."""
+
+    response_type: Optional[Literal["classify"]] = None

@@ -69,3 +69,5 @@ class SplitResponse(BaseModel):
     """The split result."""
 
     usage: ParseUsage
+
+    response_type: Optional[Literal["split"]] = None
