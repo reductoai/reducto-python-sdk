@@ -35,6 +35,12 @@ class SplitRunJobParams(TypedDict, total=False):
     async_: Annotated[AsyncConfigV3Param, PropertyInfo(alias="async")]
     """The configuration options for asynchronous processing (default synchronous)."""
 
+    deep_split: bool
+    """If True, uses the deep split agent for higher-quality document splitting.
+
+    Off by default.
+    """
+
     parsing: ParseOptionsParam
     """The configuration options for parsing the document.
 

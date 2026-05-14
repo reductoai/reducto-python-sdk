@@ -43,6 +43,7 @@ class TestSplit:
                     "partition_key": "partition_key",
                 }
             ],
+            deep_split=True,
             parsing={
                 "enhance": {
                     "agentic": [
@@ -176,6 +177,7 @@ class TestSplit:
                     "mode": "svix",
                 },
             },
+            deep_split=True,
             parsing={
                 "enhance": {
                     "agentic": [
@@ -307,6 +309,7 @@ class TestAsyncSplit:
                     "partition_key": "partition_key",
                 }
             ],
+            deep_split=True,
             parsing={
                 "enhance": {
                     "agentic": [
@@ -440,6 +443,7 @@ class TestAsyncSplit:
                     "mode": "svix",
                 },
             },
+            deep_split=True,
             parsing={
                 "enhance": {
                     "agentic": [

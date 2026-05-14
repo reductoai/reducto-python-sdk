@@ -30,6 +30,12 @@ class SplitRunParams(TypedDict, total=False):
     split_description: Required[Iterable[SplitCategoryParam]]
     """The configuration options for processing the document."""
 
+    deep_split: bool
+    """If True, uses the deep split agent for higher-quality document splitting.
+
+    Off by default.
+    """
+
     parsing: ParseOptionsParam
     """The configuration options for parsing the document.
 

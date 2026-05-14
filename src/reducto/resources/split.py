@@ -53,6 +53,7 @@ class SplitResource(SyncAPIResource):
         *,
         input: split_run_params.Input,
         split_description: Iterable[SplitCategoryParam],
+        deep_split: bool | Omit = omit,
         parsing: ParseOptionsParam | Omit = omit,
         settings: SplitTableOptionsParam | Omit = omit,
         split_rules: str | Omit = omit,
@@ -78,6 +79,9 @@ class SplitResource(SyncAPIResource):
 
           split_description: The configuration options for processing the document.
 
+          deep_split: If True, uses the deep split agent for higher-quality document splitting. Off by
+              default.
+
           parsing: The configuration options for parsing the document. If you are passing in a
               jobid:// URL for the file, then this configuration will be ignored.
 
@@ -99,6 +103,7 @@ class SplitResource(SyncAPIResource):
                 {
                     "input": input,
                     "split_description": split_description,
+                    "deep_split": deep_split,
                     "parsing": parsing,
                     "settings": settings,
                     "split_rules": split_rules,
@@ -117,6 +122,7 @@ class SplitResource(SyncAPIResource):
         input: split_run_job_params.Input,
         split_description: Iterable[SplitCategoryParam],
         async_: AsyncConfigV3Param | Omit = omit,
+        deep_split: bool | Omit = omit,
         parsing: ParseOptionsParam | Omit = omit,
         settings: SplitTableOptionsParam | Omit = omit,
         split_rules: str | Omit = omit,
@@ -144,6 +150,9 @@ class SplitResource(SyncAPIResource):
 
           async_: The configuration options for asynchronous processing (default synchronous).
 
+          deep_split: If True, uses the deep split agent for higher-quality document splitting. Off by
+              default.
+
           parsing: The configuration options for parsing the document. If you are passing in a
               jobid:// URL for the file, then this configuration will be ignored.
 
@@ -166,6 +175,7 @@ class SplitResource(SyncAPIResource):
                     "input": input,
                     "split_description": split_description,
                     "async_": async_,
+                    "deep_split": deep_split,
                     "parsing": parsing,
                     "settings": settings,
                     "split_rules": split_rules,
@@ -204,6 +214,7 @@ class AsyncSplitResource(AsyncAPIResource):
         *,
         input: split_run_params.Input,
         split_description: Iterable[SplitCategoryParam],
+        deep_split: bool | Omit = omit,
         parsing: ParseOptionsParam | Omit = omit,
         settings: SplitTableOptionsParam | Omit = omit,
         split_rules: str | Omit = omit,
@@ -229,6 +240,9 @@ class AsyncSplitResource(AsyncAPIResource):
 
           split_description: The configuration options for processing the document.
 
+          deep_split: If True, uses the deep split agent for higher-quality document splitting. Off by
+              default.
+
           parsing: The configuration options for parsing the document. If you are passing in a
               jobid:// URL for the file, then this configuration will be ignored.
 
@@ -250,6 +264,7 @@ class AsyncSplitResource(AsyncAPIResource):
                 {
                     "input": input,
                     "split_description": split_description,
+                    "deep_split": deep_split,
                     "parsing": parsing,
                     "settings": settings,
                     "split_rules": split_rules,
@@ -268,6 +283,7 @@ class AsyncSplitResource(AsyncAPIResource):
         input: split_run_job_params.Input,
         split_description: Iterable[SplitCategoryParam],
         async_: AsyncConfigV3Param | Omit = omit,
+        deep_split: bool | Omit = omit,
         parsing: ParseOptionsParam | Omit = omit,
         settings: SplitTableOptionsParam | Omit = omit,
         split_rules: str | Omit = omit,
@@ -295,6 +311,9 @@ class AsyncSplitResource(AsyncAPIResource):
 
           async_: The configuration options for asynchronous processing (default synchronous).
 
+          deep_split: If True, uses the deep split agent for higher-quality document splitting. Off by
+              default.
+
           parsing: The configuration options for parsing the document. If you are passing in a
               jobid:// URL for the file, then this configuration will be ignored.
 
@@ -317,6 +336,7 @@ class AsyncSplitResource(AsyncAPIResource):
                     "input": input,
                     "split_description": split_description,
                     "async_": async_,
+                    "deep_split": deep_split,
                     "parsing": parsing,
                     "settings": settings,
                     "split_rules": split_rules,
