@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Union, Iterable
-from typing_extensions import Required, Annotated, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
 from .._utils import PropertyInfo
@@ -11,9 +11,8 @@ from .parse_options_param import ParseOptionsParam
 from .shared_params.upload import Upload
 from .split_category_param import SplitCategoryParam
 from .async_config_v3_param import AsyncConfigV3Param
-from .split_table_options_param import SplitTableOptionsParam
 
-__all__ = ["SplitRunJobParams", "Input"]
+__all__ = ["SplitRunJobParams", "Input", "Settings"]
 
 
 class SplitRunJobParams(TypedDict, total=False):
@@ -35,12 +34,6 @@ class SplitRunJobParams(TypedDict, total=False):
     async_: Annotated[AsyncConfigV3Param, PropertyInfo(alias="async")]
     """The configuration options for asynchronous processing (default synchronous)."""
 
-    deep_split: bool
-    """If True, uses the deep split agent for higher-quality document splitting.
-
-    Off by default.
-    """
-
     parsing: ParseOptionsParam
     """The configuration options for parsing the document.
 
@@ -48,7 +41,7 @@ class SplitRunJobParams(TypedDict, total=False):
     be ignored.
     """
 
-    settings: SplitTableOptionsParam
+    settings: Settings
     """The settings for split processing."""
 
     split_rules: str
@@ -56,3 +49,27 @@ class SplitRunJobParams(TypedDict, total=False):
 
 
 Input: TypeAlias = Union[str, SequenceNotStr[str], Upload]
+
+
+class Settings(TypedDict, total=False):
+    """The settings for split processing."""
+
+    allow_page_overlap: bool
+    """If True, a page can belong to multiple categories/partitions.
+
+    If False, each page must belong to exactly one category. Defaults to True.
+    """
+
+    deep_split: bool
+    """If True, uses the deep split agent for higher-quality document splitting.
+
+    Off by default.
+    """
+
+    table_cutoff: Literal["truncate", "preserve"]
+    """
+    If tables should be truncated to the first few rows or if all content should be
+    preserved. truncate improves latency, preserve is recommended for cases where
+    partition_key is being used and the partition_key may be included within the
+    table. Defaults to truncate
+    """

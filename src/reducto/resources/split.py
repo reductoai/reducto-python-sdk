@@ -22,7 +22,6 @@ from ..types.parse_options_param import ParseOptionsParam
 from ..types.split_category_param import SplitCategoryParam
 from ..types.async_config_v3_param import AsyncConfigV3Param
 from ..types.shared.split_response import SplitResponse
-from ..types.split_table_options_param import SplitTableOptionsParam
 from ..types.shared.async_split_response import AsyncSplitResponse
 
 __all__ = ["SplitResource", "AsyncSplitResource"]
@@ -53,9 +52,8 @@ class SplitResource(SyncAPIResource):
         *,
         input: split_run_params.Input,
         split_description: Iterable[SplitCategoryParam],
-        deep_split: bool | Omit = omit,
         parsing: ParseOptionsParam | Omit = omit,
-        settings: SplitTableOptionsParam | Omit = omit,
+        settings: split_run_params.Settings | Omit = omit,
         split_rules: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -79,9 +77,6 @@ class SplitResource(SyncAPIResource):
 
           split_description: The configuration options for processing the document.
 
-          deep_split: If True, uses the deep split agent for higher-quality document splitting. Off by
-              default.
-
           parsing: The configuration options for parsing the document. If you are passing in a
               jobid:// URL for the file, then this configuration will be ignored.
 
@@ -103,7 +98,6 @@ class SplitResource(SyncAPIResource):
                 {
                     "input": input,
                     "split_description": split_description,
-                    "deep_split": deep_split,
                     "parsing": parsing,
                     "settings": settings,
                     "split_rules": split_rules,
@@ -122,9 +116,8 @@ class SplitResource(SyncAPIResource):
         input: split_run_job_params.Input,
         split_description: Iterable[SplitCategoryParam],
         async_: AsyncConfigV3Param | Omit = omit,
-        deep_split: bool | Omit = omit,
         parsing: ParseOptionsParam | Omit = omit,
-        settings: SplitTableOptionsParam | Omit = omit,
+        settings: split_run_job_params.Settings | Omit = omit,
         split_rules: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -150,9 +143,6 @@ class SplitResource(SyncAPIResource):
 
           async_: The configuration options for asynchronous processing (default synchronous).
 
-          deep_split: If True, uses the deep split agent for higher-quality document splitting. Off by
-              default.
-
           parsing: The configuration options for parsing the document. If you are passing in a
               jobid:// URL for the file, then this configuration will be ignored.
 
@@ -175,7 +165,6 @@ class SplitResource(SyncAPIResource):
                     "input": input,
                     "split_description": split_description,
                     "async_": async_,
-                    "deep_split": deep_split,
                     "parsing": parsing,
                     "settings": settings,
                     "split_rules": split_rules,
@@ -214,9 +203,8 @@ class AsyncSplitResource(AsyncAPIResource):
         *,
         input: split_run_params.Input,
         split_description: Iterable[SplitCategoryParam],
-        deep_split: bool | Omit = omit,
         parsing: ParseOptionsParam | Omit = omit,
-        settings: SplitTableOptionsParam | Omit = omit,
+        settings: split_run_params.Settings | Omit = omit,
         split_rules: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -240,9 +228,6 @@ class AsyncSplitResource(AsyncAPIResource):
 
           split_description: The configuration options for processing the document.
 
-          deep_split: If True, uses the deep split agent for higher-quality document splitting. Off by
-              default.
-
           parsing: The configuration options for parsing the document. If you are passing in a
               jobid:// URL for the file, then this configuration will be ignored.
 
@@ -264,7 +249,6 @@ class AsyncSplitResource(AsyncAPIResource):
                 {
                     "input": input,
                     "split_description": split_description,
-                    "deep_split": deep_split,
                     "parsing": parsing,
                     "settings": settings,
                     "split_rules": split_rules,
@@ -283,9 +267,8 @@ class AsyncSplitResource(AsyncAPIResource):
         input: split_run_job_params.Input,
         split_description: Iterable[SplitCategoryParam],
         async_: AsyncConfigV3Param | Omit = omit,
-        deep_split: bool | Omit = omit,
         parsing: ParseOptionsParam | Omit = omit,
-        settings: SplitTableOptionsParam | Omit = omit,
+        settings: split_run_job_params.Settings | Omit = omit,
         split_rules: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -311,9 +294,6 @@ class AsyncSplitResource(AsyncAPIResource):
 
           async_: The configuration options for asynchronous processing (default synchronous).
 
-          deep_split: If True, uses the deep split agent for higher-quality document splitting. Off by
-              default.
-
           parsing: The configuration options for parsing the document. If you are passing in a
               jobid:// URL for the file, then this configuration will be ignored.
 
@@ -336,7 +316,6 @@ class AsyncSplitResource(AsyncAPIResource):
                     "input": input,
                     "split_description": split_description,
                     "async_": async_,
-                    "deep_split": deep_split,
                     "parsing": parsing,
                     "settings": settings,
                     "split_rules": split_rules,

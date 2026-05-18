@@ -97,7 +97,7 @@ Methods:
 Types:
 
 ```python
-from reducto.types import DeepSplitPageEvidence, ParseUsage, SplitCategory, SplitTableOptions
+from reducto.types import DeepSplitPageEvidence, ParseUsage, SplitCategory
 ```
 
 Methods:

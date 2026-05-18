@@ -74,5 +74,4 @@ from .pipeline_run_job_params import PipelineRunJobParams as PipelineRunJobParam
 from .pipeline_settings_param import PipelineSettingsParam as PipelineSettingsParam
 from .async_parse_config_param import AsyncParseConfigParam as AsyncParseConfigParam
 from .deep_split_page_evidence import DeepSplitPageEvidence as DeepSplitPageEvidence
-from .split_table_options_param import SplitTableOptionsParam as SplitTableOptionsParam
 from .async_extract_config_param import AsyncExtractConfigParam as AsyncExtractConfigParam

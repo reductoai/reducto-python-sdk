@@ -43,7 +43,6 @@ class TestSplit:
                     "partition_key": "partition_key",
                 }
             ],
-            deep_split=True,
             parsing={
                 "enhance": {
                     "agentic": [
@@ -99,6 +98,7 @@ class TestSplit:
             },
             settings={
                 "allow_page_overlap": True,
+                "deep_split": True,
                 "table_cutoff": "truncate",
             },
             split_rules="split_rules",
@@ -177,7 +177,6 @@ class TestSplit:
                     "mode": "svix",
                 },
             },
-            deep_split=True,
             parsing={
                 "enhance": {
                     "agentic": [
@@ -233,6 +232,7 @@ class TestSplit:
             },
             settings={
                 "allow_page_overlap": True,
+                "deep_split": True,
                 "table_cutoff": "truncate",
             },
             split_rules="split_rules",
@@ -309,7 +309,6 @@ class TestAsyncSplit:
                     "partition_key": "partition_key",
                 }
             ],
-            deep_split=True,
             parsing={
                 "enhance": {
                     "agentic": [
@@ -365,6 +364,7 @@ class TestAsyncSplit:
             },
             settings={
                 "allow_page_overlap": True,
+                "deep_split": True,
                 "table_cutoff": "truncate",
             },
             split_rules="split_rules",
@@ -443,7 +443,6 @@ class TestAsyncSplit:
                     "mode": "svix",
                 },
             },
-            deep_split=True,
             parsing={
                 "enhance": {
                     "agentic": [
@@ -499,6 +498,7 @@ class TestAsyncSplit:
             },
             settings={
                 "allow_page_overlap": True,
+                "deep_split": True,
                 "table_cutoff": "truncate",
             },
             split_rules="split_rules",
