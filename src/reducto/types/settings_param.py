@@ -20,6 +20,15 @@ class SettingsParam(TypedDict, total=False):
     embed_pdf_metadata: bool
     """If True, embed OCR metadata into the returned PDF. Defaults to False."""
 
+    embed_pdf_metadata_dpi: int
+    """
+    Render DPI used when rasterizing the source PDF before embedding the OCR text
+    layer (only applies when `embed_pdf_metadata` is True). Lower values produce
+    dramatically smaller output PDFs; higher values preserve more detail when zoomed
+    past 200%. Defaults to 100 (good for on-screen viewing); raise toward the source
+    scan DPI for crisper output. Min 50, max 250.
+    """
+
     extraction_mode: Literal["ocr", "hybrid"]
     """The mode to use for text extraction from PDFs.
 
