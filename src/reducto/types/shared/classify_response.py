@@ -11,6 +11,7 @@ __all__ = [
     "ResponseConfidence",
     "ResponseConfidenceCategory",
     "ResponseConfidenceCategoryCriteriaConfidence",
+    "Usage",
 ]
 
 
@@ -42,6 +43,14 @@ class ResponseConfidence(BaseModel):
     categories: List[ResponseConfidenceCategory]
 
 
+class Usage(BaseModel):
+    num_categories: int
+
+    num_pages: int
+
+    credits: Optional[float] = None
+
+
 class ClassifyResponse(BaseModel):
     """Response from classify job - returned when polling /job/{job_id}"""
 
@@ -56,3 +65,5 @@ class ClassifyResponse(BaseModel):
     """Overall confidence breakdown for classification response."""
 
     response_type: Optional[Literal["classify"]] = None
+
+    usage: Optional[Usage] = None
