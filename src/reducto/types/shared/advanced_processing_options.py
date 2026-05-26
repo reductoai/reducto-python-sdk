@@ -84,6 +84,13 @@ class AdvancedProcessingOptions(BaseModel):
     spreadsheet and CSV files).
     """
 
+    max_cell_count: Optional[int] = None
+    """Maximum total non-empty cells allowed across all sheets.
+
+    If exceeded, the request is rejected with a 422 error. Set to null to disable
+    the limit. Defaults to null.
+    """
+
     merge_tables: Optional[bool] = None
     """
     A flag to indicate if consecutive tables with the same number of columns should

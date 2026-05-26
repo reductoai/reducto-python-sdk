@@ -15,6 +15,9 @@ class ParseUsage(BaseModel):
 
     credits: Optional[float] = None
 
+    non_empty_cell_count: Optional[int] = None
+    """Total non-empty cells across all sheets. Only set for spreadsheet inputs."""
+
     page_billing_breakdown: Optional[
         Dict[
             str,

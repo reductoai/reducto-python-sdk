@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List
+from typing import List, Optional
 from typing_extensions import Literal, TypedDict
 
 from .shared_params.split_large_tables import SplitLargeTables
@@ -23,5 +23,12 @@ class SpreadsheetParam(TypedDict, total=False):
 
     include: List[Literal["cell_colors", "formula", "dropdowns"]]
     """Whether to include cell color, formula, and dropdown information in the output."""
+
+    max_cell_count: Optional[int]
+    """Maximum total non-empty cells allowed across all sheets.
+
+    If exceeded, the request is rejected with a 422 error. Set to null to disable
+    the limit. Defaults to null.
+    """
 
     split_large_tables: SplitLargeTables

@@ -85,6 +85,7 @@ class TestExtract:
                     "clustering": "accurate",
                     "exclude": ["hidden_sheets"],
                     "include": ["cell_colors"],
+                    "max_cell_count": 1,
                     "split_large_tables": {
                         "enabled": True,
                         "size": 0,
@@ -203,6 +204,7 @@ class TestExtract:
                     "clustering": "accurate",
                     "exclude": ["hidden_sheets"],
                     "include": ["cell_colors"],
+                    "max_cell_count": 1,
                     "split_large_tables": {
                         "enabled": True,
                         "size": 0,
@@ -321,6 +323,7 @@ class TestExtract:
                     "clustering": "accurate",
                     "exclude": ["hidden_sheets"],
                     "include": ["cell_colors"],
+                    "max_cell_count": 1,
                     "split_large_tables": {
                         "enabled": True,
                         "size": 0,
@@ -437,6 +440,7 @@ class TestAsyncExtract:
                     "clustering": "accurate",
                     "exclude": ["hidden_sheets"],
                     "include": ["cell_colors"],
+                    "max_cell_count": 1,
                     "split_large_tables": {
                         "enabled": True,
                         "size": 0,
@@ -555,6 +559,7 @@ class TestAsyncExtract:
                     "clustering": "accurate",
                     "exclude": ["hidden_sheets"],
                     "include": ["cell_colors"],
+                    "max_cell_count": 1,
                     "split_large_tables": {
                         "enabled": True,
                         "size": 0,
@@ -673,6 +678,7 @@ class TestAsyncExtract:
                     "clustering": "accurate",
                     "exclude": ["hidden_sheets"],
                     "include": ["cell_colors"],
+                    "max_cell_count": 1,
                     "split_large_tables": {
                         "enabled": True,
                         "size": 0,

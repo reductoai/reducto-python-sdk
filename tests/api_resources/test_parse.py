@@ -80,6 +80,7 @@ class TestParse:
                 "clustering": "accurate",
                 "exclude": ["hidden_sheets"],
                 "include": ["cell_colors"],
+                "max_cell_count": 1,
                 "split_large_tables": {
                     "enabled": True,
                     "size": 0,
@@ -183,6 +184,7 @@ class TestParse:
                 "clustering": "accurate",
                 "exclude": ["hidden_sheets"],
                 "include": ["cell_colors"],
+                "max_cell_count": 1,
                 "split_large_tables": {
                     "enabled": True,
                     "size": 0,
@@ -286,6 +288,7 @@ class TestParse:
                 "clustering": "accurate",
                 "exclude": ["hidden_sheets"],
                 "include": ["cell_colors"],
+                "max_cell_count": 1,
                 "split_large_tables": {
                     "enabled": True,
                     "size": 0,
@@ -386,6 +389,7 @@ class TestAsyncParse:
                 "clustering": "accurate",
                 "exclude": ["hidden_sheets"],
                 "include": ["cell_colors"],
+                "max_cell_count": 1,
                 "split_large_tables": {
                     "enabled": True,
                     "size": 0,
@@ -489,6 +493,7 @@ class TestAsyncParse:
                 "clustering": "accurate",
                 "exclude": ["hidden_sheets"],
                 "include": ["cell_colors"],
+                "max_cell_count": 1,
                 "split_large_tables": {
                     "enabled": True,
                     "size": 0,
@@ -592,6 +597,7 @@ class TestAsyncParse:
                 "clustering": "accurate",
                 "exclude": ["hidden_sheets"],
                 "include": ["cell_colors"],
+                "max_cell_count": 1,
                 "split_large_tables": {
                     "enabled": True,
                     "size": 0,

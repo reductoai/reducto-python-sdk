@@ -91,6 +91,7 @@ class TestSplit:
                     "clustering": "accurate",
                     "exclude": ["hidden_sheets"],
                     "include": ["cell_colors"],
+                    "max_cell_count": 1,
                     "split_large_tables": {
                         "enabled": True,
                         "size": 0,
@@ -226,6 +227,7 @@ class TestSplit:
                     "clustering": "accurate",
                     "exclude": ["hidden_sheets"],
                     "include": ["cell_colors"],
+                    "max_cell_count": 1,
                     "split_large_tables": {
                         "enabled": True,
                         "size": 0,
@@ -359,6 +361,7 @@ class TestAsyncSplit:
                     "clustering": "accurate",
                     "exclude": ["hidden_sheets"],
                     "include": ["cell_colors"],
+                    "max_cell_count": 1,
                     "split_large_tables": {
                         "enabled": True,
                         "size": 0,
@@ -494,6 +497,7 @@ class TestAsyncSplit:
                     "clustering": "accurate",
                     "exclude": ["hidden_sheets"],
                     "include": ["cell_colors"],
+                    "max_cell_count": 1,
                     "split_large_tables": {
                         "enabled": True,
                         "size": 0,
