@@ -93,6 +93,7 @@ class ExperimentalProcessingOptions(BaseModel):
             "rfdetr0304",
             "rfdetr0306",
             "qwen35_27b_0317",
+            "qwenrfdetr460m_0526",
         ]
     ] = None
     """The layout model to use for the document.
