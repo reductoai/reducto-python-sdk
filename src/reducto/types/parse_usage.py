@@ -37,6 +37,7 @@ class ParseUsage(BaseModel):
                     "key_value",
                     "agentic_text",
                     "promptable_agentic_text",
+                    "reducto_lite_page",
                 ]
             ],
         ]
