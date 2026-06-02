@@ -13,9 +13,8 @@ class TableAgentic(TypedDict, total=False):
 
     mode: Literal["default", "auto", "max"]
     """
-    Routing mode for table agentic: 'default' and 'max' run enrichment on all
-    tables, 'auto' uses the router to skip tables where enrichment is unlikely to
-    help.
+    Mode for table agentic: 'default' selectively applies enrichment only to tables
+    likely to benefit, and 'max' runs enrichment on all tables.
     """
 
     prompt: Optional[str]
