@@ -77,6 +77,7 @@ class TestSplit:
                     "extraction_mode": "ocr",
                     "force_file_extension": "force_file_extension",
                     "force_url_result": True,
+                    "hybrid_vpc": {"environment": "environment"},
                     "ocr_system": "standard",
                     "page_range": {
                         "end": 0,
@@ -213,6 +214,7 @@ class TestSplit:
                     "extraction_mode": "ocr",
                     "force_file_extension": "force_file_extension",
                     "force_url_result": True,
+                    "hybrid_vpc": {"environment": "environment"},
                     "ocr_system": "standard",
                     "page_range": {
                         "end": 0,
@@ -347,6 +349,7 @@ class TestAsyncSplit:
                     "extraction_mode": "ocr",
                     "force_file_extension": "force_file_extension",
                     "force_url_result": True,
+                    "hybrid_vpc": {"environment": "environment"},
                     "ocr_system": "standard",
                     "page_range": {
                         "end": 0,
@@ -483,6 +486,7 @@ class TestAsyncSplit:
                     "extraction_mode": "ocr",
                     "force_file_extension": "force_file_extension",
                     "force_url_result": True,
+                    "hybrid_vpc": {"environment": "environment"},
                     "ocr_system": "standard",
                     "page_range": {
                         "end": 0,

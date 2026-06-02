@@ -71,6 +71,7 @@ class TestExtract:
                     "extraction_mode": "ocr",
                     "force_file_extension": "force_file_extension",
                     "force_url_result": True,
+                    "hybrid_vpc": {"environment": "environment"},
                     "ocr_system": "standard",
                     "page_range": {
                         "end": 0,
@@ -190,6 +191,7 @@ class TestExtract:
                     "extraction_mode": "ocr",
                     "force_file_extension": "force_file_extension",
                     "force_url_result": True,
+                    "hybrid_vpc": {"environment": "environment"},
                     "ocr_system": "standard",
                     "page_range": {
                         "end": 0,
@@ -309,6 +311,7 @@ class TestExtract:
                     "extraction_mode": "ocr",
                     "force_file_extension": "force_file_extension",
                     "force_url_result": True,
+                    "hybrid_vpc": {"environment": "environment"},
                     "ocr_system": "standard",
                     "page_range": {
                         "end": 0,
@@ -426,6 +429,7 @@ class TestAsyncExtract:
                     "extraction_mode": "ocr",
                     "force_file_extension": "force_file_extension",
                     "force_url_result": True,
+                    "hybrid_vpc": {"environment": "environment"},
                     "ocr_system": "standard",
                     "page_range": {
                         "end": 0,
@@ -545,6 +549,7 @@ class TestAsyncExtract:
                     "extraction_mode": "ocr",
                     "force_file_extension": "force_file_extension",
                     "force_url_result": True,
+                    "hybrid_vpc": {"environment": "environment"},
                     "ocr_system": "standard",
                     "page_range": {
                         "end": 0,
@@ -664,6 +669,7 @@ class TestAsyncExtract:
                     "extraction_mode": "ocr",
                     "force_file_extension": "force_file_extension",
                     "force_url_result": True,
+                    "hybrid_vpc": {"environment": "environment"},
                     "ocr_system": "standard",
                     "page_range": {
                         "end": 0,

@@ -8,7 +8,18 @@ from typing_extensions import Literal, TypeAlias, TypedDict
 from .._types import SequenceNotStr
 from .shared_params import page_range
 
-__all__ = ["SettingsParam", "PageRange"]
+__all__ = ["SettingsParam", "HybridVpc", "PageRange"]
+
+
+class HybridVpc(TypedDict, total=False):
+    """Hybrid VPC request-scoped settings."""
+
+    environment: Optional[str]
+    """Named Hybrid VPC environment to use for this request.
+
+    Only applies when your organization has Hybrid VPC environments configured.
+    """
+
 
 PageRange: TypeAlias = Union[page_range.PageRange, Iterable[page_range.PageRange], Iterable[int], SequenceNotStr[str]]
 
@@ -41,6 +52,9 @@ class SettingsParam(TypedDict, total=False):
 
     force_url_result: bool
     """Force the result to be returned in URL form."""
+
+    hybrid_vpc: HybridVpc
+    """Hybrid VPC request-scoped settings."""
 
     ocr_system: Literal["standard", "legacy"]
     """Standard is our best multilingual OCR system.
