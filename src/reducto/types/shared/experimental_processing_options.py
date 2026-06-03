@@ -94,6 +94,7 @@ class ExperimentalProcessingOptions(BaseModel):
             "rfdetr0306",
             "qwen35_27b_0317",
             "qwenrfdetr460m_0526",
+            "qwenrfdetr460m_0526_tritonflash",
         ]
     ] = None
     """The layout model to use for the document.
