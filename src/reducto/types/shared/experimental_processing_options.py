@@ -81,22 +81,7 @@ class ExperimentalProcessingOptions(BaseModel):
     performance at the cost of increased latency. Defaults to False.
     """
 
-    layout_model: Optional[
-        Literal[
-            "default",
-            "beta",
-            "dfine",
-            "rfdetr",
-            "rfdetr0302",
-            "rfdetr0303",
-            "rfdetrbase0218",
-            "rfdetr0304",
-            "rfdetr0306",
-            "qwen35_27b_0317",
-            "qwenrfdetr460m_0526",
-            "qwenrfdetr460m_0526_tritonflash",
-        ]
-    ] = None
+    layout_model: Optional[Literal["default", "beta"]] = None
     """The layout model to use for the document.
 
     This will be deprecated in the future.
