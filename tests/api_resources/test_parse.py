@@ -75,6 +75,10 @@ class TestParse:
                 "persist_results": True,
                 "return_images": ["figure"],
                 "return_ocr_data": True,
+                "tenant_throttling": {
+                    "tenant_id": "x",
+                    "max_share": 1,
+                },
                 "timeout": 0,
             },
             spreadsheet={
@@ -180,6 +184,10 @@ class TestParse:
                 "persist_results": True,
                 "return_images": ["figure"],
                 "return_ocr_data": True,
+                "tenant_throttling": {
+                    "tenant_id": "x",
+                    "max_share": 1,
+                },
                 "timeout": 0,
             },
             spreadsheet={
@@ -285,6 +293,10 @@ class TestParse:
                 "persist_results": True,
                 "return_images": ["figure"],
                 "return_ocr_data": True,
+                "tenant_throttling": {
+                    "tenant_id": "x",
+                    "max_share": 1,
+                },
                 "timeout": 0,
             },
             spreadsheet={
@@ -387,6 +399,10 @@ class TestAsyncParse:
                 "persist_results": True,
                 "return_images": ["figure"],
                 "return_ocr_data": True,
+                "tenant_throttling": {
+                    "tenant_id": "x",
+                    "max_share": 1,
+                },
                 "timeout": 0,
             },
             spreadsheet={
@@ -492,6 +508,10 @@ class TestAsyncParse:
                 "persist_results": True,
                 "return_images": ["figure"],
                 "return_ocr_data": True,
+                "tenant_throttling": {
+                    "tenant_id": "x",
+                    "max_share": 1,
+                },
                 "timeout": 0,
             },
             spreadsheet={
@@ -597,6 +617,10 @@ class TestAsyncParse:
                 "persist_results": True,
                 "return_images": ["figure"],
                 "return_ocr_data": True,
+                "tenant_throttling": {
+                    "tenant_id": "x",
+                    "max_share": 1,
+                },
                 "timeout": 0,
             },
             spreadsheet={

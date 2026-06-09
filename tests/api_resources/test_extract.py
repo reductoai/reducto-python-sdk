@@ -80,6 +80,10 @@ class TestExtract:
                     "persist_results": True,
                     "return_images": ["figure"],
                     "return_ocr_data": True,
+                    "tenant_throttling": {
+                        "tenant_id": "x",
+                        "max_share": 1,
+                    },
                     "timeout": 0,
                 },
                 "spreadsheet": {
@@ -200,6 +204,10 @@ class TestExtract:
                     "persist_results": True,
                     "return_images": ["figure"],
                     "return_ocr_data": True,
+                    "tenant_throttling": {
+                        "tenant_id": "x",
+                        "max_share": 1,
+                    },
                     "timeout": 0,
                 },
                 "spreadsheet": {
@@ -320,6 +328,10 @@ class TestExtract:
                     "persist_results": True,
                     "return_images": ["figure"],
                     "return_ocr_data": True,
+                    "tenant_throttling": {
+                        "tenant_id": "x",
+                        "max_share": 1,
+                    },
                     "timeout": 0,
                 },
                 "spreadsheet": {
@@ -438,6 +450,10 @@ class TestAsyncExtract:
                     "persist_results": True,
                     "return_images": ["figure"],
                     "return_ocr_data": True,
+                    "tenant_throttling": {
+                        "tenant_id": "x",
+                        "max_share": 1,
+                    },
                     "timeout": 0,
                 },
                 "spreadsheet": {
@@ -558,6 +574,10 @@ class TestAsyncExtract:
                     "persist_results": True,
                     "return_images": ["figure"],
                     "return_ocr_data": True,
+                    "tenant_throttling": {
+                        "tenant_id": "x",
+                        "max_share": 1,
+                    },
                     "timeout": 0,
                 },
                 "spreadsheet": {
@@ -678,6 +698,10 @@ class TestAsyncExtract:
                     "persist_results": True,
                     "return_images": ["figure"],
                     "return_ocr_data": True,
+                    "tenant_throttling": {
+                        "tenant_id": "x",
+                        "max_share": 1,
+                    },
                     "timeout": 0,
                 },
                 "spreadsheet": {

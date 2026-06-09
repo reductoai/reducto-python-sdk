@@ -3,12 +3,12 @@
 from __future__ import annotations
 
 from typing import List, Union, Iterable, Optional
-from typing_extensions import Literal, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
 from .shared_params import page_range
 
-__all__ = ["SettingsParam", "HybridVpc", "PageRange"]
+__all__ = ["SettingsParam", "HybridVpc", "PageRange", "TenantThrottling"]
 
 
 class HybridVpc(TypedDict, total=False):
@@ -22,6 +22,25 @@ class HybridVpc(TypedDict, total=False):
 
 
 PageRange: TypeAlias = Union[page_range.PageRange, Iterable[page_range.PageRange], Iterable[int], SequenceNotStr[str]]
+
+
+class TenantThrottling(TypedDict, total=False):
+    """Per-tenant throttling for multi-tenant applications.
+
+    Tag each request with your tenant's id to bound how much of your account's concurrency a single tenant can consume. Account-level throttles still apply.
+    """
+
+    tenant_id: Required[str]
+    """
+    Your identifier for the tenant (customer, workspace, organization) this request
+    belongs to. Used only for noisy-neighbor throttling inside your account.
+    """
+
+    max_share: float
+    """
+    Maximum fraction of your account's concurrency ceiling this tenant may use,
+    between 0 (exclusive) and 1. Defaults to 0.5.
+    """
 
 
 class SettingsParam(TypedDict, total=False):
@@ -81,6 +100,13 @@ class SettingsParam(TypedDict, total=False):
 
     return_ocr_data: bool
     """If True, return OCR data in the result. Defaults to False."""
+
+    tenant_throttling: Optional[TenantThrottling]
+    """Per-tenant throttling for multi-tenant applications.
+
+    Tag each request with your tenant's id to bound how much of your account's
+    concurrency a single tenant can consume. Account-level throttles still apply.
+    """
 
     timeout: Optional[float]
     """The timeout for the job in seconds."""
