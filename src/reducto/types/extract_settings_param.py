@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict
+from typing_extensions import Literal, TypedDict
 
 __all__ = ["ExtractSettingsParam", "Citations"]
 
@@ -15,6 +15,16 @@ class Citations(TypedDict, total=False):
 
     numerical_confidence: bool
     """If True, enable numeric citation confidence scores. Defaults to True."""
+
+    parent_block: Literal["full", "bbox_only"]
+    """How much of the source parse block to embed on each citation's parentBlock.
+
+    'full' (default) embeds the verbatim source-block HTML in parentBlock.content.
+    'bbox_only' suppresses parentBlock.content (returned as an empty string) while
+    keeping parentBlock.bbox and all citation-level fields — this can drastically
+    shrink responses on table-heavy schemas where the same source block is cited
+    many times.
+    """
 
 
 class ExtractSettingsParam(TypedDict, total=False):

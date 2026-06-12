@@ -102,6 +102,7 @@ class TestExtract:
                 "citations": {
                     "enabled": True,
                     "numerical_confidence": True,
+                    "parent_block": "full",
                 },
                 "deep_extract": True,
                 "include_images": True,
@@ -226,6 +227,7 @@ class TestExtract:
                 "citations": {
                     "enabled": True,
                     "numerical_confidence": True,
+                    "parent_block": "full",
                 },
                 "deep_extract": True,
                 "include_images": True,
@@ -350,6 +352,7 @@ class TestExtract:
                 "citations": {
                     "enabled": True,
                     "numerical_confidence": True,
+                    "parent_block": "full",
                 },
                 "deep_extract": True,
                 "include_images": True,
@@ -472,6 +475,7 @@ class TestAsyncExtract:
                 "citations": {
                     "enabled": True,
                     "numerical_confidence": True,
+                    "parent_block": "full",
                 },
                 "deep_extract": True,
                 "include_images": True,
@@ -596,6 +600,7 @@ class TestAsyncExtract:
                 "citations": {
                     "enabled": True,
                     "numerical_confidence": True,
+                    "parent_block": "full",
                 },
                 "deep_extract": True,
                 "include_images": True,
@@ -720,6 +725,7 @@ class TestAsyncExtract:
                 "citations": {
                     "enabled": True,
                     "numerical_confidence": True,
+                    "parent_block": "full",
                 },
                 "deep_extract": True,
                 "include_images": True,
