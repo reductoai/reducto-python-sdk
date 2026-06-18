@@ -234,9 +234,11 @@ class Reducto(SyncAPIClient):
 
     @override
     def _auth_headers(self, security: SecurityOptions) -> dict[str, str]:
-        return {
-            **(self._skippable_http_bearer if security.get("skippable_http_bearer", False) else {}),
-        }
+        headers: dict[str, str] = {}
+        if security.get("skippable_http_bearer", False):
+            for key, value in self._skippable_http_bearer.items():
+                headers.setdefault(key, value)
+        return headers
 
     @property
     def _skippable_http_bearer(self) -> dict[str, str]:
@@ -554,9 +556,11 @@ class AsyncReducto(AsyncAPIClient):
 
     @override
     def _auth_headers(self, security: SecurityOptions) -> dict[str, str]:
-        return {
-            **(self._skippable_http_bearer if security.get("skippable_http_bearer", False) else {}),
-        }
+        headers: dict[str, str] = {}
+        if security.get("skippable_http_bearer", False):
+            for key, value in self._skippable_http_bearer.items():
+                headers.setdefault(key, value)
+        return headers
 
     @property
     def _skippable_http_bearer(self) -> dict[str, str]:
