@@ -41,6 +41,9 @@ class ExtractSettingsParam(TypedDict, total=False):
     accuracy is critical.
     """
 
+    force_url_result: bool
+    """Force the endpoint result to be returned in URL form."""
+
     include_images: bool
     """If True, include images in the extraction."""
 

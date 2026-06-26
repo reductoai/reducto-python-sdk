@@ -106,6 +106,7 @@ class TestSplit:
             settings={
                 "allow_page_overlap": True,
                 "deep_split": True,
+                "force_url_result": True,
                 "table_cutoff": "truncate",
             },
             split_rules="split_rules",
@@ -247,6 +248,7 @@ class TestSplit:
             settings={
                 "allow_page_overlap": True,
                 "deep_split": True,
+                "force_url_result": True,
                 "table_cutoff": "truncate",
             },
             split_rules="split_rules",
@@ -386,6 +388,7 @@ class TestAsyncSplit:
             settings={
                 "allow_page_overlap": True,
                 "deep_split": True,
+                "force_url_result": True,
                 "table_cutoff": "truncate",
             },
             split_rules="split_rules",
@@ -527,6 +530,7 @@ class TestAsyncSplit:
             settings={
                 "allow_page_overlap": True,
                 "deep_split": True,
+                "force_url_result": True,
                 "table_cutoff": "truncate",
             },
             split_rules="split_rules",

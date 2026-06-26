@@ -49,6 +49,7 @@ class ClassifyResource(SyncAPIResource):
         input: classify_run_params.Input,
         classification_schema: Iterable[classify_run_params.ClassificationSchema] | Omit = omit,
         document_metadata: Optional[str] | Omit = omit,
+        force_url_result: bool | Omit = omit,
         page_range: Optional[classify_run_params.PageRange] | Omit = omit,
         persist_results: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -75,6 +76,8 @@ class ClassifyResource(SyncAPIResource):
 
           document_metadata: Optional document-level metadata to include in classification prompts.
 
+          force_url_result: Force the endpoint result to be returned in URL form.
+
           page_range: The page range to process (1-indexed). By default, the first 5 pages are used.
               If more than 25 pages are selected, only the first 25 (after sorting) are used.
               Only applies to PDFs; ignored for other document types.
@@ -96,6 +99,7 @@ class ClassifyResource(SyncAPIResource):
                     "input": input,
                     "classification_schema": classification_schema,
                     "document_metadata": document_metadata,
+                    "force_url_result": force_url_result,
                     "page_range": page_range,
                     "persist_results": persist_results,
                 },
@@ -134,6 +138,7 @@ class AsyncClassifyResource(AsyncAPIResource):
         input: classify_run_params.Input,
         classification_schema: Iterable[classify_run_params.ClassificationSchema] | Omit = omit,
         document_metadata: Optional[str] | Omit = omit,
+        force_url_result: bool | Omit = omit,
         page_range: Optional[classify_run_params.PageRange] | Omit = omit,
         persist_results: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -160,6 +165,8 @@ class AsyncClassifyResource(AsyncAPIResource):
 
           document_metadata: Optional document-level metadata to include in classification prompts.
 
+          force_url_result: Force the endpoint result to be returned in URL form.
+
           page_range: The page range to process (1-indexed). By default, the first 5 pages are used.
               If more than 25 pages are selected, only the first 25 (after sorting) are used.
               Only applies to PDFs; ignored for other document types.
@@ -181,6 +188,7 @@ class AsyncClassifyResource(AsyncAPIResource):
                     "input": input,
                     "classification_schema": classification_schema,
                     "document_metadata": document_metadata,
+                    "force_url_result": force_url_result,
                     "page_range": page_range,
                     "persist_results": persist_results,
                 },

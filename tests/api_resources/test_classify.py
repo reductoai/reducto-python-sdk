@@ -37,6 +37,7 @@ class TestClassify:
                 }
             ],
             document_metadata="document_metadata",
+            force_url_result=True,
             page_range={
                 "end": 0,
                 "start": 0,
@@ -97,6 +98,7 @@ class TestAsyncClassify:
                 }
             ],
             document_metadata="document_metadata",
+            force_url_result=True,
             page_range={
                 "end": 0,
                 "start": 0,

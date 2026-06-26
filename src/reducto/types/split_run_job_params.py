@@ -66,6 +66,9 @@ class Settings(TypedDict, total=False):
     Off by default.
     """
 
+    force_url_result: bool
+    """Force the endpoint result to be returned in URL form."""
+
     table_cutoff: Literal["truncate", "preserve"]
     """
     If tables should be truncated to the first few rows or if all content should be

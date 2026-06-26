@@ -31,6 +31,9 @@ class ClassifyRunParams(TypedDict, total=False):
     document_metadata: Optional[str]
     """Optional document-level metadata to include in classification prompts."""
 
+    force_url_result: bool
+    """Force the endpoint result to be returned in URL form."""
+
     page_range: Optional[PageRange]
     """The page range to process (1-indexed).
 
