@@ -42,7 +42,6 @@ class TestClassify:
                 "end": 0,
                 "start": 0,
             },
-            persist_results=True,
         )
         assert_matches_type(ClassifyResponse, classify, path=["response"])
 
@@ -103,7 +102,6 @@ class TestAsyncClassify:
                 "end": 0,
                 "start": 0,
             },
-            persist_results=True,
         )
         assert_matches_type(ClassifyResponse, classify, path=["response"])
 

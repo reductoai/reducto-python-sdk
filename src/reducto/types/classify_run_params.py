@@ -42,9 +42,6 @@ class ClassifyRunParams(TypedDict, total=False):
     document types.
     """
 
-    persist_results: bool
-    """If True, persist the results indefinitely. Defaults to False."""
-
 
 Input: TypeAlias = Union[str, SequenceNotStr[str], Upload]
 
