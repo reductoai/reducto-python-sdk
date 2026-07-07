@@ -108,6 +108,10 @@ class TestExtract:
                 "force_url_result": True,
                 "include_images": True,
                 "optimize_for_latency": True,
+                "page_range": {
+                    "end": 0,
+                    "start": 0,
+                },
             },
         )
         assert_matches_type(ExtractRunResponse, extract, path=["response"])
@@ -234,6 +238,10 @@ class TestExtract:
                 "force_url_result": True,
                 "include_images": True,
                 "optimize_for_latency": True,
+                "page_range": {
+                    "end": 0,
+                    "start": 0,
+                },
             },
         )
         assert_matches_type(ExtractRunResponse, extract, path=["response"])
@@ -360,6 +368,10 @@ class TestExtract:
                 "force_url_result": True,
                 "include_images": True,
                 "optimize_for_latency": True,
+                "page_range": {
+                    "end": 0,
+                    "start": 0,
+                },
             },
         )
         assert_matches_type(AsyncExtractResponse, extract, path=["response"])
@@ -484,6 +496,10 @@ class TestAsyncExtract:
                 "force_url_result": True,
                 "include_images": True,
                 "optimize_for_latency": True,
+                "page_range": {
+                    "end": 0,
+                    "start": 0,
+                },
             },
         )
         assert_matches_type(ExtractRunResponse, extract, path=["response"])
@@ -610,6 +626,10 @@ class TestAsyncExtract:
                 "force_url_result": True,
                 "include_images": True,
                 "optimize_for_latency": True,
+                "page_range": {
+                    "end": 0,
+                    "start": 0,
+                },
             },
         )
         assert_matches_type(ExtractRunResponse, extract, path=["response"])
@@ -736,6 +756,10 @@ class TestAsyncExtract:
                 "force_url_result": True,
                 "include_images": True,
                 "optimize_for_latency": True,
+                "page_range": {
+                    "end": 0,
+                    "start": 0,
+                },
             },
         )
         assert_matches_type(AsyncExtractResponse, extract, path=["response"])
