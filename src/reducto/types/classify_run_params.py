@@ -14,15 +14,12 @@ __all__ = ["ClassifyRunParams", "Input", "ClassificationSchema", "PageRange"]
 
 class ClassifyRunParams(TypedDict, total=False):
     input: Required[Input]
-    """For parse/split/extract pipelines, the URL of the document to be processed.
+    """The URL of the document to be classified. You can provide one of the following:
 
-    You can provide one of the following: 1. A publicly available URL 2. A presigned
-    S3 URL 3. A reducto:// prefixed URL obtained from the /upload endpoint after
-    directly uploading a document 4. A jobid:// prefixed URL obtained from a
-    previous /parse invocation 5. A list of URLs (for multi-document pipelines, V3
-    API only)
-
-                For edit pipelines, this should be a string containing the edit instructions
+    1. A publicly available URL
+    2. A presigned S3 URL
+    3. A reducto:// prefixed URL obtained from the /upload endpoint after directly
+       uploading a document
     """
 
     classification_schema: Iterable[ClassificationSchema]

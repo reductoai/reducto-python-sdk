@@ -58,18 +58,18 @@ class ClassifyResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ClassifyResponse:
-        """
-        Classify
+        """Classify
 
         Args:
-          input: For parse/split/extract pipelines, the URL of the document to be processed. You
-              can provide one of the following: 1. A publicly available URL 2. A presigned S3
-              URL 3. A reducto:// prefixed URL obtained from the /upload endpoint after
-              directly uploading a document 4. A jobid:// prefixed URL obtained from a
-              previous /parse invocation 5. A list of URLs (for multi-document pipelines, V3
-              API only)
+          input:
+              The URL of the document to be classified.
 
-                          For edit pipelines, this should be a string containing the edit instructions
+        You can provide one of the following:
+
+              1. A publicly available URL
+              2. A presigned S3 URL
+              3. A reducto:// prefixed URL obtained from the /upload endpoint after directly
+                 uploading a document
 
           classification_schema: A list of classification categories and their matching criteria.
 
@@ -143,18 +143,18 @@ class AsyncClassifyResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ClassifyResponse:
-        """
-        Classify
+        """Classify
 
         Args:
-          input: For parse/split/extract pipelines, the URL of the document to be processed. You
-              can provide one of the following: 1. A publicly available URL 2. A presigned S3
-              URL 3. A reducto:// prefixed URL obtained from the /upload endpoint after
-              directly uploading a document 4. A jobid:// prefixed URL obtained from a
-              previous /parse invocation 5. A list of URLs (for multi-document pipelines, V3
-              API only)
+          input:
+              The URL of the document to be classified.
 
-                          For edit pipelines, this should be a string containing the edit instructions
+        You can provide one of the following:
+
+              1. A publicly available URL
+              2. A presigned S3 URL
+              3. A reducto:// prefixed URL obtained from the /upload endpoint after directly
+                 uploading a document
 
           classification_schema: A list of classification categories and their matching criteria.
 
