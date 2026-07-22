@@ -36,7 +36,11 @@ PageRange: TypeAlias = Union[page_range.PageRange, Iterable[page_range.PageRange
 
 class ExtractSettingsParam(TypedDict, total=False):
     array_extract: bool
-    """If True, use array extraction."""
+    """
+    Deprecated: prefer deep_extract, which supersedes array extraction for complex
+    and long (array-heavy) extractions via an agentic loop (at higher cost and
+    latency). If True, use array extraction.
+    """
 
     citations: Citations
     """The citations to use for the extraction."""
