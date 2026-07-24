@@ -60,6 +60,14 @@ class Settings(TypedDict, total=False):
     If False, each page must belong to exactly one category. Defaults to True.
     """
 
+    auto_partition: bool
+    """
+    If True (default), deep split may split a category into partitions even when
+    that category has no configured partition_key. If False, categories without a
+    partition_key are never partitioned, so partitioning happens only where you
+    explicitly configured a partition_key.
+    """
+
     deep_split: bool
     """If True, uses the deep split agent for higher-quality document splitting.
 

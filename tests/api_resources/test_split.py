@@ -105,6 +105,7 @@ class TestSplit:
             },
             settings={
                 "allow_page_overlap": True,
+                "auto_partition": True,
                 "deep_split": True,
                 "force_url_result": True,
                 "table_cutoff": "truncate",
@@ -247,6 +248,7 @@ class TestSplit:
             },
             settings={
                 "allow_page_overlap": True,
+                "auto_partition": True,
                 "deep_split": True,
                 "force_url_result": True,
                 "table_cutoff": "truncate",
@@ -387,6 +389,7 @@ class TestAsyncSplit:
             },
             settings={
                 "allow_page_overlap": True,
+                "auto_partition": True,
                 "deep_split": True,
                 "force_url_result": True,
                 "table_cutoff": "truncate",
@@ -529,6 +532,7 @@ class TestAsyncSplit:
             },
             settings={
                 "allow_page_overlap": True,
+                "auto_partition": True,
                 "deep_split": True,
                 "force_url_result": True,
                 "table_cutoff": "truncate",
