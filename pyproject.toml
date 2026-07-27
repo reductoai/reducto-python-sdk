@@ -41,7 +41,11 @@ Homepage = "https://github.com/reductoai/reducto-python-sdk"
 Repository = "https://github.com/reductoai/reducto-python-sdk"
 
 [project.optional-dependencies]
-aiohttp = ["aiohttp", "httpx_aiohttp>=0.1.9"]
+aiohttp = [
+  "aiohttp>=3.13.4,<3.14; python_version < '3.10'",
+  "aiohttp>=3.14.2; python_version >= '3.10'",
+  "httpx_aiohttp>=0.1.9",
+]
 
 [tool.rye]
 managed = true
