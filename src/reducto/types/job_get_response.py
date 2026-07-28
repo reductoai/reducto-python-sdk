@@ -1,72 +1,8 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Union, Optional
-from datetime import datetime
-from typing_extensions import Literal, TypeAlias
+from typing import Dict, Union
+from typing_extensions import TypeAlias
 
-from .._models import BaseModel
-from .v3_extract import V3Extract
-from .shared.edit_response import EditResponse
-from .shared.parse_response import ParseResponse
-from .shared.split_response import SplitResponse
-from .shared.extract_response import ExtractResponse
-from .shared.classify_response import ClassifyResponse
-from .shared.pipeline_response import PipelineResponse
+__all__ = ["JobGetResponse"]
 
-__all__ = [
-    "JobGetResponse",
-    "AsyncJobResponse",
-    "AsyncJobResponseResult",
-    "EnhancedAsyncJobResponse",
-    "EnhancedAsyncJobResponseResult",
-]
-
-AsyncJobResponseResult: TypeAlias = Union[
-    ParseResponse, ExtractResponse, SplitResponse, EditResponse, PipelineResponse, V3Extract, ClassifyResponse, None
-]
-
-
-class AsyncJobResponse(BaseModel):
-    status: Literal["Pending", "Completed", "Failed", "Idle"]
-
-    progress: Optional[float] = None
-
-    reason: Optional[str] = None
-
-    result: Optional[AsyncJobResponseResult] = None
-    """Response from classify job - returned when polling /job/{job_id}"""
-
-
-EnhancedAsyncJobResponseResult: TypeAlias = Union[
-    ParseResponse, ExtractResponse, SplitResponse, EditResponse, PipelineResponse, V3Extract, ClassifyResponse, None
-]
-
-
-class EnhancedAsyncJobResponse(BaseModel):
-    status: Literal["Pending", "Completed", "Failed", "Idle"]
-
-    bucket: Optional[object] = None
-
-    created_at: Optional[datetime] = None
-
-    duration: Optional[float] = None
-
-    num_pages: Optional[int] = None
-
-    progress: Optional[float] = None
-
-    raw_config: Optional[str] = None
-
-    reason: Optional[str] = None
-
-    result: Optional[EnhancedAsyncJobResponseResult] = None
-    """Response from classify job - returned when polling /job/{job_id}"""
-
-    source: Optional[object] = None
-
-    total_pages: Optional[int] = None
-
-    type: Optional[Literal["Parse", "Extract", "Split", "Edit", "Pipeline", "Classify"]] = None
-
-
-JobGetResponse: TypeAlias = Union[AsyncJobResponse, EnhancedAsyncJobResponse]
+JobGetResponse: TypeAlias = Union[Dict[str, object], Dict[str, object]]
