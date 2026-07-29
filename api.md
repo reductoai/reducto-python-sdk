@@ -69,6 +69,7 @@ Types:
 from reducto.types import (
     AsyncExtractConfig,
     ExtractSettings,
+    ExtractUsage,
     Instructions,
     ParseOptions,
     V3Extract,

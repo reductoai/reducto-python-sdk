@@ -11,7 +11,16 @@ from .parse_response import ParseResponse
 from .split_response import SplitResponse
 from .extract_response import ExtractResponse
 
-__all__ = ["PipelineResponse", "Result", "ResultExtractUnionMember0", "ResultParse"]
+__all__ = [
+    "PipelineResponse",
+    "Result",
+    "ResultExtract",
+    "ResultExtractUnionMember0",
+    "ResultExtractUnionMember0Result",
+    "ResultParse",
+]
+
+ResultExtractUnionMember0Result: TypeAlias = Union[ExtractResponse, V3Extract]
 
 
 class ResultExtractUnionMember0(BaseModel):
@@ -19,18 +28,20 @@ class ResultExtractUnionMember0(BaseModel):
 
     page_range: List[int]
 
-    result: Union[ExtractResponse, V3Extract]
+    result: ResultExtractUnionMember0Result
 
     split_name: str
 
     partition: Optional[str] = None
 
 
+ResultExtract: TypeAlias = Union[List[ResultExtractUnionMember0], ExtractResponse, V3Extract, None]
+
 ResultParse: TypeAlias = Union[ParseResponse, List[ParseResponse], None]
 
 
 class Result(BaseModel):
-    extract: Union[List[ResultExtractUnionMember0], ExtractResponse, V3Extract, None] = None
+    extract: Optional[ResultExtract] = None
 
     parse: Optional[ResultParse] = None
 
