@@ -59,6 +59,12 @@ class SettingsParam(TypedDict, total=False):
     scan DPI for crisper output. Min 50, max 250.
     """
 
+    extract_document_properties: bool
+    """If True, return properties embedded in the original document.
+
+    Defaults to False.
+    """
+
     extraction_mode: Literal["ocr", "hybrid"]
     """The mode to use for text extraction from PDFs.
 
