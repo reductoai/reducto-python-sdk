@@ -80,9 +80,9 @@ class EditResource(SyncAPIResource):
           form_schema: Form schema for PDF forms. List of widgets with their types, descriptions, and
               bounding boxes. Only works for PDFs.
 
-          priority: If True, attempts to process the job with priority if the user has priority
-              processing budget available; by default, sync jobs are prioritized above async
-              jobs.
+          priority: Workers poll the priority queue ahead of the standard queue, so priority jobs
+              start sooner when there is queued work; sync jobs are prioritized above async
+              jobs by default.
 
           extra_headers: Send extra headers
 
@@ -144,9 +144,9 @@ class EditResource(SyncAPIResource):
           form_schema: Form schema for PDF forms. List of widgets with their types, descriptions, and
               bounding boxes. Only works for PDFs.
 
-          priority: If True, attempts to process the job with priority if the user has priority
-              processing budget available; by default, sync jobs are prioritized above async
-              jobs.
+          priority: Workers poll the priority queue ahead of the standard queue, so priority jobs
+              start sooner when there is queued work; sync jobs are prioritized above async
+              jobs by default.
 
           extra_headers: Send extra headers
 
@@ -229,9 +229,9 @@ class AsyncEditResource(AsyncAPIResource):
           form_schema: Form schema for PDF forms. List of widgets with their types, descriptions, and
               bounding boxes. Only works for PDFs.
 
-          priority: If True, attempts to process the job with priority if the user has priority
-              processing budget available; by default, sync jobs are prioritized above async
-              jobs.
+          priority: Workers poll the priority queue ahead of the standard queue, so priority jobs
+              start sooner when there is queued work; sync jobs are prioritized above async
+              jobs by default.
 
           extra_headers: Send extra headers
 
@@ -293,9 +293,9 @@ class AsyncEditResource(AsyncAPIResource):
           form_schema: Form schema for PDF forms. List of widgets with their types, descriptions, and
               bounding boxes. Only works for PDFs.
 
-          priority: If True, attempts to process the job with priority if the user has priority
-              processing budget available; by default, sync jobs are prioritized above async
-              jobs.
+          priority: Workers poll the priority queue ahead of the standard queue, so priority jobs
+              start sooner when there is queued work; sync jobs are prioritized above async
+              jobs by default.
 
           extra_headers: Send extra headers
 
