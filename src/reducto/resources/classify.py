@@ -78,8 +78,8 @@ class ClassifyResource(SyncAPIResource):
           force_url_result: Force the endpoint result to be returned in URL form.
 
           page_range: The page range to process (1-indexed). By default, the first 5 pages are used.
-              If more than 25 pages are selected, only the first 25 (after sorting) are used.
-              Only applies to PDFs; ignored for other document types.
+              At most 10 pages can be selected. Only applies to PDFs; ignored for other
+              document types.
 
           extra_headers: Send extra headers
 
@@ -163,8 +163,8 @@ class AsyncClassifyResource(AsyncAPIResource):
           force_url_result: Force the endpoint result to be returned in URL form.
 
           page_range: The page range to process (1-indexed). By default, the first 5 pages are used.
-              If more than 25 pages are selected, only the first 25 (after sorting) are used.
-              Only applies to PDFs; ignored for other document types.
+              At most 10 pages can be selected. Only applies to PDFs; ignored for other
+              document types.
 
           extra_headers: Send extra headers
 
