@@ -37,6 +37,7 @@ class AsyncJobResponseError(BaseModel):
 
     name: Literal[
         "TIMEOUT",
+        "CAPACITY_TIMEOUT",
         "CUSTOMER_TIMEOUT",
         "INTERNAL_ERROR",
         "SERVICE_UNAVAILABLE",
@@ -124,6 +125,7 @@ class EnhancedAsyncJobResponseError(BaseModel):
 
     name: Literal[
         "TIMEOUT",
+        "CAPACITY_TIMEOUT",
         "CUSTOMER_TIMEOUT",
         "INTERNAL_ERROR",
         "SERVICE_UNAVAILABLE",
