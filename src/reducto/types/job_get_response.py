@@ -77,6 +77,7 @@ class AsyncJobResponseError(BaseModel):
         "JOB_CANCELLED",
         "RATE_LIMIT",
         "CELL_COUNT_EXCEEDED",
+        "URL_NOT_ALLOWED",
     ]
     """Machine-readable error names returned in API error responses.
 
@@ -165,6 +166,7 @@ class EnhancedAsyncJobResponseError(BaseModel):
         "JOB_CANCELLED",
         "RATE_LIMIT",
         "CELL_COUNT_EXCEEDED",
+        "URL_NOT_ALLOWED",
     ]
     """Machine-readable error names returned in API error responses.
 
