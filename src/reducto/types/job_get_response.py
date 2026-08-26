@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Union, Optional
+from typing import Dict, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, Annotated, TypeAlias
 
@@ -19,9 +19,15 @@ __all__ = [
     "AsyncJobResponse",
     "AsyncJobResponseError",
     "AsyncJobResponseResult",
+    "AsyncJobResponseResultChartResponse",
+    "AsyncJobResponseResultChartResponseResult",
+    "AsyncJobResponseResultChartResponseUsage",
     "EnhancedAsyncJobResponse",
     "EnhancedAsyncJobResponseError",
     "EnhancedAsyncJobResponseResult",
+    "EnhancedAsyncJobResponseResultChartResponse",
+    "EnhancedAsyncJobResponseResultChartResponseResult",
+    "EnhancedAsyncJobResponseResultChartResponseUsage",
 ]
 
 
@@ -89,9 +95,47 @@ class AsyncJobResponseError(BaseModel):
     job_id: Optional[str] = None
 
 
+class AsyncJobResponseResultChartResponseResult(BaseModel):
+    chart_data: Dict[str, object]
+
+    reconstruction_url: str
+
+    summary: str
+
+    verified: bool
+
+
+class AsyncJobResponseResultChartResponseUsage(BaseModel):
+    credits: Optional[float] = None
+
+    num_charts: Optional[Literal[1]] = None
+
+
+class AsyncJobResponseResultChartResponse(BaseModel):
+    """Response from synchronous and persisted chart extraction jobs."""
+
+    job_id: str
+
+    result: AsyncJobResponseResultChartResponseResult
+
+    duration: Optional[float] = None
+
+    response_type: Optional[Literal["chart"]] = None
+
+    usage: Optional[AsyncJobResponseResultChartResponseUsage] = None
+
+
 AsyncJobResponseResult: TypeAlias = Annotated[
     Union[
-        ParseResponse, ExtractResponse, SplitResponse, EditResponse, PipelineResponse, V3Extract, ClassifyResponse, None
+        ParseResponse,
+        ExtractResponse,
+        SplitResponse,
+        EditResponse,
+        PipelineResponse,
+        V3Extract,
+        ClassifyResponse,
+        AsyncJobResponseResultChartResponse,
+        None,
     ],
     PropertyInfo(discriminator="response_type"),
 ]
@@ -178,9 +222,47 @@ class EnhancedAsyncJobResponseError(BaseModel):
     job_id: Optional[str] = None
 
 
+class EnhancedAsyncJobResponseResultChartResponseResult(BaseModel):
+    chart_data: Dict[str, object]
+
+    reconstruction_url: str
+
+    summary: str
+
+    verified: bool
+
+
+class EnhancedAsyncJobResponseResultChartResponseUsage(BaseModel):
+    credits: Optional[float] = None
+
+    num_charts: Optional[Literal[1]] = None
+
+
+class EnhancedAsyncJobResponseResultChartResponse(BaseModel):
+    """Response from synchronous and persisted chart extraction jobs."""
+
+    job_id: str
+
+    result: EnhancedAsyncJobResponseResultChartResponseResult
+
+    duration: Optional[float] = None
+
+    response_type: Optional[Literal["chart"]] = None
+
+    usage: Optional[EnhancedAsyncJobResponseResultChartResponseUsage] = None
+
+
 EnhancedAsyncJobResponseResult: TypeAlias = Annotated[
     Union[
-        ParseResponse, ExtractResponse, SplitResponse, EditResponse, PipelineResponse, V3Extract, ClassifyResponse, None
+        ParseResponse,
+        ExtractResponse,
+        SplitResponse,
+        EditResponse,
+        PipelineResponse,
+        V3Extract,
+        ClassifyResponse,
+        EnhancedAsyncJobResponseResultChartResponse,
+        None,
     ],
     PropertyInfo(discriminator="response_type"),
 ]
@@ -216,7 +298,7 @@ class EnhancedAsyncJobResponse(BaseModel):
 
     total_pages: Optional[int] = None
 
-    type: Optional[Literal["Parse", "Extract", "Split", "Edit", "Pipeline", "Classify"]] = None
+    type: Optional[Literal["Parse", "Extract", "Split", "Edit", "Pipeline", "Classify", "Chart"]] = None
 
 
 JobGetResponse: TypeAlias = Union[AsyncJobResponse, EnhancedAsyncJobResponse]
