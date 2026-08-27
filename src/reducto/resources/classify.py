@@ -51,6 +51,7 @@ class ClassifyResource(SyncAPIResource):
         document_metadata: Optional[str] | Omit = omit,
         force_url_result: bool | Omit = omit,
         page_range: Optional[classify_run_params.PageRange] | Omit = omit,
+        priority: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -81,6 +82,10 @@ class ClassifyResource(SyncAPIResource):
               At most 10 pages can be selected. Only applies to PDFs; ignored for other
               document types.
 
+          priority: Workers poll the priority queue ahead of the standard queue, so priority jobs
+              start sooner when there is queued work; sync jobs are prioritized above async
+              jobs by default.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -98,6 +103,7 @@ class ClassifyResource(SyncAPIResource):
                     "document_metadata": document_metadata,
                     "force_url_result": force_url_result,
                     "page_range": page_range,
+                    "priority": priority,
                 },
                 classify_run_params.ClassifyRunParams,
             ),
@@ -136,6 +142,7 @@ class AsyncClassifyResource(AsyncAPIResource):
         document_metadata: Optional[str] | Omit = omit,
         force_url_result: bool | Omit = omit,
         page_range: Optional[classify_run_params.PageRange] | Omit = omit,
+        priority: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -166,6 +173,10 @@ class AsyncClassifyResource(AsyncAPIResource):
               At most 10 pages can be selected. Only applies to PDFs; ignored for other
               document types.
 
+          priority: Workers poll the priority queue ahead of the standard queue, so priority jobs
+              start sooner when there is queued work; sync jobs are prioritized above async
+              jobs by default.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -183,6 +194,7 @@ class AsyncClassifyResource(AsyncAPIResource):
                     "document_metadata": document_metadata,
                     "force_url_result": force_url_result,
                     "page_range": page_range,
+                    "priority": priority,
                 },
                 classify_run_params.ClassifyRunParams,
             ),

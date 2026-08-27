@@ -39,6 +39,7 @@ class TestExtract:
             },
             parsing={
                 "enhance": {
+                    "advanced_chart_agent": True,
                     "agentic": [
                         {
                             "scope": "table",
@@ -170,6 +171,7 @@ class TestExtract:
             },
             parsing={
                 "enhance": {
+                    "advanced_chart_agent": True,
                     "agentic": [
                         {
                             "scope": "table",
@@ -301,6 +303,7 @@ class TestExtract:
             },
             parsing={
                 "enhance": {
+                    "advanced_chart_agent": True,
                     "agentic": [
                         {
                             "scope": "table",
@@ -430,6 +433,7 @@ class TestAsyncExtract:
             },
             parsing={
                 "enhance": {
+                    "advanced_chart_agent": True,
                     "agentic": [
                         {
                             "scope": "table",
@@ -561,6 +565,7 @@ class TestAsyncExtract:
             },
             parsing={
                 "enhance": {
+                    "advanced_chart_agent": True,
                     "agentic": [
                         {
                             "scope": "table",
@@ -692,6 +697,7 @@ class TestAsyncExtract:
             },
             parsing={
                 "enhance": {
+                    "advanced_chart_agent": True,
                     "agentic": [
                         {
                             "scope": "table",

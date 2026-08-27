@@ -38,6 +38,13 @@ class ClassifyRunParams(TypedDict, total=False):
     applies to PDFs; ignored for other document types.
     """
 
+    priority: bool
+    """
+    Workers poll the priority queue ahead of the standard queue, so priority jobs
+    start sooner when there is queued work; sync jobs are prioritized above async
+    jobs by default.
+    """
+
 
 Input: TypeAlias = Union[str, SequenceNotStr[str], Upload]
 

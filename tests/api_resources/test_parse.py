@@ -34,6 +34,7 @@ class TestParse:
         parse = client.parse.run(
             input="string",
             enhance={
+                "advanced_chart_agent": True,
                 "agentic": [
                     {
                         "scope": "table",
@@ -143,6 +144,7 @@ class TestParse:
                 },
             },
             enhance={
+                "advanced_chart_agent": True,
                 "agentic": [
                     {
                         "scope": "table",
@@ -253,6 +255,7 @@ class TestParse:
                 },
             },
             enhance={
+                "advanced_chart_agent": True,
                 "agentic": [
                     {
                         "scope": "table",
@@ -361,6 +364,7 @@ class TestAsyncParse:
         parse = await async_client.parse.run(
             input="string",
             enhance={
+                "advanced_chart_agent": True,
                 "agentic": [
                     {
                         "scope": "table",
@@ -470,6 +474,7 @@ class TestAsyncParse:
                 },
             },
             enhance={
+                "advanced_chart_agent": True,
                 "agentic": [
                     {
                         "scope": "table",
@@ -580,6 +585,7 @@ class TestAsyncParse:
                 },
             },
             enhance={
+                "advanced_chart_agent": True,
                 "agentic": [
                     {
                         "scope": "table",

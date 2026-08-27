@@ -45,6 +45,7 @@ class TestSplit:
             ],
             parsing={
                 "enhance": {
+                    "advanced_chart_agent": True,
                     "agentic": [
                         {
                             "scope": "table",
@@ -189,6 +190,7 @@ class TestSplit:
             },
             parsing={
                 "enhance": {
+                    "advanced_chart_agent": True,
                     "agentic": [
                         {
                             "scope": "table",
@@ -331,6 +333,7 @@ class TestAsyncSplit:
             ],
             parsing={
                 "enhance": {
+                    "advanced_chart_agent": True,
                     "agentic": [
                         {
                             "scope": "table",
@@ -475,6 +478,7 @@ class TestAsyncSplit:
             },
             parsing={
                 "enhance": {
+                    "advanced_chart_agent": True,
                     "agentic": [
                         {
                             "scope": "table",
