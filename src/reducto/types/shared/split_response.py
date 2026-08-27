@@ -83,4 +83,7 @@ class SplitResponse(BaseModel):
 
     usage: ParseUsage
 
+    job_id: Optional[str] = None
+    """The unique identifier for the split job."""
+
     response_type: Optional[Literal["split"]] = None

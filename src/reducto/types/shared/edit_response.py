@@ -20,6 +20,9 @@ class EditResponse(BaseModel):
     List of widgets with their types, descriptions, and bounding boxes.
     """
 
+    job_id: Optional[str] = None
+    """The unique identifier for the edit job."""
+
     response_type: Optional[Literal["edit"]] = None
 
     usage: Optional[ParseUsage] = None
