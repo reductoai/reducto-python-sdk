@@ -14,6 +14,7 @@ __all__ = [
     "ResponseConfidenceCategory",
     "ResponseConfidenceCategoryCriteriaConfidence",
     "Usage",
+    "UsageUsageBreakdown",
 ]
 
 
@@ -57,12 +58,31 @@ class ResponseConfidence(BaseModel):
     categories: List[ResponseConfidenceCategory]
 
 
+class UsageUsageBreakdown(BaseModel):
+    """Raw classify quantities for accounts on the new pricing model.
+
+    ``classify_pages`` is capped at 5, the same cap that the classify
+    credit computation uses.
+    """
+
+    classify_model: Literal["Classify", "Deep Classify"]
+
+    classify_pages: Optional[int] = None
+
+
 class Usage(BaseModel):
     num_categories: int
 
     num_pages: int
 
     credits: Optional[float] = None
+
+    usage_breakdown: Optional[UsageUsageBreakdown] = None
+    """Raw classify quantities for accounts on the new pricing model.
+
+    `classify_pages` is capped at 5, the same cap that the classify credit
+    computation uses.
+    """
 
 
 class ClassifyResponse(BaseModel):

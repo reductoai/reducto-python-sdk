@@ -1,4 +1,4 @@
 configured_endpoints: 17
-openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/reducto/reductoai-4d4b0ad242634e8d425184eafa0600a8f1fcabb006460d6918f3821f6105c478.yml
-openapi_spec_hash: 200e778aa1cb4023705f00b621439da1
+openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/reducto/reductoai-5cbcf0460dec269b6c42d0c7caab1801e41023fbe8269d5203fa69230ad5a03d.yml
+openapi_spec_hash: aa5d965aed5ce44495f798307566147e
 config_hash: 9fa10baf03f994be027bf73b29ac8572
