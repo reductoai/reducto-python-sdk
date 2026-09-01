@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import typing_extensions
+
 import httpx
 
 from ..types import pipeline_run_params, pipeline_run_job_params
@@ -44,6 +46,7 @@ class PipelineResource(SyncAPIResource):
         """
         return PipelineResourceWithStreamingResponse(self)
 
+    @typing_extensions.deprecated("deprecated")
     def run(
         self,
         *,
@@ -98,6 +101,7 @@ class PipelineResource(SyncAPIResource):
             cast_to=PipelineResponse,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def run_job(
         self,
         *,
@@ -177,6 +181,7 @@ class AsyncPipelineResource(AsyncAPIResource):
         """
         return AsyncPipelineResourceWithStreamingResponse(self)
 
+    @typing_extensions.deprecated("deprecated")
     async def run(
         self,
         *,
@@ -231,6 +236,7 @@ class AsyncPipelineResource(AsyncAPIResource):
             cast_to=PipelineResponse,
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def run_job(
         self,
         *,
@@ -294,11 +300,15 @@ class PipelineResourceWithRawResponse:
     def __init__(self, pipeline: PipelineResource) -> None:
         self._pipeline = pipeline
 
-        self.run = to_raw_response_wrapper(
-            pipeline.run,
+        self.run = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                pipeline.run,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.run_job = to_raw_response_wrapper(
-            pipeline.run_job,
+        self.run_job = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                pipeline.run_job,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -306,11 +316,15 @@ class AsyncPipelineResourceWithRawResponse:
     def __init__(self, pipeline: AsyncPipelineResource) -> None:
         self._pipeline = pipeline
 
-        self.run = async_to_raw_response_wrapper(
-            pipeline.run,
+        self.run = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                pipeline.run,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.run_job = async_to_raw_response_wrapper(
-            pipeline.run_job,
+        self.run_job = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                pipeline.run_job,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -318,11 +332,15 @@ class PipelineResourceWithStreamingResponse:
     def __init__(self, pipeline: PipelineResource) -> None:
         self._pipeline = pipeline
 
-        self.run = to_streamed_response_wrapper(
-            pipeline.run,
+        self.run = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                pipeline.run,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.run_job = to_streamed_response_wrapper(
-            pipeline.run_job,
+        self.run_job = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                pipeline.run_job,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -330,9 +348,13 @@ class AsyncPipelineResourceWithStreamingResponse:
     def __init__(self, pipeline: AsyncPipelineResource) -> None:
         self._pipeline = pipeline
 
-        self.run = async_to_streamed_response_wrapper(
-            pipeline.run,
+        self.run = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                pipeline.run,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.run_job = async_to_streamed_response_wrapper(
-            pipeline.run_job,
+        self.run_job = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                pipeline.run_job,  # pyright: ignore[reportDeprecated],
+            )
         )
