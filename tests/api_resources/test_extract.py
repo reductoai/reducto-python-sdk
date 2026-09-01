@@ -74,6 +74,7 @@ class TestExtract:
                     "force_file_extension": "force_file_extension",
                     "force_url_result": True,
                     "hybrid_vpc": {"environment": "environment"},
+                    "model": "r-1",
                     "ocr_system": "standard",
                     "page_range": {
                         "end": 0,
@@ -206,6 +207,7 @@ class TestExtract:
                     "force_file_extension": "force_file_extension",
                     "force_url_result": True,
                     "hybrid_vpc": {"environment": "environment"},
+                    "model": "r-1",
                     "ocr_system": "standard",
                     "page_range": {
                         "end": 0,
@@ -338,6 +340,7 @@ class TestExtract:
                     "force_file_extension": "force_file_extension",
                     "force_url_result": True,
                     "hybrid_vpc": {"environment": "environment"},
+                    "model": "r-1",
                     "ocr_system": "standard",
                     "page_range": {
                         "end": 0,
@@ -468,6 +471,7 @@ class TestAsyncExtract:
                     "force_file_extension": "force_file_extension",
                     "force_url_result": True,
                     "hybrid_vpc": {"environment": "environment"},
+                    "model": "r-1",
                     "ocr_system": "standard",
                     "page_range": {
                         "end": 0,
@@ -600,6 +604,7 @@ class TestAsyncExtract:
                     "force_file_extension": "force_file_extension",
                     "force_url_result": True,
                     "hybrid_vpc": {"environment": "environment"},
+                    "model": "r-1",
                     "ocr_system": "standard",
                     "page_range": {
                         "end": 0,
@@ -732,6 +737,7 @@ class TestAsyncExtract:
                     "force_file_extension": "force_file_extension",
                     "force_url_result": True,
                     "hybrid_vpc": {"environment": "environment"},
+                    "model": "r-1",
                     "ocr_system": "standard",
                     "page_range": {
                         "end": 0,
