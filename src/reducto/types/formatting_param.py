@@ -16,7 +16,11 @@ class FormattingParam(TypedDict, total=False):
     """
 
     include: List[Literal["change_tracking", "highlight", "comments", "hyperlinks", "signatures", "ignore_watermarks"]]
-    """A list of formatting to include in the output."""
+    """For legacy Parse, the formatting details to include in the output.
+
+    r-1 handles highlights, signatures, and watermarks natively and ignores those
+    values. r-1 does not support hyperlinks.
+    """
 
     merge_tables: bool
     """
@@ -25,8 +29,8 @@ class FormattingParam(TypedDict, total=False):
     """
 
     table_output_format: Literal["html", "json", "md", "jsonbbox", "dynamic", "csv"]
-    """The mode to use for table output.
+    """The table output format.
 
     Defaults to dynamic, which returns md for simpler tables and html for more
-    complex tables.
+    complex tables. r-1 does not support jsonbbox.
     """

@@ -66,10 +66,11 @@ class SettingsParam(TypedDict, total=False):
     """
 
     extraction_mode: Literal["ocr", "hybrid"]
-    """The mode to use for text extraction from PDFs.
+    """The text extraction method for legacy Parse.
 
-    OCR mode uses optical character recognition only. Hybrid mode combines OCR with
-    embedded PDF text for best accuracy (default).
+    OCR uses optical character recognition only. Hybrid combines OCR with embedded
+    PDF text. r-1 uses native full-page processing and ignores this setting.
+    Defaults to hybrid.
     """
 
     force_file_extension: Optional[str]
@@ -89,10 +90,11 @@ class SettingsParam(TypedDict, total=False):
     """
 
     ocr_system: Literal["standard", "legacy"]
-    """Standard is our best multilingual OCR system.
+    """The OCR system for legacy Parse.
 
-    Legacy only supports germanic languages and is available for backwards
-    compatibility.
+    Standard is the best multilingual OCR system. Legacy supports Germanic languages
+    and remains available for backwards compatibility. r-1 uses native full-page
+    processing and ignores this setting. Defaults to standard.
     """
 
     page_range: Optional[PageRange]
