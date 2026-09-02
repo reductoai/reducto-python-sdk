@@ -83,6 +83,9 @@ class SplitResponse(BaseModel):
 
     usage: ParseUsage
 
+    duration: Optional[float] = None
+    """The duration of the split request in seconds."""
+
     job_id: Optional[str] = None
     """The unique identifier for the split job."""
 
