@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Union, Iterable, Optional
-from typing_extensions import Required, TypeAlias, TypedDict
+from typing import Dict, Union, Iterable, Optional
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
 from .shared_params import page_range
@@ -22,6 +22,14 @@ class ClassifyRunParams(TypedDict, total=False):
        uploading a document
     """
 
+    category_groups: Dict[str, SequenceNotStr[str]]
+    """
+    A mapping of higher-level classify groups to the category labels that belong to
+    each group. When provided, the response includes `extra_metadata.grouping` with
+    the matched group name, or `ungrouped` if the selected category is not in any
+    group.
+    """
+
     classification_schema: Iterable[ClassificationSchema]
     """A list of classification categories and their matching criteria."""
 
@@ -30,6 +38,13 @@ class ClassifyRunParams(TypedDict, total=False):
 
     force_url_result: bool
     """Force the endpoint result to be returned in URL form."""
+
+    model: Literal["default", "accurate"]
+    """The classification model to use.
+
+    Set to "accurate" to run Deep Classify for higher accuracy on hard documents.
+    Defaults to "default".
+    """
 
     page_range: Optional[PageRange]
     """The page range to process (1-indexed).
