@@ -33,6 +33,15 @@ class SettingsParam(TypedDict, total=False):
     force_url_result: bool
     """Force the result to be returned in URL form."""
 
+    model: Optional[Literal["r-1", "legacy"]]
+    """The parse model to use.
+
+    'r-1' is the R-1 full-page parse model, which parses each page in a single
+    generation. 'legacy' is the previous parsing pipeline. Defaults to 'legacy'
+    unless your organization was created on the r-1 plan, in which case it
+    defaults to 'r-1'.
+    """
+
     ocr_system: Literal["standard", "legacy"]
     """Standard is our best multilingual OCR system.
 
