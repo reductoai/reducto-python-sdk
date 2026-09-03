@@ -177,6 +177,15 @@ class ParseResponse(BaseModel):
 
     usage: ParseUsage
 
+    parse_mode: Optional[Literal["base", "lite"]] = None
+    """Which pipeline produced this response.
+
+    `lite` means Reducto Flash Lite served the request; `base` is the standard
+    pipeline. Optional / nullable for forward compatibility — older API instances or
+    persisted responses written before this field existed will leave it `None`;
+    treat `None` as `base`.
+    """
+
     pdf_url: Optional[str] = None
     """The storage URL of the converted PDF file."""
 
