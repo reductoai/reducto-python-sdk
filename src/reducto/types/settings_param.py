@@ -33,6 +33,13 @@ class SettingsParam(TypedDict, total=False):
     force_url_result: bool
     """Force the result to be returned in URL form."""
 
+    model: Optional[Literal["r-1", "legacy"]]
+    """The parse model used for the request.
+
+    Setting `r-1` will use Reducto's latest flagship Parse model. `legacy` pins the
+    previous parsing pipeline.
+    """
+
     ocr_system: Literal["standard", "legacy"]
     """Standard is our best multilingual OCR system.
 
