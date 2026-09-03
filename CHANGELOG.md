@@ -1,5 +1,39 @@
 # Changelog
 
+## 0.24.0 (2026-09-03)
+
+Full Changelog: [v0.23.0...v0.24.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.23.0...v0.24.0)
+
+### Features
+
+* **api:** api update ([e925376](https://github.com/reductoai/reducto-python-sdk/commit/e925376f7837a446d6cff22de2eceaa84af21016))
+* **api:** api update ([a05765e](https://github.com/reductoai/reducto-python-sdk/commit/a05765ecd043417402731c11808d5ed05cbff707))
+* **api:** api update ([da9e671](https://github.com/reductoai/reducto-python-sdk/commit/da9e6717b147f5d2de8f0042b279e8492e46ac3d))
+* **api:** api update ([b129bfc](https://github.com/reductoai/reducto-python-sdk/commit/b129bfceb67f93737b5f44b8843ad309d8ef2201))
+* **api:** api update ([4991d25](https://github.com/reductoai/reducto-python-sdk/commit/4991d25f9195512a23cd6ae5f70aadeb2310adf8))
+* **api:** api update ([9ee32cb](https://github.com/reductoai/reducto-python-sdk/commit/9ee32cb3975877cbe13e05a84487376ee3de75a7))
+* **api:** api update ([0ca46f3](https://github.com/reductoai/reducto-python-sdk/commit/0ca46f3b2c8d81da4bccd2a52d7355d69df1d7f5))
+* **api:** api update ([332b1b2](https://github.com/reductoai/reducto-python-sdk/commit/332b1b2df5e4bc7abe84a81b158ce2bb33f89d17))
+* support setting headers via env ([43f79ef](https://github.com/reductoai/reducto-python-sdk/commit/43f79ef2ff47ea691008b026a1b85a7b2d0b4173))
+
+
+### Bug Fixes
+
+* **client:** preserve hardcoded query params when merging with user params ([498b309](https://github.com/reductoai/reducto-python-sdk/commit/498b3098951b41507de4f8d3996ca1a35d3fab40))
+* ensure file data are only sent as 1 parameter ([d54ce09](https://github.com/reductoai/reducto-python-sdk/commit/d54ce093c1e6abd49ed6201d114eab220706511b))
+* use correct field name format for multipart file arrays ([1b7462e](https://github.com/reductoai/reducto-python-sdk/commit/1b7462ed3e5d5d4c561708dba39aed46724729d8))
+
+
+### Performance Improvements
+
+* **client:** optimize file structure copying in multipart requests ([b2072ed](https://github.com/reductoai/reducto-python-sdk/commit/b2072ed8a23de80cebe3c9174bd8f190cb7d375a))
+
+
+### Chores
+
+* configure new SDK language ([5400efa](https://github.com/reductoai/reducto-python-sdk/commit/5400efac8a4651ff61bbb3868b21982ac7e386f4))
+* **internal:** more robust bootstrap script ([bec834d](https://github.com/reductoai/reducto-python-sdk/commit/bec834ddfea2ba5ac38e278330a61bef3cd6f489))
+
 ## 0.23.0 (2026-09-03)
 
 Full Changelog: [v0.22.0...v0.23.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.22.0...v0.23.0)
