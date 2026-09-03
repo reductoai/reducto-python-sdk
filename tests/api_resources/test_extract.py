@@ -233,6 +233,7 @@ class TestExtract:
                     },
                 },
             },
+            queue_priority="auto",
             settings={
                 "array_extract": True,
                 "citations": {
@@ -366,6 +367,7 @@ class TestExtract:
                     },
                 },
             },
+            queue_priority="auto",
             settings={
                 "array_extract": True,
                 "citations": {
@@ -630,6 +632,7 @@ class TestAsyncExtract:
                     },
                 },
             },
+            queue_priority="auto",
             settings={
                 "array_extract": True,
                 "citations": {
@@ -763,6 +766,7 @@ class TestAsyncExtract:
                     },
                 },
             },
+            queue_priority="auto",
             settings={
                 "array_extract": True,
                 "citations": {

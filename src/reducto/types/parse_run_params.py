@@ -68,7 +68,7 @@ class AsyncParseConfig(TypedDict, total=False):
     queue_priority: Literal["auto", "standard", "batch"]
     """Queue priority.
 
-    'batch' for non-urgent work that processes when spare GPU capacity is available.
+    'batch' places the job in a lower-priority queue for non-urgent bulk work.
     'auto' (alias: 'standard') uses the default queue.
     """
 

@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Union
-from typing_extensions import Required, Annotated, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
 from .._utils import PropertyInfo
@@ -76,6 +76,13 @@ class AsyncExtractConfig(TypedDict, total=False):
 
     If you are passing in a jobid:// URL for the file, then this configuration will
     be ignored.
+    """
+
+    queue_priority: Literal["auto", "standard", "batch"]
+    """Queue priority.
+
+    'batch' places the job in a lower-priority queue for non-urgent bulk work.
+    'auto' (alias: 'standard') uses the default queue.
     """
 
     settings: ExtractSettingsParam

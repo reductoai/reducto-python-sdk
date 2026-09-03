@@ -128,8 +128,8 @@ class ParseResource(SyncAPIResource):
 
           async_: The configuration options for asynchronous processing (default synchronous).
 
-          queue_priority: Queue priority. 'batch' for non-urgent work that processes when spare GPU
-              capacity is available. 'auto' (alias: 'standard') uses the default queue.
+          queue_priority: Queue priority. 'batch' places the job in a lower-priority queue for non-urgent
+              bulk work. 'auto' (alias: 'standard') uses the default queue.
 
           extra_headers: Send extra headers
 
@@ -217,8 +217,8 @@ class ParseResource(SyncAPIResource):
 
           async_: The configuration options for asynchronous processing (default synchronous).
 
-          queue_priority: Queue priority. 'batch' for non-urgent work that processes when spare GPU
-              capacity is available. 'auto' (alias: 'standard') uses the default queue.
+          queue_priority: Queue priority. 'batch' places the job in a lower-priority queue for non-urgent
+              bulk work. 'auto' (alias: 'standard') uses the default queue.
 
           extra_headers: Send extra headers
 
@@ -344,8 +344,8 @@ class AsyncParseResource(AsyncAPIResource):
 
           async_: The configuration options for asynchronous processing (default synchronous).
 
-          queue_priority: Queue priority. 'batch' for non-urgent work that processes when spare GPU
-              capacity is available. 'auto' (alias: 'standard') uses the default queue.
+          queue_priority: Queue priority. 'batch' places the job in a lower-priority queue for non-urgent
+              bulk work. 'auto' (alias: 'standard') uses the default queue.
 
           extra_headers: Send extra headers
 
@@ -433,8 +433,8 @@ class AsyncParseResource(AsyncAPIResource):
 
           async_: The configuration options for asynchronous processing (default synchronous).
 
-          queue_priority: Queue priority. 'batch' for non-urgent work that processes when spare GPU
-              capacity is available. 'auto' (alias: 'standard') uses the default queue.
+          queue_priority: Queue priority. 'batch' places the job in a lower-priority queue for non-urgent
+              bulk work. 'auto' (alias: 'standard') uses the default queue.
 
           extra_headers: Send extra headers
 

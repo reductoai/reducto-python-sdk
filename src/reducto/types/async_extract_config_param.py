@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Union
-from typing_extensions import Required, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
 from .instructions_param import InstructionsParam
@@ -46,6 +46,13 @@ class AsyncExtractConfigParam(_AsyncExtractConfigParamReservedKeywords, total=Fa
 
     If you are passing in a jobid:// URL for the file, then this configuration will
     be ignored.
+    """
+
+    queue_priority: Literal["auto", "standard", "batch"]
+    """Queue priority.
+
+    'batch' places the job in a lower-priority queue for non-urgent bulk work.
+    'auto' (alias: 'standard') uses the default queue.
     """
 
     settings: ExtractSettingsParam
