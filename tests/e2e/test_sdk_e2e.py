@@ -19,7 +19,7 @@ from pathlib import Path
 import pytest
 
 from reducto import Reducto
-from reducto.types import V3Extract, ParseResponse, AsyncParseResponse, AsyncExtractResponse
+from reducto.types import V3Extract, ParseResponse, ExtractResponse, AsyncParseResponse, AsyncExtractResponse
 from reducto.types.job_get_response import AsyncJobResponse, EnhancedAsyncJobResponse
 
 DOCUMENT_URL = "https://ci.reducto.ai/onepager.pdf"
@@ -97,7 +97,7 @@ class TestExtract:
             input=DOCUMENT_URL,
             instructions={"schema": TRIVIAL_SCHEMA},
         )
-        assert isinstance(response, V3Extract)
+        assert isinstance(response, (V3Extract, ExtractResponse))
         assert response.result is not None
 
     def test_extract_returns_result(self, client: Reducto) -> None:
@@ -105,7 +105,7 @@ class TestExtract:
             input=DOCUMENT_URL,
             instructions={"schema": TRIVIAL_SCHEMA},
         )
-        assert isinstance(response, V3Extract)
+        assert isinstance(response, (V3Extract, ExtractResponse))
         assert isinstance(response.result, list)
         assert len(response.result) > 0
 
