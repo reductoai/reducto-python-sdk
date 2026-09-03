@@ -14,10 +14,12 @@ __all__ = [
     "ResultFullResultChunk",
     "ResultFullResultChunkBlock",
     "ResultFullResultChunkBlockGranularConfidence",
+    "ResultFullResultChunkBlockMergedTable",
     "ResultFullResultOcr",
     "ResultFullResultOcrLine",
     "ResultFullResultOcrWord",
     "ResultURLResult",
+    "DocumentProperties",
 ]
 
 
@@ -30,6 +32,20 @@ class ResultFullResultChunkBlockGranularConfidence(BaseModel):
     extract_confidence: Optional[float] = None
 
     parse_confidence: Optional[float] = None
+
+
+class ResultFullResultChunkBlockMergedTable(BaseModel):
+    bbox: BoundingBox
+    """The original bounding box of a table before merge_tables merged it."""
+
+    content: str
+    """The original content of a table before merge_tables merged it."""
+
+    image_url: Optional[str] = None
+    """(Experimental) The URL of the image for this original table fragment.
+
+    Only populated when settings.return_images includes 'table'.
+    """
 
 
 class ResultFullResultChunkBlock(BaseModel):
@@ -83,6 +99,9 @@ class ResultFullResultChunkBlock(BaseModel):
 
     image_url: Optional[str] = None
     """(Experimental) The URL of the image associated with the block."""
+
+    merged_tables: Optional[List[ResultFullResultChunkBlockMergedTable]] = None
+    """Original table fragments that were combined into this table by merge_tables."""
 
 
 class ResultFullResultChunk(BaseModel):
@@ -160,6 +179,43 @@ class ResultURLResult(BaseModel):
 Result: TypeAlias = Union[ResultFullResult, ResultURLResult]
 
 
+class DocumentProperties(BaseModel):
+    """Embedded properties read from the customer's original document."""
+
+    author: Optional[str] = None
+    """The document author."""
+
+    created_at: Optional[str] = None
+    """The document creation time as a timezone-aware datetime.
+
+    Dates without an offset are interpreted as UTC.
+    """
+
+    creator: Optional[str] = None
+    """The application or tool that authored the document."""
+
+    keywords: Optional[str] = None
+    """Keywords embedded in the document."""
+
+    last_modified_by: Optional[str] = None
+    """The user who last modified the document."""
+
+    modified_at: Optional[str] = None
+    """The document modification time as a timezone-aware datetime.
+
+    Dates without an offset are interpreted as UTC.
+    """
+
+    producer: Optional[str] = None
+    """The application or library that produced the document."""
+
+    subject: Optional[str] = None
+    """The document subject."""
+
+    title: Optional[str] = None
+    """The document title."""
+
+
 class ParseResponse(BaseModel):
     duration: float
     """The duration of the parse request in seconds."""
@@ -177,8 +233,13 @@ class ParseResponse(BaseModel):
 
     usage: ParseUsage
 
+    document_properties: Optional[DocumentProperties] = None
+    """Embedded properties read from the customer's original document."""
+
     pdf_url: Optional[str] = None
     """The storage URL of the converted PDF file."""
+
+    response_type: Optional[Literal["parse"]] = None
 
     studio_link: Optional[str] = None
     """The link to the studio pipeline for the document."""

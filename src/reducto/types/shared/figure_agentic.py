@@ -12,7 +12,12 @@ class FigureAgentic(BaseModel):
     scope: Literal["figure"]
 
     advanced_chart_agent: Optional[bool] = None
-    """If True, use the advanced chart agent. Defaults to False."""
+    """
+    If True, run advanced chart extraction on figures classified as charts: an
+    agentic extractor that returns full structured series data (chart_data) plus a
+    reconstruction image re-drawn from that data (extra.chart_reconstruction).
+    Higher latency. Defaults to False.
+    """
 
     prompt: Optional[str] = None
     """Custom prompt for figure agentic."""

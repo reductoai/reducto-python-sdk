@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Union, Optional
+from typing_extensions import Literal
 
 from .._models import BaseModel
 from .extract_usage import ExtractUsage
@@ -18,7 +19,15 @@ class V3Extract(BaseModel):
 
     usage: ExtractUsage
 
+    confidence: Optional[Literal["high", "low"]] = None
+    """Optional document-level deep extract confidence label."""
+
+    confidence_reason: Optional[str] = None
+    """Optional explanation for the document-level confidence label."""
+
     job_id: Optional[str] = None
+
+    response_type: Optional[Literal["v3_extract"]] = None
 
     studio_link: Optional[str] = None
     """The link to the studio pipeline for the document."""

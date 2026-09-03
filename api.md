@@ -2,26 +2,17 @@
 
 ```python
 from reducto.types import (
-    AdvancedCitationsConfig,
-    AdvancedProcessingOptions,
-    ArrayExtractConfig,
     AsyncEditResponse,
     AsyncExtractResponse,
     AsyncParseResponse,
     AsyncPipelineResponse,
     AsyncSplitResponse,
-    BaseProcessingOptions,
     Chunking,
-    ChunkingConfig,
     ClassifyResponse,
     DirectWebhookConfig,
     EditResponse,
-    EnrichConfig,
-    ExperimentalProcessingOptions,
     ExtractResponse,
     FigureAgentic,
-    FigureSummaryConfig,
-    LargeTableChunkingConfig,
     PageRange,
     ParseResponse,
     PipelineResponse,
@@ -29,7 +20,6 @@ from reducto.types import (
     SplitResponse,
     SvixWebhookConfig,
     TableAgentic,
-    TableSummaryConfig,
     TextAgentic,
     Upload,
     WebhookConfigNew,
@@ -97,7 +87,7 @@ Methods:
 Types:
 
 ```python
-from reducto.types import DeepSplitPageEvidence, ParseUsage, SplitCategory, SplitTableOptions
+from reducto.types import DeepSplitPageEvidence, ParseUsage, SplitCategory
 ```
 
 Methods:

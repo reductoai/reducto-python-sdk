@@ -22,7 +22,6 @@ from ..types.parse_options_param import ParseOptionsParam
 from ..types.split_category_param import SplitCategoryParam
 from ..types.async_config_v3_param import AsyncConfigV3Param
 from ..types.shared.split_response import SplitResponse
-from ..types.split_table_options_param import SplitTableOptionsParam
 from ..types.shared.async_split_response import AsyncSplitResponse
 
 __all__ = ["SplitResource", "AsyncSplitResource"]
@@ -54,7 +53,7 @@ class SplitResource(SyncAPIResource):
         input: split_run_params.Input,
         split_description: Iterable[SplitCategoryParam],
         parsing: ParseOptionsParam | Omit = omit,
-        settings: SplitTableOptionsParam | Omit = omit,
+        settings: split_run_params.Settings | Omit = omit,
         split_rules: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -118,7 +117,7 @@ class SplitResource(SyncAPIResource):
         split_description: Iterable[SplitCategoryParam],
         async_: AsyncConfigV3Param | Omit = omit,
         parsing: ParseOptionsParam | Omit = omit,
-        settings: SplitTableOptionsParam | Omit = omit,
+        settings: split_run_job_params.Settings | Omit = omit,
         split_rules: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -205,7 +204,7 @@ class AsyncSplitResource(AsyncAPIResource):
         input: split_run_params.Input,
         split_description: Iterable[SplitCategoryParam],
         parsing: ParseOptionsParam | Omit = omit,
-        settings: SplitTableOptionsParam | Omit = omit,
+        settings: split_run_params.Settings | Omit = omit,
         split_rules: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -269,7 +268,7 @@ class AsyncSplitResource(AsyncAPIResource):
         split_description: Iterable[SplitCategoryParam],
         async_: AsyncConfigV3Param | Omit = omit,
         parsing: ParseOptionsParam | Omit = omit,
-        settings: SplitTableOptionsParam | Omit = omit,
+        settings: split_run_job_params.Settings | Omit = omit,
         split_rules: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.

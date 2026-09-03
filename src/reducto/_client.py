@@ -11,6 +11,7 @@ import httpx
 from . import _exceptions
 from ._qs import Querystring
 from .types import client_upload_params
+from ._files import deepcopy_with_paths
 from ._types import (
     Body,
     Omit,
@@ -27,9 +28,9 @@ from ._types import (
 )
 from ._utils import (
     is_given,
+    is_mapping_t,
     extract_files,
     maybe_transform,
-    deepcopy_minimal,
     get_async_library,
     async_maybe_transform,
 )
@@ -150,6 +151,15 @@ class Reducto(SyncAPIClient):
             except KeyError as exc:
                 raise ValueError(f"Unknown environment: {environment}") from exc
 
+        custom_headers_env = os.environ.get("REDUCTO_CUSTOM_HEADERS")
+        if custom_headers_env is not None:
+            parsed: dict[str, str] = {}
+            for line in custom_headers_env.split("\n"):
+                colon = line.find(":")
+                if colon >= 0:
+                    parsed[line[:colon].strip()] = line[colon + 1 :].strip()
+            default_headers = {**parsed, **(default_headers if is_mapping_t(default_headers) else {})}
+
         super().__init__(
             version=__version__,
             base_url=base_url,
@@ -224,9 +234,11 @@ class Reducto(SyncAPIClient):
 
     @override
     def _auth_headers(self, security: SecurityOptions) -> dict[str, str]:
-        return {
-            **(self._skippable_http_bearer if security.get("skippable_http_bearer", False) else {}),
-        }
+        headers: dict[str, str] = {}
+        if security.get("skippable_http_bearer", False):
+            for key, value in self._skippable_http_bearer.items():
+                headers.setdefault(key, value)
+        return headers
 
     @property
     def _skippable_http_bearer(self) -> dict[str, str]:
@@ -338,7 +350,7 @@ class Reducto(SyncAPIClient):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        body = deepcopy_minimal({"file": file})
+        body = deepcopy_with_paths({"file": file}, [["file"]])
         files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
         if files:
             # It should be noted that the actual Content-Type header that will be
@@ -461,6 +473,15 @@ class AsyncReducto(AsyncAPIClient):
             except KeyError as exc:
                 raise ValueError(f"Unknown environment: {environment}") from exc
 
+        custom_headers_env = os.environ.get("REDUCTO_CUSTOM_HEADERS")
+        if custom_headers_env is not None:
+            parsed: dict[str, str] = {}
+            for line in custom_headers_env.split("\n"):
+                colon = line.find(":")
+                if colon >= 0:
+                    parsed[line[:colon].strip()] = line[colon + 1 :].strip()
+            default_headers = {**parsed, **(default_headers if is_mapping_t(default_headers) else {})}
+
         super().__init__(
             version=__version__,
             base_url=base_url,
@@ -535,9 +556,11 @@ class AsyncReducto(AsyncAPIClient):
 
     @override
     def _auth_headers(self, security: SecurityOptions) -> dict[str, str]:
-        return {
-            **(self._skippable_http_bearer if security.get("skippable_http_bearer", False) else {}),
-        }
+        headers: dict[str, str] = {}
+        if security.get("skippable_http_bearer", False):
+            for key, value in self._skippable_http_bearer.items():
+                headers.setdefault(key, value)
+        return headers
 
     @property
     def _skippable_http_bearer(self) -> dict[str, str]:
@@ -649,7 +672,7 @@ class AsyncReducto(AsyncAPIClient):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        body = deepcopy_minimal({"file": file})
+        body = deepcopy_with_paths({"file": file}, [["file"]])
         files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
         if files:
             # It should be noted that the actual Content-Type header that will be

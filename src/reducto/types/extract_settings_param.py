@@ -2,9 +2,13 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict
+from typing import Union, Iterable, Optional
+from typing_extensions import Literal, TypeAlias, TypedDict
 
-__all__ = ["ExtractSettingsParam", "Citations"]
+from .._types import SequenceNotStr
+from .shared_params import page_range
+
+__all__ = ["ExtractSettingsParam", "Citations", "PageRange"]
 
 
 class Citations(TypedDict, total=False):
@@ -16,10 +20,27 @@ class Citations(TypedDict, total=False):
     numerical_confidence: bool
     """If True, enable numeric citation confidence scores. Defaults to True."""
 
+    parent_block: Literal["full", "bbox_only"]
+    """How much of the source parse block to embed on each citation's parentBlock.
+
+    'full' (default) embeds the verbatim source-block HTML in parentBlock.content.
+    'bbox_only' suppresses parentBlock.content (returned as an empty string) while
+    keeping parentBlock.bbox and all citation-level fields — this can drastically
+    shrink responses on table-heavy schemas where the same source block is cited
+    many times.
+    """
+
+
+PageRange: TypeAlias = Union[page_range.PageRange, Iterable[page_range.PageRange], Iterable[int], SequenceNotStr[str]]
+
 
 class ExtractSettingsParam(TypedDict, total=False):
     array_extract: bool
-    """If True, use array extraction."""
+    """
+    Deprecated: prefer deep_extract, which supersedes array extraction for complex
+    and long (array-heavy) extractions via an agentic loop (at higher cost and
+    latency). If True, use array extraction.
+    """
 
     citations: Citations
     """The citations to use for the extraction."""
@@ -31,6 +52,9 @@ class ExtractSettingsParam(TypedDict, total=False):
     accuracy is critical.
     """
 
+    force_url_result: bool
+    """Force the endpoint result to be returned in URL form."""
+
     include_images: bool
     """If True, include images in the extraction."""
 
@@ -38,4 +62,11 @@ class ExtractSettingsParam(TypedDict, total=False):
     """
     If True, jobs will be processed with a higher throughput and priority at a
     higher cost. Defaults to False.
+    """
+
+    page_range: Optional[PageRange]
+    """The page range to extract from (1-indexed).
+
+    By default, the entire document is used. For spreadsheets, you can also provide
+    a list of sheet names.
     """

@@ -24,7 +24,7 @@ class Job(BaseModel):
 
     total_pages: Optional[int] = None
 
-    type: Literal["Parse", "Extract", "Split", "Edit", "Pipeline", "Classify"]
+    type: Literal["Parse", "Extract", "Split", "Edit", "Pipeline", "Classify", "Chart"]
 
     bucket: Optional[object] = None
 

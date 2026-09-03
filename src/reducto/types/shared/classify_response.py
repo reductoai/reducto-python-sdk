@@ -1,21 +1,37 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
-from typing_extensions import Literal
+from typing import Dict, List, Union, Optional
+from typing_extensions import Literal, TypeAlias
 
 from ..._models import BaseModel
 
 __all__ = [
     "ClassifyResponse",
     "Result",
+    "ResultClassifyResponseCategory",
+    "ResultURLResult",
     "ResponseConfidence",
     "ResponseConfidenceCategory",
     "ResponseConfidenceCategoryCriteriaConfidence",
+    "Usage",
+    "UsageUsageBreakdown",
 ]
 
 
-class Result(BaseModel):
+class ResultClassifyResponseCategory(BaseModel):
     category: str
+
+
+class ResultURLResult(BaseModel):
+    result_id: str
+
+    type: Literal["url"]
+    """type = 'url'"""
+
+    url: str
+
+
+Result: TypeAlias = Union[ResultClassifyResponseCategory, ResultURLResult]
 
 
 class ResponseConfidenceCategoryCriteriaConfidence(BaseModel):
@@ -42,6 +58,33 @@ class ResponseConfidence(BaseModel):
     categories: List[ResponseConfidenceCategory]
 
 
+class UsageUsageBreakdown(BaseModel):
+    """Raw classify quantities for accounts on the new pricing model.
+
+    ``classify_pages`` is capped at 5, the same cap that the classify
+    credit computation uses.
+    """
+
+    classify_model: Literal["Classify", "Deep Classify"]
+
+    classify_pages: Optional[int] = None
+
+
+class Usage(BaseModel):
+    num_categories: int
+
+    num_pages: int
+
+    credits: Optional[float] = None
+
+    usage_breakdown: Optional[UsageUsageBreakdown] = None
+    """Raw classify quantities for accounts on the new pricing model.
+
+    `classify_pages` is capped at 5, the same cap that the classify credit
+    computation uses.
+    """
+
+
 class ClassifyResponse(BaseModel):
     """Response from classify job - returned when polling /job/{job_id}"""
 
@@ -52,5 +95,15 @@ class ClassifyResponse(BaseModel):
     duration: Optional[float] = None
     """The duration of the classify request in seconds."""
 
+    extra_metadata: Optional[Dict[str, str]] = None
+    """Additional metadata for the classify response.
+
+    Contains `grouping` when the request set `category_groups`. Omitted when empty.
+    """
+
     response_confidence: Optional[ResponseConfidence] = None
     """Overall confidence breakdown for classification response."""
+
+    response_type: Optional[Literal["classify"]] = None
+
+    usage: Optional[Usage] = None

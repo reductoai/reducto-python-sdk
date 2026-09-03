@@ -15,20 +15,31 @@ Agentic: TypeAlias = Union[TableAgentic, FigureAgentic, TextAgentic]
 
 
 class EnhanceParam(TypedDict, total=False):
+    advanced_chart_agent: bool
+    """
+    If True, run advanced chart extraction on figures classified as charts, without
+    requiring a figure-scoped agentic entry. Returns full structured series data
+    (chart_data) plus a reconstruction image re-drawn from that data. Higher
+    latency. Defaults to False.
+    """
+
     agentic: Iterable[Agentic]
     """
-    Agentic uses vision language models to enhance the accuracy of the output of
-    different types of extraction. This will incur a cost and latency increase.
+    For legacy Parse, agentic processing uses vision language models to improve
+    text, table, or figure extraction. With r-1, use agentic processing for custom
+    prompts or advanced chart extraction. Agentic processing adds latency.
     """
 
     intelligent_ordering: bool
     """
-    If True, use an advanced vision language model to improve reading order
-    accuracy, with a small increase in latency. Defaults to False.
+    For legacy Parse, if True, use an advanced vision language model to improve
+    reading order accuracy, with a small increase in latency. r-1 handles reading
+    order natively and ignores this setting. Defaults to False.
     """
 
     summarize_figures: bool
-    """If True, summarize figures using a small vision language model.
-
+    """
+    For legacy Parse, if True, summarize figures using a separate vision language
+    model. r-1 generates figure descriptions natively and ignores this setting.
     Defaults to True.
     """

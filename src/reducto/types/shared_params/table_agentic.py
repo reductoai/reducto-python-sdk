@@ -11,5 +11,11 @@ __all__ = ["TableAgentic"]
 class TableAgentic(TypedDict, total=False):
     scope: Required[Literal["table"]]
 
+    mode: Literal["default", "auto", "max"]
+    """
+    Mode for table agentic: 'default' selectively applies enrichment only to tables
+    likely to benefit, and 'max' runs enrichment on all tables.
+    """
+
     prompt: Optional[str]
     """Custom prompt for table agentic."""

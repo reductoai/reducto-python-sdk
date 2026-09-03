@@ -2,12 +2,13 @@
 
 from __future__ import annotations
 
-from typing import Iterable, Optional
+from typing import Dict, Iterable, Optional
+from typing_extensions import Literal
 
 import httpx
 
 from ..types import classify_run_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -47,10 +48,13 @@ class ClassifyResource(SyncAPIResource):
         self,
         *,
         input: classify_run_params.Input,
+        category_groups: Dict[str, SequenceNotStr[str]] | Omit = omit,
         classification_schema: Iterable[classify_run_params.ClassificationSchema] | Omit = omit,
         document_metadata: Optional[str] | Omit = omit,
+        force_url_result: bool | Omit = omit,
+        model: Literal["default", "accurate"] | Omit = omit,
         page_range: Optional[classify_run_params.PageRange] | Omit = omit,
-        persist_results: bool | Omit = omit,
+        priority: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -58,28 +62,40 @@ class ClassifyResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ClassifyResponse:
-        """
-        Classify
+        """Classify
 
         Args:
-          input: For parse/split/extract pipelines, the URL of the document to be processed. You
-              can provide one of the following: 1. A publicly available URL 2. A presigned S3
-              URL 3. A reducto:// prefixed URL obtained from the /upload endpoint after
-              directly uploading a document 4. A jobid:// prefixed URL obtained from a
-              previous /parse invocation 5. A list of URLs (for multi-document pipelines, V3
-              API only)
+          input:
+              The URL of the document to be classified.
 
-                          For edit pipelines, this should be a string containing the edit instructions
+        You can provide one of the following:
+
+              1. A publicly available URL
+              2. A presigned S3 URL
+              3. A reducto:// prefixed URL obtained from the /upload endpoint after directly
+                 uploading a document
+
+          category_groups: A mapping of higher-level classify groups to the category labels that belong to
+              each group. When provided, the response includes `extra_metadata.grouping` with
+              the matched group name, or `ungrouped` if the selected category is not in any
+              group.
 
           classification_schema: A list of classification categories and their matching criteria.
 
           document_metadata: Optional document-level metadata to include in classification prompts.
 
-          page_range: The page range to process (1-indexed). By default, the first 5 pages are used.
-              If more than 25 pages are selected, only the first 25 (after sorting) are used.
-              Only applies to PDFs; ignored for other document types.
+          force_url_result: Force the endpoint result to be returned in URL form.
 
-          persist_results: If True, persist the results indefinitely. Defaults to False.
+          model: The classification model to use. Set to "accurate" to run Deep Classify for
+              higher accuracy on hard documents. Defaults to "default".
+
+          page_range: The page range to process (1-indexed). By default, the first 5 pages are used.
+              At most 10 pages can be selected. Only applies to PDFs; ignored for other
+              document types.
+
+          priority: Workers poll the priority queue ahead of the standard queue, so priority jobs
+              start sooner when there is queued work; sync jobs are prioritized above async
+              jobs by default.
 
           extra_headers: Send extra headers
 
@@ -94,10 +110,13 @@ class ClassifyResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "input": input,
+                    "category_groups": category_groups,
                     "classification_schema": classification_schema,
                     "document_metadata": document_metadata,
+                    "force_url_result": force_url_result,
+                    "model": model,
                     "page_range": page_range,
-                    "persist_results": persist_results,
+                    "priority": priority,
                 },
                 classify_run_params.ClassifyRunParams,
             ),
@@ -132,10 +151,13 @@ class AsyncClassifyResource(AsyncAPIResource):
         self,
         *,
         input: classify_run_params.Input,
+        category_groups: Dict[str, SequenceNotStr[str]] | Omit = omit,
         classification_schema: Iterable[classify_run_params.ClassificationSchema] | Omit = omit,
         document_metadata: Optional[str] | Omit = omit,
+        force_url_result: bool | Omit = omit,
+        model: Literal["default", "accurate"] | Omit = omit,
         page_range: Optional[classify_run_params.PageRange] | Omit = omit,
-        persist_results: bool | Omit = omit,
+        priority: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -143,28 +165,40 @@ class AsyncClassifyResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ClassifyResponse:
-        """
-        Classify
+        """Classify
 
         Args:
-          input: For parse/split/extract pipelines, the URL of the document to be processed. You
-              can provide one of the following: 1. A publicly available URL 2. A presigned S3
-              URL 3. A reducto:// prefixed URL obtained from the /upload endpoint after
-              directly uploading a document 4. A jobid:// prefixed URL obtained from a
-              previous /parse invocation 5. A list of URLs (for multi-document pipelines, V3
-              API only)
+          input:
+              The URL of the document to be classified.
 
-                          For edit pipelines, this should be a string containing the edit instructions
+        You can provide one of the following:
+
+              1. A publicly available URL
+              2. A presigned S3 URL
+              3. A reducto:// prefixed URL obtained from the /upload endpoint after directly
+                 uploading a document
+
+          category_groups: A mapping of higher-level classify groups to the category labels that belong to
+              each group. When provided, the response includes `extra_metadata.grouping` with
+              the matched group name, or `ungrouped` if the selected category is not in any
+              group.
 
           classification_schema: A list of classification categories and their matching criteria.
 
           document_metadata: Optional document-level metadata to include in classification prompts.
 
-          page_range: The page range to process (1-indexed). By default, the first 5 pages are used.
-              If more than 25 pages are selected, only the first 25 (after sorting) are used.
-              Only applies to PDFs; ignored for other document types.
+          force_url_result: Force the endpoint result to be returned in URL form.
 
-          persist_results: If True, persist the results indefinitely. Defaults to False.
+          model: The classification model to use. Set to "accurate" to run Deep Classify for
+              higher accuracy on hard documents. Defaults to "default".
+
+          page_range: The page range to process (1-indexed). By default, the first 5 pages are used.
+              At most 10 pages can be selected. Only applies to PDFs; ignored for other
+              document types.
+
+          priority: Workers poll the priority queue ahead of the standard queue, so priority jobs
+              start sooner when there is queued work; sync jobs are prioritized above async
+              jobs by default.
 
           extra_headers: Send extra headers
 
@@ -179,10 +213,13 @@ class AsyncClassifyResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "input": input,
+                    "category_groups": category_groups,
                     "classification_schema": classification_schema,
                     "document_metadata": document_metadata,
+                    "force_url_result": force_url_result,
+                    "model": model,
                     "page_range": page_range,
-                    "persist_results": persist_results,
+                    "priority": priority,
                 },
                 classify_run_params.ClassifyRunParams,
             ),

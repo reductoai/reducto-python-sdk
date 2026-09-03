@@ -45,9 +45,11 @@ class TestSplit:
             ],
             parsing={
                 "enhance": {
+                    "advanced_chart_agent": True,
                     "agentic": [
                         {
                             "scope": "table",
+                            "mode": "default",
                             "prompt": "prompt",
                         }
                     ],
@@ -72,9 +74,13 @@ class TestSplit:
                 "settings": {
                     "document_password": "document_password",
                     "embed_pdf_metadata": True,
+                    "embed_pdf_metadata_dpi": 50,
+                    "extract_document_properties": True,
                     "extraction_mode": "ocr",
                     "force_file_extension": "force_file_extension",
                     "force_url_result": True,
+                    "hybrid_vpc": {"environment": "environment"},
+                    "model": "r-1",
                     "ocr_system": "standard",
                     "page_range": {
                         "end": 0,
@@ -83,19 +89,30 @@ class TestSplit:
                     "persist_results": True,
                     "return_images": ["figure"],
                     "return_ocr_data": True,
+                    "tenant_throttling": {
+                        "tenant_id": "x",
+                        "max_share": 1,
+                    },
                     "timeout": 0,
                 },
                 "spreadsheet": {
                     "clustering": "accurate",
                     "exclude": ["hidden_sheets"],
                     "include": ["cell_colors"],
+                    "max_cell_count": 1,
                     "split_large_tables": {
                         "enabled": True,
                         "size": 0,
                     },
                 },
             },
-            settings={"table_cutoff": "truncate"},
+            settings={
+                "allow_page_overlap": True,
+                "auto_partition": True,
+                "deep_split": True,
+                "force_url_result": True,
+                "table_cutoff": "truncate",
+            },
             split_rules="split_rules",
         )
         assert_matches_type(SplitResponse, split, path=["response"])
@@ -174,9 +191,11 @@ class TestSplit:
             },
             parsing={
                 "enhance": {
+                    "advanced_chart_agent": True,
                     "agentic": [
                         {
                             "scope": "table",
+                            "mode": "default",
                             "prompt": "prompt",
                         }
                     ],
@@ -201,9 +220,13 @@ class TestSplit:
                 "settings": {
                     "document_password": "document_password",
                     "embed_pdf_metadata": True,
+                    "embed_pdf_metadata_dpi": 50,
+                    "extract_document_properties": True,
                     "extraction_mode": "ocr",
                     "force_file_extension": "force_file_extension",
                     "force_url_result": True,
+                    "hybrid_vpc": {"environment": "environment"},
+                    "model": "r-1",
                     "ocr_system": "standard",
                     "page_range": {
                         "end": 0,
@@ -212,19 +235,30 @@ class TestSplit:
                     "persist_results": True,
                     "return_images": ["figure"],
                     "return_ocr_data": True,
+                    "tenant_throttling": {
+                        "tenant_id": "x",
+                        "max_share": 1,
+                    },
                     "timeout": 0,
                 },
                 "spreadsheet": {
                     "clustering": "accurate",
                     "exclude": ["hidden_sheets"],
                     "include": ["cell_colors"],
+                    "max_cell_count": 1,
                     "split_large_tables": {
                         "enabled": True,
                         "size": 0,
                     },
                 },
             },
-            settings={"table_cutoff": "truncate"},
+            settings={
+                "allow_page_overlap": True,
+                "auto_partition": True,
+                "deep_split": True,
+                "force_url_result": True,
+                "table_cutoff": "truncate",
+            },
             split_rules="split_rules",
         )
         assert_matches_type(AsyncSplitResponse, split, path=["response"])
@@ -301,9 +335,11 @@ class TestAsyncSplit:
             ],
             parsing={
                 "enhance": {
+                    "advanced_chart_agent": True,
                     "agentic": [
                         {
                             "scope": "table",
+                            "mode": "default",
                             "prompt": "prompt",
                         }
                     ],
@@ -328,9 +364,13 @@ class TestAsyncSplit:
                 "settings": {
                     "document_password": "document_password",
                     "embed_pdf_metadata": True,
+                    "embed_pdf_metadata_dpi": 50,
+                    "extract_document_properties": True,
                     "extraction_mode": "ocr",
                     "force_file_extension": "force_file_extension",
                     "force_url_result": True,
+                    "hybrid_vpc": {"environment": "environment"},
+                    "model": "r-1",
                     "ocr_system": "standard",
                     "page_range": {
                         "end": 0,
@@ -339,19 +379,30 @@ class TestAsyncSplit:
                     "persist_results": True,
                     "return_images": ["figure"],
                     "return_ocr_data": True,
+                    "tenant_throttling": {
+                        "tenant_id": "x",
+                        "max_share": 1,
+                    },
                     "timeout": 0,
                 },
                 "spreadsheet": {
                     "clustering": "accurate",
                     "exclude": ["hidden_sheets"],
                     "include": ["cell_colors"],
+                    "max_cell_count": 1,
                     "split_large_tables": {
                         "enabled": True,
                         "size": 0,
                     },
                 },
             },
-            settings={"table_cutoff": "truncate"},
+            settings={
+                "allow_page_overlap": True,
+                "auto_partition": True,
+                "deep_split": True,
+                "force_url_result": True,
+                "table_cutoff": "truncate",
+            },
             split_rules="split_rules",
         )
         assert_matches_type(SplitResponse, split, path=["response"])
@@ -430,9 +481,11 @@ class TestAsyncSplit:
             },
             parsing={
                 "enhance": {
+                    "advanced_chart_agent": True,
                     "agentic": [
                         {
                             "scope": "table",
+                            "mode": "default",
                             "prompt": "prompt",
                         }
                     ],
@@ -457,9 +510,13 @@ class TestAsyncSplit:
                 "settings": {
                     "document_password": "document_password",
                     "embed_pdf_metadata": True,
+                    "embed_pdf_metadata_dpi": 50,
+                    "extract_document_properties": True,
                     "extraction_mode": "ocr",
                     "force_file_extension": "force_file_extension",
                     "force_url_result": True,
+                    "hybrid_vpc": {"environment": "environment"},
+                    "model": "r-1",
                     "ocr_system": "standard",
                     "page_range": {
                         "end": 0,
@@ -468,19 +525,30 @@ class TestAsyncSplit:
                     "persist_results": True,
                     "return_images": ["figure"],
                     "return_ocr_data": True,
+                    "tenant_throttling": {
+                        "tenant_id": "x",
+                        "max_share": 1,
+                    },
                     "timeout": 0,
                 },
                 "spreadsheet": {
                     "clustering": "accurate",
                     "exclude": ["hidden_sheets"],
                     "include": ["cell_colors"],
+                    "max_cell_count": 1,
                     "split_large_tables": {
                         "enabled": True,
                         "size": 0,
                     },
                 },
             },
-            settings={"table_cutoff": "truncate"},
+            settings={
+                "allow_page_overlap": True,
+                "auto_partition": True,
+                "deep_split": True,
+                "force_url_result": True,
+                "table_cutoff": "truncate",
+            },
             split_rules="split_rules",
         )
         assert_matches_type(AsyncSplitResponse, split, path=["response"])

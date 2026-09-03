@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Union, Iterable, Optional
-from typing_extensions import Required, TypeAlias, TypedDict
+from typing import Dict, Union, Iterable, Optional
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
 from .shared_params import page_range
@@ -14,15 +14,20 @@ __all__ = ["ClassifyRunParams", "Input", "ClassificationSchema", "PageRange"]
 
 class ClassifyRunParams(TypedDict, total=False):
     input: Required[Input]
-    """For parse/split/extract pipelines, the URL of the document to be processed.
+    """The URL of the document to be classified. You can provide one of the following:
 
-    You can provide one of the following: 1. A publicly available URL 2. A presigned
-    S3 URL 3. A reducto:// prefixed URL obtained from the /upload endpoint after
-    directly uploading a document 4. A jobid:// prefixed URL obtained from a
-    previous /parse invocation 5. A list of URLs (for multi-document pipelines, V3
-    API only)
+    1. A publicly available URL
+    2. A presigned S3 URL
+    3. A reducto:// prefixed URL obtained from the /upload endpoint after directly
+       uploading a document
+    """
 
-                For edit pipelines, this should be a string containing the edit instructions
+    category_groups: Dict[str, SequenceNotStr[str]]
+    """
+    A mapping of higher-level classify groups to the category labels that belong to
+    each group. When provided, the response includes `extra_metadata.grouping` with
+    the matched group name, or `ungrouped` if the selected category is not in any
+    group.
     """
 
     classification_schema: Iterable[ClassificationSchema]
@@ -31,16 +36,29 @@ class ClassifyRunParams(TypedDict, total=False):
     document_metadata: Optional[str]
     """Optional document-level metadata to include in classification prompts."""
 
+    force_url_result: bool
+    """Force the endpoint result to be returned in URL form."""
+
+    model: Literal["default", "accurate"]
+    """The classification model to use.
+
+    Set to "accurate" to run Deep Classify for higher accuracy on hard documents.
+    Defaults to "default".
+    """
+
     page_range: Optional[PageRange]
     """The page range to process (1-indexed).
 
-    By default, the first 5 pages are used. If more than 25 pages are selected, only
-    the first 25 (after sorting) are used. Only applies to PDFs; ignored for other
-    document types.
+    By default, the first 5 pages are used. At most 10 pages can be selected. Only
+    applies to PDFs; ignored for other document types.
     """
 
-    persist_results: bool
-    """If True, persist the results indefinitely. Defaults to False."""
+    priority: bool
+    """
+    Workers poll the priority queue ahead of the standard queue, so priority jobs
+    start sooner when there is queued work; sync jobs are prioritized above async
+    jobs by default.
+    """
 
 
 Input: TypeAlias = Union[str, SequenceNotStr[str], Upload]

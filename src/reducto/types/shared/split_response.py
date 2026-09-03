@@ -16,6 +16,7 @@ __all__ = [
     "ResultDeepSplitResult",
     "ResultDeepSplitResultSplit",
     "ResultDeepSplitResultSplitPartition",
+    "ResultURLResult",
 ]
 
 
@@ -61,11 +62,31 @@ class ResultDeepSplitResult(BaseModel):
     splits: List[ResultDeepSplitResultSplit]
 
 
-Result: TypeAlias = Union[ResultSplitResult, ResultDeepSplitResult]
+class ResultURLResult(BaseModel):
+    result_id: str
+
+    type: Literal["url"]
+    """type = 'url'"""
+
+    url: str
+
+
+Result: TypeAlias = Union[ResultSplitResult, ResultDeepSplitResult, ResultURLResult]
 
 
 class SplitResponse(BaseModel):
     result: Result
-    """The split result."""
+    """The split result.
+
+    If force_url_result is True, this is returned as a URL result.
+    """
 
     usage: ParseUsage
+
+    duration: Optional[float] = None
+    """The duration of the split request in seconds."""
+
+    job_id: Optional[str] = None
+    """The unique identifier for the split job."""
+
+    response_type: Optional[Literal["split"]] = None

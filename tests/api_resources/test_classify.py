@@ -30,6 +30,7 @@ class TestClassify:
     def test_method_run_with_all_params(self, client: Reducto) -> None:
         classify = client.classify.run(
             input="string",
+            category_groups={"foo": ["string"]},
             classification_schema=[
                 {
                     "category": "category",
@@ -37,11 +38,13 @@ class TestClassify:
                 }
             ],
             document_metadata="document_metadata",
+            force_url_result=True,
+            model="default",
             page_range={
                 "end": 0,
                 "start": 0,
             },
-            persist_results=True,
+            priority=True,
         )
         assert_matches_type(ClassifyResponse, classify, path=["response"])
 
@@ -90,6 +93,7 @@ class TestAsyncClassify:
     async def test_method_run_with_all_params(self, async_client: AsyncReducto) -> None:
         classify = await async_client.classify.run(
             input="string",
+            category_groups={"foo": ["string"]},
             classification_schema=[
                 {
                     "category": "category",
@@ -97,11 +101,13 @@ class TestAsyncClassify:
                 }
             ],
             document_metadata="document_metadata",
+            force_url_result=True,
+            model="default",
             page_range={
                 "end": 0,
                 "start": 0,
             },
-            persist_results=True,
+            priority=True,
         )
         assert_matches_type(ClassifyResponse, classify, path=["response"])
 
