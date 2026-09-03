@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.23.0 (2026-09-03)
+
+Full Changelog: [v0.22.0...v0.23.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.22.0...v0.23.0)
+
+### Features
+
+* **parse:** add `settings.model` (`r-1` | `legacy`) ([60d5b3b](https://github.com/reductoai/reducto-python-sdk/commit/60d5b3b))
+
 ## 0.21.0 (2026-03-29)
 
 Full Changelog: [v0.20.0...v0.21.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.20.0...v0.21.0)
