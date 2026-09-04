@@ -14,7 +14,9 @@ class UsageBreakdown(BaseModel):
     ``extract_fields`` is reported but not billed at launch. The add-on
     quantities (``ocr_pages``, ``charts``, ``prompted_blocks``) come from the
     parse bundled into the extract job; its page cost is covered by
-    ``extract_pages`` but its add-ons are billed separately.
+    ``extract_pages`` but its add-ons are billed separately. ``tier`` is
+    "Batch" when the job ran on the batch queue, which takes the batch
+    discount on the rate card.
     """
 
     extract_model: Literal["Extract", "Deep Extract"]
@@ -28,6 +30,8 @@ class UsageBreakdown(BaseModel):
     ocr_pages: Optional[int] = None
 
     prompted_blocks: Optional[int] = None
+
+    tier: Optional[Literal["Default", "Batch"]] = None
 
 
 class ExtractUsage(BaseModel):
@@ -45,5 +49,6 @@ class ExtractUsage(BaseModel):
     `extract_fields` is reported but not billed at launch. The add-on quantities
     (`ocr_pages`, `charts`, `prompted_blocks`) come from the parse bundled into the
     extract job; its page cost is covered by `extract_pages` but its add-ons are
-    billed separately.
+    billed separately. `tier` is "Batch" when the job ran on the batch queue, which
+    takes the batch discount on the rate card.
     """
