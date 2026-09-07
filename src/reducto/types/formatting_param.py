@@ -19,7 +19,7 @@ class FormattingParam(TypedDict, total=False):
     """For legacy Parse, the formatting details to include in the output.
 
     r-1 handles highlights, signatures, and watermarks natively and ignores those
-    values. r-1 does not support hyperlinks.
+    values.
     """
 
     merge_tables: bool
