@@ -1,9 +1,9 @@
-.prism.log
-.stdy.log
 _dev
 
 __pycache__
 .mypy_cache
+.pytest_cache
+.ruff_cache
 
 dist
 
@@ -12,5 +12,3 @@ dist
 
 .env
 .envrc
-codegen.log
-Brewfile.lock.json

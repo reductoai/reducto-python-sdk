@@ -1,5 +1,3 @@
-# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
-
 from __future__ import annotations
 
 import os
@@ -114,7 +112,7 @@ class TestSplit:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Reducto-Lang") == "python"
         split = response.parse()
         assert_matches_type(SplitResponse, split, path=["response"])
 
@@ -131,7 +129,7 @@ class TestSplit:
             ],
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Reducto-Lang") == "python"
 
             split = response.parse()
             assert_matches_type(SplitResponse, split, path=["response"])
@@ -243,7 +241,7 @@ class TestSplit:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Reducto-Lang") == "python"
         split = response.parse()
         assert_matches_type(AsyncSplitResponse, split, path=["response"])
 
@@ -260,7 +258,7 @@ class TestSplit:
             ],
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Reducto-Lang") == "python"
 
             split = response.parse()
             assert_matches_type(AsyncSplitResponse, split, path=["response"])
@@ -370,7 +368,7 @@ class TestAsyncSplit:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Reducto-Lang") == "python"
         split = await response.parse()
         assert_matches_type(SplitResponse, split, path=["response"])
 
@@ -387,7 +385,7 @@ class TestAsyncSplit:
             ],
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Reducto-Lang") == "python"
 
             split = await response.parse()
             assert_matches_type(SplitResponse, split, path=["response"])
@@ -499,7 +497,7 @@ class TestAsyncSplit:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Reducto-Lang") == "python"
         split = await response.parse()
         assert_matches_type(AsyncSplitResponse, split, path=["response"])
 
@@ -516,7 +514,7 @@ class TestAsyncSplit:
             ],
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Reducto-Lang") == "python"
 
             split = await response.parse()
             assert_matches_type(AsyncSplitResponse, split, path=["response"])

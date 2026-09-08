@@ -43,10 +43,8 @@ Repository = "https://github.com/reductoai/reducto-python-sdk"
 [project.optional-dependencies]
 aiohttp = ["aiohttp", "httpx_aiohttp>=0.1.9"]
 
-[tool.rye]
-managed = true
-# version pins are in requirements-dev.lock
-dev-dependencies = [
+[dependency-groups]
+dev = [
     "pyright==1.1.399",
     "mypy==1.17",
     "respx",
@@ -54,41 +52,11 @@ dev-dependencies = [
     "pytest-asyncio",
     "ruff",
     "time-machine",
-    "nox",
     "dirty-equals>=0.6.0",
     "importlib-metadata>=6.7.0",
     "rich>=13.7.1",
     "pytest-xdist>=3.6.1",
 ]
-
-[tool.rye.scripts]
-format = { chain = [
-  "format:ruff",
-  "format:docs",
-  "fix:ruff",
-  # run formatting again to fix any inconsistencies when imports are stripped
-  "format:ruff",
-]}
-"format:docs" = "bash -c 'python scripts/utils/ruffen-docs.py README.md $(find . -type f -name api.md)'"
-"format:ruff" = "ruff format"
-
-"lint" = { chain = [
-  "check:ruff",
-  "typecheck",
-  "check:importable",
-]}
-"check:ruff" = "ruff check ."
-"fix:ruff" = "ruff check --fix ."
-
-"check:importable" = "python -c 'import reducto'"
-
-typecheck = { chain = [
-  "typecheck:pyright",
-  "typecheck:mypy"
-]}
-"typecheck:pyright" = "pyright"
-"typecheck:verify-types" = "pyright --verifytypes reducto --ignoreexternal"
-"typecheck:mypy" = "mypy ."
 
 [build-system]
 requires = ["hatchling==1.26.3", "hatch-fancy-pypi-readme"]
@@ -103,14 +71,12 @@ include = [
 packages = ["src/reducto"]
 
 [tool.hatch.build.targets.sdist]
-# Basically everything except hidden files/directories (such as .github, .devcontainers, .python-version, etc)
+# Everything except hidden files and directories (.github, .python-version, etc)
 include = [
   "/*.toml",
   "/*.json",
   "/*.lock",
   "/*.md",
-  "/mypy.ini",
-  "/noxfile.py",
   "bin/*",
   "examples/*",
   "src/*",
@@ -148,7 +114,6 @@ pythonVersion = "3.9"
 exclude = [
     "_dev",
     ".venv",
-    ".nox",
     ".git",
     "src/reducto/lib",
     "tests/e2e",

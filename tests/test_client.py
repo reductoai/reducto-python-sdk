@@ -1,5 +1,3 @@
-# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
-
 from __future__ import annotations
 
 import gc
@@ -167,13 +165,13 @@ class TestReducto:
         assert copied.default_headers["X-Foo"] == "bar"
 
         # merges already given headers
-        copied = client.copy(default_headers={"X-Bar": "stainless"})
+        copied = client.copy(default_headers={"X-Bar": "reducto"})
         assert copied.default_headers["X-Foo"] == "bar"
-        assert copied.default_headers["X-Bar"] == "stainless"
+        assert copied.default_headers["X-Bar"] == "reducto"
 
         # uses new values for any already given headers
-        copied = client.copy(default_headers={"X-Foo": "stainless"})
-        assert copied.default_headers["X-Foo"] == "stainless"
+        copied = client.copy(default_headers={"X-Foo": "reducto"})
+        assert copied.default_headers["X-Foo"] == "reducto"
 
         # set_default_headers
 
@@ -202,14 +200,14 @@ class TestReducto:
         assert _get_params(copied)["foo"] == "bar"
 
         # merges already given params
-        copied = client.copy(default_query={"bar": "stainless"})
+        copied = client.copy(default_query={"bar": "reducto"})
         params = _get_params(copied)
         assert params["foo"] == "bar"
-        assert params["bar"] == "stainless"
+        assert params["bar"] == "reducto"
 
         # uses new values for any already given headers
-        copied = client.copy(default_query={"foo": "stainless"})
-        assert _get_params(copied)["foo"] == "stainless"
+        copied = client.copy(default_query={"foo": "reducto"})
+        assert _get_params(copied)["foo"] == "reducto"
 
         # set_default_query
 
@@ -379,20 +377,20 @@ class TestReducto:
         )
         request = test_client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "bar"
-        assert request.headers.get("x-stainless-lang") == "python"
+        assert request.headers.get("x-reducto-lang") == "python"
 
         test_client2 = Reducto(
             base_url=base_url,
             api_key=api_key,
             _strict_response_validation=True,
             default_headers={
-                "X-Foo": "stainless",
-                "X-Stainless-Lang": "my-overriding-header",
+                "X-Foo": "reducto",
+                "X-Reducto-Lang": "my-overriding-header",
             },
         )
         request = test_client2._build_request(FinalRequestOptions(method="get", url="/foo"))
-        assert request.headers.get("x-foo") == "stainless"
-        assert request.headers.get("x-stainless-lang") == "my-overriding-header"
+        assert request.headers.get("x-foo") == "reducto"
+        assert request.headers.get("x-reducto-lang") == "my-overriding-header"
 
         test_client.close()
         test_client2.close()
@@ -904,7 +902,7 @@ class TestReducto:
         response = client.parse.with_raw_response.run(input="string")
 
         assert response.retries_taken == failures_before_success
-        assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
+        assert int(response.http_request.headers.get("x-reducto-retry-count")) == failures_before_success
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
     @mock.patch("reducto._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
@@ -925,9 +923,9 @@ class TestReducto:
 
         respx_mock.post("/parse").mock(side_effect=retry_handler)
 
-        response = client.parse.with_raw_response.run(input="string", extra_headers={"x-stainless-retry-count": Omit()})
+        response = client.parse.with_raw_response.run(input="string", extra_headers={"x-reducto-retry-count": Omit()})
 
-        assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
+        assert len(response.http_request.headers.get_list("x-reducto-retry-count")) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
     @mock.patch("reducto._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
@@ -948,9 +946,9 @@ class TestReducto:
 
         respx_mock.post("/parse").mock(side_effect=retry_handler)
 
-        response = client.parse.with_raw_response.run(input="string", extra_headers={"x-stainless-retry-count": "42"})
+        response = client.parse.with_raw_response.run(input="string", extra_headers={"x-reducto-retry-count": "42"})
 
-        assert response.http_request.headers.get("x-stainless-retry-count") == "42"
+        assert response.http_request.headers.get("x-reducto-retry-count") == "42"
 
     def test_proxy_environment_variables(self, monkeypatch: pytest.MonkeyPatch) -> None:
         # Test that the proxy environment variables are set correctly
@@ -1064,13 +1062,13 @@ class TestAsyncReducto:
         assert copied.default_headers["X-Foo"] == "bar"
 
         # merges already given headers
-        copied = client.copy(default_headers={"X-Bar": "stainless"})
+        copied = client.copy(default_headers={"X-Bar": "reducto"})
         assert copied.default_headers["X-Foo"] == "bar"
-        assert copied.default_headers["X-Bar"] == "stainless"
+        assert copied.default_headers["X-Bar"] == "reducto"
 
         # uses new values for any already given headers
-        copied = client.copy(default_headers={"X-Foo": "stainless"})
-        assert copied.default_headers["X-Foo"] == "stainless"
+        copied = client.copy(default_headers={"X-Foo": "reducto"})
+        assert copied.default_headers["X-Foo"] == "reducto"
 
         # set_default_headers
 
@@ -1099,14 +1097,14 @@ class TestAsyncReducto:
         assert _get_params(copied)["foo"] == "bar"
 
         # merges already given params
-        copied = client.copy(default_query={"bar": "stainless"})
+        copied = client.copy(default_query={"bar": "reducto"})
         params = _get_params(copied)
         assert params["foo"] == "bar"
-        assert params["bar"] == "stainless"
+        assert params["bar"] == "reducto"
 
         # uses new values for any already given headers
-        copied = client.copy(default_query={"foo": "stainless"})
-        assert _get_params(copied)["foo"] == "stainless"
+        copied = client.copy(default_query={"foo": "reducto"})
+        assert _get_params(copied)["foo"] == "reducto"
 
         # set_default_query
 
@@ -1280,20 +1278,20 @@ class TestAsyncReducto:
         )
         request = test_client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "bar"
-        assert request.headers.get("x-stainless-lang") == "python"
+        assert request.headers.get("x-reducto-lang") == "python"
 
         test_client2 = AsyncReducto(
             base_url=base_url,
             api_key=api_key,
             _strict_response_validation=True,
             default_headers={
-                "X-Foo": "stainless",
-                "X-Stainless-Lang": "my-overriding-header",
+                "X-Foo": "reducto",
+                "X-Reducto-Lang": "my-overriding-header",
             },
         )
         request = test_client2._build_request(FinalRequestOptions(method="get", url="/foo"))
-        assert request.headers.get("x-foo") == "stainless"
-        assert request.headers.get("x-stainless-lang") == "my-overriding-header"
+        assert request.headers.get("x-foo") == "reducto"
+        assert request.headers.get("x-reducto-lang") == "my-overriding-header"
 
         await test_client.close()
         await test_client2.close()
@@ -1824,7 +1822,7 @@ class TestAsyncReducto:
         response = await client.parse.with_raw_response.run(input="string")
 
         assert response.retries_taken == failures_before_success
-        assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
+        assert int(response.http_request.headers.get("x-reducto-retry-count")) == failures_before_success
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
     @mock.patch("reducto._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
@@ -1846,10 +1844,10 @@ class TestAsyncReducto:
         respx_mock.post("/parse").mock(side_effect=retry_handler)
 
         response = await client.parse.with_raw_response.run(
-            input="string", extra_headers={"x-stainless-retry-count": Omit()}
+            input="string", extra_headers={"x-reducto-retry-count": Omit()}
         )
 
-        assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
+        assert len(response.http_request.headers.get_list("x-reducto-retry-count")) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
     @mock.patch("reducto._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
@@ -1871,10 +1869,10 @@ class TestAsyncReducto:
         respx_mock.post("/parse").mock(side_effect=retry_handler)
 
         response = await client.parse.with_raw_response.run(
-            input="string", extra_headers={"x-stainless-retry-count": "42"}
+            input="string", extra_headers={"x-reducto-retry-count": "42"}
         )
 
-        assert response.http_request.headers.get("x-stainless-retry-count") == "42"
+        assert response.http_request.headers.get("x-reducto-retry-count") == "42"
 
     async def test_get_platform(self) -> None:
         platform = await asyncify(get_platform)()

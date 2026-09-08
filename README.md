@@ -7,8 +7,6 @@ The Reducto Python library provides convenient access to the Reducto REST API fr
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
-It is generated with [Stainless](https://www.stainless.com/).
-
 ## Documentation
 
 The REST API documentation can be found on [docs.reductoai.com](https://docs.reductoai.com). The full API of this library can be found in [api.md](api.md).

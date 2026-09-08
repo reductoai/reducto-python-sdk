@@ -1,5 +1,3 @@
-# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
-
 from __future__ import annotations
 
 import os
@@ -28,7 +26,7 @@ class TestWebhook:
         response = client.webhook.with_raw_response.run()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Reducto-Lang") == "python"
         webhook = response.parse()
         assert_matches_type(str, webhook, path=["response"])
 
@@ -37,7 +35,7 @@ class TestWebhook:
     def test_streaming_response_run(self, client: Reducto) -> None:
         with client.webhook.with_streaming_response.run() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Reducto-Lang") == "python"
 
             webhook = response.parse()
             assert_matches_type(str, webhook, path=["response"])
@@ -62,7 +60,7 @@ class TestAsyncWebhook:
         response = await async_client.webhook.with_raw_response.run()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Reducto-Lang") == "python"
         webhook = await response.parse()
         assert_matches_type(str, webhook, path=["response"])
 
@@ -71,7 +69,7 @@ class TestAsyncWebhook:
     async def test_streaming_response_run(self, async_client: AsyncReducto) -> None:
         async with async_client.webhook.with_streaming_response.run() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Reducto-Lang") == "python"
 
             webhook = await response.parse()
             assert_matches_type(str, webhook, path=["response"])

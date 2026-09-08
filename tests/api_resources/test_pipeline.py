@@ -1,5 +1,3 @@
-# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
-
 from __future__ import annotations
 
 import os
@@ -45,7 +43,7 @@ class TestPipeline:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Reducto-Lang") == "python"
         pipeline = response.parse()
         assert_matches_type(PipelineResponse, pipeline, path=["response"])
 
@@ -57,7 +55,7 @@ class TestPipeline:
             pipeline_id="pipeline_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Reducto-Lang") == "python"
 
             pipeline = response.parse()
             assert_matches_type(PipelineResponse, pipeline, path=["response"])
@@ -100,7 +98,7 @@ class TestPipeline:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Reducto-Lang") == "python"
         pipeline = response.parse()
         assert_matches_type(AsyncPipelineResponse, pipeline, path=["response"])
 
@@ -112,7 +110,7 @@ class TestPipeline:
             pipeline_id="pipeline_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Reducto-Lang") == "python"
 
             pipeline = response.parse()
             assert_matches_type(AsyncPipelineResponse, pipeline, path=["response"])
@@ -153,7 +151,7 @@ class TestAsyncPipeline:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Reducto-Lang") == "python"
         pipeline = await response.parse()
         assert_matches_type(PipelineResponse, pipeline, path=["response"])
 
@@ -165,7 +163,7 @@ class TestAsyncPipeline:
             pipeline_id="pipeline_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Reducto-Lang") == "python"
 
             pipeline = await response.parse()
             assert_matches_type(PipelineResponse, pipeline, path=["response"])
@@ -208,7 +206,7 @@ class TestAsyncPipeline:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Reducto-Lang") == "python"
         pipeline = await response.parse()
         assert_matches_type(AsyncPipelineResponse, pipeline, path=["response"])
 
@@ -220,7 +218,7 @@ class TestAsyncPipeline:
             pipeline_id="pipeline_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Reducto-Lang") == "python"
 
             pipeline = await response.parse()
             assert_matches_type(AsyncPipelineResponse, pipeline, path=["response"])

@@ -1,5 +1,3 @@
-# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
-
 from __future__ import annotations
 
 import os
@@ -29,7 +27,7 @@ class TestClient:
         response = client.with_raw_response.api_version()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Reducto-Lang") == "python"
         client_ = response.parse()
         assert_matches_type(str, client_, path=["response"])
 
@@ -38,7 +36,7 @@ class TestClient:
     def test_streaming_response_api_version(self, client: Reducto) -> None:
         with client.with_streaming_response.api_version() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Reducto-Lang") == "python"
 
             client_ = response.parse()
             assert_matches_type(str, client_, path=["response"])
@@ -66,7 +64,7 @@ class TestClient:
         response = client.with_raw_response.upload()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Reducto-Lang") == "python"
         client_ = response.parse()
         assert_matches_type(Upload, client_, path=["response"])
 
@@ -75,7 +73,7 @@ class TestClient:
     def test_streaming_response_upload(self, client: Reducto) -> None:
         with client.with_streaming_response.upload() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Reducto-Lang") == "python"
 
             client_ = response.parse()
             assert_matches_type(Upload, client_, path=["response"])
@@ -100,7 +98,7 @@ class TestAsyncClient:
         response = await async_client.with_raw_response.api_version()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Reducto-Lang") == "python"
         client = await response.parse()
         assert_matches_type(str, client, path=["response"])
 
@@ -109,7 +107,7 @@ class TestAsyncClient:
     async def test_streaming_response_api_version(self, async_client: AsyncReducto) -> None:
         async with async_client.with_streaming_response.api_version() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Reducto-Lang") == "python"
 
             client = await response.parse()
             assert_matches_type(str, client, path=["response"])
@@ -137,7 +135,7 @@ class TestAsyncClient:
         response = await async_client.with_raw_response.upload()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Reducto-Lang") == "python"
         client = await response.parse()
         assert_matches_type(Upload, client, path=["response"])
 
@@ -146,7 +144,7 @@ class TestAsyncClient:
     async def test_streaming_response_upload(self, async_client: AsyncReducto) -> None:
         async with async_client.with_streaming_response.upload() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Reducto-Lang") == "python"
 
             client = await response.parse()
             assert_matches_type(Upload, client, path=["response"])
