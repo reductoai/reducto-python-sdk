@@ -1,0 +1,47 @@
+name: spec-drift
+# Fails when the SDK types drift from https://reducto.ai/openapi.json.
+# See scripts/spec_drift.py and CONTRIBUTING.md.
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+  workflow_dispatch:
+
+jobs:
+  check:
+    name: spec drift
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78 # v7.6
+        with:
+          enable-cache: true
+
+      - name: Install dependencies
+        run: uv sync --all-extras --locked
+
+      - name: Check spec drift
+        run: |
+          set -o pipefail
+          uv run python scripts/spec_drift.py | tee drift.txt
+        continue-on-error: true
+        id: drift
+
+      - name: Write job summary
+        run: |
+          {
+            echo "## Spec drift"
+            echo
+            echo '```'
+            cat drift.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Fail on drift
+        if: steps.drift.outcome == 'failure'
+        run: |
+          echo "::error::SDK types drift from the OpenAPI spec. See the job summary."
+          exit 1

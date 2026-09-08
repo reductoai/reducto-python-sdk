@@ -87,6 +87,24 @@ To format and fix all ruff issues automatically:
 $ ./scripts/format
 ```
 
+## Checking for API spec drift
+
+`scripts/spec_drift.py` compares the SDK request and response types against the
+public OpenAPI spec. It does not match on schema names. It anchors each type to an
+endpoint found in `src/reducto/resources/`, then walks both sides in parallel and
+compares JSON property names, types, enum values, and required-ness.
+
+```sh
+$ uv run python scripts/spec_drift.py                 # live spec
+$ uv run python scripts/spec_drift.py --spec spec.json # local file
+$ uv run python scripts/spec_drift.py --json           # machine-readable
+$ uv run python scripts/spec_drift.py --ignore extra   # hide one drift kind
+```
+
+Drift kinds: `endpoint`, `missing` (spec has it, SDK lacks it), `extra` (SDK has
+it, spec lacks it), `type`, `enum`, `required`. The script exits 1 when it finds
+drift, unless you pass `--warn-only`.
+
 ## Publishing and releases
 
 Releases are manual.
