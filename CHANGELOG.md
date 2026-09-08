@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.24.0 (2026-09-08)
+
+Full Changelog: [v0.23.0...v0.24.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.23.0...v0.24.0)
+
+### Features
+
+* **api:** sync types and endpoints with the live OpenAPI spec ([97609ac](https://github.com/reductoai/reducto-python-sdk/commit/97609ac))
+* **api:** add `client.delete_upload(file_id)` and `client.job.delete(job_id)` ([97609ac](https://github.com/reductoai/reducto-python-sdk/commit/97609ac))
+* **api:** add `response_type` discriminator, usage breakdowns, and URL results to response models ([97609ac](https://github.com/reductoai/reducto-python-sdk/commit/97609ac))
+
+### Bug Fixes
+
+* resolve response unions by `response_type` discriminator ([97609ac](https://github.com/reductoai/reducto-python-sdk/commit/97609ac))
+
+### Chores
+
+* remove Stainless tooling, consolidate on uv ([949a250](https://github.com/reductoai/reducto-python-sdk/commit/949a250))
+* **ci:** add spec drift check script and workflow ([e2222c0](https://github.com/reductoai/reducto-python-sdk/commit/e2222c0))
+* **ci:** publish to PyPI with trusted publishing ([348b961](https://github.com/reductoai/reducto-python-sdk/commit/348b961))
+
 ## 0.23.0 (2026-09-03)
 
 Full Changelog: [v0.22.0...v0.23.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.22.0...v0.23.0)
