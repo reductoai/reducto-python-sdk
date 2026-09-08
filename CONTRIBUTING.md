@@ -71,6 +71,12 @@ $ pip install ./path-to-wheel-file.whl
 $ ./scripts/test
 ```
 
+End-to-end tests in `tests/e2e/` call the live Reducto API and are excluded by default. They need `REDUCTO_API_KEY`. Run them in parallel, one worker per test class:
+
+```sh
+$ REDUCTO_API_KEY=... uv run pytest tests/e2e/ -o "addopts=" -n auto --dist loadscope
+```
+
 ## Linting and formatting
 
 This repository uses [ruff](https://github.com/astral-sh/ruff) to format the code.

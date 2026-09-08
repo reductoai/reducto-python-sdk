@@ -25,4 +25,4 @@ jobs:
       - name: Run E2E tests
         env:
           REDUCTO_API_KEY: ${{ secrets.REDUCTO_API_KEY }}
-        run: uv run pytest tests/e2e/ -v -x -o "addopts="
+        run: uv run pytest tests/e2e/ -v -x -o "addopts=" -n auto --dist loadscope
