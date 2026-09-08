@@ -1,7 +1,8 @@
 name: spec-drift
 # Fails when the SDK types drift from the committed spec snapshot, spec/openapi.json.
-# The snapshot is refreshed by spec-snapshot.yml, so this check needs no network
-# and does not turn red when the upstream API changes under an unrelated PR.
+# The snapshot is refreshed by hand (scripts/spec_drift.py --update-snapshot), so
+# this check needs no network and does not turn red when the upstream API changes
+# under an unrelated PR.
 # See scripts/spec_drift.py and CONTRIBUTING.md.
 
 on:

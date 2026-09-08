@@ -10,6 +10,7 @@ required-ness.
 The check runs against the committed snapshot `spec/openapi.json` by default, so
 it is reproducible and needs no network. `--live` checks against the public URL.
 `--update-snapshot` fetches the live spec, rewrites the snapshot, then checks.
+Refreshing the snapshot is a manual step; commit it together with the SDK sync.
 
 Usage:
     uv run python scripts/spec_drift.py [--spec URL|PATH | --live] [--update-snapshot] [--json] [--warn-only]

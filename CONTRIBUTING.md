@@ -113,11 +113,8 @@ drift, unless you pass `--warn-only`.
 workflow checks every PR against this snapshot, so the check is reproducible
 and an upstream API change cannot turn an unrelated PR red.
 
-The `spec-snapshot` workflow refreshes the snapshot each weekday. When the live
-spec changed, it pushes the new file to the `chore/spec-snapshot` branch and
-opens a PR. The `spec-drift` check on that PR lists what the SDK must change.
-Sync the SDK on that branch, then merge. You can also run it by hand from the
-Actions tab, or locally with `--update-snapshot`.
+Refreshing the snapshot is a manual step. Run `--update-snapshot`, sync the SDK
+until the check is clean, then commit the new snapshot with the SDK changes.
 
 ## Publishing and releases
 
