@@ -1,8 +1,7 @@
 name: spec-drift
-# Fails when the SDK types drift from https://reducto.ai/openapi.json.
-# .reducto-openapi-version pins the spec version the SDK was last synced against.
-# The spec version bumps on every backend deploy, so a version gap alone is a
-# notice, not a failure. Structural drift fails the check.
+# Fails when the SDK types drift from the committed spec snapshot, spec/openapi.json.
+# The snapshot is refreshed by spec-snapshot.yml, so this check needs no network
+# and does not turn red when the upstream API changes under an unrelated PR.
 # See scripts/spec_drift.py and CONTRIBUTING.md.
 
 on:
@@ -29,15 +28,9 @@ jobs:
       - name: Check spec drift
         run: |
           set -o pipefail
-          uv run python scripts/spec_drift.py --ignore version | tee drift.txt
+          uv run python scripts/spec_drift.py | tee drift.txt
         continue-on-error: true
         id: drift
-
-      - name: Report spec version gap
-        run: |
-          if grep -q '(pinned:' drift.txt; then
-            echo "::notice::$(head -n1 drift.txt). Run 'uv run python scripts/spec_drift.py --update-pin' after syncing."
-          fi
 
       - name: Write job summary
         run: |
@@ -52,5 +45,5 @@ jobs:
       - name: Fail on drift
         if: steps.drift.outcome == 'failure'
         run: |
-          echo "::error::SDK types drift from the OpenAPI spec. See the job summary."
+          echo "::error::SDK types drift from spec/openapi.json. See the job summary."
           exit 1

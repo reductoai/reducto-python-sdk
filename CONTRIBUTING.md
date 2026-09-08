@@ -95,26 +95,29 @@ endpoint found in `src/reducto/resources/`, then walks both sides in parallel an
 compares JSON property names, types, enum values, and required-ness.
 
 ```sh
-$ uv run python scripts/spec_drift.py                 # live spec
-$ uv run python scripts/spec_drift.py --spec spec.json # local file
-$ uv run python scripts/spec_drift.py --json           # machine-readable
-$ uv run python scripts/spec_drift.py --ignore extra   # hide one drift kind
-$ uv run python scripts/spec_drift.py --update-pin     # record the spec version
+$ uv run python scripts/spec_drift.py                    # committed snapshot
+$ uv run python scripts/spec_drift.py --live              # https://reducto.ai/openapi.json
+$ uv run python scripts/spec_drift.py --spec other.json   # any URL or file
+$ uv run python scripts/spec_drift.py --update-snapshot   # refresh spec/openapi.json, then check
+$ uv run python scripts/spec_drift.py --json              # machine-readable
+$ uv run python scripts/spec_drift.py --ignore extra      # hide one drift kind
 ```
 
 Drift kinds: `endpoint`, `missing` (spec has it, SDK lacks it), `extra` (SDK has
-it, spec lacks it), `type`, `enum`, `required`, `version`. The script exits 1
-when it finds drift, unless you pass `--warn-only`.
+it, spec lacks it), `type`, `enum`, `required`. The script exits 1 when it finds
+drift, unless you pass `--warn-only`.
 
-`.reducto-openapi-version` holds the `info.version` of the spec the SDK was last
-synced against. The spec has one URL and no version history, so the pin cannot
-fetch an older spec. It records what the SDK matches. When the live version
-differs, the script reports `version` drift. After you sync the SDK, run
-`--update-pin` to write the new version. The script refuses to update the pin
-while structural drift remains.
+### Spec snapshot
 
-CI ignores the `version` kind, because the version bumps on every backend
-deploy. It prints the gap as a notice and fails only on structural drift.
+`spec/openapi.json` is a committed copy of the public spec. The `spec-drift`
+workflow checks every PR against this snapshot, so the check is reproducible
+and an upstream API change cannot turn an unrelated PR red.
+
+The `spec-snapshot` workflow refreshes the snapshot each weekday. When the live
+spec changed, it pushes the new file to the `chore/spec-snapshot` branch and
+opens a PR. The `spec-drift` check on that PR lists what the SDK must change.
+Sync the SDK on that branch, then merge. You can also run it by hand from the
+Actions tab, or locally with `--update-snapshot`.
 
 ## Publishing and releases
 

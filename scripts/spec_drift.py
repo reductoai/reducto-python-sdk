@@ -7,12 +7,12 @@ name. Each SDK request/response type is anchored to an endpoint discovered from
 and walked in parallel, comparing JSON property names, types, enum values, and
 required-ness.
 
-`.reducto-openapi-version` records the `info.version` of the spec the SDK was last
-synced against. A different live version is reported as `version` drift. Run with
-`--update-pin` after syncing to record the new version.
+The check runs against the committed snapshot `spec/openapi.json` by default, so
+it is reproducible and needs no network. `--live` checks against the public URL.
+`--update-snapshot` fetches the live spec, rewrites the snapshot, then checks.
 
 Usage:
-    uv run python scripts/spec_drift.py [--spec URL|PATH] [--json] [--warn-only] [--update-pin]
+    uv run python scripts/spec_drift.py [--spec URL|PATH | --live] [--update-snapshot] [--json] [--warn-only]
 """
 
 from __future__ import annotations
@@ -40,8 +40,8 @@ from reducto._types import FileTypes, SequenceNotStr  # noqa: E402
 from reducto._utils import PropertyInfo  # noqa: E402
 from reducto._models import BaseModel  # noqa: E402
 
-DEFAULT_SPEC = "https://reducto.ai/openapi.json"
-PIN_FILE = REPO / ".reducto-openapi-version"
+LIVE_SPEC = "https://reducto.ai/openapi.json"
+SNAPSHOT = REPO / "spec" / "openapi.json"
 HTTP_VERBS = ("get", "post", "put", "patch", "delete")
 HTTP_METHODS = {name: verb for verb in HTTP_VERBS for name in (verb, "_" + verb)}
 SUCCESS_CODES = ("200", "201", "202")
@@ -420,11 +420,11 @@ def discover_endpoints() -> List[Endpoint]:
 class Drift:
     endpoint: str
     location: str
-    kind: Literal["endpoint", "missing", "extra", "type", "enum", "required", "version"]
+    kind: Literal["endpoint", "missing", "extra", "type", "enum", "required"]
     detail: str
 
 
-DRIFT_KINDS = ("endpoint", "missing", "extra", "type", "enum", "required", "version")
+DRIFT_KINDS = ("endpoint", "missing", "extra", "type", "enum", "required")
 
 
 class Comparator:
@@ -594,11 +594,20 @@ def describe(s: Shape) -> str:
 # Driver
 
 
-def load_spec(source: str) -> Spec:
+def load_doc(source: str) -> JsonDict:
     if source.startswith(("http://", "https://")):
         with urllib.request.urlopen(source, timeout=30) as resp:
-            return Spec(json.load(resp))
-    return Spec(json.loads(Path(source).read_text()))
+            return typing.cast(JsonDict, json.load(resp))
+    return typing.cast(JsonDict, json.loads(Path(source).read_text()))
+
+
+def write_snapshot(doc: JsonDict, path: Path) -> bool:
+    text = json.dumps(doc, indent=2, ensure_ascii=False) + "\n"
+    changed = not path.exists() or path.read_text() != text
+    if changed:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(text)
+    return changed
 
 
 def spec_order(spec: Spec, endpoints: List[Endpoint]) -> List[Endpoint]:
@@ -665,35 +674,15 @@ def run(spec: Spec, endpoints: List[Endpoint]) -> List[Drift]:
     return drifts
 
 
-def read_pin(pin_file: Path) -> Optional[str]:
-    if not pin_file.exists():
-        return None
-    return pin_file.read_text().strip() or None
+def display(source: str) -> str:
+    path = Path(source)
+    if path.is_absolute() and REPO in path.parents:
+        return str(path.relative_to(REPO))
+    return source
 
 
-def version_drift(spec: Spec, pinned: Optional[str], pin_file: Path) -> List[Drift]:
-    if pinned is None:
-        return [Drift("spec", "info.version", "version", f"{pin_file.name} is missing; run --update-pin")]
-    if spec.version == pinned:
-        return []
-    return [
-        Drift(
-            "spec",
-            "info.version",
-            "version",
-            f"live spec is {spec.version} but sdk is pinned to {pinned}; sync, then run --update-pin",
-        )
-    ]
-
-
-def version_line(spec: Spec, pinned: Optional[str]) -> str:
-    if pinned == spec.version:
-        return f"Spec version: {spec.version} (matches pin)"
-    return f"Spec version: {spec.version} (pinned: {pinned or 'none'})"
-
-
-def print_report(drifts: List[Drift], endpoints: List[Endpoint], spec: Spec, pinned: Optional[str]) -> None:
-    print(version_line(spec, pinned))
+def print_report(drifts: List[Drift], endpoints: List[Endpoint], spec: Spec, source: str) -> None:
+    print(f"Spec: {display(source)} (version {spec.version})")
     print(f"Checked {len(endpoints)} sdk endpoints.")
     if not drifts:
         print("No drift found.")
@@ -715,7 +704,14 @@ def print_report(drifts: List[Drift], endpoints: List[Endpoint], spec: Spec, pin
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--spec", default=DEFAULT_SPEC, help="OpenAPI spec URL or file path")
+    spec_group = parser.add_mutually_exclusive_group()
+    spec_group.add_argument("--spec", default=str(SNAPSHOT), help="OpenAPI spec URL or file path (default: snapshot)")
+    spec_group.add_argument("--live", action="store_true", help=f"check against {LIVE_SPEC}")
+    parser.add_argument(
+        "--update-snapshot",
+        action="store_true",
+        help="fetch the live spec, rewrite spec/openapi.json, then check against it",
+    )
     parser.add_argument("--json", action="store_true", help="emit JSON instead of text")
     parser.add_argument("--warn-only", action="store_true", help="exit 0 even when drift is found")
     parser.add_argument(
@@ -726,35 +722,25 @@ def main() -> int:
         choices=DRIFT_KINDS,
         help=f"drift kind to ignore ({', '.join(DRIFT_KINDS)}); repeatable",
     )
-    parser.add_argument("--pin-file", default=str(PIN_FILE), help="file holding the pinned spec info.version")
-    parser.add_argument(
-        "--update-pin",
-        action="store_true",
-        help="write the live spec version to the pin file when no structural drift remains",
-    )
     args = parser.parse_args()
 
-    spec = load_spec(args.spec)
-    pin_file = Path(args.pin_file)
-    pinned = read_pin(pin_file)
+    source: str = LIVE_SPEC if args.live else args.spec
+    if args.update_snapshot:
+        doc = load_doc(LIVE_SPEC)
+        changed = write_snapshot(doc, SNAPSHOT)
+        state = "updated" if changed else "unchanged"
+        print(f"Snapshot {display(str(SNAPSHOT))} {state} (version {Spec(doc).version})", file=sys.stderr)
+        source = str(SNAPSHOT)
+
+    spec = Spec(load_doc(source))
     endpoints = discover_endpoints()
-    structural = run(spec, endpoints)
-
-    if args.update_pin:
-        if structural:
-            print(f"Not updating {pin_file.name}: {len(structural)} structural drift item(s) remain.", file=sys.stderr)
-        else:
-            pin_file.write_text(spec.version + "\n")
-            pinned = spec.version
-            print(f"Pinned {pin_file.name} to {spec.version}", file=sys.stderr)
-
-    drifts = [d for d in structural + version_drift(spec, pinned, pin_file) if d.kind not in args.ignore]
+    drifts = [d for d in run(spec, endpoints) if d.kind not in args.ignore]
 
     if args.json:
-        payload = {"spec_version": spec.version, "pinned_version": pinned, "drifts": [asdict(d) for d in drifts]}
+        payload = {"spec": source, "spec_version": spec.version, "drifts": [asdict(d) for d in drifts]}
         print(json.dumps(payload, indent=2))
     else:
-        print_report(drifts, endpoints, spec, pinned)
+        print_report(drifts, endpoints, spec, source)
     return 0 if not drifts or args.warn_only else 1
 
 
