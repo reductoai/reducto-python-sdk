@@ -1,9 +1,7 @@
-# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
-
 import httpx
 
-RAW_RESPONSE_HEADER = "X-Stainless-Raw-Response"
-OVERRIDE_CAST_TO_HEADER = "____stainless_override_cast_to"
+RAW_RESPONSE_HEADER = "X-Reducto-Raw-Response"
+OVERRIDE_CAST_TO_HEADER = "____reducto_override_cast_to"
 
 # default timeout is 1 hour
 DEFAULT_TIMEOUT = httpx.Timeout(timeout=3600, connect=5.0)

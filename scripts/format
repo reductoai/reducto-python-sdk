@@ -5,4 +5,8 @@ set -e
 cd "$(dirname "$0")/.."
 
 echo "==> Running formatters"
-rye run format
+uv run ruff format
+uv run python scripts/utils/ruffen-docs.py README.md $(find . -type f -name api.md -not -path "./.venv/*")
+uv run ruff check --fix .
+# Run formatting again to fix inconsistencies after unused imports are removed
+uv run ruff format

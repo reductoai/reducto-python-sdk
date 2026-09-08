@@ -1,5 +1,3 @@
-# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
-
 from __future__ import annotations
 
 import os
@@ -53,7 +51,7 @@ class TestClassify:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Reducto-Lang") == "python"
         classify = response.parse()
         assert_matches_type(ClassifyResponse, classify, path=["response"])
 
@@ -64,7 +62,7 @@ class TestClassify:
             input="string",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Reducto-Lang") == "python"
 
             classify = response.parse()
             assert_matches_type(ClassifyResponse, classify, path=["response"])
@@ -113,7 +111,7 @@ class TestAsyncClassify:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Reducto-Lang") == "python"
         classify = await response.parse()
         assert_matches_type(ClassifyResponse, classify, path=["response"])
 
@@ -124,7 +122,7 @@ class TestAsyncClassify:
             input="string",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Reducto-Lang") == "python"
 
             classify = await response.parse()
             assert_matches_type(ClassifyResponse, classify, path=["response"])

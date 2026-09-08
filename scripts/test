@@ -4,12 +4,10 @@ set -e
 
 cd "$(dirname "$0")/.."
 
-
-
 export DEFER_PYDANTIC_BUILD=false
 
 echo "==> Running tests"
-rye run pytest "$@"
+uv run pytest "$@"
 
 echo "==> Running Pydantic v1 tests"
-rye run nox -s test-pydantic-v1 -- "$@"
+uv run --isolated --with "pydantic<2" pytest --showlocals --ignore=tests/functional "$@"

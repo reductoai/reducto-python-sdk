@@ -1,5 +1,3 @@
-# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
-
 from __future__ import annotations
 
 import os
@@ -33,7 +31,7 @@ class TestJob:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Reducto-Lang") == "python"
         job = response.parse()
         assert_matches_type(object, job, path=["response"])
 
@@ -44,7 +42,7 @@ class TestJob:
             "job_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Reducto-Lang") == "python"
 
             job = response.parse()
             assert_matches_type(object, job, path=["response"])
@@ -75,7 +73,7 @@ class TestJob:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Reducto-Lang") == "python"
         job = response.parse()
         assert_matches_type(JobGetResponse, job, path=["response"])
 
@@ -86,7 +84,7 @@ class TestJob:
             "job_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Reducto-Lang") == "python"
 
             job = response.parse()
             assert_matches_type(JobGetResponse, job, path=["response"])
@@ -123,7 +121,7 @@ class TestJob:
         response = client.job.with_raw_response.get_all()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Reducto-Lang") == "python"
         job = response.parse()
         assert_matches_type(JobGetAllResponse, job, path=["response"])
 
@@ -132,7 +130,7 @@ class TestJob:
     def test_streaming_response_get_all(self, client: Reducto) -> None:
         with client.job.with_streaming_response.get_all() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Reducto-Lang") == "python"
 
             job = response.parse()
             assert_matches_type(JobGetAllResponse, job, path=["response"])
@@ -161,7 +159,7 @@ class TestAsyncJob:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Reducto-Lang") == "python"
         job = await response.parse()
         assert_matches_type(object, job, path=["response"])
 
@@ -172,7 +170,7 @@ class TestAsyncJob:
             "job_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Reducto-Lang") == "python"
 
             job = await response.parse()
             assert_matches_type(object, job, path=["response"])
@@ -203,7 +201,7 @@ class TestAsyncJob:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Reducto-Lang") == "python"
         job = await response.parse()
         assert_matches_type(JobGetResponse, job, path=["response"])
 
@@ -214,7 +212,7 @@ class TestAsyncJob:
             "job_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Reducto-Lang") == "python"
 
             job = await response.parse()
             assert_matches_type(JobGetResponse, job, path=["response"])
@@ -251,7 +249,7 @@ class TestAsyncJob:
         response = await async_client.job.with_raw_response.get_all()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Reducto-Lang") == "python"
         job = await response.parse()
         assert_matches_type(JobGetAllResponse, job, path=["response"])
 
@@ -260,7 +258,7 @@ class TestAsyncJob:
     async def test_streaming_response_get_all(self, async_client: AsyncReducto) -> None:
         async with async_client.job.with_streaming_response.get_all() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Reducto-Lang") == "python"
 
             job = await response.parse()
             assert_matches_type(JobGetAllResponse, job, path=["response"])

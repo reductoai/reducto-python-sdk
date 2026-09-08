@@ -1,5 +1,3 @@
-# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
-
 from __future__ import annotations
 
 import os
@@ -110,7 +108,7 @@ class TestExtract:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Reducto-Lang") == "python"
         extract = response.parse()
         assert_matches_type(ExtractRunResponse, extract, path=["response"])
 
@@ -121,7 +119,7 @@ class TestExtract:
             input="string",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Reducto-Lang") == "python"
 
             extract = response.parse()
             assert_matches_type(ExtractRunResponse, extract, path=["response"])
@@ -226,7 +224,7 @@ class TestExtract:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Reducto-Lang") == "python"
         extract = response.parse()
         assert_matches_type(ExtractRunResponse, extract, path=["response"])
 
@@ -237,7 +235,7 @@ class TestExtract:
             input="string",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Reducto-Lang") == "python"
 
             extract = response.parse()
             assert_matches_type(ExtractRunResponse, extract, path=["response"])
@@ -342,7 +340,7 @@ class TestExtract:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Reducto-Lang") == "python"
         extract = response.parse()
         assert_matches_type(AsyncExtractResponse, extract, path=["response"])
 
@@ -353,7 +351,7 @@ class TestExtract:
             input="string",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Reducto-Lang") == "python"
 
             extract = response.parse()
             assert_matches_type(AsyncExtractResponse, extract, path=["response"])
@@ -456,7 +454,7 @@ class TestAsyncExtract:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Reducto-Lang") == "python"
         extract = await response.parse()
         assert_matches_type(ExtractRunResponse, extract, path=["response"])
 
@@ -467,7 +465,7 @@ class TestAsyncExtract:
             input="string",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Reducto-Lang") == "python"
 
             extract = await response.parse()
             assert_matches_type(ExtractRunResponse, extract, path=["response"])
@@ -572,7 +570,7 @@ class TestAsyncExtract:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Reducto-Lang") == "python"
         extract = await response.parse()
         assert_matches_type(ExtractRunResponse, extract, path=["response"])
 
@@ -583,7 +581,7 @@ class TestAsyncExtract:
             input="string",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Reducto-Lang") == "python"
 
             extract = await response.parse()
             assert_matches_type(ExtractRunResponse, extract, path=["response"])
@@ -688,7 +686,7 @@ class TestAsyncExtract:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Reducto-Lang") == "python"
         extract = await response.parse()
         assert_matches_type(AsyncExtractResponse, extract, path=["response"])
 
@@ -699,7 +697,7 @@ class TestAsyncExtract:
             input="string",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Reducto-Lang") == "python"
 
             extract = await response.parse()
             assert_matches_type(AsyncExtractResponse, extract, path=["response"])

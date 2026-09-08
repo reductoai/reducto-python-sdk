@@ -1,5 +1,3 @@
-# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
-
 from __future__ import annotations
 
 import os
@@ -94,7 +92,7 @@ class TestParse:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Reducto-Lang") == "python"
         parse = response.parse()
         assert_matches_type(ParseRunResponse, parse, path=["response"])
 
@@ -105,7 +103,7 @@ class TestParse:
             input="string",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Reducto-Lang") == "python"
 
             parse = response.parse()
             assert_matches_type(ParseRunResponse, parse, path=["response"])
@@ -195,7 +193,7 @@ class TestParse:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Reducto-Lang") == "python"
         parse = response.parse()
         assert_matches_type(ParseRunResponse, parse, path=["response"])
 
@@ -206,7 +204,7 @@ class TestParse:
             input="string",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Reducto-Lang") == "python"
 
             parse = response.parse()
             assert_matches_type(ParseRunResponse, parse, path=["response"])
@@ -296,7 +294,7 @@ class TestParse:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Reducto-Lang") == "python"
         parse = response.parse()
         assert_matches_type(AsyncParseResponse, parse, path=["response"])
 
@@ -307,7 +305,7 @@ class TestParse:
             input="string",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Reducto-Lang") == "python"
 
             parse = response.parse()
             assert_matches_type(AsyncParseResponse, parse, path=["response"])
@@ -394,7 +392,7 @@ class TestAsyncParse:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Reducto-Lang") == "python"
         parse = await response.parse()
         assert_matches_type(ParseRunResponse, parse, path=["response"])
 
@@ -405,7 +403,7 @@ class TestAsyncParse:
             input="string",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Reducto-Lang") == "python"
 
             parse = await response.parse()
             assert_matches_type(ParseRunResponse, parse, path=["response"])
@@ -495,7 +493,7 @@ class TestAsyncParse:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Reducto-Lang") == "python"
         parse = await response.parse()
         assert_matches_type(ParseRunResponse, parse, path=["response"])
 
@@ -506,7 +504,7 @@ class TestAsyncParse:
             input="string",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Reducto-Lang") == "python"
 
             parse = await response.parse()
             assert_matches_type(ParseRunResponse, parse, path=["response"])
@@ -596,7 +594,7 @@ class TestAsyncParse:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Reducto-Lang") == "python"
         parse = await response.parse()
         assert_matches_type(AsyncParseResponse, parse, path=["response"])
 
@@ -607,7 +605,7 @@ class TestAsyncParse:
             input="string",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Reducto-Lang") == "python"
 
             parse = await response.parse()
             assert_matches_type(AsyncParseResponse, parse, path=["response"])
