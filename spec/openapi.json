@@ -1,0 +1,5637 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Reducto API",
+    "version": "v1.12.12-114-g9808b824f237"
+  },
+  "servers": [
+    {
+      "url": "https://platform.reducto.ai"
+    }
+  ],
+  "paths": {
+    "/parse": {
+      "post": {
+        "summary": "Parse",
+        "operationId": "parse_parse_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/SyncParseConfig"
+                  },
+                  {
+                    "$ref": "#/components/schemas/AsyncParseConfig"
+                  }
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ParseResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AsyncParseResponse"
+                    }
+                  ],
+                  "title": "Response Parse Parse Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "SkippableHTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/parse_async": {
+      "post": {
+        "summary": "Async Parse",
+        "operationId": "async_parse_parse_async_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AsyncParseConfig"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AsyncParseResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "SkippableHTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/extract": {
+      "post": {
+        "summary": "Extract",
+        "operationId": "extract_extract_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/SyncExtractConfig"
+                  },
+                  {
+                    "$ref": "#/components/schemas/AsyncExtractConfig"
+                  }
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/V3ExtractResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AsyncExtractResponse"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "SkippableHTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/extract_async": {
+      "post": {
+        "summary": "Extract Async",
+        "operationId": "extract_async_extract_async_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AsyncExtractConfig"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AsyncExtractResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "SkippableHTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/split": {
+      "post": {
+        "summary": "Split",
+        "operationId": "split_split_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SyncSplitConfig"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SplitResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "SkippableHTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/split_async": {
+      "post": {
+        "summary": "Split Async",
+        "operationId": "split_async_split_async_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/config__v3__AsyncSplitConfig"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AsyncSplitResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "SkippableHTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/edit": {
+      "post": {
+        "summary": "Edit",
+        "operationId": "edit_edit_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditConfig"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EditResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "SkippableHTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/edit_async": {
+      "post": {
+        "summary": "Edit Async",
+        "operationId": "edit_async_edit_async_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AsyncEditConfig"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AsyncEditResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "SkippableHTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/pipeline": {
+      "post": {
+        "summary": "Pipeline",
+        "operationId": "pipeline_pipeline_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/V3PipelineConfig"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PipelineResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true,
+        "security": [
+          {
+            "SkippableHTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/pipeline_async": {
+      "post": {
+        "summary": "Pipeline Async",
+        "operationId": "pipeline_async_pipeline_async_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/V3AsyncPipelineConfig"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AsyncPipelineResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true,
+        "security": [
+          {
+            "SkippableHTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/classify": {
+      "post": {
+        "summary": "Classify",
+        "operationId": "classify_classify_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClassifyConfig"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClassifyResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "SkippableHTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/job/{job_id}": {
+      "get": {
+        "summary": "Retrieve Parse",
+        "operationId": "retrieve_parse_job__job_id__get",
+        "security": [
+          {
+            "SkippableHTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Job Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/AsyncJobResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/EnhancedAsyncJobResponse"
+                    }
+                  ],
+                  "title": "Response Retrieve Parse Job  Job Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Parse Job",
+        "description": "Asynchronously delete a job's stored artifacts.\n\nTags the job with the deletion marker. Retrieval returns 409 until\nartifact cleanup finishes, then 410 once the deletion has completed.",
+        "operationId": "delete_parse_job_job__job_id__delete",
+        "security": [
+          {
+            "SkippableHTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Job Id"
+            }
+          },
+          {
+            "name": "include_persisted",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "Also delete long-retention persisted artifacts for this job.",
+              "default": false,
+              "title": "Include Persisted"
+            },
+            "description": "Also delete long-retention persisted artifacts for this job."
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteJobResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cancel/{job_id}": {
+      "post": {
+        "summary": "Cancel Job",
+        "operationId": "cancel_job_cancel__job_id__post",
+        "security": [
+          {
+            "SkippableHTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Job Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/jobs": {
+      "get": {
+        "summary": "Get Jobs",
+        "operationId": "get_jobs_jobs_get",
+        "security": [
+          {
+            "SkippableHTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "exclude_configs",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "Exclude raw_config from response to reduce size",
+              "default": false,
+              "title": "Exclude Configs"
+            },
+            "description": "Exclude raw_config from response to reduce size"
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Cursor for pagination. Use the next_cursor from the previous response to fetch the next page.",
+              "title": "Cursor"
+            },
+            "description": "Cursor for pagination. Use the next_cursor from the previous response to fetch the next page."
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 500,
+              "minimum": 1,
+              "description": "Maximum number of jobs to return per page. Defaults to 100, max 500.",
+              "default": 100,
+              "title": "Limit"
+            },
+            "description": "Maximum number of jobs to return per page. Defaults to 100, max 500."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/upload": {
+      "post": {
+        "summary": "Upload",
+        "operationId": "upload_upload_post",
+        "security": [
+          {
+            "SkippableHTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "extension",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Extension"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upload_upload_post"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upload_upload_post"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/upload/{file_id}": {
+      "delete": {
+        "summary": "Delete Uploaded File",
+        "description": "Delete a previously uploaded file.\n\nRemoves the stored file for the given `reducto://` file ID. Deletion is\nimmediate and permanent, and returns 404 if the file does not exist or was\nnot uploaded by your organization. Jobs that already ran against the file\nare unaffected; delete those separately with `DELETE /job/{job_id}`.",
+        "operationId": "delete_uploaded_file_upload__file_id__delete",
+        "security": [
+          {
+            "SkippableHTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "file_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "File Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteUploadResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/configure_webhook": {
+      "post": {
+        "summary": "Webhook Portal",
+        "operationId": "webhook_portal_configure_webhook_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "title": "Response Webhook Portal Configure Webhook Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "SkippableHTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/version": {
+      "get": {
+        "summary": "Get Version",
+        "operationId": "get_version_version_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "title": "Response Get Version Version Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AsyncEditConfig": {
+        "properties": {
+          "document_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/components/schemas/UploadResponse"
+              }
+            ],
+            "title": "Document Url",
+            "description": "The URL of the document to be processed. You can provide one of the following:\n1. A publicly available URL\n2. A presigned S3 URL\n3. A reducto:// prefixed URL obtained from the /upload endpoint after directly uploading a document\n"
+          },
+          "edit_instructions": {
+            "type": "string",
+            "title": "Edit Instructions",
+            "description": "The instructions for the edit."
+          },
+          "edit_options": {
+            "$ref": "#/components/schemas/EditOptions",
+            "default": {
+              "color": "#FF0000",
+              "enable_overflow_pages": false,
+              "flatten": false
+            }
+          },
+          "form_schema": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/EditWidget"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Form Schema",
+            "description": "Form schema for PDF forms. List of widgets with their types, descriptions, and bounding boxes. Only works for PDFs."
+          },
+          "priority": {
+            "type": "boolean",
+            "title": "Priority",
+            "description": "Workers poll the priority queue ahead of the standard queue, so priority jobs start sooner when there is queued work; sync jobs are prioritized above async jobs by default.",
+            "default": false
+          },
+          "webhook": {
+            "$ref": "#/components/schemas/WebhookConfigNew",
+            "default": {
+              "mode": "disabled",
+              "channels": []
+            }
+          }
+        },
+        "type": "object",
+        "required": [
+          "document_url",
+          "edit_instructions"
+        ],
+        "title": "AsyncEditConfig"
+      },
+      "AsyncEditResponse": {
+        "properties": {
+          "job_id": {
+            "type": "string",
+            "title": "Job Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "job_id"
+        ],
+        "title": "AsyncEditResponse"
+      },
+      "AsyncExtractConfig": {
+        "properties": {
+          "async": {
+            "$ref": "#/components/schemas/config__v3__AsyncConfig",
+            "description": "The configuration options for asynchronous processing (default synchronous).",
+            "default": {
+              "priority": false
+            }
+          },
+          "input": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "$ref": "#/components/schemas/UploadResponse"
+              }
+            ],
+            "title": "Input",
+            "description": "For parse/split/extract pipelines, the URL of the document to be processed. You can provide one of the following:\n            1. A publicly available URL\n            2. A presigned S3 URL\n            3. A reducto:// prefixed URL obtained from the /upload endpoint after directly uploading a document\n            4. A jobid:// prefixed URL obtained from a previous /parse invocation\n            5. A list of URLs (for multi-document pipelines, V3 API only)\n\n            For edit pipelines, this should be a string containing the edit instructions "
+          },
+          "parsing": {
+            "$ref": "#/components/schemas/ParseOptions",
+            "description": "The configuration options for parsing the document. If you are passing in a jobid:// URL for the file, then this configuration will be ignored.",
+            "default": {
+              "enhance": {
+                "advanced_chart_agent": false,
+                "agentic": [],
+                "intelligent_ordering": false,
+                "summarize_figures": true
+              },
+              "retrieval": {
+                "chunking": {
+                  "chunk_mode": "disabled",
+                  "chunk_overlap": 0
+                },
+                "embedding_optimized": false,
+                "filter_blocks": []
+              },
+              "formatting": {
+                "add_page_markers": false,
+                "include": [],
+                "merge_tables": false,
+                "table_output_format": "dynamic"
+              },
+              "spreadsheet": {
+                "clustering": "accurate",
+                "exclude": [],
+                "include": [],
+                "split_large_tables": {
+                  "enabled": true,
+                  "size": 50
+                }
+              },
+              "settings": {
+                "embed_pdf_metadata": false,
+                "embed_pdf_metadata_dpi": 100,
+                "extract_document_properties": false,
+                "extraction_mode": "hybrid",
+                "force_url_result": false,
+                "hybrid_vpc": {},
+                "ocr_system": "standard",
+                "persist_results": false,
+                "return_images": [],
+                "return_ocr_data": false
+              }
+            }
+          },
+          "instructions": {
+            "$ref": "#/components/schemas/Instructions",
+            "description": "The instructions to use for the extraction.",
+            "default": {
+              "schema": {},
+              "system_prompt": "Be precise and thorough."
+            }
+          },
+          "settings": {
+            "$ref": "#/components/schemas/ExtractSettings",
+            "description": "The settings to use for the extraction.",
+            "default": {
+              "include_images": false,
+              "optimize_for_latency": false,
+              "force_url_result": false,
+              "array_extract": false,
+              "deep_extract": false,
+              "citations": {
+                "enabled": false,
+                "numerical_confidence": true,
+                "parent_block": "full"
+              }
+            }
+          },
+          "queue_priority": {
+            "$ref": "#/components/schemas/QueuePriority",
+            "description": "Queue priority. 'batch' places the job in a lower-priority queue for non-urgent bulk work. 'auto' (alias: 'standard') uses the default queue.",
+            "default": "auto"
+          }
+        },
+        "type": "object",
+        "required": [
+          "input"
+        ],
+        "title": "AsyncExtractConfig"
+      },
+      "AsyncExtractResponse": {
+        "properties": {
+          "job_id": {
+            "type": "string",
+            "title": "Job Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "job_id"
+        ],
+        "title": "AsyncExtractResponse"
+      },
+      "AsyncJobResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "Pending",
+              "Completed",
+              "Failed",
+              "Idle"
+            ],
+            "title": "Status"
+          },
+          "result": {
+            "anyOf": [
+              {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/ParseResponse"
+                  },
+                  {
+                    "$ref": "#/components/schemas/ExtractResponse"
+                  },
+                  {
+                    "$ref": "#/components/schemas/SplitResponse"
+                  },
+                  {
+                    "$ref": "#/components/schemas/EditResponse"
+                  },
+                  {
+                    "$ref": "#/components/schemas/PipelineResponse"
+                  },
+                  {
+                    "$ref": "#/components/schemas/V3ExtractResponse"
+                  },
+                  {
+                    "$ref": "#/components/schemas/ClassifyResponse"
+                  },
+                  {
+                    "$ref": "#/components/schemas/ChartResponse"
+                  }
+                ],
+                "discriminator": {
+                  "propertyName": "response_type",
+                  "mapping": {
+                    "chart": "#/components/schemas/ChartResponse",
+                    "classify": "#/components/schemas/ClassifyResponse",
+                    "edit": "#/components/schemas/EditResponse",
+                    "extract": "#/components/schemas/ExtractResponse",
+                    "parse": "#/components/schemas/ParseResponse",
+                    "pipeline": "#/components/schemas/PipelineResponse",
+                    "split": "#/components/schemas/SplitResponse",
+                    "v3_extract": "#/components/schemas/V3ExtractResponse"
+                  }
+                }
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Result"
+          },
+          "progress": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Progress"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ErrorDetail"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "title": "AsyncJobResponse"
+      },
+      "AsyncParseConfig": {
+        "properties": {
+          "async": {
+            "$ref": "#/components/schemas/config__v3__AsyncConfig",
+            "description": "The configuration options for asynchronous processing (default synchronous).",
+            "default": {
+              "priority": false
+            }
+          },
+          "input": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "$ref": "#/components/schemas/UploadResponse"
+              }
+            ],
+            "title": "Input",
+            "description": "For parse/split/extract pipelines, the URL of the document to be processed. You can provide one of the following:\n            1. A publicly available URL\n            2. A presigned S3 URL\n            3. A reducto:// prefixed URL obtained from the /upload endpoint after directly uploading a document\n            4. A jobid:// prefixed URL obtained from a previous /parse invocation\n            5. A list of URLs (for multi-document pipelines, V3 API only)\n\n            For edit pipelines, this should be a string containing the edit instructions "
+          },
+          "enhance": {
+            "$ref": "#/components/schemas/Enhance",
+            "default": {
+              "agentic": [],
+              "advanced_chart_agent": false,
+              "summarize_figures": true,
+              "intelligent_ordering": false
+            }
+          },
+          "retrieval": {
+            "$ref": "#/components/schemas/Retrieval",
+            "default": {
+              "chunking": {
+                "chunk_mode": "disabled",
+                "chunk_overlap": 0
+              },
+              "filter_blocks": [],
+              "embedding_optimized": false
+            }
+          },
+          "formatting": {
+            "$ref": "#/components/schemas/Formatting",
+            "default": {
+              "add_page_markers": false,
+              "table_output_format": "dynamic",
+              "merge_tables": false,
+              "include": []
+            }
+          },
+          "spreadsheet": {
+            "$ref": "#/components/schemas/Spreadsheet",
+            "default": {
+              "split_large_tables": {
+                "enabled": true,
+                "size": 50
+              },
+              "include": [],
+              "clustering": "accurate",
+              "exclude": []
+            }
+          },
+          "settings": {
+            "$ref": "#/components/schemas/Settings",
+            "default": {
+              "ocr_system": "standard",
+              "extraction_mode": "hybrid",
+              "force_url_result": false,
+              "return_ocr_data": false,
+              "return_images": [],
+              "embed_pdf_metadata": false,
+              "extract_document_properties": false,
+              "embed_pdf_metadata_dpi": 100,
+              "persist_results": false,
+              "hybrid_vpc": {}
+            }
+          },
+          "queue_priority": {
+            "$ref": "#/components/schemas/QueuePriority",
+            "description": "Queue priority. 'batch' places the job in a lower-priority queue for non-urgent bulk work. 'auto' (alias: 'standard') uses the default queue.",
+            "default": "auto"
+          }
+        },
+        "type": "object",
+        "required": [
+          "input"
+        ],
+        "title": "AsyncParseConfig"
+      },
+      "AsyncParseResponse": {
+        "properties": {
+          "job_id": {
+            "type": "string",
+            "title": "Job Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "job_id"
+        ],
+        "title": "AsyncParseResponse"
+      },
+      "AsyncPipelineResponse": {
+        "properties": {
+          "job_id": {
+            "type": "string",
+            "title": "Job Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "job_id"
+        ],
+        "title": "AsyncPipelineResponse"
+      },
+      "AsyncSplitResponse": {
+        "properties": {
+          "job_id": {
+            "type": "string",
+            "title": "Job Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "job_id"
+        ],
+        "title": "AsyncSplitResponse"
+      },
+      "Body_upload_upload_post": {
+        "properties": {
+          "file": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "binary"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "title": "Body_upload_upload_post"
+      },
+      "BoundingBox": {
+        "properties": {
+          "left": {
+            "type": "number",
+            "title": "Left"
+          },
+          "top": {
+            "type": "number",
+            "title": "Top"
+          },
+          "width": {
+            "type": "number",
+            "title": "Width"
+          },
+          "height": {
+            "type": "number",
+            "title": "Height"
+          },
+          "page": {
+            "type": "integer",
+            "title": "Page",
+            "description": "The page number of the bounding box (1-indexed)."
+          },
+          "original_page": {
+            "type": "integer",
+            "title": "Original Page",
+            "description": "The page number in the original document of the bounding box (1-indexed)."
+          }
+        },
+        "type": "object",
+        "required": [
+          "left",
+          "top",
+          "width",
+          "height",
+          "page"
+        ],
+        "title": "BoundingBox"
+      },
+      "CategoryConfidence": {
+        "properties": {
+          "category": {
+            "type": "string",
+            "title": "Category"
+          },
+          "confidence": {
+            "type": "number",
+            "title": "Confidence"
+          },
+          "criteria_confidence": {
+            "items": {
+              "$ref": "#/components/schemas/CriteriaConfidence"
+            },
+            "type": "array",
+            "title": "Criteria Confidence"
+          }
+        },
+        "type": "object",
+        "required": [
+          "category",
+          "confidence",
+          "criteria_confidence"
+        ],
+        "title": "CategoryConfidence",
+        "description": "Confidence result for a category."
+      },
+      "ChartResponse": {
+        "properties": {
+          "response_type": {
+            "type": "string",
+            "const": "chart",
+            "title": "Response Type",
+            "default": "chart"
+          },
+          "job_id": {
+            "type": "string",
+            "title": "Job Id"
+          },
+          "result": {
+            "$ref": "#/components/schemas/ChartResult"
+          },
+          "usage": {
+            "$ref": "#/components/schemas/ChartUsage"
+          },
+          "duration": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Duration"
+          }
+        },
+        "type": "object",
+        "required": [
+          "job_id",
+          "result"
+        ],
+        "title": "ChartResponse",
+        "description": "Response from synchronous and persisted chart extraction jobs."
+      },
+      "ChartResult": {
+        "properties": {
+          "chart_data": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Chart Data"
+          },
+          "summary": {
+            "type": "string",
+            "title": "Summary"
+          },
+          "reconstruction_url": {
+            "type": "string",
+            "title": "Reconstruction Url"
+          },
+          "verified": {
+            "type": "boolean",
+            "title": "Verified"
+          }
+        },
+        "type": "object",
+        "required": [
+          "chart_data",
+          "summary",
+          "reconstruction_url",
+          "verified"
+        ],
+        "title": "ChartResult"
+      },
+      "ChartUsage": {
+        "properties": {
+          "num_charts": {
+            "type": "integer",
+            "const": 1,
+            "title": "Num Charts",
+            "default": 1
+          },
+          "credits": {
+            "type": "number",
+            "title": "Credits",
+            "default": 4.0
+          }
+        },
+        "type": "object",
+        "title": "ChartUsage"
+      },
+      "Chunking": {
+        "properties": {
+          "chunk_mode": {
+            "type": "string",
+            "enum": [
+              "variable",
+              "section",
+              "page",
+              "disabled",
+              "block",
+              "page_sections"
+            ],
+            "title": "Chunk Mode",
+            "description": "Choose how to partition chunks. Variable mode chunks by character length and visual context. Section mode chunks by section headers. Page mode chunks according to pages. Page sections mode chunks first by page, then by sections within each page. Disabled returns one single chunk.",
+            "default": "disabled"
+          },
+          "chunk_size": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Chunk Size",
+            "description": "The approximate size of chunks (in characters) that the document will be split into. Defaults to null, in which case the chunk size is variable between 250 - 1500 characters."
+          },
+          "chunk_overlap": {
+            "type": "integer",
+            "title": "Chunk Overlap",
+            "description": "Number of characters of overlap to include from adjacent chunks. Defaults to 0.",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "title": "Chunking"
+      },
+      "CitationParentBlockMode": {
+        "type": "string",
+        "enum": [
+          "full",
+          "bbox_only"
+        ],
+        "title": "CitationParentBlockMode",
+        "description": "How much of the source parse block to embed on each citation's ``parentBlock``.\n\n``FULL`` embeds the verbatim source-block HTML in ``parentBlock.content``.\n``BBOX_ONLY`` returns ``parentBlock.content`` as an empty string while\nkeeping ``parentBlock.bbox`` and all citation-level fields — on table-heavy\nschemas the same source block is re-embedded into every citation that\npoints into it, so the content can dominate the response (90%+ of bytes)\nwhile being redundant with the parse output."
+      },
+      "Citations": {
+        "properties": {
+          "enabled": {
+            "type": "boolean",
+            "title": "Enabled",
+            "description": "If True, include citations in the extraction.",
+            "default": false
+          },
+          "numerical_confidence": {
+            "type": "boolean",
+            "title": "Numerical Confidence",
+            "description": "If True, enable numeric citation confidence scores. Defaults to True.",
+            "default": true
+          },
+          "parent_block": {
+            "$ref": "#/components/schemas/CitationParentBlockMode",
+            "description": "How much of the source parse block to embed on each citation's parentBlock. 'full' (default) embeds the verbatim source-block HTML in parentBlock.content. 'bbox_only' suppresses parentBlock.content (returned as an empty string) while keeping parentBlock.bbox and all citation-level fields — this can drastically shrink responses on table-heavy schemas where the same source block is cited many times.",
+            "default": "full"
+          }
+        },
+        "type": "object",
+        "title": "Citations"
+      },
+      "ClassificationCategory": {
+        "properties": {
+          "category": {
+            "type": "string",
+            "title": "Category",
+            "description": "The category name/label that documents will be classified into (e.g., 'invoice', 'contract', 'receipt')."
+          },
+          "criteria": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Criteria",
+            "description": "A list of criteria, keywords, or descriptions that define what characteristics a document must have to be classified into this category (e.g., ['contains billing information', 'has itemized charges'])."
+          }
+        },
+        "type": "object",
+        "required": [
+          "category",
+          "criteria"
+        ],
+        "title": "ClassificationCategory",
+        "description": "A single classification category with its matching criteria."
+      },
+      "ClassifyConfig": {
+        "properties": {
+          "model": {
+            "type": "string",
+            "enum": [
+              "default",
+              "accurate"
+            ],
+            "title": "Model",
+            "description": "The classification model to use. Set to \"accurate\" to run Deep Classify for higher accuracy on hard documents. Defaults to \"default\".",
+            "default": "default"
+          },
+          "priority": {
+            "type": "boolean",
+            "title": "Priority",
+            "description": "Workers poll the priority queue ahead of the standard queue, so priority jobs start sooner when there is queued work; sync jobs are prioritized above async jobs by default.",
+            "default": true
+          },
+          "force_url_result": {
+            "type": "boolean",
+            "title": "Force Url Result",
+            "description": "Force the endpoint result to be returned in URL form.",
+            "default": false
+          },
+          "input": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "$ref": "#/components/schemas/UploadResponse"
+              }
+            ],
+            "title": "Input",
+            "description": "The URL of the document to be classified. You can provide one of the following:\n1. A publicly available URL\n2. A presigned S3 URL\n3. A reducto:// prefixed URL obtained from the /upload endpoint after directly uploading a document"
+          },
+          "classification_schema": {
+            "items": {
+              "$ref": "#/components/schemas/ClassificationCategory"
+            },
+            "type": "array",
+            "title": "Classification Schema",
+            "description": "A list of classification categories and their matching criteria.",
+            "default": []
+          },
+          "category_groups": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Category Groups",
+            "description": "A mapping of higher-level classify groups to the category labels that belong to each group. When provided, the response includes `extra_metadata.grouping` with the matched group name, or `ungrouped` if the selected category is not in any group."
+          },
+          "page_range": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PageRange"
+              },
+              {
+                "items": {
+                  "$ref": "#/components/schemas/PageRange"
+                },
+                "type": "array"
+              },
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Page Range",
+            "description": "The page range to process (1-indexed). By default, the first 5 pages are used. At most 10 pages can be selected. Only applies to PDFs; ignored for other document types."
+          },
+          "document_metadata": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Document Metadata",
+            "description": "Optional document-level metadata to include in classification prompts."
+          }
+        },
+        "type": "object",
+        "required": [
+          "input"
+        ],
+        "title": "ClassifyConfig"
+      },
+      "ClassifyResponse": {
+        "properties": {
+          "response_type": {
+            "type": "string",
+            "const": "classify",
+            "title": "Response Type",
+            "default": "classify"
+          },
+          "job_id": {
+            "type": "string",
+            "title": "Job Id"
+          },
+          "result": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ClassifyResponseCategory"
+              },
+              {
+                "$ref": "#/components/schemas/UrlResult"
+              }
+            ],
+            "title": "Result"
+          },
+          "response_confidence": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ResponseConfidence"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "usage": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ClassifyUsage"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "extra_metadata": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Extra Metadata",
+            "description": "Additional metadata for the classify response. Contains `grouping` when the request set `category_groups`. Omitted when empty."
+          },
+          "duration": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Duration",
+            "description": "The duration of the classify request in seconds."
+          }
+        },
+        "type": "object",
+        "required": [
+          "job_id",
+          "result"
+        ],
+        "title": "ClassifyResponse",
+        "description": "Response from classify job - returned when polling /job/{job_id}"
+      },
+      "ClassifyResponseCategory": {
+        "properties": {
+          "category": {
+            "type": "string",
+            "title": "Category"
+          }
+        },
+        "type": "object",
+        "required": [
+          "category"
+        ],
+        "title": "ClassifyResponseCategory"
+      },
+      "ClassifyUsage": {
+        "properties": {
+          "num_pages": {
+            "type": "integer",
+            "title": "Num Pages"
+          },
+          "num_categories": {
+            "type": "integer",
+            "title": "Num Categories"
+          },
+          "credits": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Credits"
+          },
+          "usage_breakdown": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ClassifyUsageBreakdown"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Raw usage quantities. Only set for accounts on the new pricing model; credit fields are omitted for those accounts."
+          }
+        },
+        "type": "object",
+        "required": [
+          "num_pages",
+          "num_categories"
+        ],
+        "title": "ClassifyUsage"
+      },
+      "ClassifyUsageBreakdown": {
+        "properties": {
+          "classify_model": {
+            "type": "string",
+            "enum": [
+              "Classify",
+              "Deep Classify"
+            ],
+            "title": "Classify Model"
+          },
+          "classify_pages": {
+            "type": "integer",
+            "title": "Classify Pages",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "classify_model"
+        ],
+        "title": "ClassifyUsageBreakdown",
+        "description": "Raw classify quantities for accounts on the new pricing model.\n\n``classify_pages`` is capped at 5, the same cap that the classify\ncredit computation uses."
+      },
+      "CriteriaConfidence": {
+        "properties": {
+          "criterion": {
+            "type": "string",
+            "title": "Criterion"
+          },
+          "confidence": {
+            "type": "string",
+            "enum": [
+              "high",
+              "low"
+            ],
+            "title": "Confidence"
+          }
+        },
+        "type": "object",
+        "required": [
+          "criterion",
+          "confidence"
+        ],
+        "title": "CriteriaConfidence",
+        "description": "Confidence result for a single criterion."
+      },
+      "DeepSplit": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "pages": {
+            "items": {
+              "$ref": "#/components/schemas/DeepSplitPageEvidence"
+            },
+            "type": "array",
+            "title": "Pages"
+          },
+          "partitions": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/DeepSplitPartition"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Partitions"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "pages"
+        ],
+        "title": "DeepSplit"
+      },
+      "DeepSplitPageEvidence": {
+        "properties": {
+          "page_number": {
+            "type": "integer",
+            "title": "Page Number"
+          },
+          "evidence": {
+            "type": "string",
+            "title": "Evidence"
+          },
+          "confidence": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "high",
+                  "medium",
+                  "low"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Confidence"
+          }
+        },
+        "type": "object",
+        "required": [
+          "page_number",
+          "evidence"
+        ],
+        "title": "DeepSplitPageEvidence"
+      },
+      "DeepSplitPartition": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "pages": {
+            "items": {
+              "$ref": "#/components/schemas/DeepSplitPageEvidence"
+            },
+            "type": "array",
+            "title": "Pages"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "pages"
+        ],
+        "title": "DeepSplitPartition"
+      },
+      "DeepSplitResult": {
+        "properties": {
+          "splits": {
+            "items": {
+              "$ref": "#/components/schemas/DeepSplit"
+            },
+            "type": "array",
+            "title": "Splits"
+          }
+        },
+        "type": "object",
+        "required": [
+          "splits"
+        ],
+        "title": "DeepSplitResult"
+      },
+      "DeleteJobResponse": {
+        "properties": {
+          "job_id": {
+            "type": "string",
+            "title": "Job Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "job_id"
+        ],
+        "title": "DeleteJobResponse"
+      },
+      "DeleteUploadResponse": {
+        "properties": {
+          "file_id": {
+            "type": "string",
+            "title": "File Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file_id"
+        ],
+        "title": "DeleteUploadResponse"
+      },
+      "DirectWebhookConfig": {
+        "properties": {
+          "mode": {
+            "type": "string",
+            "const": "direct",
+            "title": "Mode",
+            "default": "direct"
+          },
+          "url": {
+            "type": "string",
+            "title": "Url"
+          }
+        },
+        "type": "object",
+        "required": [
+          "url"
+        ],
+        "title": "DirectWebhookConfig"
+      },
+      "DocumentProperties": {
+        "properties": {
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title",
+            "description": "The document title."
+          },
+          "author": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Author",
+            "description": "The document author."
+          },
+          "subject": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Subject",
+            "description": "The document subject."
+          },
+          "keywords": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Keywords",
+            "description": "Keywords embedded in the document."
+          },
+          "creator": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Creator",
+            "description": "The application or tool that authored the document."
+          },
+          "producer": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Producer",
+            "description": "The application or library that produced the document."
+          },
+          "last_modified_by": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Modified By",
+            "description": "The user who last modified the document."
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At",
+            "description": "The document creation time as a timezone-aware datetime. Dates without an offset are interpreted as UTC."
+          },
+          "modified_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Modified At",
+            "description": "The document modification time as a timezone-aware datetime. Dates without an offset are interpreted as UTC."
+          }
+        },
+        "type": "object",
+        "title": "DocumentProperties",
+        "description": "Embedded properties read from the customer's original document."
+      },
+      "EditConfig": {
+        "properties": {
+          "document_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/components/schemas/UploadResponse"
+              }
+            ],
+            "title": "Document Url",
+            "description": "The URL of the document to be processed. You can provide one of the following:\n1. A publicly available URL\n2. A presigned S3 URL\n3. A reducto:// prefixed URL obtained from the /upload endpoint after directly uploading a document\n"
+          },
+          "edit_instructions": {
+            "type": "string",
+            "title": "Edit Instructions",
+            "description": "The instructions for the edit."
+          },
+          "edit_options": {
+            "$ref": "#/components/schemas/EditOptions",
+            "default": {
+              "color": "#FF0000",
+              "enable_overflow_pages": false,
+              "flatten": false
+            }
+          },
+          "form_schema": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/EditWidget"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Form Schema",
+            "description": "Form schema for PDF forms. List of widgets with their types, descriptions, and bounding boxes. Only works for PDFs."
+          },
+          "priority": {
+            "type": "boolean",
+            "title": "Priority",
+            "description": "Workers poll the priority queue ahead of the standard queue, so priority jobs start sooner when there is queued work; sync jobs are prioritized above async jobs by default.",
+            "default": true
+          }
+        },
+        "type": "object",
+        "required": [
+          "document_url",
+          "edit_instructions"
+        ],
+        "title": "EditConfig"
+      },
+      "EditOptions": {
+        "properties": {
+          "color": {
+            "type": "string",
+            "pattern": "^#[0-9A-Fa-f]{6}$",
+            "title": "Color",
+            "description": "The color to use for edits, in hex format.",
+            "default": "#FF0000"
+          },
+          "font_size": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 72.0,
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Font Size",
+            "description": "The font size (in points) to use for filled text fields. If not specified, font size is automatically calculated based on field dimensions."
+          },
+          "llm_provider_preference": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "openai",
+                  "anthropic",
+                  "google"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Llm Provider Preference",
+            "description": "The LLM provider to use for edit processing. If not specified, defaults to 'google'"
+          },
+          "enable_overflow_pages": {
+            "type": "boolean",
+            "title": "Enable Overflow Pages",
+            "description": "If True, creates overflow pages for text that doesn't fit in form fields. Defaults to False.",
+            "default": false
+          },
+          "flatten": {
+            "type": "boolean",
+            "title": "Flatten",
+            "description": "If True, flattens form fields after filling, converting them to static content. Defaults to False.",
+            "default": false
+          }
+        },
+        "type": "object",
+        "title": "EditOptions"
+      },
+      "EditResponse": {
+        "properties": {
+          "response_type": {
+            "type": "string",
+            "const": "edit",
+            "title": "Response Type",
+            "default": "edit"
+          },
+          "job_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Job Id",
+            "description": "The unique identifier for the edit job."
+          },
+          "document_url": {
+            "type": "string",
+            "title": "Document Url",
+            "description": "Presigned URL to download the edited document."
+          },
+          "form_schema": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/EditWidget"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Form Schema",
+            "description": "Form schema for PDF forms. List of widgets with their types, descriptions, and bounding boxes."
+          },
+          "usage": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ParseUsage"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Usage information for the edit operation, including number of pages and credits charged."
+          }
+        },
+        "type": "object",
+        "required": [
+          "document_url"
+        ],
+        "title": "EditResponse"
+      },
+      "EditUsageBreakdown": {
+        "properties": {
+          "edit_model": {
+            "type": "string",
+            "enum": [
+              "Normal",
+              "Prefill"
+            ],
+            "title": "Edit Model"
+          },
+          "edit_pages": {
+            "type": "integer",
+            "title": "Edit Pages",
+            "default": 0
+          },
+          "prefill_pages": {
+            "type": "integer",
+            "title": "Prefill Pages",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "edit_model"
+        ],
+        "title": "EditUsageBreakdown",
+        "description": "Raw edit quantities for accounts on the new pricing model.\n\n``edit_pages`` is the page count billed at the ``edit_model`` rate. A job\nwith both normal and prefilled pages reports ``edit_model=\"Normal\"`` with\nthe prefilled pages in ``prefill_pages``, billed at the \"Prefill\" rate."
+      },
+      "EditWidget": {
+        "properties": {
+          "bbox": {
+            "$ref": "#/components/schemas/BoundingBox",
+            "description": "Bounding box coordinates of the widget"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description",
+            "description": "Description of the widget extracted from the document"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "text",
+              "checkbox",
+              "radio",
+              "dropdown",
+              "barcode"
+            ],
+            "title": "Type",
+            "description": "Type of the form widget"
+          },
+          "fill": {
+            "type": "boolean",
+            "title": "Fill",
+            "description": "If True (default), the system will attempt to fill this widget. If False, the widget will be created but intentionally left unfilled.",
+            "default": true
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value",
+            "description": "If provided, this value will be used directly instead of attempting to intelligently determine the field value."
+          },
+          "font_size": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 72.0,
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Font Size",
+            "description": "Font size in points for this specific field. Takes priority over the global font_size in EditOptions. If not set, falls back to the global font_size, then to auto-calculated sizing."
+          }
+        },
+        "type": "object",
+        "required": [
+          "bbox",
+          "description",
+          "type"
+        ],
+        "title": "EditWidget"
+      },
+      "Enhance": {
+        "properties": {
+          "agentic": {
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/TableAgentic"
+                },
+                {
+                  "$ref": "#/components/schemas/FigureAgentic"
+                },
+                {
+                  "$ref": "#/components/schemas/TextAgentic"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Agentic",
+            "description": "For legacy Parse, agentic processing uses vision language models to improve text, table, or figure extraction. With r-1, use agentic processing for custom prompts or advanced chart extraction. Agentic processing adds latency.",
+            "default": []
+          },
+          "advanced_chart_agent": {
+            "type": "boolean",
+            "title": "Advanced Chart Agent",
+            "description": "If True, run advanced chart extraction on figures classified as charts, without requiring a figure-scoped agentic entry. Returns full structured series data (chart_data) plus a reconstruction image re-drawn from that data. Higher latency. Defaults to False.",
+            "default": false
+          },
+          "summarize_figures": {
+            "type": "boolean",
+            "title": "Summarize Figures",
+            "description": "For legacy Parse, if True, summarize figures using a separate vision language model. r-1 generates figure descriptions natively and ignores this setting. Defaults to True.",
+            "default": true
+          },
+          "intelligent_ordering": {
+            "type": "boolean",
+            "title": "Intelligent Ordering",
+            "description": "For legacy Parse, if True, use an advanced vision language model to improve reading order accuracy, with a small increase in latency. r-1 handles reading order natively and ignores this setting. Defaults to False.",
+            "default": false
+          }
+        },
+        "type": "object",
+        "title": "Enhance"
+      },
+      "EnhancedAsyncJobResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "Pending",
+              "Completed",
+              "Failed",
+              "Idle"
+            ],
+            "title": "Status"
+          },
+          "result": {
+            "anyOf": [
+              {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/ParseResponse"
+                  },
+                  {
+                    "$ref": "#/components/schemas/ExtractResponse"
+                  },
+                  {
+                    "$ref": "#/components/schemas/SplitResponse"
+                  },
+                  {
+                    "$ref": "#/components/schemas/EditResponse"
+                  },
+                  {
+                    "$ref": "#/components/schemas/PipelineResponse"
+                  },
+                  {
+                    "$ref": "#/components/schemas/V3ExtractResponse"
+                  },
+                  {
+                    "$ref": "#/components/schemas/ClassifyResponse"
+                  },
+                  {
+                    "$ref": "#/components/schemas/ChartResponse"
+                  }
+                ],
+                "discriminator": {
+                  "propertyName": "response_type",
+                  "mapping": {
+                    "chart": "#/components/schemas/ChartResponse",
+                    "classify": "#/components/schemas/ClassifyResponse",
+                    "edit": "#/components/schemas/EditResponse",
+                    "extract": "#/components/schemas/ExtractResponse",
+                    "parse": "#/components/schemas/ParseResponse",
+                    "pipeline": "#/components/schemas/PipelineResponse",
+                    "split": "#/components/schemas/SplitResponse",
+                    "v3_extract": "#/components/schemas/V3ExtractResponse"
+                  }
+                }
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Result"
+          },
+          "progress": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Progress"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ErrorDetail"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "type": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "Parse",
+                  "Extract",
+                  "Split",
+                  "Edit",
+                  "Pipeline",
+                  "Classify",
+                  "Chart"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
+          },
+          "num_pages": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Num Pages"
+          },
+          "total_pages": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Total Pages"
+          },
+          "source": {
+            "anyOf": [
+              {},
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source"
+          },
+          "duration": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Duration"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "raw_config": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Raw Config"
+          },
+          "bucket": {
+            "anyOf": [
+              {},
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bucket"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "title": "EnhancedAsyncJobResponse"
+      },
+      "ErrorCode": {
+        "type": "string",
+        "enum": [
+          "TIMEOUT",
+          "CAPACITY_TIMEOUT",
+          "CUSTOMER_TIMEOUT",
+          "INTERNAL_ERROR",
+          "SERVICE_UNAVAILABLE",
+          "GPU_ALLOCATION_ERROR",
+          "GPU_POOL_SATURATED",
+          "BATCH_QUEUE_FULL",
+          "QUEUE_FULL",
+          "JOB_STATE_ERROR",
+          "DOCUMENT_CORRUPT",
+          "DOCUMENT_EMPTY",
+          "DOCUMENT_UNSUPPORTED",
+          "DOCUMENT_TOO_LARGE",
+          "OFFICE_CONVERSION_TOO_LARGE",
+          "IMAGE_TOO_LARGE",
+          "IMAGE_TOO_SMALL",
+          "IMAGE_INVALID_ASPECT_RATIO",
+          "DOCUMENT_PASSWORD_PROTECTED",
+          "FORM_FILL_FAILED",
+          "INTERNAL_INVARIANT_VIOLATION",
+          "GPU_UNAVAILABLE",
+          "CONTEXT_WINDOW_EXCEEDED",
+          "OUTPUT_LIMIT_EXCEEDED",
+          "PROCESSING_FAILED",
+          "INFERENCE_METHOD_UNSUPPORTED",
+          "SUBPROCESS_CRASHED",
+          "BATCH_ORPHANED",
+          "OVERSIZED_RESULT",
+          "LLM_OUTPUT_PARSE_FAILED",
+          "LLM_PROVIDER_ERROR",
+          "INVALID_CONFIG",
+          "INVALID_SCHEMA",
+          "AUTH_ERROR",
+          "NOT_APPLICABLE",
+          "REGION_UNAVAILABLE",
+          "NOT_FOUND",
+          "JOB_DELETION_IN_PROGRESS",
+          "JOB_DELETED",
+          "JOB_NOT_COMPLETE",
+          "JOB_CANCELLED",
+          "RATE_LIMIT",
+          "CELL_COUNT_EXCEEDED",
+          "URL_NOT_ALLOWED"
+        ],
+        "title": "ErrorCode",
+        "description": "Machine-readable error names returned in API error responses.\n\nEach member maps to a category (Transient / Processing / Input) and\na default HTTP status code defined in ``ERROR_CODE_DEFAULTS``.\nThe enum value is the string customers see in the ``error.name`` field."
+      },
+      "ErrorDetail": {
+        "properties": {
+          "code": {
+            "type": "integer",
+            "title": "Code"
+          },
+          "name": {
+            "$ref": "#/components/schemas/ErrorCode"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "job_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Job Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "code",
+          "name",
+          "message"
+        ],
+        "title": "ErrorDetail",
+        "description": "Structured error body returned to customers.\n\nMatches the format specified in ``ERROR_POLICY.md``."
+      },
+      "ExtractResponse": {
+        "properties": {
+          "response_type": {
+            "type": "string",
+            "const": "extract",
+            "title": "Response Type",
+            "default": "extract"
+          },
+          "job_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Job Id"
+          },
+          "usage": {
+            "$ref": "#/components/schemas/ExtractUsage"
+          },
+          "studio_link": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Studio Link",
+            "description": "The link to the studio pipeline for the document."
+          },
+          "result": {
+            "anyOf": [
+              {
+                "items": {},
+                "type": "array"
+              },
+              {
+                "$ref": "#/components/schemas/UrlResult"
+              }
+            ],
+            "title": "Result",
+            "description": "The extracted response in your provided schema. This is a list of dictionaries. If disable_chunking is True (default), then it will be a list of length one. If force_url_result is True, this is returned as a URL result."
+          },
+          "citations": {
+            "anyOf": [
+              {
+                "items": {},
+                "type": "array"
+              },
+              {
+                "$ref": "#/components/schemas/UrlResult"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Citations",
+            "description": "The citations corresponding to the extracted response. If force_url_result is True and citations are present, this is returned as a URL result."
+          },
+          "response_confidence": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Response Confidence",
+            "description": "Optional deep extract confidence metadata containing document-level confidence plus a mirrored leaf-level confidence tree."
+          }
+        },
+        "type": "object",
+        "required": [
+          "usage",
+          "result",
+          "citations"
+        ],
+        "title": "ExtractResponse"
+      },
+      "ExtractSettings": {
+        "properties": {
+          "include_images": {
+            "type": "boolean",
+            "title": "Include Images",
+            "description": "If True, include images in the extraction.",
+            "default": false
+          },
+          "optimize_for_latency": {
+            "type": "boolean",
+            "title": "Optimize For Latency",
+            "description": "If True, jobs will be processed with a higher throughput and priority at a higher cost. Defaults to False.",
+            "default": false
+          },
+          "force_url_result": {
+            "type": "boolean",
+            "title": "Force Url Result",
+            "description": "Force the endpoint result to be returned in URL form.",
+            "default": false
+          },
+          "array_extract": {
+            "type": "boolean",
+            "title": "Array Extract",
+            "description": "Deprecated: prefer deep_extract, which supersedes array extraction for complex and long (array-heavy) extractions via an agentic loop (at higher cost and latency). If True, use array extraction.",
+            "default": false
+          },
+          "deep_extract": {
+            "type": "boolean",
+            "title": "Deep Extract",
+            "description": "If True, use Deep Extract, an agentic extraction mode that iteratively refines its output to achieve near-perfect accuracy. Best for complex documents where accuracy is critical.",
+            "default": false
+          },
+          "citations": {
+            "$ref": "#/components/schemas/Citations",
+            "description": "The citations to use for the extraction.",
+            "default": {
+              "enabled": false,
+              "numerical_confidence": true,
+              "parent_block": "full"
+            }
+          },
+          "page_range": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PageRange"
+              },
+              {
+                "items": {
+                  "$ref": "#/components/schemas/PageRange"
+                },
+                "type": "array"
+              },
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Page Range",
+            "description": "The page range to extract from (1-indexed). By default, the entire document is used. For spreadsheets, you can also provide a list of sheet names."
+          }
+        },
+        "type": "object",
+        "title": "ExtractSettings"
+      },
+      "ExtractSplitResponse": {
+        "properties": {
+          "split_name": {
+            "type": "string",
+            "title": "Split Name"
+          },
+          "page_range": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Page Range"
+          },
+          "partition": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Partition"
+          },
+          "result": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ExtractResponse"
+              },
+              {
+                "$ref": "#/components/schemas/V3ExtractResponse"
+              }
+            ],
+            "title": "Result"
+          }
+        },
+        "type": "object",
+        "required": [
+          "split_name",
+          "page_range",
+          "result"
+        ],
+        "title": "ExtractSplitResponse",
+        "description": "This is the response format for Extract -> Split Pipelines"
+      },
+      "ExtractUsage": {
+        "properties": {
+          "num_pages": {
+            "type": "integer",
+            "title": "Num Pages"
+          },
+          "num_fields": {
+            "type": "integer",
+            "title": "Num Fields"
+          },
+          "credits": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Credits"
+          },
+          "extract_mode": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "super_agent",
+                  "extract",
+                  "spreadsheet_agent"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Extract Mode"
+          },
+          "usage_breakdown": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ExtractUsageBreakdown"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Raw usage quantities. Only set for accounts on the new pricing model; credit fields are omitted for those accounts."
+          }
+        },
+        "type": "object",
+        "required": [
+          "num_pages",
+          "num_fields"
+        ],
+        "title": "ExtractUsage"
+      },
+      "ExtractUsageBreakdown": {
+        "properties": {
+          "extract_model": {
+            "type": "string",
+            "enum": [
+              "Extract",
+              "Deep Extract"
+            ],
+            "title": "Extract Model"
+          },
+          "tier": {
+            "type": "string",
+            "enum": [
+              "Default",
+              "Batch"
+            ],
+            "title": "Tier",
+            "default": "Default"
+          },
+          "extract_pages": {
+            "type": "integer",
+            "title": "Extract Pages",
+            "default": 0
+          },
+          "extract_fields": {
+            "type": "integer",
+            "title": "Extract Fields",
+            "default": 0
+          },
+          "ocr_pages": {
+            "type": "integer",
+            "title": "Ocr Pages",
+            "default": 0
+          },
+          "charts": {
+            "type": "integer",
+            "title": "Charts",
+            "default": 0
+          },
+          "prompted_blocks": {
+            "type": "integer",
+            "title": "Prompted Blocks",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "extract_model"
+        ],
+        "title": "ExtractUsageBreakdown",
+        "description": "Raw extract quantities for accounts on the new pricing model.\n\n``extract_fields`` is reported but not billed at launch. The add-on\nquantities (``ocr_pages``, ``charts``, ``prompted_blocks``) come from the\nparse bundled into the extract job; its page cost is covered by\n``extract_pages`` but its add-ons are billed separately. ``tier`` is\n\"Batch\" when the job ran on the batch queue, which takes the batch\ndiscount on the rate card."
+      },
+      "FigureAgentic": {
+        "properties": {
+          "scope": {
+            "type": "string",
+            "const": "figure",
+            "title": "Scope"
+          },
+          "prompt": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Prompt",
+            "description": "Custom prompt for figure agentic."
+          },
+          "advanced_chart_agent": {
+            "type": "boolean",
+            "title": "Advanced Chart Agent",
+            "description": "If True, run advanced chart extraction on figures classified as charts: an agentic extractor that returns full structured series data (chart_data) plus a reconstruction image re-drawn from that data (extra.chart_reconstruction). Higher latency. Defaults to False.",
+            "default": false
+          },
+          "return_overlays": {
+            "type": "boolean",
+            "title": "Return Overlays",
+            "description": "If True, return overlays for the figure. This is so you can use the overlays to double check the quality of the extraction",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "scope"
+        ],
+        "title": "FigureAgentic"
+      },
+      "Formatting": {
+        "properties": {
+          "add_page_markers": {
+            "type": "boolean",
+            "title": "Add Page Markers",
+            "description": "If True, add page markers to the output. Defaults to False. Useful for extracting data with page specific information.",
+            "default": false
+          },
+          "table_output_format": {
+            "type": "string",
+            "enum": [
+              "html",
+              "json",
+              "md",
+              "jsonbbox",
+              "dynamic",
+              "csv"
+            ],
+            "title": "Table Output Format",
+            "description": "The table output format. Defaults to dynamic, which returns md for simpler tables and html for more complex tables. r-1 does not support jsonbbox.",
+            "default": "dynamic"
+          },
+          "merge_tables": {
+            "type": "boolean",
+            "title": "Merge Tables",
+            "description": "A flag to indicate if consecutive tables with the same number of columns should be merged. Defaults to False.",
+            "default": false
+          },
+          "include": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "change_tracking",
+                "highlight",
+                "comments",
+                "hyperlinks",
+                "signatures",
+                "ignore_watermarks"
+              ]
+            },
+            "type": "array",
+            "title": "Include",
+            "description": "For legacy Parse, the formatting details to include in the output. r-1 handles highlights, signatures, and watermarks natively and ignores those values.",
+            "default": []
+          }
+        },
+        "type": "object",
+        "title": "Formatting"
+      },
+      "FullResult": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "full",
+            "title": "Type",
+            "description": "type = 'full'"
+          },
+          "chunks": {
+            "items": {
+              "$ref": "#/components/schemas/ParseChunk"
+            },
+            "type": "array",
+            "title": "Chunks"
+          },
+          "ocr": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/OCRResult"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "custom": {
+            "anyOf": [
+              {},
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Custom"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "chunks"
+        ],
+        "title": "FullResult"
+      },
+      "GranularConfidence": {
+        "properties": {
+          "extract_confidence": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Extract Confidence"
+          },
+          "parse_confidence": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Parse Confidence"
+          }
+        },
+        "type": "object",
+        "title": "GranularConfidence"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "HybridVpcSettings": {
+        "properties": {
+          "environment": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Environment",
+            "description": "Named Hybrid VPC environment to use for this request. Only applies when your organization has Hybrid VPC environments configured."
+          }
+        },
+        "type": "object",
+        "title": "HybridVpcSettings"
+      },
+      "Instructions": {
+        "properties": {
+          "schema": {
+            "title": "Schema",
+            "description": "The JSON schema to use for the extraction.",
+            "default": {}
+          },
+          "system_prompt": {
+            "type": "string",
+            "title": "System Prompt",
+            "description": "The system prompt to use for the extraction.",
+            "default": "Be precise and thorough."
+          }
+        },
+        "type": "object",
+        "title": "Instructions"
+      },
+      "JobsResponse": {
+        "properties": {
+          "jobs": {
+            "items": {
+              "$ref": "#/components/schemas/SingleJob"
+            },
+            "type": "array",
+            "title": "Jobs",
+            "description": "List of jobs with their job_id, status, type, raw_config, created_at, num_pages and duration"
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Cursor",
+            "description": "Cursor to fetch the next page of results. If null, there are no more results."
+          }
+        },
+        "type": "object",
+        "required": [
+          "jobs"
+        ],
+        "title": "JobsResponse"
+      },
+      "MergedTable": {
+        "properties": {
+          "content": {
+            "type": "string",
+            "title": "Content",
+            "description": "The original content of a table before merge_tables merged it."
+          },
+          "bbox": {
+            "$ref": "#/components/schemas/BoundingBox",
+            "description": "The original bounding box of a table before merge_tables merged it."
+          },
+          "image_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image Url",
+            "description": "(Experimental) The URL of the image for this original table fragment. Only populated when settings.return_images includes 'table'."
+          }
+        },
+        "type": "object",
+        "required": [
+          "content",
+          "bbox"
+        ],
+        "title": "MergedTable"
+      },
+      "OCRLine": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "bbox": {
+            "$ref": "#/components/schemas/BoundingBox"
+          },
+          "confidence": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Confidence",
+            "description": "OCR confidence score between 0 and 1, where 1 indicates highest confidence"
+          },
+          "chunk_index": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Chunk Index",
+            "description": "The index of the chunk that the line belongs to."
+          },
+          "rotation": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rotation",
+            "description": "The rotation angle in degrees, from 0 to 360, counterclockwise."
+          }
+        },
+        "type": "object",
+        "required": [
+          "text",
+          "bbox"
+        ],
+        "title": "OCRLine"
+      },
+      "OCRResult": {
+        "properties": {
+          "words": {
+            "items": {
+              "$ref": "#/components/schemas/OCRWord"
+            },
+            "type": "array",
+            "title": "Words"
+          },
+          "lines": {
+            "items": {
+              "$ref": "#/components/schemas/OCRLine"
+            },
+            "type": "array",
+            "title": "Lines"
+          }
+        },
+        "type": "object",
+        "required": [
+          "words",
+          "lines"
+        ],
+        "title": "OCRResult"
+      },
+      "OCRWord": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "bbox": {
+            "$ref": "#/components/schemas/BoundingBox"
+          },
+          "confidence": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Confidence",
+            "description": "OCR confidence score between 0 and 1, where 1 indicates highest confidence"
+          },
+          "chunk_index": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Chunk Index",
+            "description": "The index of the chunk that the word belongs to."
+          },
+          "rotation": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rotation",
+            "description": "The rotation angle in degrees, from 0 to 360, counterclockwise."
+          }
+        },
+        "type": "object",
+        "required": [
+          "text",
+          "bbox"
+        ],
+        "title": "OCRWord"
+      },
+      "PageRange": {
+        "properties": {
+          "start": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Start",
+            "description": "The page number to start processing from (1-indexed)."
+          },
+          "end": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "End",
+            "description": "The page number to stop processing at (1-indexed)."
+          }
+        },
+        "type": "object",
+        "title": "PageRange"
+      },
+      "ParseBlock": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "Header",
+              "Footer",
+              "Title",
+              "Section Header",
+              "Page Number",
+              "List Item",
+              "Figure",
+              "Table",
+              "Key Value",
+              "Text",
+              "Comment",
+              "Signature"
+            ],
+            "title": "Type",
+            "description": "The type of block extracted from the document."
+          },
+          "bbox": {
+            "$ref": "#/components/schemas/BoundingBox",
+            "description": "The bounding box of the block extracted from the document."
+          },
+          "content": {
+            "type": "string",
+            "title": "Content",
+            "description": "The content of the block extracted from the document."
+          },
+          "image_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image Url",
+            "description": "(Experimental) The URL of the image associated with the block."
+          },
+          "chart_data": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Chart Data",
+            "description": "(Experimental) The URL/link to chart data JSON for figure blocks processed by chart agent."
+          },
+          "confidence": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Confidence",
+            "description": "The confidence for the block. It is either low or high and takes into account factors like OCR and table structure",
+            "default": "low"
+          },
+          "granular_confidence": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/GranularConfidence"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Granular confidence scores for the block. It is a dictionary of confidence scores for the block. The confidence scores will not be None if the user has enabled numeric confidence scores."
+          },
+          "merged_tables": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/MergedTable"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Merged Tables",
+            "description": "Original table fragments that were combined into this table by merge_tables."
+          },
+          "extra": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Extra",
+            "description": "Extra metadata fields for the block. Fields like 'is_chart' will only appear when set to True."
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "bbox",
+          "content"
+        ],
+        "title": "ParseBlock"
+      },
+      "ParseChunk": {
+        "properties": {
+          "content": {
+            "type": "string",
+            "title": "Content",
+            "description": "The content of the chunk extracted from the document."
+          },
+          "embed": {
+            "type": "string",
+            "title": "Embed",
+            "description": "Chunk content optimized for embedding and retrieval."
+          },
+          "enriched": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Enriched",
+            "description": "The enriched content of the chunk extracted from the document."
+          },
+          "enrichment_success": {
+            "type": "boolean",
+            "title": "Enrichment Success",
+            "description": "Whether the enrichment was successful.",
+            "default": false
+          },
+          "blocks": {
+            "items": {
+              "$ref": "#/components/schemas/ParseBlock"
+            },
+            "type": "array",
+            "title": "Blocks"
+          }
+        },
+        "type": "object",
+        "required": [
+          "content",
+          "embed",
+          "enriched",
+          "blocks"
+        ],
+        "title": "ParseChunk"
+      },
+      "ParseOptions": {
+        "properties": {
+          "enhance": {
+            "$ref": "#/components/schemas/Enhance",
+            "default": {
+              "agentic": [],
+              "advanced_chart_agent": false,
+              "summarize_figures": true,
+              "intelligent_ordering": false
+            }
+          },
+          "retrieval": {
+            "$ref": "#/components/schemas/Retrieval",
+            "default": {
+              "chunking": {
+                "chunk_mode": "disabled",
+                "chunk_overlap": 0
+              },
+              "filter_blocks": [],
+              "embedding_optimized": false
+            }
+          },
+          "formatting": {
+            "$ref": "#/components/schemas/Formatting",
+            "default": {
+              "add_page_markers": false,
+              "table_output_format": "dynamic",
+              "merge_tables": false,
+              "include": []
+            }
+          },
+          "spreadsheet": {
+            "$ref": "#/components/schemas/Spreadsheet",
+            "default": {
+              "split_large_tables": {
+                "enabled": true,
+                "size": 50
+              },
+              "include": [],
+              "clustering": "accurate",
+              "exclude": []
+            }
+          },
+          "settings": {
+            "$ref": "#/components/schemas/Settings",
+            "default": {
+              "ocr_system": "standard",
+              "extraction_mode": "hybrid",
+              "force_url_result": false,
+              "return_ocr_data": false,
+              "return_images": [],
+              "embed_pdf_metadata": false,
+              "extract_document_properties": false,
+              "embed_pdf_metadata_dpi": 100,
+              "persist_results": false,
+              "hybrid_vpc": {}
+            }
+          }
+        },
+        "type": "object",
+        "title": "ParseOptions"
+      },
+      "ParseResponse": {
+        "properties": {
+          "response_type": {
+            "type": "string",
+            "const": "parse",
+            "title": "Response Type",
+            "default": "parse"
+          },
+          "job_id": {
+            "type": "string",
+            "title": "Job Id"
+          },
+          "duration": {
+            "type": "number",
+            "title": "Duration",
+            "description": "The duration of the parse request in seconds."
+          },
+          "pdf_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pdf Url",
+            "description": "The storage URL of the converted PDF file."
+          },
+          "studio_link": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Studio Link",
+            "description": "The link to the studio pipeline for the document."
+          },
+          "usage": {
+            "$ref": "#/components/schemas/ParseUsage"
+          },
+          "result": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/FullResult"
+              },
+              {
+                "$ref": "#/components/schemas/UrlResult"
+              }
+            ],
+            "title": "Result",
+            "description": "The response from the document processing service. Note that there can be two types of responses, Full Result and URL Result. This is due to limitations on the max return size on HTTPS. If the response is too large, it will be returned as a presigned URL in the URL response. You should handle this in your application."
+          },
+          "document_properties": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DocumentProperties"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Properties embedded in the customer's original document."
+          }
+        },
+        "type": "object",
+        "required": [
+          "job_id",
+          "duration",
+          "usage",
+          "result"
+        ],
+        "title": "ParseResponse"
+      },
+      "ParseUsage": {
+        "properties": {
+          "num_pages": {
+            "type": "integer",
+            "title": "Num Pages"
+          },
+          "credits": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Credits"
+          },
+          "credit_breakdown": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "number"
+                },
+                "propertyNames": {
+                  "enum": [
+                    "page",
+                    "ocr",
+                    "html_page",
+                    "docx_native_page",
+                    "chart_agent",
+                    "spreadsheet_cells",
+                    "billable_spreadsheet_pages",
+                    "agentic",
+                    "complex",
+                    "enrich_table",
+                    "figure_summary",
+                    "table_summary",
+                    "key_value",
+                    "agentic_text",
+                    "promptable_agentic_text",
+                    "reducto_lite_page"
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Credit Breakdown"
+          },
+          "page_billing_breakdown": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "page",
+                      "html_page",
+                      "docx_native_page",
+                      "agentic",
+                      "complex",
+                      "chart_agent",
+                      "spreadsheet_cells",
+                      "billable_spreadsheet_pages",
+                      "enrich_table",
+                      "figure_summary",
+                      "table_summary",
+                      "key_value",
+                      "agentic_text",
+                      "promptable_agentic_text",
+                      "reducto_lite_page"
+                    ]
+                  },
+                  "type": "array"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Page Billing Breakdown",
+            "description": "Per-page breakdown of features used. Maps 1-indexed page numbers (as strings) to the list of billing features applied on that page (e.g. 'page', 'complex', 'chart_agent')."
+          },
+          "non_empty_cell_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Non Empty Cell Count",
+            "description": "Total non-empty cells across all sheets. Only set for spreadsheet inputs."
+          },
+          "usage_breakdown": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ParseUsageBreakdown"
+              },
+              {
+                "$ref": "#/components/schemas/SplitUsageBreakdown"
+              },
+              {
+                "$ref": "#/components/schemas/EditUsageBreakdown"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Usage Breakdown",
+            "description": "Raw usage quantities. Only set for accounts on the new pricing model; credit fields are omitted for those accounts."
+          }
+        },
+        "type": "object",
+        "required": [
+          "num_pages"
+        ],
+        "title": "ParseUsage"
+      },
+      "ParseUsageBreakdown": {
+        "properties": {
+          "parse_model": {
+            "type": "string",
+            "enum": [
+              "R-1",
+              "Legacy"
+            ],
+            "title": "Parse Model"
+          },
+          "tier": {
+            "type": "string",
+            "enum": [
+              "Default",
+              "Batch"
+            ],
+            "title": "Tier"
+          },
+          "parse_pages": {
+            "type": "integer",
+            "title": "Parse Pages",
+            "default": 0
+          },
+          "parse_native_pages": {
+            "type": "integer",
+            "title": "Parse Native Pages",
+            "default": 0
+          },
+          "legacy_parse_credits": {
+            "type": "number",
+            "title": "Legacy Parse Credits",
+            "default": 0.0
+          },
+          "ocr_pages": {
+            "type": "integer",
+            "title": "Ocr Pages",
+            "default": 0
+          },
+          "charts": {
+            "type": "integer",
+            "title": "Charts",
+            "default": 0
+          },
+          "prompted_blocks": {
+            "type": "integer",
+            "title": "Prompted Blocks",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "parse_model",
+          "tier"
+        ],
+        "title": "ParseUsageBreakdown",
+        "description": "Raw parse quantities for accounts on the new (Q3 2026) pricing model.\n\n``parse_model`` is \"R-1\" for the new parse model and \"Legacy\" for the\nlegacy parse pipeline. A legacy-pipeline parse carries its cost in\n``legacy_parse_credits``; add-on quantities (``ocr_pages``, ``charts``,\n``prompted_blocks``) apply to the new parse model only."
+      },
+      "PipelineResponse": {
+        "properties": {
+          "response_type": {
+            "type": "string",
+            "const": "pipeline",
+            "title": "Response Type",
+            "default": "pipeline"
+          },
+          "job_id": {
+            "type": "string",
+            "title": "Job Id"
+          },
+          "usage": {
+            "$ref": "#/components/schemas/ParseUsage"
+          },
+          "result": {
+            "$ref": "#/components/schemas/PipelineResult"
+          }
+        },
+        "type": "object",
+        "required": [
+          "job_id",
+          "usage",
+          "result"
+        ],
+        "title": "PipelineResponse"
+      },
+      "PipelineResult": {
+        "properties": {
+          "parse": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ParseResponse"
+              },
+              {
+                "items": {
+                  "$ref": "#/components/schemas/ParseResponse"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Parse"
+          },
+          "extract": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/ExtractSplitResponse"
+                },
+                "type": "array"
+              },
+              {
+                "$ref": "#/components/schemas/ExtractResponse"
+              },
+              {
+                "$ref": "#/components/schemas/V3ExtractResponse"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Extract"
+          },
+          "split": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SplitResponse"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "edit": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/EditResponse"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "parse",
+          "extract",
+          "split"
+        ],
+        "title": "PipelineResult"
+      },
+      "PipelineSettings": {
+        "properties": {
+          "document_password": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Document Password",
+            "description": "Password to decrypt password-protected documents."
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "PipelineSettings",
+        "description": "Settings for pipeline execution that override pipeline defaults."
+      },
+      "QueuePriority": {
+        "type": "string",
+        "enum": [
+          "auto",
+          "standard",
+          "batch"
+        ],
+        "title": "QueuePriority",
+        "description": "Customer-facing queue priority for parse jobs.\n\n``AUTO`` and ``STANDARD`` are wire-level synonyms — both mean \"default\nqueue.\"  Downstream code only branches on ``BATCH``, so the difference\nis purely lexical.  Both values are first-class enum members so a\nrolling deploy is safe in either direction: a pre-#6134 pod (enum =\n``{auto, batch}``) and a post-fix pod (enum = ``{auto, standard, batch}``)\ncan both deserialise payloads the other produces.\n\nMigration plan (three stages, each a separate PR fully deployed before\nthe next):\n\n1. **Widen** *(this PR)*: enum = ``{AUTO, STANDARD, BATCH}``,\n   ``default=AUTO``.  Compatible with the still-running pre-#6134\n   prod pods after yesterday's rollback.\n2. **Flip default**: same enum, ``default=STANDARD``.  Ship after\n   stage 1 is everywhere.\n3. **Narrow** *(future, optional)*: drop ``AUTO`` once every Redis\n   payload and SDK has migrated.  Until then it stays as an\n   accepted alias."
+      },
+      "ResponseConfidence": {
+        "properties": {
+          "categories": {
+            "items": {
+              "$ref": "#/components/schemas/CategoryConfidence"
+            },
+            "type": "array",
+            "title": "Categories"
+          }
+        },
+        "type": "object",
+        "required": [
+          "categories"
+        ],
+        "title": "ResponseConfidence",
+        "description": "Overall confidence breakdown for classification response."
+      },
+      "Retrieval": {
+        "properties": {
+          "chunking": {
+            "$ref": "#/components/schemas/Chunking",
+            "default": {
+              "chunk_mode": "disabled",
+              "chunk_overlap": 0
+            }
+          },
+          "filter_blocks": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "Header",
+                "Footer",
+                "Title",
+                "Section Header",
+                "Page Number",
+                "List Item",
+                "Figure",
+                "Table",
+                "Key Value",
+                "Text",
+                "Comment",
+                "Signature"
+              ]
+            },
+            "type": "array",
+            "title": "Filter Blocks",
+            "description": "A list of block types to filter out from 'content' and 'embed' fields. By default, no blocks are filtered.",
+            "default": []
+          },
+          "embedding_optimized": {
+            "type": "boolean",
+            "title": "Embedding Optimized",
+            "description": "If True, use embedding optimized mode. Defaults to False.",
+            "default": false
+          }
+        },
+        "type": "object",
+        "title": "Retrieval"
+      },
+      "Settings": {
+        "properties": {
+          "ocr_system": {
+            "type": "string",
+            "enum": [
+              "standard",
+              "legacy"
+            ],
+            "title": "Ocr System",
+            "description": "The OCR system for legacy Parse. Standard is the best multilingual OCR system. Legacy supports Germanic languages and remains available for backwards compatibility. r-1 uses native full-page processing and ignores this setting. Defaults to standard.",
+            "default": "standard"
+          },
+          "extraction_mode": {
+            "type": "string",
+            "enum": [
+              "ocr",
+              "hybrid"
+            ],
+            "title": "Extraction Mode",
+            "description": "The text extraction method for legacy Parse. OCR uses optical character recognition only. Hybrid combines OCR with embedded PDF text. r-1 uses native full-page processing and ignores this setting. Defaults to hybrid.",
+            "default": "hybrid"
+          },
+          "force_url_result": {
+            "type": "boolean",
+            "title": "Force Url Result",
+            "description": "Force the result to be returned in URL form.",
+            "default": false
+          },
+          "force_file_extension": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Force File Extension",
+            "description": "Force the URL to be downloaded as a specific file extension (e.g. `.png`)."
+          },
+          "return_ocr_data": {
+            "type": "boolean",
+            "title": "Return Ocr Data",
+            "description": "If True, return OCR data in the result. Defaults to False.",
+            "default": false
+          },
+          "return_images": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "figure",
+                "table",
+                "page"
+              ]
+            },
+            "type": "array",
+            "title": "Return Images",
+            "description": "Whether to return images for the specified block types. 'page' returns full page images. By default, no images are returned.",
+            "default": []
+          },
+          "embed_pdf_metadata": {
+            "type": "boolean",
+            "title": "Embed Pdf Metadata",
+            "description": "If True, embed OCR metadata into the returned PDF. Defaults to False.",
+            "default": false
+          },
+          "extract_document_properties": {
+            "type": "boolean",
+            "title": "Extract Document Properties",
+            "description": "If True, return properties embedded in the original document. Defaults to False.",
+            "default": false
+          },
+          "embed_pdf_metadata_dpi": {
+            "type": "integer",
+            "maximum": 250.0,
+            "minimum": 50.0,
+            "title": "Embed Pdf Metadata Dpi",
+            "description": "Render DPI used when rasterizing the source PDF before embedding the OCR text layer (only applies when ``embed_pdf_metadata`` is True). Lower values produce dramatically smaller output PDFs; higher values preserve more detail when zoomed past 200%. Defaults to 100 (good for on-screen viewing); raise toward the source scan DPI for crisper output. Min 50, max 250.",
+            "default": 100
+          },
+          "persist_results": {
+            "type": "boolean",
+            "title": "Persist Results",
+            "description": "If True, persist the results indefinitely. Defaults to False.",
+            "default": false
+          },
+          "tenant_throttling": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TenantThrottling"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Per-tenant throttling for multi-tenant applications. Tag each request with your tenant's id to bound how much of your account's concurrency a single tenant can consume. Account-level throttles still apply."
+          },
+          "timeout": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Timeout",
+            "description": "The timeout for the job in seconds."
+          },
+          "page_range": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PageRange"
+              },
+              {
+                "items": {
+                  "$ref": "#/components/schemas/PageRange"
+                },
+                "type": "array"
+              },
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Page Range",
+            "description": "The page range to process (1-indexed). By default, the entire document is processed. For spreadsheets, you can also provide a list of sheet names."
+          },
+          "document_password": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Document Password",
+            "description": "Password to decrypt password-protected documents."
+          },
+          "hybrid_vpc": {
+            "$ref": "#/components/schemas/HybridVpcSettings",
+            "description": "Hybrid VPC request-scoped settings.",
+            "default": {}
+          },
+          "model": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "r-1",
+                  "legacy"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model",
+            "description": "The parse model to use. 'r-1' is the R-1 full-page parse model, which parses each page in a single generation. 'legacy' is the previous parsing pipeline. Defaults to 'legacy' unless your organization was created on the r-1 plan, in which case it defaults to 'r-1'."
+          }
+        },
+        "type": "object",
+        "title": "Settings"
+      },
+      "SingleJob": {
+        "properties": {
+          "job_id": {
+            "type": "string",
+            "title": "Job Id"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "Pending",
+              "Completed",
+              "Failed",
+              "Idle",
+              "InProgress",
+              "Completing",
+              "Cancelled"
+            ],
+            "title": "Status"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "Parse",
+              "Extract",
+              "Split",
+              "Edit",
+              "Pipeline",
+              "Classify",
+              "Chart"
+            ],
+            "title": "Type"
+          },
+          "raw_config": {
+            "type": "string",
+            "title": "Raw Config"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "source": {
+            "anyOf": [
+              {},
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source"
+          },
+          "num_pages": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Num Pages"
+          },
+          "total_pages": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Total Pages"
+          },
+          "duration": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Duration"
+          },
+          "bucket": {
+            "anyOf": [
+              {},
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bucket"
+          }
+        },
+        "type": "object",
+        "required": [
+          "job_id",
+          "status",
+          "type",
+          "raw_config",
+          "created_at",
+          "num_pages",
+          "total_pages",
+          "duration"
+        ],
+        "title": "SingleJob"
+      },
+      "Split": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "pages": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Pages"
+          },
+          "conf": {
+            "type": "string",
+            "enum": [
+              "high",
+              "low"
+            ],
+            "title": "Conf",
+            "default": "low"
+          },
+          "partitions": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/SplitPartition"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Partitions"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "pages"
+        ],
+        "title": "Split"
+      },
+      "SplitCategory": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "partition_key": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Partition Key"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "description"
+        ],
+        "title": "SplitCategory"
+      },
+      "SplitLargeTableSizes": {
+        "properties": {
+          "row": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Row",
+            "description": "The number of rows to include in each chunk when splitting large tables. Does not chunk rows if set to None."
+          },
+          "column": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Column",
+            "description": "The number of columns to include in each chunk when splitting large tables. Does not chunk columns if set to None."
+          }
+        },
+        "type": "object",
+        "title": "SplitLargeTableSizes"
+      },
+      "SplitLargeTables": {
+        "properties": {
+          "enabled": {
+            "type": "boolean",
+            "title": "Enabled",
+            "description": "If True, split large tables into smaller tables. Defaults to True.",
+            "default": true
+          },
+          "size": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "$ref": "#/components/schemas/SplitLargeTableSizes"
+              }
+            ],
+            "title": "Size",
+            "description": "The size of the tables to split into. Defaults to 50. Use 'row' and 'column' to independently specify the number of rows and columns to include when splitting. If you only want to split by rows or columns, set the other value to None.",
+            "default": 50
+          }
+        },
+        "type": "object",
+        "title": "SplitLargeTables"
+      },
+      "SplitPartition": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "pages": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Pages"
+          },
+          "conf": {
+            "type": "string",
+            "enum": [
+              "high",
+              "low"
+            ],
+            "title": "Conf",
+            "default": "low"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "pages"
+        ],
+        "title": "SplitPartition"
+      },
+      "SplitResponse": {
+        "properties": {
+          "response_type": {
+            "type": "string",
+            "const": "split",
+            "title": "Response Type",
+            "default": "split"
+          },
+          "job_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Job Id",
+            "description": "The unique identifier for the split job."
+          },
+          "usage": {
+            "$ref": "#/components/schemas/ParseUsage"
+          },
+          "duration": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Duration",
+            "description": "The duration of the split request in seconds."
+          },
+          "result": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SplitResult"
+              },
+              {
+                "$ref": "#/components/schemas/DeepSplitResult"
+              },
+              {
+                "$ref": "#/components/schemas/UrlResult"
+              }
+            ],
+            "title": "Result",
+            "description": "The split result. If force_url_result is True, this is returned as a URL result."
+          }
+        },
+        "type": "object",
+        "required": [
+          "usage",
+          "result"
+        ],
+        "title": "SplitResponse"
+      },
+      "SplitResult": {
+        "properties": {
+          "section_mapping": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "items": {
+                    "type": "integer"
+                  },
+                  "type": "array"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Section Mapping"
+          },
+          "splits": {
+            "items": {
+              "$ref": "#/components/schemas/Split"
+            },
+            "type": "array",
+            "title": "Splits"
+          }
+        },
+        "type": "object",
+        "required": [
+          "section_mapping",
+          "splits"
+        ],
+        "title": "SplitResult"
+      },
+      "SplitSettings": {
+        "properties": {
+          "table_cutoff": {
+            "type": "string",
+            "enum": [
+              "truncate",
+              "preserve"
+            ],
+            "title": "Table Cutoff",
+            "description": "If tables should be truncated to the first few rows or if all content should be preserved. truncate improves latency, preserve is recommended for cases where partition_key is being used and the partition_key may be included within the table. Defaults to truncate",
+            "default": "truncate"
+          },
+          "allow_page_overlap": {
+            "type": "boolean",
+            "title": "Allow Page Overlap",
+            "description": "If True, a page can belong to multiple categories/partitions. If False, each page must belong to exactly one category. Defaults to True.",
+            "default": true
+          },
+          "auto_partition": {
+            "type": "boolean",
+            "title": "Auto Partition",
+            "description": "If True (default), deep split may split a category into partitions even when that category has no configured partition_key. If False, categories without a partition_key are never partitioned, so partitioning happens only where you explicitly configured a partition_key.",
+            "default": true
+          },
+          "deep_split": {
+            "type": "boolean",
+            "title": "Deep Split",
+            "description": "If True, uses the deep split agent for higher-quality document splitting. Off by default.",
+            "default": false
+          },
+          "force_url_result": {
+            "type": "boolean",
+            "title": "Force Url Result",
+            "description": "Force the endpoint result to be returned in URL form.",
+            "default": false
+          }
+        },
+        "type": "object",
+        "title": "SplitSettings"
+      },
+      "SplitUsageBreakdown": {
+        "properties": {
+          "split_model": {
+            "type": "string",
+            "enum": [
+              "Split",
+              "Deep Split"
+            ],
+            "title": "Split Model"
+          },
+          "split_pages": {
+            "type": "integer",
+            "title": "Split Pages",
+            "default": 0
+          },
+          "ocr_pages": {
+            "type": "integer",
+            "title": "Ocr Pages",
+            "default": 0
+          },
+          "charts": {
+            "type": "integer",
+            "title": "Charts",
+            "default": 0
+          },
+          "prompted_blocks": {
+            "type": "integer",
+            "title": "Prompted Blocks",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "split_model"
+        ],
+        "title": "SplitUsageBreakdown",
+        "description": "Raw split quantities for accounts on the new pricing model.\n\nThe add-on quantities (``ocr_pages``, ``charts``, ``prompted_blocks``)\ncome from the parse bundled into the split job; its page cost is covered\nby ``split_pages`` but its add-ons are billed separately."
+      },
+      "Spreadsheet": {
+        "properties": {
+          "split_large_tables": {
+            "$ref": "#/components/schemas/SplitLargeTables",
+            "default": {
+              "enabled": true,
+              "size": 50
+            }
+          },
+          "include": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "cell_colors",
+                "formula",
+                "dropdowns"
+              ]
+            },
+            "type": "array",
+            "title": "Include",
+            "description": "Whether to include cell color, formula, and dropdown information in the output.",
+            "default": []
+          },
+          "clustering": {
+            "type": "string",
+            "enum": [
+              "accurate",
+              "fast",
+              "disabled"
+            ],
+            "title": "Clustering",
+            "description": "In a spreadsheet with different tables inside, we enable splitting up the tables by default. Accurate mode applies more powerful models for superior accuracy, at 5× the default per-cell rate. Disabling will register as one large table.",
+            "default": "accurate"
+          },
+          "exclude": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "hidden_sheets",
+                "hidden_rows",
+                "hidden_cols",
+                "styling",
+                "spreadsheet_images"
+              ]
+            },
+            "type": "array",
+            "title": "Exclude",
+            "description": "Whether to exclude hidden sheets, rows, or columns in the output.",
+            "default": []
+          },
+          "max_cell_count": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Cell Count",
+            "description": "Maximum total non-empty cells allowed across all sheets. If exceeded, the request is rejected with a 422 error. Set to null to disable the limit. Defaults to null."
+          }
+        },
+        "type": "object",
+        "title": "Spreadsheet"
+      },
+      "SvixWebhookConfig": {
+        "properties": {
+          "mode": {
+            "type": "string",
+            "const": "svix",
+            "title": "Mode",
+            "default": "svix"
+          },
+          "channels": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Channels",
+            "description": "A list of Svix channels the message will be delivered down, omit to send to all channels."
+          }
+        },
+        "type": "object",
+        "title": "SvixWebhookConfig"
+      },
+      "SyncExtractConfig": {
+        "properties": {
+          "input": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "$ref": "#/components/schemas/UploadResponse"
+              }
+            ],
+            "title": "Input",
+            "description": "For parse/split/extract pipelines, the URL of the document to be processed. You can provide one of the following:\n            1. A publicly available URL\n            2. A presigned S3 URL\n            3. A reducto:// prefixed URL obtained from the /upload endpoint after directly uploading a document\n            4. A jobid:// prefixed URL obtained from a previous /parse invocation\n            5. A list of URLs (for multi-document pipelines, V3 API only)\n\n            For edit pipelines, this should be a string containing the edit instructions "
+          },
+          "parsing": {
+            "$ref": "#/components/schemas/ParseOptions",
+            "description": "The configuration options for parsing the document. If you are passing in a jobid:// URL for the file, then this configuration will be ignored.",
+            "default": {
+              "enhance": {
+                "advanced_chart_agent": false,
+                "agentic": [],
+                "intelligent_ordering": false,
+                "summarize_figures": true
+              },
+              "retrieval": {
+                "chunking": {
+                  "chunk_mode": "disabled",
+                  "chunk_overlap": 0
+                },
+                "embedding_optimized": false,
+                "filter_blocks": []
+              },
+              "formatting": {
+                "add_page_markers": false,
+                "include": [],
+                "merge_tables": false,
+                "table_output_format": "dynamic"
+              },
+              "spreadsheet": {
+                "clustering": "accurate",
+                "exclude": [],
+                "include": [],
+                "split_large_tables": {
+                  "enabled": true,
+                  "size": 50
+                }
+              },
+              "settings": {
+                "embed_pdf_metadata": false,
+                "embed_pdf_metadata_dpi": 100,
+                "extract_document_properties": false,
+                "extraction_mode": "hybrid",
+                "force_url_result": false,
+                "hybrid_vpc": {},
+                "ocr_system": "standard",
+                "persist_results": false,
+                "return_images": [],
+                "return_ocr_data": false
+              }
+            }
+          },
+          "instructions": {
+            "$ref": "#/components/schemas/Instructions",
+            "description": "The instructions to use for the extraction.",
+            "default": {
+              "schema": {},
+              "system_prompt": "Be precise and thorough."
+            }
+          },
+          "settings": {
+            "$ref": "#/components/schemas/ExtractSettings",
+            "description": "The settings to use for the extraction.",
+            "default": {
+              "include_images": false,
+              "optimize_for_latency": false,
+              "force_url_result": false,
+              "array_extract": false,
+              "deep_extract": false,
+              "citations": {
+                "enabled": false,
+                "numerical_confidence": true,
+                "parent_block": "full"
+              }
+            }
+          }
+        },
+        "type": "object",
+        "required": [
+          "input"
+        ],
+        "title": "SyncExtractConfig"
+      },
+      "SyncParseConfig": {
+        "properties": {
+          "input": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "$ref": "#/components/schemas/UploadResponse"
+              }
+            ],
+            "title": "Input",
+            "description": "For parse/split/extract pipelines, the URL of the document to be processed. You can provide one of the following:\n            1. A publicly available URL\n            2. A presigned S3 URL\n            3. A reducto:// prefixed URL obtained from the /upload endpoint after directly uploading a document\n            4. A jobid:// prefixed URL obtained from a previous /parse invocation\n            5. A list of URLs (for multi-document pipelines, V3 API only)\n\n            For edit pipelines, this should be a string containing the edit instructions "
+          },
+          "enhance": {
+            "$ref": "#/components/schemas/Enhance",
+            "default": {
+              "agentic": [],
+              "advanced_chart_agent": false,
+              "summarize_figures": true,
+              "intelligent_ordering": false
+            }
+          },
+          "retrieval": {
+            "$ref": "#/components/schemas/Retrieval",
+            "default": {
+              "chunking": {
+                "chunk_mode": "disabled",
+                "chunk_overlap": 0
+              },
+              "filter_blocks": [],
+              "embedding_optimized": false
+            }
+          },
+          "formatting": {
+            "$ref": "#/components/schemas/Formatting",
+            "default": {
+              "add_page_markers": false,
+              "table_output_format": "dynamic",
+              "merge_tables": false,
+              "include": []
+            }
+          },
+          "spreadsheet": {
+            "$ref": "#/components/schemas/Spreadsheet",
+            "default": {
+              "split_large_tables": {
+                "enabled": true,
+                "size": 50
+              },
+              "include": [],
+              "clustering": "accurate",
+              "exclude": []
+            }
+          },
+          "settings": {
+            "$ref": "#/components/schemas/Settings",
+            "default": {
+              "ocr_system": "standard",
+              "extraction_mode": "hybrid",
+              "force_url_result": false,
+              "return_ocr_data": false,
+              "return_images": [],
+              "embed_pdf_metadata": false,
+              "extract_document_properties": false,
+              "embed_pdf_metadata_dpi": 100,
+              "persist_results": false,
+              "hybrid_vpc": {}
+            }
+          }
+        },
+        "type": "object",
+        "required": [
+          "input"
+        ],
+        "title": "SyncParseConfig"
+      },
+      "SyncSplitConfig": {
+        "properties": {
+          "input": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "$ref": "#/components/schemas/UploadResponse"
+              }
+            ],
+            "title": "Input",
+            "description": "For parse/split/extract pipelines, the URL of the document to be processed. You can provide one of the following:\n            1. A publicly available URL\n            2. A presigned S3 URL\n            3. A reducto:// prefixed URL obtained from the /upload endpoint after directly uploading a document\n            4. A jobid:// prefixed URL obtained from a previous /parse invocation\n            5. A list of URLs (for multi-document pipelines, V3 API only)\n\n            For edit pipelines, this should be a string containing the edit instructions "
+          },
+          "parsing": {
+            "$ref": "#/components/schemas/ParseOptions",
+            "description": "The configuration options for parsing the document. If you are passing in a jobid:// URL for the file, then this configuration will be ignored.",
+            "default": {
+              "enhance": {
+                "advanced_chart_agent": false,
+                "agentic": [],
+                "intelligent_ordering": false,
+                "summarize_figures": true
+              },
+              "retrieval": {
+                "chunking": {
+                  "chunk_mode": "disabled",
+                  "chunk_overlap": 0
+                },
+                "embedding_optimized": false,
+                "filter_blocks": []
+              },
+              "formatting": {
+                "add_page_markers": false,
+                "include": [],
+                "merge_tables": false,
+                "table_output_format": "dynamic"
+              },
+              "spreadsheet": {
+                "clustering": "accurate",
+                "exclude": [],
+                "include": [],
+                "split_large_tables": {
+                  "enabled": true,
+                  "size": 50
+                }
+              },
+              "settings": {
+                "embed_pdf_metadata": false,
+                "embed_pdf_metadata_dpi": 100,
+                "extract_document_properties": false,
+                "extraction_mode": "hybrid",
+                "force_url_result": false,
+                "hybrid_vpc": {},
+                "ocr_system": "standard",
+                "persist_results": false,
+                "return_images": [],
+                "return_ocr_data": false
+              }
+            }
+          },
+          "split_description": {
+            "items": {
+              "$ref": "#/components/schemas/SplitCategory"
+            },
+            "type": "array",
+            "title": "Split Description",
+            "description": "The configuration options for processing the document."
+          },
+          "split_rules": {
+            "type": "string",
+            "title": "Split Rules",
+            "description": "The prompt that describes rules for splitting the document.",
+            "default": "Split the document into the applicable sections. Sections may only overlap at their first and last page if at all."
+          },
+          "settings": {
+            "$ref": "#/components/schemas/SplitSettings",
+            "description": "The settings for split processing.",
+            "default": {
+              "table_cutoff": "truncate",
+              "allow_page_overlap": true,
+              "auto_partition": true,
+              "deep_split": false,
+              "force_url_result": false
+            }
+          }
+        },
+        "type": "object",
+        "required": [
+          "input",
+          "split_description"
+        ],
+        "title": "SyncSplitConfig"
+      },
+      "TableAgentic": {
+        "properties": {
+          "scope": {
+            "type": "string",
+            "const": "table",
+            "title": "Scope"
+          },
+          "prompt": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Prompt",
+            "description": "Custom prompt for table agentic."
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "default",
+              "auto",
+              "max"
+            ],
+            "title": "Mode",
+            "description": "Mode for table agentic: 'default' selectively applies enrichment only to tables likely to benefit, and 'max' runs enrichment on all tables.",
+            "default": "default"
+          }
+        },
+        "type": "object",
+        "required": [
+          "scope"
+        ],
+        "title": "TableAgentic"
+      },
+      "TenantThrottling": {
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "maxLength": 256,
+            "minLength": 1,
+            "title": "Tenant Id",
+            "description": "Your identifier for the tenant (customer, workspace, organization) this request belongs to. Used only for noisy-neighbor throttling inside your account."
+          },
+          "max_share": {
+            "type": "number",
+            "maximum": 1.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Max Share",
+            "description": "Maximum fraction of your account's concurrency ceiling this tenant may use, between 0 (exclusive) and 1. Defaults to 0.5.",
+            "default": 0.5
+          }
+        },
+        "type": "object",
+        "required": [
+          "tenant_id"
+        ],
+        "title": "TenantThrottling"
+      },
+      "TextAgentic": {
+        "properties": {
+          "scope": {
+            "type": "string",
+            "const": "text",
+            "title": "Scope"
+          },
+          "prompt": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Prompt",
+            "description": "Custom instructions for agentic text. Note: This only applies to form regions (key-value)."
+          }
+        },
+        "type": "object",
+        "required": [
+          "scope"
+        ],
+        "title": "TextAgentic"
+      },
+      "UploadResponse": {
+        "properties": {
+          "file_id": {
+            "type": "string",
+            "title": "File Id"
+          },
+          "presigned_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Presigned Url"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file_id"
+        ],
+        "title": "UploadResponse"
+      },
+      "UrlResult": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "url",
+            "title": "Type",
+            "description": "type = 'url'"
+          },
+          "url": {
+            "type": "string",
+            "title": "Url"
+          },
+          "result_id": {
+            "type": "string",
+            "title": "Result Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "url",
+          "result_id"
+        ],
+        "title": "UrlResult"
+      },
+      "V3AsyncPipelineConfig": {
+        "properties": {
+          "async": {
+            "$ref": "#/components/schemas/config__v3__AsyncConfig",
+            "description": "The configuration options for asynchronous processing (default synchronous).",
+            "default": {
+              "priority": false
+            }
+          },
+          "input": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "$ref": "#/components/schemas/UploadResponse"
+              }
+            ],
+            "title": "Input",
+            "description": "For parse/split/extract pipelines, the URL of the document to be processed. You can provide one of the following:\n            1. A publicly available URL\n            2. A presigned S3 URL\n            3. A reducto:// prefixed URL obtained from the /upload endpoint after directly uploading a document\n            4. A jobid:// prefixed URL obtained from a previous /parse invocation\n            5. A list of URLs (for multi-document pipelines, V3 API only)\n\n            For edit pipelines, this should be a string containing the edit instructions "
+          },
+          "pipeline_id": {
+            "type": "string",
+            "title": "Pipeline Id",
+            "description": "The ID of the pipeline to use for the document."
+          },
+          "settings": {
+            "$ref": "#/components/schemas/PipelineSettings",
+            "default": {}
+          }
+        },
+        "type": "object",
+        "required": [
+          "input",
+          "pipeline_id"
+        ],
+        "title": "V3AsyncPipelineConfig"
+      },
+      "V3ExtractResponse": {
+        "properties": {
+          "response_type": {
+            "type": "string",
+            "const": "v3_extract",
+            "title": "Response Type",
+            "default": "v3_extract"
+          },
+          "job_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Job Id"
+          },
+          "usage": {
+            "$ref": "#/components/schemas/ExtractUsage"
+          },
+          "studio_link": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Studio Link",
+            "description": "The link to the studio pipeline for the document."
+          },
+          "confidence": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "high",
+                  "low"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Confidence",
+            "description": "Optional document-level deep extract confidence label."
+          },
+          "confidence_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Confidence Reason",
+            "description": "Optional explanation for the document-level confidence label."
+          },
+          "result": {
+            "anyOf": [
+              {},
+              {
+                "items": {},
+                "type": "array"
+              }
+            ],
+            "title": "Result",
+            "description": "The extracted response in your provided schema. This is a list of dictionaries. If disable_chunking is True (default), then it will be a list of length one."
+          }
+        },
+        "type": "object",
+        "required": [
+          "usage",
+          "result"
+        ],
+        "title": "V3ExtractResponse"
+      },
+      "V3PipelineConfig": {
+        "properties": {
+          "input": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "$ref": "#/components/schemas/UploadResponse"
+              }
+            ],
+            "title": "Input",
+            "description": "For parse/split/extract pipelines, the URL of the document to be processed. You can provide one of the following:\n            1. A publicly available URL\n            2. A presigned S3 URL\n            3. A reducto:// prefixed URL obtained from the /upload endpoint after directly uploading a document\n            4. A jobid:// prefixed URL obtained from a previous /parse invocation\n            5. A list of URLs (for multi-document pipelines, V3 API only)\n\n            For edit pipelines, this should be a string containing the edit instructions "
+          },
+          "pipeline_id": {
+            "type": "string",
+            "title": "Pipeline Id",
+            "description": "The ID of the pipeline to use for the document."
+          },
+          "settings": {
+            "$ref": "#/components/schemas/PipelineSettings",
+            "default": {}
+          }
+        },
+        "type": "object",
+        "required": [
+          "input",
+          "pipeline_id"
+        ],
+        "title": "V3PipelineConfig"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "WebhookConfigNew": {
+        "properties": {
+          "mode": {
+            "type": "string",
+            "enum": [
+              "disabled",
+              "svix",
+              "direct"
+            ],
+            "title": "Mode",
+            "description": "The mode to use for webhook delivery. Defaults to 'disabled'. We recommend using 'svix' for production environments.",
+            "default": "disabled"
+          },
+          "url": {
+            "type": "string",
+            "title": "Url",
+            "description": "The URL to send the webhook to (if using direct webhoook)."
+          },
+          "metadata": {
+            "title": "Metadata",
+            "description": "JSON metadata included in webhook request body"
+          },
+          "channels": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Channels",
+            "description": "A list of Svix channels the message will be delivered down, omit to send to all channels."
+          }
+        },
+        "type": "object",
+        "title": "WebhookConfigNew"
+      },
+      "config__v3__AsyncConfig": {
+        "properties": {
+          "metadata": {
+            "title": "Metadata",
+            "description": "JSON metadata included in webhook request body. Defaults to None."
+          },
+          "priority": {
+            "type": "boolean",
+            "title": "Priority",
+            "description": "Workers poll the priority queue ahead of the standard queue, so priority jobs start sooner when there is queued work; sync jobs are prioritized above async jobs by default.",
+            "default": false
+          },
+          "webhook": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SvixWebhookConfig"
+              },
+              {
+                "$ref": "#/components/schemas/DirectWebhookConfig"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Webhook",
+            "description": "The webhook configuration for the asynchronous processing."
+          }
+        },
+        "type": "object",
+        "title": "AsyncConfig"
+      },
+      "config__v3__AsyncSplitConfig": {
+        "properties": {
+          "async": {
+            "$ref": "#/components/schemas/config__v3__AsyncConfig",
+            "description": "The configuration options for asynchronous processing (default synchronous).",
+            "default": {
+              "priority": false
+            }
+          },
+          "input": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "$ref": "#/components/schemas/UploadResponse"
+              }
+            ],
+            "title": "Input",
+            "description": "For parse/split/extract pipelines, the URL of the document to be processed. You can provide one of the following:\n            1. A publicly available URL\n            2. A presigned S3 URL\n            3. A reducto:// prefixed URL obtained from the /upload endpoint after directly uploading a document\n            4. A jobid:// prefixed URL obtained from a previous /parse invocation\n            5. A list of URLs (for multi-document pipelines, V3 API only)\n\n            For edit pipelines, this should be a string containing the edit instructions "
+          },
+          "parsing": {
+            "$ref": "#/components/schemas/ParseOptions",
+            "description": "The configuration options for parsing the document. If you are passing in a jobid:// URL for the file, then this configuration will be ignored.",
+            "default": {
+              "enhance": {
+                "advanced_chart_agent": false,
+                "agentic": [],
+                "intelligent_ordering": false,
+                "summarize_figures": true
+              },
+              "retrieval": {
+                "chunking": {
+                  "chunk_mode": "disabled",
+                  "chunk_overlap": 0
+                },
+                "embedding_optimized": false,
+                "filter_blocks": []
+              },
+              "formatting": {
+                "add_page_markers": false,
+                "include": [],
+                "merge_tables": false,
+                "table_output_format": "dynamic"
+              },
+              "spreadsheet": {
+                "clustering": "accurate",
+                "exclude": [],
+                "include": [],
+                "split_large_tables": {
+                  "enabled": true,
+                  "size": 50
+                }
+              },
+              "settings": {
+                "embed_pdf_metadata": false,
+                "embed_pdf_metadata_dpi": 100,
+                "extract_document_properties": false,
+                "extraction_mode": "hybrid",
+                "force_url_result": false,
+                "hybrid_vpc": {},
+                "ocr_system": "standard",
+                "persist_results": false,
+                "return_images": [],
+                "return_ocr_data": false
+              }
+            }
+          },
+          "split_description": {
+            "items": {
+              "$ref": "#/components/schemas/SplitCategory"
+            },
+            "type": "array",
+            "title": "Split Description",
+            "description": "The configuration options for processing the document."
+          },
+          "split_rules": {
+            "type": "string",
+            "title": "Split Rules",
+            "description": "The prompt that describes rules for splitting the document.",
+            "default": "Split the document into the applicable sections. Sections may only overlap at their first and last page if at all."
+          },
+          "settings": {
+            "$ref": "#/components/schemas/SplitSettings",
+            "description": "The settings for split processing.",
+            "default": {
+              "table_cutoff": "truncate",
+              "allow_page_overlap": true,
+              "auto_partition": true,
+              "deep_split": false,
+              "force_url_result": false
+            }
+          }
+        },
+        "type": "object",
+        "required": [
+          "input",
+          "split_description"
+        ],
+        "title": "AsyncSplitConfig"
+      }
+    },
+    "securitySchemes": {
+      "SkippableHTTPBearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

@@ -87,6 +87,35 @@ To format and fix all ruff issues automatically:
 $ ./scripts/format
 ```
 
+## Checking for API spec drift
+
+`scripts/spec_drift.py` compares the SDK request and response types against the
+public OpenAPI spec. It does not match on schema names. It anchors each type to an
+endpoint found in `src/reducto/resources/`, then walks both sides in parallel and
+compares JSON property names, types, enum values, and required-ness.
+
+```sh
+$ uv run python scripts/spec_drift.py                    # committed snapshot
+$ uv run python scripts/spec_drift.py --live              # https://reducto.ai/openapi.json
+$ uv run python scripts/spec_drift.py --spec other.json   # any URL or file
+$ uv run python scripts/spec_drift.py --update-snapshot   # refresh spec/openapi.json, then check
+$ uv run python scripts/spec_drift.py --json              # machine-readable
+$ uv run python scripts/spec_drift.py --ignore extra      # hide one drift kind
+```
+
+Drift kinds: `endpoint`, `missing` (spec has it, SDK lacks it), `extra` (SDK has
+it, spec lacks it), `type`, `enum`, `required`. The script exits 1 when it finds
+drift, unless you pass `--warn-only`.
+
+### Spec snapshot
+
+`spec/openapi.json` is a committed copy of the public spec. The `spec-drift`
+workflow checks every PR against this snapshot, so the check is reproducible
+and an upstream API change cannot turn an unrelated PR red.
+
+Refreshing the snapshot is a manual step. Run `--update-snapshot`, sync the SDK
+until the check is clean, then commit the new snapshot with the SDK changes.
+
 ## Publishing and releases
 
 Releases are manual.
