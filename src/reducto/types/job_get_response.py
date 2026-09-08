@@ -4,7 +4,9 @@ from typing_extensions import Literal, TypeAlias
 
 from .._models import BaseModel
 from .v3_extract import V3Extract
+from .shared.error_detail import ErrorDetail
 from .shared.edit_response import EditResponse
+from .shared.chart_response import ChartResponse
 from .shared.parse_response import ParseResponse
 from .shared.split_response import SplitResponse
 from .shared.extract_response import ExtractResponse
@@ -20,23 +22,40 @@ __all__ = [
 ]
 
 AsyncJobResponseResult: TypeAlias = Union[
-    ParseResponse, ExtractResponse, SplitResponse, EditResponse, PipelineResponse, V3Extract, ClassifyResponse, None
+    ParseResponse,
+    ExtractResponse,
+    SplitResponse,
+    EditResponse,
+    PipelineResponse,
+    V3Extract,
+    ClassifyResponse,
+    ChartResponse,
+    None,
 ]
 
 
 class AsyncJobResponse(BaseModel):
     status: Literal["Pending", "Completed", "Failed", "Idle"]
 
+    error: Optional[ErrorDetail] = None
+
     progress: Optional[float] = None
 
     reason: Optional[str] = None
 
     result: Optional[AsyncJobResponseResult] = None
-    """Response from classify job - returned when polling /job/{job_id}"""
 
 
 EnhancedAsyncJobResponseResult: TypeAlias = Union[
-    ParseResponse, ExtractResponse, SplitResponse, EditResponse, PipelineResponse, V3Extract, ClassifyResponse, None
+    ParseResponse,
+    ExtractResponse,
+    SplitResponse,
+    EditResponse,
+    PipelineResponse,
+    V3Extract,
+    ClassifyResponse,
+    ChartResponse,
+    None,
 ]
 
 
@@ -49,6 +68,8 @@ class EnhancedAsyncJobResponse(BaseModel):
 
     duration: Optional[float] = None
 
+    error: Optional[ErrorDetail] = None
+
     num_pages: Optional[int] = None
 
     progress: Optional[float] = None
@@ -58,13 +79,12 @@ class EnhancedAsyncJobResponse(BaseModel):
     reason: Optional[str] = None
 
     result: Optional[EnhancedAsyncJobResponseResult] = None
-    """Response from classify job - returned when polling /job/{job_id}"""
 
     source: Optional[object] = None
 
     total_pages: Optional[int] = None
 
-    type: Optional[Literal["Parse", "Extract", "Split", "Edit", "Pipeline", "Classify"]] = None
+    type: Optional[Literal["Parse", "Extract", "Split", "Edit", "Pipeline", "Classify", "Chart"]] = None
 
 
 JobGetResponse: TypeAlias = Union[AsyncJobResponse, EnhancedAsyncJobResponse]

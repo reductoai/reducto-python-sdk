@@ -11,12 +11,16 @@ from reducto.types import (
     AsyncPipelineResponse,
     AsyncSplitResponse,
     BaseProcessingOptions,
+    ChartResponse,
     Chunking,
     ChunkingConfig,
     ClassifyResponse,
     DirectWebhookConfig,
+    DocumentProperties,
     EditResponse,
     EnrichConfig,
+    ErrorCode,
+    ErrorDetail,
     ExperimentalProcessingOptions,
     ExtractResponse,
     FigureAgentic,
@@ -31,6 +35,7 @@ from reducto.types import (
     TableAgentic,
     TableSummaryConfig,
     TextAgentic,
+    URLResult,
     Upload,
     WebhookConfigNew,
 )
@@ -41,12 +46,13 @@ from reducto.types import (
 Types:
 
 ```python
-from reducto.types import APIVersionResponse
+from reducto.types import APIVersionResponse, ClientDeleteUploadResponse
 ```
 
 Methods:
 
 - <code title="get /version">client.<a href="./src/reducto/_client.py">api_version</a>() -> str</code>
+- <code title="delete /upload/{file_id}">client.<a href="./src/reducto/_client.py">delete_upload</a>(file_id) -> <a href="./src/reducto/types/client_delete_upload_response.py">ClientDeleteUploadResponse</a></code>
 - <code title="post /upload">client.<a href="./src/reducto/_client.py">upload</a>(\*\*<a href="src/reducto/types/client_upload_params.py">params</a>) -> <a href="./src/reducto/types/shared/upload.py">Upload</a></code>
 
 # Parse
@@ -154,11 +160,12 @@ Methods:
 Types:
 
 ```python
-from reducto.types import JobGetResponse, JobGetAllResponse
+from reducto.types import JobDeleteResponse, JobGetResponse, JobGetAllResponse
 ```
 
 Methods:
 
 - <code title="post /cancel/{job_id}">client.job.<a href="./src/reducto/resources/job.py">cancel</a>(job_id) -> object</code>
+- <code title="delete /job/{job_id}">client.job.<a href="./src/reducto/resources/job.py">delete</a>(job_id, \*\*<a href="src/reducto/types/job_delete_params.py">params</a>) -> <a href="./src/reducto/types/job_delete_response.py">JobDeleteResponse</a></code>
 - <code title="get /job/{job_id}">client.job.<a href="./src/reducto/resources/job.py">get</a>(job_id) -> <a href="./src/reducto/types/job_get_response.py">JobGetResponse</a></code>
 - <code title="get /jobs">client.job.<a href="./src/reducto/resources/job.py">get_all</a>(\*\*<a href="src/reducto/types/job_get_all_params.py">params</a>) -> <a href="./src/reducto/types/job_get_all_response.py">JobGetAllResponse</a></code>

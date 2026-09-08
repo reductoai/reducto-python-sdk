@@ -2,6 +2,7 @@ from typing import Dict, List, Union, Optional
 from typing_extensions import Literal, TypeAlias
 
 from ..._models import BaseModel
+from .url_result import URLResult
 from ..parse_usage import ParseUsage
 from ..deep_split_page_evidence import DeepSplitPageEvidence
 
@@ -59,11 +60,22 @@ class ResultDeepSplitResult(BaseModel):
     splits: List[ResultDeepSplitResultSplit]
 
 
-Result: TypeAlias = Union[ResultSplitResult, ResultDeepSplitResult]
+Result: TypeAlias = Union[ResultSplitResult, ResultDeepSplitResult, URLResult]
 
 
 class SplitResponse(BaseModel):
     result: Result
-    """The split result."""
+    """The split result.
+
+    If force_url_result is True, this is returned as a URL result.
+    """
 
     usage: ParseUsage
+
+    duration: Optional[float] = None
+    """The duration of the split request in seconds."""
+
+    job_id: Optional[str] = None
+    """The unique identifier for the split job."""
+
+    response_type: Optional[Literal["split"]] = None

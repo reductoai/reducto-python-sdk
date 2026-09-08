@@ -1,4 +1,5 @@
 from typing import List, Optional
+from typing_extensions import Literal
 
 from ..._models import BaseModel
 from ..edit_widget import EditWidget
@@ -16,6 +17,11 @@ class EditResponse(BaseModel):
 
     List of widgets with their types, descriptions, and bounding boxes.
     """
+
+    job_id: Optional[str] = None
+    """The unique identifier for the edit job."""
+
+    response_type: Optional[Literal["edit"]] = None
 
     usage: Optional[ParseUsage] = None
     """

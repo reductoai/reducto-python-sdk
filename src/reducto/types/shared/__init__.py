@@ -1,10 +1,13 @@
 from .upload import Upload as Upload
 from .chunking import Chunking as Chunking
 from .page_range import PageRange as PageRange
+from .url_result import URLResult as URLResult
+from .error_detail import ErrorCode as ErrorCode, ErrorDetail as ErrorDetail
 from .text_agentic import TextAgentic as TextAgentic
 from .edit_response import EditResponse as EditResponse
 from .enrich_config import EnrichConfig as EnrichConfig
 from .table_agentic import TableAgentic as TableAgentic
+from .chart_response import ChartResponse as ChartResponse
 from .figure_agentic import FigureAgentic as FigureAgentic
 from .parse_response import ParseResponse as ParseResponse
 from .split_response import SplitResponse as SplitResponse
@@ -15,6 +18,7 @@ from .pipeline_response import PipelineResponse as PipelineResponse
 from .split_large_tables import SplitLargeTables as SplitLargeTables
 from .webhook_config_new import WebhookConfigNew as WebhookConfigNew
 from .async_edit_response import AsyncEditResponse as AsyncEditResponse
+from .document_properties import DocumentProperties as DocumentProperties
 from .svix_webhook_config import SvixWebhookConfig as SvixWebhookConfig
 from .array_extract_config import ArrayExtractConfig as ArrayExtractConfig
 from .async_parse_response import AsyncParseResponse as AsyncParseResponse

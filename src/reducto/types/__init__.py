@@ -3,11 +3,15 @@ from __future__ import annotations
 from .shared import (
     Upload as Upload,
     Chunking as Chunking,
+    ErrorCode as ErrorCode,
     PageRange as PageRange,
+    URLResult as URLResult,
+    ErrorDetail as ErrorDetail,
     TextAgentic as TextAgentic,
     EditResponse as EditResponse,
     EnrichConfig as EnrichConfig,
     TableAgentic as TableAgentic,
+    ChartResponse as ChartResponse,
     FigureAgentic as FigureAgentic,
     ParseResponse as ParseResponse,
     SplitResponse as SplitResponse,
@@ -22,6 +26,7 @@ from .shared import (
     ArrayExtractConfig as ArrayExtractConfig,
     AsyncParseResponse as AsyncParseResponse,
     AsyncSplitResponse as AsyncSplitResponse,
+    DocumentProperties as DocumentProperties,
     TableSummaryConfig as TableSummaryConfig,
     DirectWebhookConfig as DirectWebhookConfig,
     FigureSummaryConfig as FigureSummaryConfig,
@@ -47,6 +52,7 @@ from .job_get_response import JobGetResponse as JobGetResponse
 from .parse_run_params import ParseRunParams as ParseRunParams
 from .split_run_params import SplitRunParams as SplitRunParams
 from .edit_widget_param import EditWidgetParam as EditWidgetParam
+from .job_delete_params import JobDeleteParams as JobDeleteParams
 from .spreadsheet_param import SpreadsheetParam as SpreadsheetParam
 from .bounding_box_param import BoundingBoxParam as BoundingBoxParam
 from .edit_options_param import EditOptionsParam as EditOptionsParam
@@ -56,6 +62,7 @@ from .job_get_all_params import JobGetAllParams as JobGetAllParams
 from .parse_run_response import ParseRunResponse as ParseRunResponse
 from .classify_run_params import ClassifyRunParams as ClassifyRunParams
 from .edit_run_job_params import EditRunJobParams as EditRunJobParams
+from .job_delete_response import JobDeleteResponse as JobDeleteResponse
 from .parse_options_param import ParseOptionsParam as ParseOptionsParam
 from .pipeline_run_params import PipelineRunParams as PipelineRunParams
 from .api_version_response import APIVersionResponse as APIVersionResponse
@@ -75,3 +82,4 @@ from .async_parse_config_param import AsyncParseConfigParam as AsyncParseConfigP
 from .deep_split_page_evidence import DeepSplitPageEvidence as DeepSplitPageEvidence
 from .split_table_options_param import SplitTableOptionsParam as SplitTableOptionsParam
 from .async_extract_config_param import AsyncExtractConfigParam as AsyncExtractConfigParam
+from .client_delete_upload_response import ClientDeleteUploadResponse as ClientDeleteUploadResponse

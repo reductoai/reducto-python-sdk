@@ -1,0 +1,63 @@
+from typing import Optional
+from typing_extensions import Literal
+
+from ..._models import BaseModel
+
+__all__ = ["ErrorDetail", "ErrorCode"]
+
+ErrorCode = Literal[
+    "TIMEOUT",
+    "CAPACITY_TIMEOUT",
+    "CUSTOMER_TIMEOUT",
+    "INTERNAL_ERROR",
+    "SERVICE_UNAVAILABLE",
+    "GPU_ALLOCATION_ERROR",
+    "GPU_POOL_SATURATED",
+    "BATCH_QUEUE_FULL",
+    "QUEUE_FULL",
+    "JOB_STATE_ERROR",
+    "DOCUMENT_CORRUPT",
+    "DOCUMENT_EMPTY",
+    "DOCUMENT_UNSUPPORTED",
+    "DOCUMENT_TOO_LARGE",
+    "OFFICE_CONVERSION_TOO_LARGE",
+    "IMAGE_TOO_LARGE",
+    "IMAGE_TOO_SMALL",
+    "IMAGE_INVALID_ASPECT_RATIO",
+    "DOCUMENT_PASSWORD_PROTECTED",
+    "FORM_FILL_FAILED",
+    "INTERNAL_INVARIANT_VIOLATION",
+    "GPU_UNAVAILABLE",
+    "CONTEXT_WINDOW_EXCEEDED",
+    "OUTPUT_LIMIT_EXCEEDED",
+    "PROCESSING_FAILED",
+    "INFERENCE_METHOD_UNSUPPORTED",
+    "SUBPROCESS_CRASHED",
+    "BATCH_ORPHANED",
+    "OVERSIZED_RESULT",
+    "LLM_OUTPUT_PARSE_FAILED",
+    "LLM_PROVIDER_ERROR",
+    "INVALID_CONFIG",
+    "INVALID_SCHEMA",
+    "AUTH_ERROR",
+    "NOT_APPLICABLE",
+    "REGION_UNAVAILABLE",
+    "NOT_FOUND",
+    "JOB_DELETION_IN_PROGRESS",
+    "JOB_DELETED",
+    "JOB_NOT_COMPLETE",
+    "JOB_CANCELLED",
+    "RATE_LIMIT",
+    "CELL_COUNT_EXCEEDED",
+    "URL_NOT_ALLOWED",
+]
+
+
+class ErrorDetail(BaseModel):
+    code: int
+
+    message: str
+
+    name: ErrorCode
+
+    job_id: Optional[str] = None
