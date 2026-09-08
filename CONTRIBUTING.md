@@ -99,11 +99,22 @@ $ uv run python scripts/spec_drift.py                 # live spec
 $ uv run python scripts/spec_drift.py --spec spec.json # local file
 $ uv run python scripts/spec_drift.py --json           # machine-readable
 $ uv run python scripts/spec_drift.py --ignore extra   # hide one drift kind
+$ uv run python scripts/spec_drift.py --update-pin     # record the spec version
 ```
 
 Drift kinds: `endpoint`, `missing` (spec has it, SDK lacks it), `extra` (SDK has
-it, spec lacks it), `type`, `enum`, `required`. The script exits 1 when it finds
-drift, unless you pass `--warn-only`.
+it, spec lacks it), `type`, `enum`, `required`, `version`. The script exits 1
+when it finds drift, unless you pass `--warn-only`.
+
+`.reducto-openapi-version` holds the `info.version` of the spec the SDK was last
+synced against. The spec has one URL and no version history, so the pin cannot
+fetch an older spec. It records what the SDK matches. When the live version
+differs, the script reports `version` drift. After you sync the SDK, run
+`--update-pin` to write the new version. The script refuses to update the pin
+while structural drift remains.
+
+CI ignores the `version` kind, because the version bumps on every backend
+deploy. It prints the gap as a notice and fails only on structural drift.
 
 ## Publishing and releases
 
