@@ -1,17 +1,29 @@
-# This workflow is triggered when a GitHub release is created.
-# It can also be run manually to re-publish to PyPI in case it failed for some reason.
-# You can run this workflow by navigating to https://www.github.com/reductoai/reducto-python-sdk/actions/workflows/publish-pypi.yml
+# Triggered when a GitHub release is published. Can also be run manually to
+# re-publish if a run failed.
+# https://www.github.com/reductoai/reducto-python-sdk/actions/workflows/publish-pypi.yml
+#
+# Both jobs use PyPI trusted publishing (OIDC). No API token is needed.
+# Each PyPI project (reductoai, reducto) must have a trusted publisher for
+# this repo, workflow file "publish-pypi.yml", and environment "pypi".
 name: Publish PyPI
+
 on:
   workflow_dispatch:
-
   release:
     types: [published]
 
+permissions:
+  contents: read
+
 jobs:
   publish:
-    name: publish
+    name: publish reductoai
     runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write
+    outputs:
+      version: ${{ steps.v.outputs.version }}
 
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -19,8 +31,65 @@ jobs:
       - name: Install uv
         uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78 # v7.6
 
-      - name: Publish to PyPI
+      - name: Resolve version
+        id: v
         run: |
-          bash ./bin/publish-pypi
-        env:
-          PYPI_TOKEN: ${{ secrets.REDUCTO_PYPI_TOKEN || secrets.PYPI_TOKEN }}
+          VERSION=$(python3 -c "import re,pathlib; print(re.search(r'__version__\s*=\s*\"([^\"]+)\"', pathlib.Path('src/reducto/_version.py').read_text()).group(1))")
+          if [ -z "$VERSION" ]; then
+            echo "Failed to resolve version from src/reducto/_version.py"
+            exit 1
+          fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Resolved reductoai version: $VERSION"
+
+      - name: Build
+        run: |
+          rm -rf dist
+          uv build
+
+      - name: Publish reductoai to PyPI
+        run: uv publish --trusted-publishing always
+
+  publish-shim:
+    name: publish reducto alias
+    needs: publish
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78 # v7.6
+
+      - name: Inject version into shim pyproject
+        working-directory: reducto-shim
+        run: sed -i "s/VERSION_PLACEHOLDER/${{ needs.publish.outputs.version }}/g" pyproject.toml
+
+      - name: Wait for reductoai to appear on PyPI
+        run: |
+          VERSION="${{ needs.publish.outputs.version }}"
+          for i in $(seq 1 30); do
+            if curl -sfo /dev/null "https://pypi.org/pypi/reductoai/${VERSION}/json"; then
+              echo "reductoai==${VERSION} is available on PyPI"
+              exit 0
+            fi
+            echo "Attempt $i: reductoai==${VERSION} not yet on PyPI; retrying in 10s"
+            sleep 10
+          done
+          echo "Timed out waiting for reductoai==${VERSION} on PyPI"
+          exit 1
+
+      - name: Build shim
+        working-directory: reducto-shim
+        run: uv build
+
+      - name: Validate distribution metadata
+        working-directory: reducto-shim
+        run: uvx twine check --strict dist/*
+
+      - name: Publish reducto alias to PyPI
+        working-directory: reducto-shim
+        run: uv publish --trusted-publishing always

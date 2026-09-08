@@ -130,9 +130,11 @@ Releases are manual.
 2. Add a section to `CHANGELOG.md`.
 3. Merge to `main`, then create a GitHub release with tag `vX.Y.Z`.
 
-Publishing the release triggers [the `Publish PyPI` GitHub action](https://www.github.com/reductoai/reducto-python-sdk/actions/workflows/publish-pypi.yml). It needs the `REDUCTO_PYPI_TOKEN` (or `PYPI_TOKEN`) repository secret. You can also run it by hand from the Actions tab.
+Publishing the release triggers [the `Publish PyPI` GitHub action](https://www.github.com/reductoai/reducto-python-sdk/actions/workflows/publish-pypi.yml). You can also run it by hand from the Actions tab.
 
-The `reducto` alias package publishes automatically after `Publish PyPI` succeeds.
+The workflow has two jobs. The first publishes `reductoai`. The second waits for it on PyPI, then publishes the `reducto` alias package pinned to the same version.
+
+Both jobs use [PyPI trusted publishing](https://docs.pypi.org/trusted-publishers/). No API token secret is needed. Each PyPI project (`reductoai` and `reducto`) must have a trusted publisher set to this repository, workflow `publish-pypi.yml`, and GitHub environment `pypi`.
 
 ### Publish from your machine
 

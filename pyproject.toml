@@ -77,7 +77,6 @@ include = [
   "/*.json",
   "/*.lock",
   "/*.md",
-  "bin/*",
   "examples/*",
   "src/*",
   "tests/*",
@@ -230,7 +229,6 @@ extra-standard-library = ["typing_extensions"]
 known-first-party = ["reducto", "tests"]
 
 [tool.ruff.lint.per-file-ignores]
-"bin/**.py" = ["T201", "T203"]
 "scripts/**.py" = ["T201", "T203"]
 "tests/**.py" = ["T201", "T203"]
 "examples/**.py" = ["T201", "T203"]
