@@ -29,6 +29,6 @@ class ChartResponse(BaseModel):
 
     duration: Optional[float] = None
 
-    response_type: Optional[Literal["chart"]] = None
+    response_type: Literal["chart"]
 
     usage: Optional[Usage] = None

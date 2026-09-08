@@ -7,6 +7,10 @@ name. Each SDK request/response type is anchored to an endpoint discovered from
 and walked in parallel, comparing JSON property names, types, enum values, and
 required-ness.
 
+`spec/drift-allowlist.json` lists known, intentional deviations with a reason.
+Matching items are reported as allowed and do not fail the check. Entries that
+match nothing are flagged as stale.
+
 The check runs against the committed snapshot `spec/openapi.json` by default, so
 it is reproducible and needs no network. `--live` checks against the public URL.
 `--update-snapshot` fetches the live spec, rewrites the snapshot, then checks.
@@ -31,7 +35,7 @@ import collections.abc
 import typing_extensions
 from typing import Any, Dict, List, Tuple, Union, Literal, Optional
 from pathlib import Path
-from dataclasses import field, asdict, dataclass
+from dataclasses import field, asdict, replace, dataclass
 from typing_extensions import Required, Annotated, NotRequired, get_args, get_origin, is_typeddict
 
 REPO = Path(__file__).resolve().parent.parent
@@ -43,6 +47,7 @@ from reducto._models import BaseModel  # noqa: E402
 
 LIVE_SPEC = "https://reducto.ai/openapi.json"
 SNAPSHOT = REPO / "spec" / "openapi.json"
+ALLOWLIST = REPO / "spec" / "drift-allowlist.json"
 HTTP_VERBS = ("get", "post", "put", "patch", "delete")
 HTTP_METHODS = {name: verb for verb in HTTP_VERBS for name in (verb, "_" + verb)}
 SUCCESS_CODES = ("200", "201", "202")
@@ -64,6 +69,7 @@ class Shape:
     items: Optional[Shape] = None
     members: List[Shape] = field(default_factory=lambda: [])
     label: str = ""
+    has_default: bool = False
 
 
 ANY = Shape("any")
@@ -117,6 +123,12 @@ class Spec:
         return node
 
     def shape(self, node: JsonDict, seen: typing.FrozenSet[str] = frozenset()) -> Shape:
+        shape = self.shape_of(node, seen)
+        if "default" in node and not shape.has_default:
+            shape = replace(shape, has_default=True)
+        return shape
+
+    def shape_of(self, node: JsonDict, seen: typing.FrozenSet[str]) -> Shape:
         label = ""
         if "$ref" in node:
             label = node["$ref"].rsplit("/", 1)[-1]
@@ -485,8 +497,12 @@ class Comparator:
         if spec_req == sdk_req:
             return
         # Response models express nullable fields as Optional[...] = None, so
-        # "required but nullable" in the spec is not drift there.
+        # "required but nullable" in the spec is not drift there. A response
+        # field with a server default is always present, so the sdk may
+        # require it.
         if self.ignore_null and spec_req and is_nullable(spec.props[name]):
+            return
+        if self.ignore_null and sdk_req and spec.props[name].has_default:
             return
         self.report(loc, "required", f"spec {req_word(spec_req)}, sdk {req_word(sdk_req)}")
 
@@ -682,9 +698,59 @@ def display(source: str) -> str:
     return source
 
 
-def print_report(drifts: List[Drift], endpoints: List[Endpoint], spec: Spec, source: str) -> None:
+@dataclass
+class Allowed:
+    endpoint: str
+    location: str
+    kind: str
+    reason: str
+    detail: Optional[str] = None
+
+    def matches(self, d: Drift) -> bool:
+        if (self.endpoint, self.location, self.kind) != (d.endpoint, d.location, d.kind):
+            return False
+        return self.detail is None or self.detail == d.detail
+
+
+def load_allowlist(path: Path) -> List[Allowed]:
+    if not path.exists():
+        return []
+    entries = typing.cast(List[JsonDict], json.loads(path.read_text()))
+    return [Allowed(**e) for e in entries]
+
+
+def split_allowed(drifts: List[Drift], allowlist: List[Allowed]) -> Tuple[List[Drift], List[Drift], List[Allowed]]:
+    active: List[Drift] = []
+    allowed: List[Drift] = []
+    used: typing.Set[int] = set()
+    for d in drifts:
+        hit = next((i for i, a in enumerate(allowlist) if a.matches(d)), None)
+        if hit is None:
+            active.append(d)
+        else:
+            allowed.append(d)
+            used.add(hit)
+    stale = [a for i, a in enumerate(allowlist) if i not in used]
+    return active, allowed, stale
+
+
+def print_report(
+    drifts: List[Drift],
+    allowed: List[Drift],
+    stale: List[Allowed],
+    endpoints: List[Endpoint],
+    spec: Spec,
+    source: str,
+) -> None:
     print(f"Spec: {display(source)} (version {spec.version})")
     print(f"Checked {len(endpoints)} sdk endpoints.")
+    if allowed:
+        print(f"{len(allowed)} allowed drift item(s), see {ALLOWLIST.relative_to(REPO)}:")
+        for d in allowed:
+            loc = f" {d.location}" if d.location else ""
+            print(f"  {d.endpoint} [{d.kind}]{loc}: {d.detail}")
+    for a in stale:
+        print(f"Stale allowlist entry matches nothing: {a.endpoint} [{a.kind}] {a.location}", file=sys.stderr)
     if not drifts:
         print("No drift found.")
         return
@@ -735,13 +801,19 @@ def main() -> int:
 
     spec = Spec(load_doc(source))
     endpoints = discover_endpoints()
-    drifts = [d for d in run(spec, endpoints) if d.kind not in args.ignore]
+    found = [d for d in run(spec, endpoints) if d.kind not in args.ignore]
+    drifts, allowed, stale = split_allowed(found, load_allowlist(ALLOWLIST))
 
     if args.json:
-        payload = {"spec": source, "spec_version": spec.version, "drifts": [asdict(d) for d in drifts]}
+        payload = {
+            "spec": source,
+            "spec_version": spec.version,
+            "drifts": [asdict(d) for d in drifts],
+            "allowed": [asdict(d) for d in allowed],
+        }
         print(json.dumps(payload, indent=2))
     else:
-        print_report(drifts, endpoints, spec, source)
+        print_report(drifts, allowed, stale, endpoints, spec, source)
     return 0 if not drifts or args.warn_only else 1
 
 

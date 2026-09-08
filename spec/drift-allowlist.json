@@ -1,0 +1,9 @@
+[
+  {
+    "endpoint": "POST /extract",
+    "location": "response",
+    "kind": "extra",
+    "detail": "sdk union member object(7 fields) has no spec counterpart",
+    "reason": "The API returns ExtractResponse (response_type 'extract') for accounts not on V3 extract. The spec lists only V3ExtractResponse and AsyncExtractResponse for this endpoint. ExtractRunResponse includes ExtractResponse so those responses parse. Remove once the spec adds ExtractResponse to POST /extract."
+  }
+]

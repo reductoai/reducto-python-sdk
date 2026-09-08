@@ -38,7 +38,7 @@ class ExtractResponse(BaseModel):
     plus a mirrored leaf-level confidence tree.
     """
 
-    response_type: Optional[Literal["extract"]] = None
+    response_type: Literal["extract"]
 
     studio_link: Optional[str] = None
     """The link to the studio pipeline for the document."""

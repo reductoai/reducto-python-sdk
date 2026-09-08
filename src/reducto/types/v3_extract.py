@@ -25,7 +25,7 @@ class V3Extract(BaseModel):
 
     job_id: Optional[str] = None
 
-    response_type: Optional[Literal["v3_extract"]] = None
+    response_type: Literal["v3_extract"]
 
     studio_link: Optional[str] = None
     """The link to the studio pipeline for the document."""

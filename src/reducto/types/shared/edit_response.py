@@ -21,7 +21,7 @@ class EditResponse(BaseModel):
     job_id: Optional[str] = None
     """The unique identifier for the edit job."""
 
-    response_type: Optional[Literal["edit"]] = None
+    response_type: Literal["edit"]
 
     usage: Optional[ParseUsage] = None
     """

@@ -11,7 +11,7 @@ from __future__ import annotations
 import os
 import time
 import tempfile
-from typing import Any, Dict
+from typing import Any, Dict, Union
 from pathlib import Path
 
 import pytest
@@ -24,6 +24,7 @@ from reducto.types import (
     ErrorDetail,
     ParseResponse,
     SplitResponse,
+    ExtractResponse,
     ClassifyResponse,
     JobDeleteResponse,
     AsyncParseResponse,
@@ -110,9 +111,14 @@ class TestParseNewParams:
         assert response.job_id
 
 
+SyncExtractResponse = Union[ExtractResponse, V3Extract]
+
+
 class TestExtractNewParams:
+    """The API returns ExtractResponse or V3Extract depending on the account."""
+
     @pytest.fixture(scope="class")
-    def response(self, client: Reducto) -> V3Extract:
+    def response(self, client: Reducto) -> SyncExtractResponse:
         response = client.extract.run(
             input=DOCUMENT_URL,
             instructions={"schema": TRIVIAL_SCHEMA},
@@ -122,20 +128,28 @@ class TestExtractNewParams:
                 "citations": {"enabled": True, "parent_block": "bbox_only"},
             },
         )
-        assert isinstance(response, V3Extract)
+        assert isinstance(response, (ExtractResponse, V3Extract))
         return response
 
-    def test_response_type(self, response: V3Extract) -> None:
-        assert response.response_type == "v3_extract"
+    def test_response_type_matches_class(self, response: SyncExtractResponse) -> None:
+        expected = "extract" if isinstance(response, ExtractResponse) else "v3_extract"
+        assert response.response_type == expected
 
-    def test_force_url_result(self, response: V3Extract) -> None:
-        assert isinstance(response.result, dict)
-        assert response.result["type"] == "url"
-        assert str(response.result["url"]).startswith("https://")
+    def test_force_url_result(self, response: SyncExtractResponse) -> None:
+        if isinstance(response, ExtractResponse):
+            assert isinstance(response.result, URLResult)
+            assert response.result.url.startswith("https://")
+        else:
+            assert isinstance(response.result, dict)
+            assert response.result["type"] == "url"
+            assert str(response.result["url"]).startswith("https://")
 
-    def test_confidence_fields_present(self, response: V3Extract) -> None:
-        assert response.confidence in (None, "high", "low")
-        assert response.confidence_reason is None or isinstance(response.confidence_reason, str)
+    def test_confidence_fields_present(self, response: SyncExtractResponse) -> None:
+        if isinstance(response, V3Extract):
+            assert response.confidence in (None, "high", "low")
+            assert response.confidence_reason is None or isinstance(response.confidence_reason, str)
+        else:
+            assert response.response_confidence is None or isinstance(response.response_confidence, dict)
 
     def test_queue_priority_standard(self, client: Reducto) -> None:
         response = client.extract.run_job(

@@ -55,4 +55,4 @@ class PipelineResponse(BaseModel):
 
     usage: ParseUsage
 
-    response_type: Optional[Literal["pipeline"]] = None
+    response_type: Literal["pipeline"]

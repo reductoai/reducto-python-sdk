@@ -1,7 +1,8 @@
 from typing import Union, Optional
 from datetime import datetime
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, Annotated, TypeAlias
 
+from .._utils import PropertyInfo
 from .._models import BaseModel
 from .v3_extract import V3Extract
 from .shared.error_detail import ErrorDetail
@@ -21,16 +22,19 @@ __all__ = [
     "EnhancedAsyncJobResponseResult",
 ]
 
-AsyncJobResponseResult: TypeAlias = Union[
-    ParseResponse,
-    ExtractResponse,
-    SplitResponse,
-    EditResponse,
-    PipelineResponse,
-    V3Extract,
-    ClassifyResponse,
-    ChartResponse,
-    None,
+AsyncJobResponseResult: TypeAlias = Annotated[
+    Union[
+        ParseResponse,
+        ExtractResponse,
+        SplitResponse,
+        EditResponse,
+        PipelineResponse,
+        V3Extract,
+        ClassifyResponse,
+        ChartResponse,
+        None,
+    ],
+    PropertyInfo(discriminator="response_type"),
 ]
 
 
@@ -46,16 +50,19 @@ class AsyncJobResponse(BaseModel):
     result: Optional[AsyncJobResponseResult] = None
 
 
-EnhancedAsyncJobResponseResult: TypeAlias = Union[
-    ParseResponse,
-    ExtractResponse,
-    SplitResponse,
-    EditResponse,
-    PipelineResponse,
-    V3Extract,
-    ClassifyResponse,
-    ChartResponse,
-    None,
+EnhancedAsyncJobResponseResult: TypeAlias = Annotated[
+    Union[
+        ParseResponse,
+        ExtractResponse,
+        SplitResponse,
+        EditResponse,
+        PipelineResponse,
+        V3Extract,
+        ClassifyResponse,
+        ChartResponse,
+        None,
+    ],
+    PropertyInfo(discriminator="response_type"),
 ]
 
 
