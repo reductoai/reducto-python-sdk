@@ -4,7 +4,7 @@ from typing import Any, Optional, cast
 
 import httpx
 
-from ..types import job_get_all_params
+from ..types import job_delete_params, job_get_all_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -17,6 +17,7 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.job_get_response import JobGetResponse
+from ..types.job_delete_response import JobDeleteResponse
 from ..types.job_get_all_response import JobGetAllResponse
 
 __all__ = ["JobResource", "AsyncJobResource"]
@@ -73,6 +74,50 @@ class JobResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=object,
+        )
+
+    def delete(
+        self,
+        job_id: str,
+        *,
+        include_persisted: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> JobDeleteResponse:
+        """
+        Delete Parse Job
+
+        Asynchronously delete a job's stored artifacts. Tags the job with the deletion
+        marker. Retrieval returns 409 until artifact cleanup finishes, then 410 once the
+        deletion has completed.
+
+        Args:
+          include_persisted: Also delete long-retention persisted artifacts for this job.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not job_id:
+            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
+        return self._delete(
+            path_template("/job/{job_id}", job_id=job_id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"include_persisted": include_persisted}, job_delete_params.JobDeleteParams),
+            ),
+            cast_to=JobDeleteResponse,
         )
 
     def get(
@@ -217,6 +262,52 @@ class AsyncJobResource(AsyncAPIResource):
             cast_to=object,
         )
 
+    async def delete(
+        self,
+        job_id: str,
+        *,
+        include_persisted: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> JobDeleteResponse:
+        """
+        Delete Parse Job
+
+        Asynchronously delete a job's stored artifacts. Tags the job with the deletion
+        marker. Retrieval returns 409 until artifact cleanup finishes, then 410 once the
+        deletion has completed.
+
+        Args:
+          include_persisted: Also delete long-retention persisted artifacts for this job.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not job_id:
+            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
+        return await self._delete(
+            path_template("/job/{job_id}", job_id=job_id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"include_persisted": include_persisted}, job_delete_params.JobDeleteParams
+                ),
+            ),
+            cast_to=JobDeleteResponse,
+        )
+
     async def get(
         self,
         job_id: str,
@@ -313,6 +404,9 @@ class JobResourceWithRawResponse:
         self.cancel = to_raw_response_wrapper(
             job.cancel,
         )
+        self.delete = to_raw_response_wrapper(
+            job.delete,
+        )
         self.get = to_raw_response_wrapper(
             job.get,
         )
@@ -327,6 +421,9 @@ class AsyncJobResourceWithRawResponse:
 
         self.cancel = async_to_raw_response_wrapper(
             job.cancel,
+        )
+        self.delete = async_to_raw_response_wrapper(
+            job.delete,
         )
         self.get = async_to_raw_response_wrapper(
             job.get,
@@ -343,6 +440,9 @@ class JobResourceWithStreamingResponse:
         self.cancel = to_streamed_response_wrapper(
             job.cancel,
         )
+        self.delete = to_streamed_response_wrapper(
+            job.delete,
+        )
         self.get = to_streamed_response_wrapper(
             job.get,
         )
@@ -357,6 +457,9 @@ class AsyncJobResourceWithStreamingResponse:
 
         self.cancel = async_to_streamed_response_wrapper(
             job.cancel,
+        )
+        self.delete = async_to_streamed_response_wrapper(
+            job.delete,
         )
         self.get = async_to_streamed_response_wrapper(
             job.get,

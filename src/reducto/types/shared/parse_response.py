@@ -4,6 +4,7 @@ from typing_extensions import Literal, TypeAlias
 from ..._models import BaseModel
 from ..parse_usage import ParseUsage
 from ..bounding_box import BoundingBox
+from .document_properties import DocumentProperties
 
 __all__ = [
     "ParseResponse",
@@ -12,6 +13,7 @@ __all__ = [
     "ResultFullResultChunk",
     "ResultFullResultChunkBlock",
     "ResultFullResultChunkBlockGranularConfidence",
+    "ResultFullResultChunkBlockMergedTable",
     "ResultFullResultOcr",
     "ResultFullResultOcrLine",
     "ResultFullResultOcrWord",
@@ -28,6 +30,15 @@ class ResultFullResultChunkBlockGranularConfidence(BaseModel):
     extract_confidence: Optional[float] = None
 
     parse_confidence: Optional[float] = None
+
+
+class ResultFullResultChunkBlockMergedTable(BaseModel):
+    bbox: BoundingBox
+    """The bounding box of the block extracted from the document."""
+
+    content: str
+
+    image_url: Optional[str] = None
 
 
 class ResultFullResultChunkBlock(BaseModel):
@@ -81,6 +92,9 @@ class ResultFullResultChunkBlock(BaseModel):
 
     image_url: Optional[str] = None
     """(Experimental) The URL of the image associated with the block."""
+
+    merged_tables: Optional[List[ResultFullResultChunkBlockMergedTable]] = None
+    """Original table fragments that were combined into this table by merge_tables."""
 
 
 class ResultFullResultChunk(BaseModel):
@@ -175,8 +189,13 @@ class ParseResponse(BaseModel):
 
     usage: ParseUsage
 
+    document_properties: Optional[DocumentProperties] = None
+    """Properties embedded in the customer's original document."""
+
     pdf_url: Optional[str] = None
     """The storage URL of the converted PDF file."""
+
+    response_type: Literal["parse"]
 
     studio_link: Optional[str] = None
     """The link to the studio pipeline for the document."""

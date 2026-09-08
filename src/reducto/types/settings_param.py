@@ -1,14 +1,41 @@
 from __future__ import annotations
 
 from typing import List, Union, Iterable, Optional
-from typing_extensions import Literal, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
 from .shared_params import page_range
 
-__all__ = ["SettingsParam", "PageRange"]
+__all__ = ["SettingsParam", "HybridVpc", "PageRange", "TenantThrottling"]
+
+
+class HybridVpc(TypedDict, total=False):
+    """Hybrid VPC request-scoped settings."""
+
+    environment: Optional[str]
+    """Named Hybrid VPC environment to use for this request.
+
+    Only applies when your organization has Hybrid VPC environments configured.
+    """
+
 
 PageRange: TypeAlias = Union[page_range.PageRange, Iterable[page_range.PageRange], Iterable[int], SequenceNotStr[str]]
+
+
+class TenantThrottling(TypedDict, total=False):
+    """Per-tenant throttling for multi-tenant applications."""
+
+    tenant_id: Required[str]
+    """
+    Your identifier for the tenant (customer, workspace, organization) this request
+    belongs to. Used only for noisy-neighbor throttling inside your account.
+    """
+
+    max_share: float
+    """
+    Maximum fraction of your account's concurrency ceiling this tenant may use,
+    between 0 (exclusive) and 1. Defaults to 0.5.
+    """
 
 
 class SettingsParam(TypedDict, total=False):
@@ -17,6 +44,20 @@ class SettingsParam(TypedDict, total=False):
 
     embed_pdf_metadata: bool
     """If True, embed OCR metadata into the returned PDF. Defaults to False."""
+
+    embed_pdf_metadata_dpi: int
+    """
+    Render DPI used when rasterizing the source PDF before embedding the OCR text
+    layer (only applies when `embed_pdf_metadata` is True). Lower values produce
+    dramatically smaller output PDFs; higher values preserve more detail when zoomed
+    past 200%. Defaults to 100.
+    """
+
+    extract_document_properties: bool
+    """If True, return properties embedded in the original document.
+
+    Defaults to False.
+    """
 
     extraction_mode: Literal["ocr", "hybrid"]
     """The mode to use for text extraction from PDFs.
@@ -30,6 +71,9 @@ class SettingsParam(TypedDict, total=False):
 
     force_url_result: bool
     """Force the result to be returned in URL form."""
+
+    hybrid_vpc: HybridVpc
+    """Hybrid VPC request-scoped settings."""
 
     model: Optional[Literal["r-1", "legacy"]]
     """The parse model used for the request.
@@ -63,6 +107,13 @@ class SettingsParam(TypedDict, total=False):
 
     return_ocr_data: bool
     """If True, return OCR data in the result. Defaults to False."""
+
+    tenant_throttling: Optional[TenantThrottling]
+    """Per-tenant throttling for multi-tenant applications.
+
+    Tag each request with your tenant's id to bound how much of your account's
+    concurrency a single tenant can consume. Account-level throttles still apply.
+    """
 
     timeout: Optional[float]
     """The timeout for the job in seconds."""

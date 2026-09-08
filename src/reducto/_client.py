@@ -26,6 +26,7 @@ from ._types import (
 from ._utils import (
     is_given,
     extract_files,
+    path_template,
     maybe_transform,
     deepcopy_minimal,
     get_async_library,
@@ -49,6 +50,7 @@ from ._base_client import (
     make_request_options,
 )
 from .types.shared.upload import Upload
+from .types.client_delete_upload_response import ClientDeleteUploadResponse
 
 if TYPE_CHECKING:
     from .resources import job, edit, parse, split, extract, webhook, classify, pipeline
@@ -310,6 +312,39 @@ class Reducto(SyncAPIClient):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=str,
+        )
+
+    def delete_upload(
+        self,
+        file_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ClientDeleteUploadResponse:
+        """
+        Delete Uploaded File
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not file_id:
+            raise ValueError(f"Expected a non-empty value for `file_id` but received {file_id!r}")
+        return self.delete(
+            path_template("/upload/{file_id}", file_id=file_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ClientDeleteUploadResponse,
         )
 
     def upload(
@@ -623,6 +658,39 @@ class AsyncReducto(AsyncAPIClient):
             cast_to=str,
         )
 
+    async def delete_upload(
+        self,
+        file_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ClientDeleteUploadResponse:
+        """
+        Delete Uploaded File
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not file_id:
+            raise ValueError(f"Expected a non-empty value for `file_id` but received {file_id!r}")
+        return await self.delete(
+            path_template("/upload/{file_id}", file_id=file_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ClientDeleteUploadResponse,
+        )
+
     async def upload(
         self,
         *,
@@ -711,6 +779,9 @@ class ReductoWithRawResponse:
         self.api_version = to_raw_response_wrapper(
             client.api_version,
         )
+        self.delete_upload = to_raw_response_wrapper(
+            client.delete_upload,
+        )
         self.upload = to_raw_response_wrapper(
             client.upload,
         )
@@ -772,6 +843,9 @@ class AsyncReductoWithRawResponse:
 
         self.api_version = async_to_raw_response_wrapper(
             client.api_version,
+        )
+        self.delete_upload = async_to_raw_response_wrapper(
+            client.delete_upload,
         )
         self.upload = async_to_raw_response_wrapper(
             client.upload,
@@ -835,6 +909,9 @@ class ReductoWithStreamedResponse:
         self.api_version = to_streamed_response_wrapper(
             client.api_version,
         )
+        self.delete_upload = to_streamed_response_wrapper(
+            client.delete_upload,
+        )
         self.upload = to_streamed_response_wrapper(
             client.upload,
         )
@@ -896,6 +973,9 @@ class AsyncReductoWithStreamedResponse:
 
         self.api_version = async_to_streamed_response_wrapper(
             client.api_version,
+        )
+        self.delete_upload = async_to_streamed_response_wrapper(
+            client.delete_upload,
         )
         self.upload = async_to_streamed_response_wrapper(
             client.upload,

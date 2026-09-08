@@ -32,9 +32,11 @@ class TestParse:
         parse = client.parse.run(
             input="string",
             enhance={
+                "advanced_chart_agent": True,
                 "agentic": [
                     {
                         "scope": "table",
+                        "mode": "default",
                         "prompt": "prompt",
                     }
                 ],
@@ -59,9 +61,12 @@ class TestParse:
             settings={
                 "document_password": "document_password",
                 "embed_pdf_metadata": True,
+                "embed_pdf_metadata_dpi": 50,
+                "extract_document_properties": True,
                 "extraction_mode": "ocr",
                 "force_file_extension": "force_file_extension",
                 "force_url_result": True,
+                "hybrid_vpc": {"environment": "environment"},
                 "ocr_system": "standard",
                 "page_range": {
                     "end": 0,
@@ -70,12 +75,17 @@ class TestParse:
                 "persist_results": True,
                 "return_images": ["figure"],
                 "return_ocr_data": True,
+                "tenant_throttling": {
+                    "tenant_id": "tenant_id",
+                    "max_share": 0,
+                },
                 "timeout": 0,
             },
             spreadsheet={
                 "clustering": "accurate",
                 "exclude": ["hidden_sheets"],
                 "include": ["cell_colors"],
+                "max_cell_count": 0,
                 "split_large_tables": {
                     "enabled": True,
                     "size": 0,
@@ -132,9 +142,11 @@ class TestParse:
                 },
             },
             enhance={
+                "advanced_chart_agent": True,
                 "agentic": [
                     {
                         "scope": "table",
+                        "mode": "default",
                         "prompt": "prompt",
                     }
                 ],
@@ -160,9 +172,12 @@ class TestParse:
             settings={
                 "document_password": "document_password",
                 "embed_pdf_metadata": True,
+                "embed_pdf_metadata_dpi": 50,
+                "extract_document_properties": True,
                 "extraction_mode": "ocr",
                 "force_file_extension": "force_file_extension",
                 "force_url_result": True,
+                "hybrid_vpc": {"environment": "environment"},
                 "ocr_system": "standard",
                 "page_range": {
                     "end": 0,
@@ -171,12 +186,17 @@ class TestParse:
                 "persist_results": True,
                 "return_images": ["figure"],
                 "return_ocr_data": True,
+                "tenant_throttling": {
+                    "tenant_id": "tenant_id",
+                    "max_share": 0,
+                },
                 "timeout": 0,
             },
             spreadsheet={
                 "clustering": "accurate",
                 "exclude": ["hidden_sheets"],
                 "include": ["cell_colors"],
+                "max_cell_count": 0,
                 "split_large_tables": {
                     "enabled": True,
                     "size": 0,
@@ -233,9 +253,11 @@ class TestParse:
                 },
             },
             enhance={
+                "advanced_chart_agent": True,
                 "agentic": [
                     {
                         "scope": "table",
+                        "mode": "default",
                         "prompt": "prompt",
                     }
                 ],
@@ -261,9 +283,12 @@ class TestParse:
             settings={
                 "document_password": "document_password",
                 "embed_pdf_metadata": True,
+                "embed_pdf_metadata_dpi": 50,
+                "extract_document_properties": True,
                 "extraction_mode": "ocr",
                 "force_file_extension": "force_file_extension",
                 "force_url_result": True,
+                "hybrid_vpc": {"environment": "environment"},
                 "ocr_system": "standard",
                 "page_range": {
                     "end": 0,
@@ -272,12 +297,17 @@ class TestParse:
                 "persist_results": True,
                 "return_images": ["figure"],
                 "return_ocr_data": True,
+                "tenant_throttling": {
+                    "tenant_id": "tenant_id",
+                    "max_share": 0,
+                },
                 "timeout": 0,
             },
             spreadsheet={
                 "clustering": "accurate",
                 "exclude": ["hidden_sheets"],
                 "include": ["cell_colors"],
+                "max_cell_count": 0,
                 "split_large_tables": {
                     "enabled": True,
                     "size": 0,
@@ -332,9 +362,11 @@ class TestAsyncParse:
         parse = await async_client.parse.run(
             input="string",
             enhance={
+                "advanced_chart_agent": True,
                 "agentic": [
                     {
                         "scope": "table",
+                        "mode": "default",
                         "prompt": "prompt",
                     }
                 ],
@@ -359,9 +391,12 @@ class TestAsyncParse:
             settings={
                 "document_password": "document_password",
                 "embed_pdf_metadata": True,
+                "embed_pdf_metadata_dpi": 50,
+                "extract_document_properties": True,
                 "extraction_mode": "ocr",
                 "force_file_extension": "force_file_extension",
                 "force_url_result": True,
+                "hybrid_vpc": {"environment": "environment"},
                 "ocr_system": "standard",
                 "page_range": {
                     "end": 0,
@@ -370,12 +405,17 @@ class TestAsyncParse:
                 "persist_results": True,
                 "return_images": ["figure"],
                 "return_ocr_data": True,
+                "tenant_throttling": {
+                    "tenant_id": "tenant_id",
+                    "max_share": 0,
+                },
                 "timeout": 0,
             },
             spreadsheet={
                 "clustering": "accurate",
                 "exclude": ["hidden_sheets"],
                 "include": ["cell_colors"],
+                "max_cell_count": 0,
                 "split_large_tables": {
                     "enabled": True,
                     "size": 0,
@@ -432,9 +472,11 @@ class TestAsyncParse:
                 },
             },
             enhance={
+                "advanced_chart_agent": True,
                 "agentic": [
                     {
                         "scope": "table",
+                        "mode": "default",
                         "prompt": "prompt",
                     }
                 ],
@@ -460,9 +502,12 @@ class TestAsyncParse:
             settings={
                 "document_password": "document_password",
                 "embed_pdf_metadata": True,
+                "embed_pdf_metadata_dpi": 50,
+                "extract_document_properties": True,
                 "extraction_mode": "ocr",
                 "force_file_extension": "force_file_extension",
                 "force_url_result": True,
+                "hybrid_vpc": {"environment": "environment"},
                 "ocr_system": "standard",
                 "page_range": {
                     "end": 0,
@@ -471,12 +516,17 @@ class TestAsyncParse:
                 "persist_results": True,
                 "return_images": ["figure"],
                 "return_ocr_data": True,
+                "tenant_throttling": {
+                    "tenant_id": "tenant_id",
+                    "max_share": 0,
+                },
                 "timeout": 0,
             },
             spreadsheet={
                 "clustering": "accurate",
                 "exclude": ["hidden_sheets"],
                 "include": ["cell_colors"],
+                "max_cell_count": 0,
                 "split_large_tables": {
                     "enabled": True,
                     "size": 0,
@@ -533,9 +583,11 @@ class TestAsyncParse:
                 },
             },
             enhance={
+                "advanced_chart_agent": True,
                 "agentic": [
                     {
                         "scope": "table",
+                        "mode": "default",
                         "prompt": "prompt",
                     }
                 ],
@@ -561,9 +613,12 @@ class TestAsyncParse:
             settings={
                 "document_password": "document_password",
                 "embed_pdf_metadata": True,
+                "embed_pdf_metadata_dpi": 50,
+                "extract_document_properties": True,
                 "extraction_mode": "ocr",
                 "force_file_extension": "force_file_extension",
                 "force_url_result": True,
+                "hybrid_vpc": {"environment": "environment"},
                 "ocr_system": "standard",
                 "page_range": {
                     "end": 0,
@@ -572,12 +627,17 @@ class TestAsyncParse:
                 "persist_results": True,
                 "return_images": ["figure"],
                 "return_ocr_data": True,
+                "tenant_throttling": {
+                    "tenant_id": "tenant_id",
+                    "max_share": 0,
+                },
                 "timeout": 0,
             },
             spreadsheet={
                 "clustering": "accurate",
                 "exclude": ["hidden_sheets"],
                 "include": ["cell_colors"],
+                "max_cell_count": 0,
                 "split_large_tables": {
                     "enabled": True,
                     "size": 0,
