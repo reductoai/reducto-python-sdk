@@ -51,6 +51,9 @@ class ExtractResponse(BaseModel):
 
     usage: ExtractUsage
 
+    duration: Optional[float] = None
+    """The duration of the extract request in seconds."""
+
     job_id: Optional[str] = None
 
     response_confidence: Optional[Dict[str, object]] = None
