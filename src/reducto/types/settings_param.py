@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Iterable, Optional
+from typing import Dict, List, Union, Iterable, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
@@ -81,6 +81,16 @@ class SettingsParam(TypedDict, total=False):
 
     hybrid_vpc: HybridVpc
     """Hybrid VPC request-scoped settings."""
+
+    llm_tags: Optional[Dict[str, str]]
+    """
+    Key/value tags attached to every LLM request made while processing this job, for
+    cost attribution in LLM gateways such as LiteLLM. Each pair is forwarded as a
+    `key:value` tag (e.g. `{"accountId": "acc_1", "userId": "usr_2"}` becomes
+    `accountId:acc_1`, `userId:usr_2`). Only forwarded when Reducto is configured to
+    route LLM calls through a LiteLLM proxy. Does not affect parsing output or
+    caching.
+    """
 
     model: Optional[Literal["r-1", "legacy"]]
     """The parse model to use.
