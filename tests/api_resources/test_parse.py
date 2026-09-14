@@ -69,7 +69,6 @@ class TestParse:
                 "force_file_extension": "force_file_extension",
                 "force_url_result": True,
                 "hybrid_vpc": {"environment": "environment"},
-                "llm_tags": {"foo": "string"},
                 "model": "r-1",
                 "ocr_system": "standard",
                 "page_range": {
@@ -182,7 +181,6 @@ class TestParse:
                 "force_file_extension": "force_file_extension",
                 "force_url_result": True,
                 "hybrid_vpc": {"environment": "environment"},
-                "llm_tags": {"foo": "string"},
                 "model": "r-1",
                 "ocr_system": "standard",
                 "page_range": {
@@ -295,7 +293,6 @@ class TestParse:
                 "force_file_extension": "force_file_extension",
                 "force_url_result": True,
                 "hybrid_vpc": {"environment": "environment"},
-                "llm_tags": {"foo": "string"},
                 "model": "r-1",
                 "ocr_system": "standard",
                 "page_range": {
@@ -405,7 +402,6 @@ class TestAsyncParse:
                 "force_file_extension": "force_file_extension",
                 "force_url_result": True,
                 "hybrid_vpc": {"environment": "environment"},
-                "llm_tags": {"foo": "string"},
                 "model": "r-1",
                 "ocr_system": "standard",
                 "page_range": {
@@ -518,7 +514,6 @@ class TestAsyncParse:
                 "force_file_extension": "force_file_extension",
                 "force_url_result": True,
                 "hybrid_vpc": {"environment": "environment"},
-                "llm_tags": {"foo": "string"},
                 "model": "r-1",
                 "ocr_system": "standard",
                 "page_range": {
@@ -631,7 +626,6 @@ class TestAsyncParse:
                 "force_file_extension": "force_file_extension",
                 "force_url_result": True,
                 "hybrid_vpc": {"environment": "environment"},
-                "llm_tags": {"foo": "string"},
                 "model": "r-1",
                 "ocr_system": "standard",
                 "page_range": {
