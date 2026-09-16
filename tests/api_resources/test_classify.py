@@ -30,6 +30,14 @@ class TestClassify:
     def test_method_run_with_all_params(self, client: Reducto) -> None:
         classify = client.classify.run(
             input="string",
+            async_={
+                "metadata": {},
+                "priority": True,
+                "webhook": {
+                    "channels": ["string"],
+                    "mode": "svix",
+                },
+            },
             category_groups={"foo": ["string"]},
             classification_schema=[
                 {
@@ -93,6 +101,14 @@ class TestAsyncClassify:
     async def test_method_run_with_all_params(self, async_client: AsyncReducto) -> None:
         classify = await async_client.classify.run(
             input="string",
+            async_={
+                "metadata": {},
+                "priority": True,
+                "webhook": {
+                    "channels": ["string"],
+                    "mode": "svix",
+                },
+            },
             category_groups={"foo": ["string"]},
             classification_schema=[
                 {

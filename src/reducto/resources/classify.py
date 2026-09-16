@@ -19,6 +19,7 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
+from ..types.async_config_v3_param import AsyncConfigV3Param
 from ..types.shared.classify_response import ClassifyResponse
 
 __all__ = ["ClassifyResource", "AsyncClassifyResource"]
@@ -48,6 +49,7 @@ class ClassifyResource(SyncAPIResource):
         self,
         *,
         input: classify_run_params.Input,
+        async_: AsyncConfigV3Param | Omit = omit,
         category_groups: Dict[str, SequenceNotStr[str]] | Omit = omit,
         classification_schema: Iterable[classify_run_params.ClassificationSchema] | Omit = omit,
         document_metadata: Optional[str] | Omit = omit,
@@ -74,6 +76,8 @@ class ClassifyResource(SyncAPIResource):
               2. A presigned S3 URL
               3. A reducto:// prefixed URL obtained from the /upload endpoint after directly
                  uploading a document
+
+          async_: The configuration options for asynchronous processing. Used by /classify_async.
 
           category_groups: A mapping of higher-level classify groups to the category labels that belong to
               each group. When provided, the response includes `extra_metadata.grouping` with
@@ -110,6 +114,7 @@ class ClassifyResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "input": input,
+                    "async_": async_,
                     "category_groups": category_groups,
                     "classification_schema": classification_schema,
                     "document_metadata": document_metadata,
@@ -151,6 +156,7 @@ class AsyncClassifyResource(AsyncAPIResource):
         self,
         *,
         input: classify_run_params.Input,
+        async_: AsyncConfigV3Param | Omit = omit,
         category_groups: Dict[str, SequenceNotStr[str]] | Omit = omit,
         classification_schema: Iterable[classify_run_params.ClassificationSchema] | Omit = omit,
         document_metadata: Optional[str] | Omit = omit,
@@ -177,6 +183,8 @@ class AsyncClassifyResource(AsyncAPIResource):
               2. A presigned S3 URL
               3. A reducto:// prefixed URL obtained from the /upload endpoint after directly
                  uploading a document
+
+          async_: The configuration options for asynchronous processing. Used by /classify_async.
 
           category_groups: A mapping of higher-level classify groups to the category labels that belong to
               each group. When provided, the response includes `extra_metadata.grouping` with
@@ -213,6 +221,7 @@ class AsyncClassifyResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "input": input,
+                    "async_": async_,
                     "category_groups": category_groups,
                     "classification_schema": classification_schema,
                     "document_metadata": document_metadata,

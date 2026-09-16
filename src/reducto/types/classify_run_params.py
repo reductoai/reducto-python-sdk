@@ -3,11 +3,13 @@
 from __future__ import annotations
 
 from typing import Dict, Union, Iterable, Optional
-from typing_extensions import Literal, Required, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
+from .._utils import PropertyInfo
 from .shared_params import page_range
 from .shared_params.upload import Upload
+from .async_config_v3_param import AsyncConfigV3Param
 
 __all__ = ["ClassifyRunParams", "Input", "ClassificationSchema", "PageRange"]
 
@@ -21,6 +23,9 @@ class ClassifyRunParams(TypedDict, total=False):
     3. A reducto:// prefixed URL obtained from the /upload endpoint after directly
        uploading a document
     """
+
+    async_: Annotated[AsyncConfigV3Param, PropertyInfo(alias="async")]
+    """The configuration options for asynchronous processing. Used by /classify_async."""
 
     category_groups: Dict[str, SequenceNotStr[str]]
     """
