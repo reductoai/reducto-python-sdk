@@ -98,7 +98,8 @@ class ClassifyResponse(BaseModel):
     extra_metadata: Optional[Dict[str, str]] = None
     """Additional metadata for the classify response.
 
-    Contains `grouping` when the request set `category_groups`. Omitted when empty.
+    Contains `grouping` when the request set `category_groups` and `reasoning` when
+    an accurate classify request set `reasoning=True`. Omitted when empty.
     """
 
     response_confidence: Optional[ResponseConfidence] = None
