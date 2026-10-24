@@ -31,6 +31,7 @@ from .shared import (
     DirectWebhookConfig as DirectWebhookConfig,
     FigureSummaryConfig as FigureSummaryConfig,
     AsyncExtractResponse as AsyncExtractResponse,
+    AsyncClassifyResponse as AsyncClassifyResponse,
     AsyncPipelineResponse as AsyncPipelineResponse,
     BaseProcessingOptions as BaseProcessingOptions,
     AdvancedCitationsConfig as AdvancedCitationsConfig,
@@ -76,6 +77,7 @@ from .webhook_run_response import WebhookRunResponse as WebhookRunResponse
 from .async_config_v3_param import AsyncConfigV3Param as AsyncConfigV3Param
 from .extract_run_job_params import ExtractRunJobParams as ExtractRunJobParams
 from .extract_settings_param import ExtractSettingsParam as ExtractSettingsParam
+from .classify_run_job_params import ClassifyRunJobParams as ClassifyRunJobParams
 from .pipeline_run_job_params import PipelineRunJobParams as PipelineRunJobParams
 from .pipeline_settings_param import PipelineSettingsParam as PipelineSettingsParam
 from .async_parse_config_param import AsyncParseConfigParam as AsyncParseConfigParam

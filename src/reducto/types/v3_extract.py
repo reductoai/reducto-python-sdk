@@ -23,6 +23,9 @@ class V3Extract(BaseModel):
     confidence_reason: Optional[str] = None
     """Optional explanation for the document-level confidence label."""
 
+    duration: Optional[float] = None
+    """The duration of the extract request in seconds."""
+
     job_id: Optional[str] = None
 
     response_type: Literal["v3_extract"]

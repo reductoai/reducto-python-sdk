@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Reducto API",
-    "version": "v1.12.12-114-g9808b824f237"
+    "version": "v1.12.20-329-g39692c7ddfb9"
   },
   "servers": [
     {
@@ -514,6 +514,50 @@
         ]
       }
     },
+    "/classify_async": {
+      "post": {
+        "summary": "Classify Async",
+        "description": "Async classify endpoint.\n\nPersists a pollable job row, then runs the same classify CPU-worker pipeline\nwithout awaiting the result. Clients poll ``GET /job/{job_id}``.",
+        "operationId": "classify_async_classify_async_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClassifyConfig"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AsyncClassifyResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "SkippableHTTPBearer": []
+          }
+        ]
+      }
+    },
     "/job/{job_id}": {
       "get": {
         "summary": "Retrieve Parse",
@@ -908,6 +952,19 @@
   },
   "components": {
     "schemas": {
+      "AsyncClassifyResponse": {
+        "properties": {
+          "job_id": {
+            "type": "string",
+            "title": "Job Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "job_id"
+        ],
+        "title": "AsyncClassifyResponse"
+      },
       "AsyncEditConfig": {
         "properties": {
           "document_url": {
@@ -1013,50 +1070,7 @@
           },
           "parsing": {
             "$ref": "#/components/schemas/ParseOptions",
-            "description": "The configuration options for parsing the document. If you are passing in a jobid:// URL for the file, then this configuration will be ignored.",
-            "default": {
-              "enhance": {
-                "advanced_chart_agent": false,
-                "agentic": [],
-                "intelligent_ordering": false,
-                "summarize_figures": true
-              },
-              "retrieval": {
-                "chunking": {
-                  "chunk_mode": "disabled",
-                  "chunk_overlap": 0
-                },
-                "embedding_optimized": false,
-                "filter_blocks": []
-              },
-              "formatting": {
-                "add_page_markers": false,
-                "include": [],
-                "merge_tables": false,
-                "table_output_format": "dynamic"
-              },
-              "spreadsheet": {
-                "clustering": "accurate",
-                "exclude": [],
-                "include": [],
-                "split_large_tables": {
-                  "enabled": true,
-                  "size": 50
-                }
-              },
-              "settings": {
-                "embed_pdf_metadata": false,
-                "embed_pdf_metadata_dpi": 100,
-                "extract_document_properties": false,
-                "extraction_mode": "hybrid",
-                "force_url_result": false,
-                "hybrid_vpc": {},
-                "ocr_system": "standard",
-                "persist_results": false,
-                "return_images": [],
-                "return_ocr_data": false
-              }
-            }
+            "description": "The configuration options for parsing the document. If you are passing in a jobid:// URL for the file, then this configuration will be ignored."
           },
           "instructions": {
             "$ref": "#/components/schemas/Instructions",
@@ -1276,19 +1290,7 @@
             }
           },
           "settings": {
-            "$ref": "#/components/schemas/Settings",
-            "default": {
-              "ocr_system": "standard",
-              "extraction_mode": "hybrid",
-              "force_url_result": false,
-              "return_ocr_data": false,
-              "return_images": [],
-              "embed_pdf_metadata": false,
-              "extract_document_properties": false,
-              "embed_pdf_metadata_dpi": 100,
-              "persist_results": false,
-              "hybrid_vpc": {}
-            }
+            "$ref": "#/components/schemas/Settings"
           },
           "queue_priority": {
             "$ref": "#/components/schemas/QueuePriority",
@@ -1623,6 +1625,13 @@
             "title": "Priority",
             "description": "Workers poll the priority queue ahead of the standard queue, so priority jobs start sooner when there is queued work; sync jobs are prioritized above async jobs by default.",
             "default": true
+          },
+          "async": {
+            "$ref": "#/components/schemas/config__v3__AsyncConfig",
+            "description": "The configuration options for asynchronous processing. Used by /classify_async.",
+            "default": {
+              "priority": false
+            }
           },
           "force_url_result": {
             "type": "boolean",
@@ -2754,6 +2763,18 @@
           "usage": {
             "$ref": "#/components/schemas/ExtractUsage"
           },
+          "duration": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Duration",
+            "description": "The duration of the extract request in seconds."
+          },
           "studio_link": {
             "anyOf": [
               {
@@ -3068,12 +3089,6 @@
             "type": "boolean",
             "title": "Advanced Chart Agent",
             "description": "If True, run advanced chart extraction on figures classified as charts: an agentic extractor that returns full structured series data (chart_data) plus a reconstruction image re-drawn from that data (extra.chart_reconstruction). Higher latency. Defaults to False.",
-            "default": false
-          },
-          "return_overlays": {
-            "type": "boolean",
-            "title": "Return Overlays",
-            "description": "If True, return overlays for the figure. This is so you can use the overlays to double check the quality of the extraction",
             "default": false
           }
         },
@@ -3679,19 +3694,7 @@
             }
           },
           "settings": {
-            "$ref": "#/components/schemas/Settings",
-            "default": {
-              "ocr_system": "standard",
-              "extraction_mode": "hybrid",
-              "force_url_result": false,
-              "return_ocr_data": false,
-              "return_images": [],
-              "embed_pdf_metadata": false,
-              "extract_document_properties": false,
-              "embed_pdf_metadata_dpi": 100,
-              "persist_results": false,
-              "hybrid_vpc": {}
-            }
+            "$ref": "#/components/schemas/Settings"
           }
         },
         "type": "object",
@@ -4309,6 +4312,12 @@
             ],
             "title": "Model",
             "description": "The parse model to use. 'r-1' is the R-1 full-page parse model, which parses each page in a single generation. 'legacy' is the previous parsing pipeline. Defaults to 'legacy' unless your organization was created on the r-1 plan, in which case it defaults to 'r-1'."
+          },
+          "return_citations": {
+            "type": "boolean",
+            "title": "Return Citations",
+            "description": "If True, locate every word of each text block on the page and return the per-word boxes in the block's `extra['word_citations']`. Each entry carries the word's `text`, its `char_start`/`char_end` span in that block's `content` (half-open, tags included), and a `bbox` covering that word on the page, in the same shape as the block's own `bbox` (including `page`). `bbox` is null when the word cannot be located on the page. Table blocks also get `extra['cell_citations']`: one entry per non-empty cell with its `text`, `row_idx` and `col_idx` (0-based lists of every row and column the cell spans, so a cell merged across rows 1 and 2 has `row_idx` `[1, 2]`), and a `bbox` framing the cell's words, null when none of them can be located. Requires the r-1 model. Not supported with formatting.merge_tables. Defaults to False.",
+            "default": false
           }
         },
         "type": "object",
@@ -4857,50 +4866,7 @@
           },
           "parsing": {
             "$ref": "#/components/schemas/ParseOptions",
-            "description": "The configuration options for parsing the document. If you are passing in a jobid:// URL for the file, then this configuration will be ignored.",
-            "default": {
-              "enhance": {
-                "advanced_chart_agent": false,
-                "agentic": [],
-                "intelligent_ordering": false,
-                "summarize_figures": true
-              },
-              "retrieval": {
-                "chunking": {
-                  "chunk_mode": "disabled",
-                  "chunk_overlap": 0
-                },
-                "embedding_optimized": false,
-                "filter_blocks": []
-              },
-              "formatting": {
-                "add_page_markers": false,
-                "include": [],
-                "merge_tables": false,
-                "table_output_format": "dynamic"
-              },
-              "spreadsheet": {
-                "clustering": "accurate",
-                "exclude": [],
-                "include": [],
-                "split_large_tables": {
-                  "enabled": true,
-                  "size": 50
-                }
-              },
-              "settings": {
-                "embed_pdf_metadata": false,
-                "embed_pdf_metadata_dpi": 100,
-                "extract_document_properties": false,
-                "extraction_mode": "hybrid",
-                "force_url_result": false,
-                "hybrid_vpc": {},
-                "ocr_system": "standard",
-                "persist_results": false,
-                "return_images": [],
-                "return_ocr_data": false
-              }
-            }
+            "description": "The configuration options for parsing the document. If you are passing in a jobid:// URL for the file, then this configuration will be ignored."
           },
           "instructions": {
             "$ref": "#/components/schemas/Instructions",
@@ -4995,19 +4961,7 @@
             }
           },
           "settings": {
-            "$ref": "#/components/schemas/Settings",
-            "default": {
-              "ocr_system": "standard",
-              "extraction_mode": "hybrid",
-              "force_url_result": false,
-              "return_ocr_data": false,
-              "return_images": [],
-              "embed_pdf_metadata": false,
-              "extract_document_properties": false,
-              "embed_pdf_metadata_dpi": 100,
-              "persist_results": false,
-              "hybrid_vpc": {}
-            }
+            "$ref": "#/components/schemas/Settings"
           }
         },
         "type": "object",
@@ -5038,50 +4992,7 @@
           },
           "parsing": {
             "$ref": "#/components/schemas/ParseOptions",
-            "description": "The configuration options for parsing the document. If you are passing in a jobid:// URL for the file, then this configuration will be ignored.",
-            "default": {
-              "enhance": {
-                "advanced_chart_agent": false,
-                "agentic": [],
-                "intelligent_ordering": false,
-                "summarize_figures": true
-              },
-              "retrieval": {
-                "chunking": {
-                  "chunk_mode": "disabled",
-                  "chunk_overlap": 0
-                },
-                "embedding_optimized": false,
-                "filter_blocks": []
-              },
-              "formatting": {
-                "add_page_markers": false,
-                "include": [],
-                "merge_tables": false,
-                "table_output_format": "dynamic"
-              },
-              "spreadsheet": {
-                "clustering": "accurate",
-                "exclude": [],
-                "include": [],
-                "split_large_tables": {
-                  "enabled": true,
-                  "size": 50
-                }
-              },
-              "settings": {
-                "embed_pdf_metadata": false,
-                "embed_pdf_metadata_dpi": 100,
-                "extract_document_properties": false,
-                "extraction_mode": "hybrid",
-                "force_url_result": false,
-                "hybrid_vpc": {},
-                "ocr_system": "standard",
-                "persist_results": false,
-                "return_images": [],
-                "return_ocr_data": false
-              }
-            }
+            "description": "The configuration options for parsing the document. If you are passing in a jobid:// URL for the file, then this configuration will be ignored."
           },
           "split_description": {
             "items": {
@@ -5318,6 +5229,18 @@
           "usage": {
             "$ref": "#/components/schemas/ExtractUsage"
           },
+          "duration": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Duration",
+            "description": "The duration of the extract request in seconds."
+          },
           "studio_link": {
             "anyOf": [
               {
@@ -5548,50 +5471,7 @@
           },
           "parsing": {
             "$ref": "#/components/schemas/ParseOptions",
-            "description": "The configuration options for parsing the document. If you are passing in a jobid:// URL for the file, then this configuration will be ignored.",
-            "default": {
-              "enhance": {
-                "advanced_chart_agent": false,
-                "agentic": [],
-                "intelligent_ordering": false,
-                "summarize_figures": true
-              },
-              "retrieval": {
-                "chunking": {
-                  "chunk_mode": "disabled",
-                  "chunk_overlap": 0
-                },
-                "embedding_optimized": false,
-                "filter_blocks": []
-              },
-              "formatting": {
-                "add_page_markers": false,
-                "include": [],
-                "merge_tables": false,
-                "table_output_format": "dynamic"
-              },
-              "spreadsheet": {
-                "clustering": "accurate",
-                "exclude": [],
-                "include": [],
-                "split_large_tables": {
-                  "enabled": true,
-                  "size": 50
-                }
-              },
-              "settings": {
-                "embed_pdf_metadata": false,
-                "embed_pdf_metadata_dpi": 100,
-                "extract_document_properties": false,
-                "extraction_mode": "hybrid",
-                "force_url_result": false,
-                "hybrid_vpc": {},
-                "ocr_system": "standard",
-                "persist_results": false,
-                "return_images": [],
-                "return_ocr_data": false
-              }
-            }
+            "description": "The configuration options for parsing the document. If you are passing in a jobid:// URL for the file, then this configuration will be ignored."
           },
           "split_description": {
             "items": {

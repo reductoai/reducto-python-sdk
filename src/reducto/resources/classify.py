@@ -5,7 +5,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import classify_run_params
+from ..types import classify_run_params, classify_run_job_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -17,7 +17,9 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
+from ..types.async_config_v3_param import AsyncConfigV3Param
 from ..types.shared.classify_response import ClassifyResponse
+from ..types.shared.async_classify_response import AsyncClassifyResponse
 
 __all__ = ["ClassifyResource", "AsyncClassifyResource"]
 
@@ -124,6 +126,92 @@ class ClassifyResource(SyncAPIResource):
             cast_to=ClassifyResponse,
         )
 
+    def run_job(
+        self,
+        *,
+        input: classify_run_job_params.Input,
+        async_: AsyncConfigV3Param | Omit = omit,
+        category_groups: Dict[str, SequenceNotStr[str]] | Omit = omit,
+        classification_schema: Iterable[classify_run_job_params.ClassificationSchema] | Omit = omit,
+        document_metadata: Optional[str] | Omit = omit,
+        force_url_result: bool | Omit = omit,
+        model: Literal["default", "accurate"] | Omit = omit,
+        page_range: Optional[classify_run_job_params.PageRange] | Omit = omit,
+        priority: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AsyncClassifyResponse:
+        """
+        Classify Async
+
+        Args:
+          input: For parse/split/extract pipelines, the URL of the document to be processed. You
+              can provide one of the following: 1. A publicly available URL 2. A presigned S3
+              URL 3. A reducto:// prefixed URL obtained from the /upload endpoint after
+              directly uploading a document 4. A jobid:// prefixed URL obtained from a
+              previous /parse invocation 5. A list of URLs (for multi-document pipelines, V3
+              API only)
+
+                          For edit pipelines, this should be a string containing the edit instructions
+
+          async_: The configuration options for asynchronous processing.
+
+          category_groups: A mapping of higher-level classify groups to the category labels that belong
+              to each group. When provided, the response includes `extra_metadata.grouping` with
+              the matched group name, or `ungrouped` if the selected category is not in any
+              group.
+
+          classification_schema: A list of classification categories and their matching criteria.
+
+          document_metadata: Optional document-level metadata to include in classification prompts.
+
+          force_url_result: Force the endpoint result to be returned in URL form.
+
+          model: The classification model to use. Set to "accurate" to run Deep Classify for
+              higher accuracy on hard documents. Defaults to "default".
+
+          page_range: The page range to process (1-indexed). By default, the first 5 pages are used.
+              If more than 25 pages are selected, only the first 25 (after sorting) are used.
+              Only applies to PDFs; ignored for other document types.
+
+          priority: Workers poll the priority queue ahead of the standard queue, so priority jobs
+              start sooner when there is queued work; sync jobs are prioritized above async
+              jobs by default.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/classify_async",
+            body=maybe_transform(
+                {
+                    "input": input,
+                    "async_": async_,
+                    "category_groups": category_groups,
+                    "classification_schema": classification_schema,
+                    "document_metadata": document_metadata,
+                    "force_url_result": force_url_result,
+                    "model": model,
+                    "page_range": page_range,
+                    "priority": priority,
+                },
+                classify_run_job_params.ClassifyRunJobParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AsyncClassifyResponse,
+        )
+
 
 class AsyncClassifyResource(AsyncAPIResource):
     @cached_property
@@ -227,6 +315,92 @@ class AsyncClassifyResource(AsyncAPIResource):
             cast_to=ClassifyResponse,
         )
 
+    async def run_job(
+        self,
+        *,
+        input: classify_run_job_params.Input,
+        async_: AsyncConfigV3Param | Omit = omit,
+        category_groups: Dict[str, SequenceNotStr[str]] | Omit = omit,
+        classification_schema: Iterable[classify_run_job_params.ClassificationSchema] | Omit = omit,
+        document_metadata: Optional[str] | Omit = omit,
+        force_url_result: bool | Omit = omit,
+        model: Literal["default", "accurate"] | Omit = omit,
+        page_range: Optional[classify_run_job_params.PageRange] | Omit = omit,
+        priority: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AsyncClassifyResponse:
+        """
+        Classify Async
+
+        Args:
+          input: For parse/split/extract pipelines, the URL of the document to be processed. You
+              can provide one of the following: 1. A publicly available URL 2. A presigned S3
+              URL 3. A reducto:// prefixed URL obtained from the /upload endpoint after
+              directly uploading a document 4. A jobid:// prefixed URL obtained from a
+              previous /parse invocation 5. A list of URLs (for multi-document pipelines, V3
+              API only)
+
+                          For edit pipelines, this should be a string containing the edit instructions
+
+          async_: The configuration options for asynchronous processing.
+
+          category_groups: A mapping of higher-level classify groups to the category labels that belong
+              to each group. When provided, the response includes `extra_metadata.grouping` with
+              the matched group name, or `ungrouped` if the selected category is not in any
+              group.
+
+          classification_schema: A list of classification categories and their matching criteria.
+
+          document_metadata: Optional document-level metadata to include in classification prompts.
+
+          force_url_result: Force the endpoint result to be returned in URL form.
+
+          model: The classification model to use. Set to "accurate" to run Deep Classify for
+              higher accuracy on hard documents. Defaults to "default".
+
+          page_range: The page range to process (1-indexed). By default, the first 5 pages are used.
+              If more than 25 pages are selected, only the first 25 (after sorting) are used.
+              Only applies to PDFs; ignored for other document types.
+
+          priority: Workers poll the priority queue ahead of the standard queue, so priority jobs
+              start sooner when there is queued work; sync jobs are prioritized above async
+              jobs by default.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/classify_async",
+            body=await async_maybe_transform(
+                {
+                    "input": input,
+                    "async_": async_,
+                    "category_groups": category_groups,
+                    "classification_schema": classification_schema,
+                    "document_metadata": document_metadata,
+                    "force_url_result": force_url_result,
+                    "model": model,
+                    "page_range": page_range,
+                    "priority": priority,
+                },
+                classify_run_job_params.ClassifyRunJobParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AsyncClassifyResponse,
+        )
+
 
 class ClassifyResourceWithRawResponse:
     def __init__(self, classify: ClassifyResource) -> None:
@@ -234,6 +408,9 @@ class ClassifyResourceWithRawResponse:
 
         self.run = to_raw_response_wrapper(
             classify.run,
+        )
+        self.run_job = to_raw_response_wrapper(
+            classify.run_job,
         )
 
 
@@ -244,6 +421,9 @@ class AsyncClassifyResourceWithRawResponse:
         self.run = async_to_raw_response_wrapper(
             classify.run,
         )
+        self.run_job = async_to_raw_response_wrapper(
+            classify.run_job,
+        )
 
 
 class ClassifyResourceWithStreamingResponse:
@@ -253,6 +433,9 @@ class ClassifyResourceWithStreamingResponse:
         self.run = to_streamed_response_wrapper(
             classify.run,
         )
+        self.run_job = to_streamed_response_wrapper(
+            classify.run_job,
+        )
 
 
 class AsyncClassifyResourceWithStreamingResponse:
@@ -261,4 +444,7 @@ class AsyncClassifyResourceWithStreamingResponse:
 
         self.run = async_to_streamed_response_wrapper(
             classify.run,
+        )
+        self.run_job = async_to_streamed_response_wrapper(
+            classify.run_job,
         )
