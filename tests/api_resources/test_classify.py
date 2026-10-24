@@ -7,7 +7,7 @@ import pytest
 
 from reducto import Reducto, AsyncReducto
 from tests.utils import assert_matches_type
-from reducto.types.shared import ClassifyResponse
+from reducto.types.shared import ClassifyResponse, AsyncClassifyResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -72,6 +72,71 @@ class TestClassify:
 
         assert cast(Any, response.is_closed) is True
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_run_job(self, client: Reducto) -> None:
+        classify = client.classify.run_job(
+            input="string",
+        )
+        assert_matches_type(AsyncClassifyResponse, classify, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_run_job_with_all_params(self, client: Reducto) -> None:
+        classify = client.classify.run_job(
+            input="string",
+            async_={
+                "metadata": {},
+                "priority": True,
+                "webhook": {
+                    "mode": "svix",
+                    "channels": ["string"],
+                },
+            },
+            category_groups={"foo": ["string"]},
+            classification_schema=[
+                {
+                    "category": "category",
+                    "criteria": ["string"],
+                }
+            ],
+            document_metadata="document_metadata",
+            force_url_result=True,
+            model="default",
+            page_range={
+                "end": 0,
+                "start": 0,
+            },
+            priority=True,
+        )
+        assert_matches_type(AsyncClassifyResponse, classify, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_run_job(self, client: Reducto) -> None:
+        response = client.classify.with_raw_response.run_job(
+            input="string",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Reducto-Lang") == "python"
+        classify = response.parse()
+        assert_matches_type(AsyncClassifyResponse, classify, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_run_job(self, client: Reducto) -> None:
+        with client.classify.with_streaming_response.run_job(
+            input="string",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Reducto-Lang") == "python"
+
+            classify = response.parse()
+            assert_matches_type(AsyncClassifyResponse, classify, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
 
 class TestAsyncClassify:
     parametrize = pytest.mark.parametrize(
@@ -132,5 +197,70 @@ class TestAsyncClassify:
 
             classify = await response.parse()
             assert_matches_type(ClassifyResponse, classify, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_run_job(self, async_client: AsyncReducto) -> None:
+        classify = await async_client.classify.run_job(
+            input="string",
+        )
+        assert_matches_type(AsyncClassifyResponse, classify, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_run_job_with_all_params(self, async_client: AsyncReducto) -> None:
+        classify = await async_client.classify.run_job(
+            input="string",
+            async_={
+                "metadata": {},
+                "priority": True,
+                "webhook": {
+                    "mode": "svix",
+                    "channels": ["string"],
+                },
+            },
+            category_groups={"foo": ["string"]},
+            classification_schema=[
+                {
+                    "category": "category",
+                    "criteria": ["string"],
+                }
+            ],
+            document_metadata="document_metadata",
+            force_url_result=True,
+            model="default",
+            page_range={
+                "end": 0,
+                "start": 0,
+            },
+            priority=True,
+        )
+        assert_matches_type(AsyncClassifyResponse, classify, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_run_job(self, async_client: AsyncReducto) -> None:
+        response = await async_client.classify.with_raw_response.run_job(
+            input="string",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Reducto-Lang") == "python"
+        classify = await response.parse()
+        assert_matches_type(AsyncClassifyResponse, classify, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_run_job(self, async_client: AsyncReducto) -> None:
+        async with async_client.classify.with_streaming_response.run_job(
+            input="string",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Reducto-Lang") == "python"
+
+            classify = await response.parse()
+            assert_matches_type(AsyncClassifyResponse, classify, path=["response"])
 
         assert cast(Any, response.is_closed) is True

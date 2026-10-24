@@ -99,6 +99,17 @@ class SettingsParam(TypedDict, total=False):
     persist_results: bool
     """If True, persist the results indefinitely. Defaults to False."""
 
+    return_citations: bool
+    """If True, return per-word citation boxes for each text block.
+
+    Each block's `extra['word_citations']` lists every word with its `text`, its
+    `char_start`/`char_end` span in the block's `content`, and a `bbox` (null
+    when the word cannot be located). Table blocks also get
+    `extra['cell_citations']` with `text`, `row_idx`, `col_idx` and `bbox` per
+    non-empty cell. Requires the r-1 model. Not supported with
+    formatting.merge_tables. Defaults to False.
+    """
+
     return_images: List[Literal["figure", "table", "page"]]
     """Whether to return images for the specified block types.
 

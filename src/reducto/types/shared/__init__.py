@@ -27,6 +27,7 @@ from .table_summary_config import TableSummaryConfig as TableSummaryConfig
 from .direct_webhook_config import DirectWebhookConfig as DirectWebhookConfig
 from .figure_summary_config import FigureSummaryConfig as FigureSummaryConfig
 from .async_extract_response import AsyncExtractResponse as AsyncExtractResponse
+from .async_classify_response import AsyncClassifyResponse as AsyncClassifyResponse
 from .async_pipeline_response import AsyncPipelineResponse as AsyncPipelineResponse
 from .base_processing_options import BaseProcessingOptions as BaseProcessingOptions
 from .advanced_citations_config import AdvancedCitationsConfig as AdvancedCitationsConfig

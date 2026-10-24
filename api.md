@@ -10,6 +10,7 @@ from reducto.types import (
     AsyncParseResponse,
     AsyncPipelineResponse,
     AsyncSplitResponse,
+    AsyncClassifyResponse,
     BaseProcessingOptions,
     ChartResponse,
     Chunking,
@@ -142,6 +143,7 @@ Methods:
 Methods:
 
 - <code title="post /classify">client.classify.<a href="./src/reducto/resources/classify.py">run</a>(\*\*<a href="src/reducto/types/classify_run_params.py">params</a>) -> <a href="./src/reducto/types/shared/classify_response.py">ClassifyResponse</a></code>
+- <code title="post /classify_async">client.classify.<a href="./src/reducto/resources/classify.py">run_job</a>(\*\*<a href="src/reducto/types/classify_run_job_params.py">params</a>) -> <a href="./src/reducto/types/shared/async_classify_response.py">AsyncClassifyResponse</a></code>
 
 # Webhook
 

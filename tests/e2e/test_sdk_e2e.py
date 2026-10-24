@@ -33,6 +33,7 @@ from reducto.types import (
     AsyncParseResponse,
     DocumentProperties,
     AsyncExtractResponse,
+    AsyncClassifyResponse,
 )
 from reducto.types.job_get_response import JobGetResponse, AsyncJobResponse, EnhancedAsyncJobResponse
 
@@ -162,6 +163,22 @@ class TestParse:
     def test_embed_pdf_metadata(self, parse_response: ParseResponse) -> None:
         assert parse_response.pdf_url
 
+    def test_return_citations(self, client: Reducto) -> None:
+        response = client.parse.run(
+            input=DOCUMENT_URL,
+            settings={"model": "r-1", "return_citations": True, "page_range": {"start": 1, "end": 1}},
+        )
+        assert isinstance(response, ParseResponse)
+        assert not isinstance(response.result, URLResult)
+        citations = [
+            c
+            for chunk in response.result.chunks
+            for block in chunk.blocks
+            for c in (block.extra or {}).get("word_citations", [])
+        ]
+        assert citations
+        assert {"text", "char_start", "char_end", "bbox"} <= citations[0].keys()
+
     def test_usage_page_billing_breakdown(self, parse_response: ParseResponse) -> None:
         breakdown = parse_response.usage.page_billing_breakdown
         assert breakdown is not None
@@ -223,6 +240,9 @@ class TestExtract:
             assert isinstance(extract_response.result, dict)
             assert extract_response.result["type"] == "url"
             assert str(extract_response.result["url"]).startswith("https://")
+
+    def test_duration(self, extract_response: SyncExtractResponse) -> None:
+        assert extract_response.duration is not None and extract_response.duration >= 0
 
     def test_confidence_fields_present(self, extract_response: SyncExtractResponse) -> None:
         if isinstance(extract_response, V3Extract):
@@ -309,6 +329,25 @@ class TestClassify:
         )
         assert isinstance(response.result, URLResult)
         assert response.result.url.startswith("https://")
+
+
+class TestClassifyAsync:
+    """Tests for the /classify_async endpoint (client.classify.run_job)."""
+
+    def test_classify_async_job_completes(self, client: Reducto) -> None:
+        response = client.classify.run_job(
+            input=DOCUMENT_URL,
+            classification_schema=CLASSIFICATION_SCHEMA,
+            async_={"priority": False, "metadata": {"source": "sdk-e2e"}},
+        )
+        assert isinstance(response, AsyncClassifyResponse)
+        assert response.job_id
+        job = wait_for_job(client, response.job_id)
+        if job.status == "Failed":
+            pytest.fail(f"Classify async job failed: {job.reason}")
+        assert isinstance(job.result, ClassifyResponse)
+        assert not isinstance(job.result.result, URLResult)
+        assert job.result.result.category in ("invoice", "report")
 
 
 class TestUpload:
