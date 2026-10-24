@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.25.0 (2026-10-24)
+
+Full Changelog: [v0.24.0...v0.25.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.24.0...v0.25.0)
+
+### Features
+
+* **classify:** add `client.classify.run_job()` for `POST /classify_async`, with `async_` config. It returns `AsyncClassifyResponse`; poll the result with `client.job.get(job_id)`
+* **parse:** add `settings.return_citations` for per-word and per-cell citation boxes (requires `settings.model="r-1"`)
+* **extract:** add `duration` to `ExtractResponse` and `V3Extract`
+
+### Breaking Changes
+
+* **parse:** remove `return_overlays` from `FigureAgentic`. The API no longer lists it
+
+### Security
+
+* **deps:** require `anyio>=4.14.2` on Python 3.10+ (CVE-2026-63374) ([e5d5b1d](https://github.com/reductoai/reducto-python-sdk/commit/e5d5b1d))
+
 ## 0.24.0 (2026-09-08)
 
 Full Changelog: [v0.23.0...v0.24.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.23.0...v0.24.0)
