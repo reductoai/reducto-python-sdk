@@ -43,6 +43,11 @@ Repository = "https://github.com/reductoai/reducto-python-sdk"
 
 [project.optional-dependencies]
 aiohttp = ["aiohttp", "httpx_aiohttp>=0.1.9"]
+sagemaker = ["pypdfium2>=5.0", "pillow>=10.3", "boto3>=1.28"]
+heic = [
+  "pi-heif>=0.18, <1.2; python_version < '3.10'",
+  "pi-heif>=0.18; python_version >= '3.10'",
+]
 
 [dependency-groups]
 dev = [
@@ -57,6 +62,7 @@ dev = [
     "importlib-metadata>=6.7.0",
     "rich>=13.7.1",
     "pytest-xdist>=3.6.1",
+    "reductoai[sagemaker,heic]",
 ]
 
 [build-system]
@@ -101,7 +107,8 @@ xfail_strict = true
 asyncio_mode = "auto"
 asyncio_default_fixture_loop_scope = "session"
 filterwarnings = [
-  "error"
+  "error",
+  "ignore:Boto3 will no longer support Python:Warning:boto3.compat",
 ]
 
 [tool.pyright]
@@ -115,7 +122,8 @@ exclude = [
     "_dev",
     ".venv",
     ".git",
-    "src/reducto/lib",
+    "**/reducto/lib/citations.py",
+    "**/reducto/lib/helpers.py",
     "tests/e2e",
 ]
 
@@ -135,7 +143,7 @@ show_error_codes = true
 #
 # We also exclude our `tests` as mypy doesn't always infer
 # types correctly and Pyright will still catch any type errors.
-exclude = ['src/reducto/_files.py', 'src/reducto/lib/.*', '_dev/.*.py', 'tests/.*']
+exclude = ['reducto/_files\.py', 'reducto/lib/(citations|helpers)\.py', '_dev/.*.py', 'tests/.*']
 
 strict_equality = true
 implicit_reexport = true
@@ -169,6 +177,10 @@ cache_fine_grained = true
 # Changing this codegen to make mypy happy would increase complexity
 # and would not be worth it.
 disable_error_code = "func-returns-value,overload-cannot-match"
+
+[[tool.mypy.overrides]]
+module = ["pypdfium2", "pypdfium2.*", "boto3", "boto3.*", "botocore", "botocore.*"]
+ignore_missing_imports = true
 
 # https://github.com/python/mypy/issues/12162
 [[tool.mypy.overrides]]

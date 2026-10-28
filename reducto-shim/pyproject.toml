@@ -26,6 +26,10 @@ classifiers = [
   "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 
+[project.optional-dependencies]
+sagemaker = ["reductoai[sagemaker]==VERSION_PLACEHOLDER"]
+heic = ["reductoai[heic]==VERSION_PLACEHOLDER"]
+
 [project.urls]
 Homepage = "https://github.com/reductoai/reducto-python-sdk"
 Repository = "https://github.com/reductoai/reducto-python-sdk"
