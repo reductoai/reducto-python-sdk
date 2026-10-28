@@ -64,6 +64,8 @@ __all__ = [
     "UnprocessableEntityError",
     "RateLimitError",
     "InternalServerError",
+    "UnsupportedOnProviderError",
+    "PageParseError",
     "Timeout",
     "RequestOptions",
     "Client",
@@ -72,6 +74,8 @@ __all__ = [
     "AsyncStream",
     "Reducto",
     "AsyncReducto",
+    "ReductoSageMaker",
+    "AsyncReductoSageMaker",
     "ENVIRONMENTS",
     "file_from_path",
     "BaseModel",
@@ -83,8 +87,37 @@ __all__ = [
     "DefaultAioHttpClient",
 ]
 
-if not _t.TYPE_CHECKING:
+if _t.TYPE_CHECKING:
+    from .lib.sagemaker import (
+        PageParseError,
+        ReductoSageMaker,
+        AsyncReductoSageMaker,
+        UnsupportedOnProviderError,
+    )
+else:
+    import importlib as _importlib
+
     from ._utils._resources_proxy import resources as resources
+
+    # The provider names load the local page parse code, so only their first use imports it.
+    _LAZY = {
+        "ReductoSageMaker": "reducto.lib.sagemaker",
+        "AsyncReductoSageMaker": "reducto.lib.sagemaker",
+        "PageParseError": "reducto.lib._page_parse.errors",
+        "UnsupportedOnProviderError": "reducto.lib._page_parse.errors",
+    }
+
+    def __getattr__(name: str) -> object:
+        module = _LAZY.get(name)
+        if module is None:
+            raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+        value = getattr(_importlib.import_module(module), name)
+        globals()[name] = value
+        return value
+
+    def __dir__() -> _t.List[str]:
+        return sorted({*globals(), *_LAZY})
+
 
 _setup_logging()
 
@@ -94,7 +127,7 @@ _setup_logging()
 # reducto._exceptions.NotFoundError -> reducto.NotFoundError
 __locals = locals()
 for __name in __all__:
-    if not __name.startswith("__"):
+    if not __name.startswith("__") and __name in __locals:
         try:
             __locals[__name].__module__ = "reducto"
         except (TypeError, AttributeError):
