@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### Features
+
+* **auth:** X.509 workload identity: `reducto.auth.x509_workload_identity(cert_chain, key)`, or `REDUCTO_IDENTITY_PROVIDER_ID` with `REDUCTO_MTLS_CERT_CHAIN` and `REDUCTO_MTLS_KEY`. The client exchanges its TLS client certificate for a certificate-bound access token and presents the same certificate on every request. The default `base_url` is the mTLS host of `environment` (`https://mtls.platform.reducto.ai`, `https://mtls.eu.platform.reducto.ai`, `https://mtls.au.platform.reducto.ai`). An explicit `base_url` or `REDUCTO_BASE_URL` is kept. The certificate and key files are re-read on each token exchange, so rotated certificates are picked up. A custom `http_client` cannot be combined with X.509.
+
 ## 0.25.0 (2026-10-24)
 
 Full Changelog: [v0.24.0...v0.25.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.24.0...v0.25.0)
