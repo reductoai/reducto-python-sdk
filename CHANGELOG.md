@@ -1,5 +1,17 @@
 # Changelog
 
+## Unreleased
+
+### Features
+
+* **auth:** add workload identity federation. Pass `workload_identity={"identity_provider_id": ..., "provider": ...}` to `Reducto` / `AsyncReducto`, or set `REDUCTO_IDENTITY_PROVIDER_ID` with `REDUCTO_IDENTITY_TOKEN_FILE` or `REDUCTO_IDENTITY_TOKEN`. The client exchanges the platform token at `<base_url>/oauth/token` for a short-lived access token, caches it, and refreshes it before expiry. API key behavior does not change
+* **auth:** add `reducto.auth` token providers: `identity_token_file`, `k8s_service_account_token_provider`, `gcp_id_token_provider`, `azure_managed_identity_token_provider`, `github_actions_token_provider`, `aws_web_identity_token_provider` (needs `boto3`)
+* **auth:** add `OAuthError` (token exchange failures, with `error` and `error_description`) and `SubjectTokenProviderError`
+
+### Bug Fixes
+
+* **client:** `AsyncReducto` now applies per-request custom auth, as `Reducto` does
+
 ## 0.25.0 (2026-10-24)
 
 Full Changelog: [v0.24.0...v0.25.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.24.0...v0.25.0)
