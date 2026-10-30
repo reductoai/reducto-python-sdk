@@ -254,9 +254,16 @@ class Reducto(SyncAPIClient):
 
     @override
     def _custom_auth(self, security: SecurityOptions) -> httpx.Auth | None:
-        if self._workload_identity_auth is not None and security.get("skippable_http_bearer", False):
-            return self._workload_identity_auth
-        return None
+        auth = self._workload_identity_auth
+        if auth is None or not security.get("skippable_http_bearer", False):
+            return None
+        token_url = str(self.base_url.join("oauth/token"))
+        if auth.token_url != token_url:
+            # `base_url` was reassigned: exchange in the new region with a fresh token cache.
+            auth = self._workload_identity_auth = WorkloadIdentityAuth(
+                auth.workload_identity, token_url=token_url, max_retries=self.max_retries
+            )
+        return auth
 
     @property
     @override
@@ -636,9 +643,16 @@ class AsyncReducto(AsyncAPIClient):
 
     @override
     def _custom_auth(self, security: SecurityOptions) -> httpx.Auth | None:
-        if self._workload_identity_auth is not None and security.get("skippable_http_bearer", False):
-            return self._workload_identity_auth
-        return None
+        auth = self._workload_identity_auth
+        if auth is None or not security.get("skippable_http_bearer", False):
+            return None
+        token_url = str(self.base_url.join("oauth/token"))
+        if auth.token_url != token_url:
+            # `base_url` was reassigned: exchange in the new region with a fresh token cache.
+            auth = self._workload_identity_auth = WorkloadIdentityAuth(
+                auth.workload_identity, token_url=token_url, max_retries=self.max_retries
+            )
+        return auth
 
     @property
     @override

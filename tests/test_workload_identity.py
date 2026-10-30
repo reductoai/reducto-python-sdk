@@ -312,6 +312,22 @@ class TestExchange:
         assert 0.375 <= clock.sleeps[0] <= 0.5
         assert auth_headers(api) == ["Bearer rdat_1"]
 
+    def test_reassigned_base_url_exchanges_in_new_region(self, respx_mock: MockRouter) -> None:
+        eu_url = "https://eu.platform.reducto.ai"
+        us_token = respx_mock.post(token_url).mock(side_effect=TokenServer())
+        eu_token = respx_mock.post(f"{eu_url}/oauth/token").mock(side_effect=TokenServer())
+        respx_mock.get(f"{base_url}/version").mock(return_value=httpx.Response(200, text="1"))
+        eu_api = respx_mock.get(f"{eu_url}/version").mock(return_value=httpx.Response(200, text="1"))
+        client = Reducto(workload_identity=identity())
+
+        client.api_version()
+        client.base_url = eu_url
+        client.api_version()
+
+        assert us_token.call_count == 1
+        assert eu_token.call_count == 1
+        assert auth_headers(eu_api) == ["Bearer rdat_1"]
+
     def test_provider_error(self) -> None:
         def get_token() -> str:
             raise RuntimeError("boom")
