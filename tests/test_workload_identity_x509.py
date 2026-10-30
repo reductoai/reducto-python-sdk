@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import ssl
 import json
+import time
 import shutil
 import hashlib
 import threading
@@ -187,6 +188,7 @@ class MtlsServer:
     def __init__(self, pki: Pki) -> None:
         self.requests: List[Tuple[str, str, Optional[str]]] = []
         self.tokens: Dict[str, str] = {}
+        self.expires_in = 3600
         server = self
 
         class Handler(BaseHTTPRequestHandler):
@@ -206,7 +208,7 @@ class MtlsServer:
                 if self.path == "/oauth/token":
                     token = f"rdat_{len(server.tokens) + 1}"
                     server.tokens[token] = leaf
-                    body = json.dumps({"access_token": token, "token_type": "Bearer", "expires_in": 3600})
+                    body = json.dumps({"access_token": token, "token_type": "Bearer", "expires_in": server.expires_in})
                 else:
                     bearer = (self.headers.get("Authorization") or "").removeprefix("Bearer ")
                     if server.tokens.get(bearer) != leaf:
@@ -282,6 +284,31 @@ class TestMutualTls:
             ("/version", a, "Bearer rdat_1"),
             ("/oauth/token", b, None),
             ("/version", b, "Bearer rdat_2"),
+        ]
+
+    def test_rotation_on_scheduled_refresh(self, server: MtlsServer, pki: Pki, tmp_path: Path) -> None:
+        # Tokens end at the leaf's not_after, so the scheduled refresh must pick up the rotated files.
+        chain_a, key_a = pki.client("a")
+        chain_b, key_b = pki.client("b")
+        chain, key = tmp_path / "chain.pem", tmp_path / "key.pem"
+        shutil.copy(chain_a, chain)
+        shutil.copy(key_a, key)
+        workload_identity = identity(chain, key)
+        client = Reducto(workload_identity=workload_identity, base_url=server.url, max_retries=0)
+
+        server.expires_in = 1
+        assert client.api_version() == "1"
+        rotate(workload_identity["provider"], chain_b, key_b)  # type: ignore[arg-type]
+        time.sleep(0.6)  # past the refresh point at half the lifetime
+        assert client.api_version() == "1"
+        client.close()
+
+        a, b = fingerprint(chain_a), fingerprint(chain_b)
+        assert [(path, leaf) for path, leaf, _ in server.requests] == [
+            ("/oauth/token", a),
+            ("/version", a),
+            ("/oauth/token", b),
+            ("/version", b),
         ]
 
     async def test_async_client(self, server: MtlsServer, pki: Pki, tmp_path: Path) -> None:
