@@ -139,6 +139,17 @@ class TestClient:
         other = client.copy(workload_identity=identity(*pki.client("b")))
         assert other._client is not client._client
 
+    def test_copy_switches_default_host(self, pki: Pki) -> None:
+        chain, key = pki.client("copy")
+        client = Reducto(api_key="key", environment="eu")
+        copied = client.copy(workload_identity=identity(chain, key))
+        assert str(copied.base_url).rstrip("/") == "https://mtls.eu.platform.reducto.ai"
+        assert str(copied.copy(api_key="key").base_url).rstrip("/") == "https://eu.platform.reducto.ai"
+        custom = Reducto(api_key="key", base_url="https://reducto.internal")
+        assert (
+            str(custom.copy(workload_identity=identity(chain, key)).base_url).rstrip("/") == "https://reducto.internal"
+        )
+
     def test_unreadable_files(self, respx_mock: MockRouter, tmp_path: Path) -> None:
         respx_mock.get(f"{mtls_url}/version").mock(return_value=httpx.Response(200, text="1"))
         client = Reducto(workload_identity=identity(tmp_path / "missing.pem", tmp_path / "missing-key.pem"))
