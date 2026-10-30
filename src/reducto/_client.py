@@ -200,7 +200,9 @@ class Reducto(SyncAPIClient):
         )
 
         self._workload_identity_auth = (
-            WorkloadIdentityAuth(workload_identity, token_url=str(self.base_url.join("oauth/token")))
+            WorkloadIdentityAuth(
+                workload_identity, token_url=str(self.base_url.join("oauth/token")), max_retries=self.max_retries
+            )
             if workload_identity is not None
             else None
         )
@@ -363,6 +365,7 @@ class Reducto(SyncAPIClient):
             and copied_auth is not None
             and copied.workload_identity is self.workload_identity
             and copied_auth.token_url == auth.token_url
+            and copied_auth.max_retries == auth.max_retries
         ):
             copied._workload_identity_auth = auth
         return copied
@@ -603,7 +606,9 @@ class AsyncReducto(AsyncAPIClient):
         )
 
         self._workload_identity_auth = (
-            WorkloadIdentityAuth(workload_identity, token_url=str(self.base_url.join("oauth/token")))
+            WorkloadIdentityAuth(
+                workload_identity, token_url=str(self.base_url.join("oauth/token")), max_retries=self.max_retries
+            )
             if workload_identity is not None
             else None
         )
@@ -766,6 +771,7 @@ class AsyncReducto(AsyncAPIClient):
             and copied_auth is not None
             and copied.workload_identity is self.workload_identity
             and copied_auth.token_url == auth.token_url
+            and copied_auth.max_retries == auth.max_retries
         ):
             copied._workload_identity_auth = auth
         return copied

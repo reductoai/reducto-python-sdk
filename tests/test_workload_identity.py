@@ -16,6 +16,7 @@ from reducto import (
     OAuthError,
     AsyncReducto,
     ReductoError,
+    APIConnectionError,
     AuthenticationError,
     SubjectTokenProviderError,
 )
@@ -90,8 +91,14 @@ class FakeClock:
     def __init__(self) -> None:
         self.now = 1000.0
 
+        self.sleeps: List[float] = []
+
     def monotonic(self) -> float:
         return self.now
+
+    def sleep(self, seconds: float) -> None:
+        self.sleeps.append(seconds)
+        self.now += seconds
 
 
 @pytest.fixture
@@ -221,6 +228,89 @@ class TestExchange:
         assert exc_info.value.error_description == "mapping: no mapping matched"
         assert route.call_count == 1
         assert api.call_count == 0
+
+    def test_unavailable_is_retried_with_backoff_then_raised(self, respx_mock: MockRouter, clock: FakeClock) -> None:
+        route = respx_mock.post(token_url).mock(
+            return_value=httpx.Response(
+                503, json={"error": "temporarily_unavailable", "error_description": "Token exchange is not available."}
+            )
+        )
+        api = respx_mock.get(f"{base_url}/version").mock(return_value=httpx.Response(200, text="1"))
+        client = Reducto(workload_identity=identity(), max_retries=2)
+
+        with pytest.raises(OAuthError) as exc_info:
+            client.api_version()
+
+        assert str(exc_info.value) == (
+            "Token exchange failed with status 503: temporarily_unavailable: Token exchange is not available."
+        )
+        assert exc_info.value.error == "temporarily_unavailable"
+        assert route.call_count == 3
+        assert api.call_count == 0
+        assert len(clock.sleeps) == 2
+        assert 0.375 <= clock.sleeps[0] <= 0.5
+        assert 0.75 <= clock.sleeps[1] <= 1.0
+
+    def test_slow_down_honors_retry_after(self, respx_mock: MockRouter, clock: FakeClock) -> None:
+        slow_down = httpx.Response(429, headers={"retry-after": "3"}, json={"error": "slow_down"})
+        route = respx_mock.post(token_url).mock(
+            side_effect=[slow_down, slow_down, TokenServer()(httpx.Request("POST", token_url, json={}))]
+        )
+        api = respx_mock.get(f"{base_url}/version").mock(return_value=httpx.Response(200, text="1"))
+        client = Reducto(workload_identity=identity(), max_retries=2)
+
+        assert client.api_version() == "1"
+        assert route.call_count == 3
+        assert clock.sleeps == [3.0, 3.0]
+        assert auth_headers(api) == ["Bearer rdat_1"]
+
+    def test_slow_down_raises_after_max_retries(self, respx_mock: MockRouter, clock: FakeClock) -> None:
+        route = respx_mock.post(token_url).mock(
+            return_value=httpx.Response(429, json={"error": "slow_down", "error_description": "Too many requests"})
+        )
+        client = Reducto(workload_identity=identity(), max_retries=1)
+
+        with pytest.raises(OAuthError) as exc_info:
+            client.api_version()
+
+        assert exc_info.value.status_code == 429
+        assert exc_info.value.error == "slow_down"
+        assert route.call_count == 2
+        assert len(clock.sleeps) == 1
+
+    def test_max_retries_zero_does_not_retry(self, respx_mock: MockRouter, clock: FakeClock) -> None:
+        route = respx_mock.post(token_url).mock(return_value=httpx.Response(429, json={"error": "slow_down"}))
+        client = Reducto(workload_identity=identity(), max_retries=0)
+
+        with pytest.raises(OAuthError):
+            client.api_version()
+
+        assert route.call_count == 1
+        assert clock.sleeps == []
+
+    def test_connection_error_is_retried(self, respx_mock: MockRouter, clock: FakeClock) -> None:
+        route = respx_mock.post(token_url).mock(side_effect=httpx.ConnectError("refused"))
+        client = Reducto(workload_identity=identity(), max_retries=2)
+
+        with pytest.raises(APIConnectionError):
+            client.api_version()
+
+        assert route.call_count == 3
+        assert len(clock.sleeps) == 2
+
+    async def test_async_slow_down_is_retried_with_backoff(self, respx_mock: MockRouter, clock: FakeClock) -> None:
+        slow_down = httpx.Response(429, json={"error": "slow_down"})
+        route = respx_mock.post(token_url).mock(
+            side_effect=[slow_down, TokenServer()(httpx.Request("POST", token_url, json={}))]
+        )
+        api = respx_mock.get(f"{base_url}/version").mock(return_value=httpx.Response(200, text="1"))
+        client = AsyncReducto(workload_identity=identity(), max_retries=2)
+
+        assert await client.api_version() == "1"
+        assert route.call_count == 2
+        assert len(clock.sleeps) == 1
+        assert 0.375 <= clock.sleeps[0] <= 0.5
+        assert auth_headers(api) == ["Bearer rdat_1"]
 
     def test_provider_error(self) -> None:
         def get_token() -> str:
