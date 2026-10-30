@@ -90,15 +90,6 @@ ENVIRONMENTS: Dict[str, str] = {
 }
 
 
-def _switch_default_base_url(base_url: str | httpx.URL, *, mtls: bool) -> str | httpx.URL:
-    """Map a default host to the same environment's host when a copy switches to or from X.509."""
-    source, target = (ENVIRONMENTS, MTLS_ENVIRONMENTS) if mtls else (MTLS_ENVIRONMENTS, ENVIRONMENTS)
-    for name, url in source.items():
-        if str(base_url).rstrip("/") == url:
-            return target[name]
-    return base_url
-
-
 class Reducto(SyncAPIClient):
     # client options
     api_key: str
@@ -153,6 +144,9 @@ class Reducto(SyncAPIClient):
         self._environment = environment
 
         base_url_env = os.environ.get("REDUCTO_BASE_URL")
+        self._base_url_is_default = not (is_given(base_url) and base_url is not None) and (
+            is_given(environment) or base_url_env is None
+        )
         if is_given(base_url) and base_url is not None:
             # cast required because mypy doesn't understand the type narrowing
             base_url = cast("str | httpx.URL", base_url)  # pyright: ignore[reportUnnecessaryCast]
@@ -342,10 +336,9 @@ class Reducto(SyncAPIClient):
         certificate = client_certificate(workload_identity)
         if http_client is None and certificate is client_certificate(self.workload_identity):
             http_client = self._client
-        if base_url is None:
+        switches_mtls = (certificate is None) != (client_certificate(self.workload_identity) is None)
+        if base_url is None and not (switches_mtls and self._base_url_is_default):
             base_url = self.base_url
-            if (certificate is None) != (client_certificate(self.workload_identity) is None):
-                base_url = _switch_default_base_url(base_url, mtls=certificate is not None)
         copied = self.__class__(
             api_key=api_key,
             workload_identity=workload_identity,
@@ -559,6 +552,9 @@ class AsyncReducto(AsyncAPIClient):
         self._environment = environment
 
         base_url_env = os.environ.get("REDUCTO_BASE_URL")
+        self._base_url_is_default = not (is_given(base_url) and base_url is not None) and (
+            is_given(environment) or base_url_env is None
+        )
         if is_given(base_url) and base_url is not None:
             # cast required because mypy doesn't understand the type narrowing
             base_url = cast("str | httpx.URL", base_url)  # pyright: ignore[reportUnnecessaryCast]
@@ -748,10 +744,9 @@ class AsyncReducto(AsyncAPIClient):
         certificate = client_certificate(workload_identity)
         if http_client is None and certificate is client_certificate(self.workload_identity):
             http_client = self._client
-        if base_url is None:
+        switches_mtls = (certificate is None) != (client_certificate(self.workload_identity) is None)
+        if base_url is None and not (switches_mtls and self._base_url_is_default):
             base_url = self.base_url
-            if (certificate is None) != (client_certificate(self.workload_identity) is None):
-                base_url = _switch_default_base_url(base_url, mtls=certificate is not None)
         copied = self.__class__(
             api_key=api_key,
             workload_identity=workload_identity,
