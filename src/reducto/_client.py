@@ -197,7 +197,10 @@ class Reducto(SyncAPIClient):
 
         self._workload_identity_auth = (
             WorkloadIdentityAuth(
-                workload_identity, token_url=str(self.base_url.join("oauth/token")), max_retries=self.max_retries
+                workload_identity,
+                token_url=str(self.base_url.join("oauth/token")),
+                http_client=self._client,
+                max_retries=self.max_retries,
             )
             if workload_identity is not None
             else None
@@ -279,9 +282,16 @@ class Reducto(SyncAPIClient):
 
     @override
     def _custom_auth(self, security: SecurityOptions) -> httpx.Auth | None:
-        if self._workload_identity_auth is not None and security.get("skippable_http_bearer", False):
-            return self._workload_identity_auth
-        return None
+        auth = self._workload_identity_auth
+        if auth is None or not security.get("skippable_http_bearer", False):
+            return None
+        token_url = str(self.base_url.join("oauth/token"))
+        if auth.token_url != token_url:
+            # `base_url` was reassigned: exchange in the new region with a fresh token cache.
+            auth = self._workload_identity_auth = WorkloadIdentityAuth(
+                auth.workload_identity, token_url=token_url, http_client=self._client, max_retries=self.max_retries
+            )
+        return auth
 
     @property
     @override
@@ -360,6 +370,7 @@ class Reducto(SyncAPIClient):
             and copied.workload_identity is self.workload_identity
             and copied_auth.token_url == auth.token_url
             and copied_auth.max_retries == auth.max_retries
+            and copied_auth.http_client is auth.http_client
         ):
             copied._workload_identity_auth = auth
         return copied
@@ -606,7 +617,10 @@ class AsyncReducto(AsyncAPIClient):
 
         self._workload_identity_auth = (
             WorkloadIdentityAuth(
-                workload_identity, token_url=str(self.base_url.join("oauth/token")), max_retries=self.max_retries
+                workload_identity,
+                token_url=str(self.base_url.join("oauth/token")),
+                http_client=self._client,
+                max_retries=self.max_retries,
             )
             if workload_identity is not None
             else None
@@ -688,9 +702,16 @@ class AsyncReducto(AsyncAPIClient):
 
     @override
     def _custom_auth(self, security: SecurityOptions) -> httpx.Auth | None:
-        if self._workload_identity_auth is not None and security.get("skippable_http_bearer", False):
-            return self._workload_identity_auth
-        return None
+        auth = self._workload_identity_auth
+        if auth is None or not security.get("skippable_http_bearer", False):
+            return None
+        token_url = str(self.base_url.join("oauth/token"))
+        if auth.token_url != token_url:
+            # `base_url` was reassigned: exchange in the new region with a fresh token cache.
+            auth = self._workload_identity_auth = WorkloadIdentityAuth(
+                auth.workload_identity, token_url=token_url, http_client=self._client, max_retries=self.max_retries
+            )
+        return auth
 
     @property
     @override
@@ -769,6 +790,7 @@ class AsyncReducto(AsyncAPIClient):
             and copied.workload_identity is self.workload_identity
             and copied_auth.token_url == auth.token_url
             and copied_auth.max_retries == auth.max_retries
+            and copied_auth.http_client is auth.http_client
         ):
             copied._workload_identity_auth = auth
         return copied
