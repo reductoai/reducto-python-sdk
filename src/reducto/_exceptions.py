@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from typing import Dict, Optional, cast
 from typing_extensions import Literal
 
 import httpx
@@ -13,11 +14,17 @@ __all__ = [
     "UnprocessableEntityError",
     "RateLimitError",
     "InternalServerError",
+    "OAuthError",
+    "SubjectTokenProviderError",
 ]
 
 
 class ReductoError(Exception):
     pass
+
+
+class SubjectTokenProviderError(ReductoError):
+    """Raised when a workload identity provider fails to return a subject token."""
 
 
 class APIError(ReductoError):
@@ -104,3 +111,28 @@ class RateLimitError(APIStatusError):
 
 class InternalServerError(APIStatusError):
     pass
+
+
+class OAuthError(APIStatusError):
+    """Raised when the workload identity token exchange at `/oauth/token` fails."""
+
+    error: Optional[str]
+    """The RFC 6749 error code, e.g. `invalid_grant`."""
+
+    error_description: Optional[str]
+
+    def __init__(self, *, response: httpx.Response, body: object | None) -> None:
+        fields = _as_fields(body)
+        error, description = fields.get("error"), fields.get("error_description")
+        self.error = error if isinstance(error, str) else None
+        self.error_description = description if isinstance(description, str) else None
+        message = f"Token exchange failed with status {response.status_code}"
+        if self.error:
+            message += f": {self.error}"
+        if self.error_description:
+            message += f": {self.error_description}"
+        super().__init__(message, response=response, body=body)
+
+
+def _as_fields(body: object) -> Dict[str, object]:
+    return cast("Dict[str, object]", body) if isinstance(body, dict) else {}
