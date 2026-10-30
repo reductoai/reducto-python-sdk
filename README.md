@@ -102,6 +102,84 @@ async def main() -> None:
 asyncio.run(main())
 ```
 
+## Workload identity federation
+
+Workload identity federation lets a workload authenticate with a token its platform already issues (a GitHub Actions
+OIDC token, a Kubernetes service account token, a cloud metadata identity token) instead of a long-lived API key.
+The client exchanges that subject token at `<base_url>/oauth/token` for a short-lived Reducto access token, caches it,
+refreshes it before it expires, and exchanges again once if an API call returns 401.
+
+Create a workload identity provider and a mapping in Reducto Studio first. Then pass its ID with a token provider:
+
+```python
+from reducto import Reducto
+from reducto.auth import k8s_service_account_token_provider
+
+client = Reducto(
+    workload_identity={
+        "identity_provider_id": "wip_...",
+        "provider": k8s_service_account_token_provider(),
+    }
+)
+```
+
+Or set environment variables and call `Reducto()` with no arguments:
+
+```sh
+REDUCTO_IDENTITY_PROVIDER_ID=wip_...
+REDUCTO_IDENTITY_TOKEN_FILE=/var/run/secrets/tokens/reducto  # re-read on every exchange
+# or REDUCTO_IDENTITY_TOKEN=eyJ...
+```
+
+Credentials are resolved in this order: `api_key=`, `workload_identity=`, `REDUCTO_API_KEY`, then the
+`REDUCTO_IDENTITY_*` variables. Passing both `api_key` and `workload_identity` raises an error.
+
+Token providers in `reducto.auth` (the default audience is `https://platform.reducto.ai`):
+
+```python
+from reducto.auth import (
+    identity_token_file,
+    gcp_id_token_provider,
+    github_actions_token_provider,
+    aws_web_identity_token_provider,
+    k8s_service_account_token_provider,
+    azure_managed_identity_token_provider,
+)
+
+# Any file that holds a JWT, e.g. a SPIFFE JWT-SVID written by spiffe-helper. Re-read on every exchange.
+identity_token_file("/run/spire/jwt-svid")
+
+# Kubernetes (EKS, GKE, AKS, self-managed): a projected service account token with your Reducto audience.
+k8s_service_account_token_provider("/var/run/secrets/tokens/reducto")
+
+# Google Cloud: identity token from the metadata server for the attached service account.
+gcp_id_token_provider(audience="https://platform.reducto.ai")
+
+# Azure: managed identity token from IMDS. `resource` becomes the token audience.
+azure_managed_identity_token_provider(resource="api://<app-id>", client_id="<managed-identity-client-id>")
+
+# GitHub Actions: the job needs `permissions: id-token: write`.
+github_actions_token_provider(audience="https://platform.reducto.ai")
+
+# AWS outbound identity federation (sts:GetWebIdentityToken). Requires `pip install boto3`.
+aws_web_identity_token_provider(audience="https://platform.reducto.ai", duration_seconds=3600)
+```
+
+Any other platform works with a callable that returns a fresh JWT:
+
+```python
+client = Reducto(
+    workload_identity={
+        "identity_provider_id": "wip_...",
+        "provider": {"token_type": "jwt", "get_token": lambda: fetch_my_jwt()},
+        "refresh_buffer_seconds": 300,  # optional; default 1200, capped at half the token lifetime
+    }
+)
+```
+
+A failed exchange raises `reducto.OAuthError` with the RFC 6749 `error` and `error_description`. A token provider
+that cannot return a subject token raises `reducto.SubjectTokenProviderError`.
+
 ## Using types
 
 Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typing.html#typing.TypedDict). Responses are [Pydantic models](https://docs.pydantic.dev) which also provide helper methods for things like:
