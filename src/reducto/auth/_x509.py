@@ -152,13 +152,14 @@ class SyncClientCertificateTransport(httpx.BaseTransport):
     @override
     def handle_request(self, request: httpx.Request) -> httpx.Response:
         context = self.certificate.context
+        retired: Optional[_SyncPool] = None
         with self._lock:
             if self._pool is None or self._pool.context is not context:
-                if self._pool is not None:
-                    self._pool.retire()
-                self._pool = _SyncPool(context)
+                retired, self._pool = self._pool, _SyncPool(context)
             pool = self._pool
             pool.acquire()
+        if retired is not None:
+            retired.retire()
         try:
             response = pool.client.send(request, stream=True)
         except BaseException:
@@ -226,12 +227,13 @@ class AsyncClientCertificateTransport(httpx.AsyncBaseTransport):
     @override
     async def handle_async_request(self, request: httpx.Request) -> httpx.Response:
         context = self.certificate.context
+        retired: Optional[_AsyncPool] = None
         if self._pool is None or self._pool.context is not context:
-            if self._pool is not None:
-                await self._pool.retire()
-            self._pool = _AsyncPool(context)
+            retired, self._pool = self._pool, _AsyncPool(context)
         pool = self._pool
         pool.acquire()
+        if retired is not None:
+            await retired.retire()
         try:
             response = await pool.client.send(request, stream=True)
         except BaseException:
