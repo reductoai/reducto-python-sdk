@@ -7,10 +7,11 @@ import time
 import random
 import importlib
 import threading
-from typing import Any, Dict, Tuple, Callable, Optional, Generator, AsyncGenerator
+from typing import Any, Dict, Tuple, Union, Callable, Optional, Generator, AsyncGenerator
 from pathlib import Path
 from typing_extensions import Literal, TypedDict, NotRequired, override
 
+import anyio
 import httpx
 
 from .._utils import is_dict
@@ -270,15 +271,21 @@ def resolve_credentials(
 
 
 class WorkloadIdentityAuth(httpx.Auth):
-    """Caches the Reducto access token and shares one in-flight exchange between threads and tasks."""
+    """Caches the Reducto access token and shares one in-flight exchange between threads and tasks.
+
+    The exchange is sent through `http_client`, the client's own httpx client, so its proxy, TLS and transport
+    settings apply to `/oauth/token` too. Pass an `httpx.Client` for `Reducto`, an `httpx.AsyncClient` for
+    `AsyncReducto`.
+    """
 
     def __init__(
         self,
         workload_identity: WorkloadIdentity,
         *,
         token_url: str,
+        http_client: Union[httpx.Client, httpx.AsyncClient],
         max_retries: int = DEFAULT_MAX_RETRIES,
-        timeout: float = 10.0,
+        timeout: float = 60.0,
     ) -> None:
         token_type = workload_identity["provider"]["token_type"]
         if token_type not in SUBJECT_TOKEN_TYPES:
@@ -287,10 +294,12 @@ class WorkloadIdentityAuth(httpx.Auth):
             raise ReductoError("workload_identity.identity_provider_id must not be empty")
         self.workload_identity = workload_identity
         self.token_url = token_url
+        self.http_client = http_client
         self.max_retries = max_retries
         self._timeout = timeout
         self._condition = threading.Condition()
         self._refreshing = False
+        self._async_lock: Optional[anyio.Lock] = None
         self._token: Optional[str] = None
         self._expires_at = 0.0
         self._refresh_at = 0.0
@@ -318,18 +327,29 @@ class WorkloadIdentityAuth(httpx.Auth):
         finally:
             with self._condition:
                 if token is not None:
-                    buffer = self.workload_identity.get("refresh_buffer_seconds", DEFAULT_REFRESH_BUFFER_SECONDS)
-                    self._token = token
-                    self._expires_at = started + expires_in
-                    self._refresh_at = self._expires_at - min(buffer, expires_in / 2)
+                    self._store(token, started, expires_in)
                 self._refreshing = False
                 self._condition.notify_all()
 
     async def get_token_async(self) -> str:
+        if self._async_lock is None:
+            self._async_lock = anyio.Lock()
         with self._condition:
-            if self._token is not None and time.monotonic() < self._refresh_at:
+            now = time.monotonic()
+            if self._token is not None and now < self._refresh_at:
                 return self._token
-        return await to_thread(self.get_token)
+            # Another task is refreshing. Keep using the current token until it expires.
+            if self._async_lock.locked() and self._token is not None and now < self._expires_at:
+                return self._token
+        async with self._async_lock:
+            with self._condition:
+                if self._token is not None and time.monotonic() < self._refresh_at:
+                    return self._token
+            started = time.monotonic()
+            token, expires_in = await self._exchange_async()
+            with self._condition:
+                self._store(token, started, expires_in)
+            return token
 
     def invalidate(self, token: str) -> None:
         with self._condition:
@@ -346,6 +366,8 @@ class WorkloadIdentityAuth(httpx.Auth):
         request.headers["Authorization"] = f"Bearer {token}"
         response = yield request
         if response.status_code == 401:
+            # Release the connection before the exchange borrows one from the same pool.
+            response.read()
             self.invalidate(token)
             request.headers["Authorization"] = f"Bearer {self.get_token()}"
             yield request
@@ -359,13 +381,27 @@ class WorkloadIdentityAuth(httpx.Auth):
         request.headers["Authorization"] = f"Bearer {token}"
         response = yield request
         if response.status_code == 401:
+            await response.aread()
             self.invalidate(token)
             request.headers["Authorization"] = f"Bearer {await self.get_token_async()}"
             yield request
 
+    def _store(self, token: str, started: float, expires_in: float) -> None:
+        buffer = self.workload_identity.get("refresh_buffer_seconds", DEFAULT_REFRESH_BUFFER_SECONDS)
+        self._token = token
+        self._expires_at = started + expires_in
+        self._refresh_at = self._expires_at - min(buffer, expires_in / 2)
+
     def _exchange(self) -> Tuple[str, float]:
+        return _parse_exchange_response(self._post_with_retries(self._exchange_body()))
+
+    async def _exchange_async(self) -> Tuple[str, float]:
+        # Token providers are sync and may block (file reads, metadata servers), so call them off the event loop.
+        body = await to_thread(self._exchange_body)
+        return _parse_exchange_response(await self._post_with_retries_async(body))
+
+    def _exchange_body(self) -> Dict[str, str]:
         provider = self.workload_identity["provider"]
-        body: object
         try:
             subject_token = provider["get_token"]()
         except SubjectTokenProviderError:
@@ -376,55 +412,81 @@ class WorkloadIdentityAuth(httpx.Auth):
             ) from e
         if not subject_token:
             raise SubjectTokenProviderError("The workload identity provider returned an empty subject token")
-
-        body = {
+        return {
             "grant_type": TOKEN_EXCHANGE_GRANT_TYPE,
             "subject_token_type": SUBJECT_TOKEN_TYPES[provider["token_type"]],
             "subject_token": subject_token,
             "identity_provider_id": self.workload_identity["identity_provider_id"],
         }
-        response = self._post_with_retries(body)
-        try:
-            body = response.json()
-        except ValueError:
-            body = response.text or None
-        if not response.is_success:
-            raise OAuthError(response=response, body=body)
-
-        access_token = body.get("access_token") if is_dict(body) else None
-        expires_in = body.get("expires_in") if is_dict(body) else None
-        if (
-            not isinstance(access_token, str)
-            or not access_token
-            or not isinstance(expires_in, (int, float))
-            or isinstance(expires_in, bool)
-            or expires_in <= 0
-        ):
-            raise APIResponseValidationError(
-                response, body, message="Token exchange response did not include access_token and expires_in"
-            )
-        return access_token, float(expires_in)
 
     def _post_with_retries(self, body: Dict[str, str]) -> httpx.Response:
         """POST to the token endpoint, retrying like API requests: same status codes, backoff and `retry-after`."""
-        with httpx.Client(timeout=self._timeout, follow_redirects=False) as client:
-            retries_taken = 0
-            while True:
-                retry_after: Optional[httpx.Headers] = None
-                try:
-                    response = client.post(self.token_url, json=body)
-                except httpx.TimeoutException as e:
-                    if retries_taken >= self.max_retries:
-                        raise APITimeoutError(request=e.request) from e
-                except httpx.RequestError as e:
-                    if retries_taken >= self.max_retries:
-                        raise APIConnectionError(request=e.request) from e
-                else:
-                    if retries_taken >= self.max_retries or not _should_retry(response):
-                        return response
-                    retry_after = response.headers
-                time.sleep(_retry_delay(retries_taken, retry_after))
-                retries_taken += 1
+        client = self.http_client
+        if not isinstance(client, httpx.Client):
+            raise TypeError(f"Expected an httpx.Client for the token exchange, got {type(client)}")
+        retries_taken = 0
+        while True:
+            retry_after: Optional[httpx.Headers] = None
+            try:
+                response = client.post(self.token_url, json=body, timeout=self._timeout, follow_redirects=False)
+            except httpx.TimeoutException as e:
+                if retries_taken >= self.max_retries:
+                    raise APITimeoutError(request=e.request) from e
+            except httpx.RequestError as e:
+                if retries_taken >= self.max_retries:
+                    raise APIConnectionError(request=e.request) from e
+            else:
+                if retries_taken >= self.max_retries or not _should_retry(response):
+                    return response
+                retry_after = response.headers
+            time.sleep(_retry_delay(retries_taken, retry_after))
+            retries_taken += 1
+
+    async def _post_with_retries_async(self, body: Dict[str, str]) -> httpx.Response:
+        client = self.http_client
+        if not isinstance(client, httpx.AsyncClient):
+            raise TypeError(f"Expected an httpx.AsyncClient for the token exchange, got {type(client)}")
+        retries_taken = 0
+        while True:
+            retry_after: Optional[httpx.Headers] = None
+            try:
+                response = await client.post(self.token_url, json=body, timeout=self._timeout, follow_redirects=False)
+            except httpx.TimeoutException as e:
+                if retries_taken >= self.max_retries:
+                    raise APITimeoutError(request=e.request) from e
+            except httpx.RequestError as e:
+                if retries_taken >= self.max_retries:
+                    raise APIConnectionError(request=e.request) from e
+            else:
+                if retries_taken >= self.max_retries or not _should_retry(response):
+                    return response
+                retry_after = response.headers
+            await anyio.sleep(_retry_delay(retries_taken, retry_after))
+            retries_taken += 1
+
+
+def _parse_exchange_response(response: httpx.Response) -> Tuple[str, float]:
+    body: object
+    try:
+        body = response.json()
+    except ValueError:
+        body = response.text or None
+    if not response.is_success:
+        raise OAuthError(response=response, body=body)
+
+    access_token = body.get("access_token") if is_dict(body) else None
+    expires_in = body.get("expires_in") if is_dict(body) else None
+    if (
+        not isinstance(access_token, str)
+        or not access_token
+        or not isinstance(expires_in, (int, float))
+        or isinstance(expires_in, bool)
+        or expires_in <= 0
+    ):
+        raise APIResponseValidationError(
+            response, body, message="Token exchange response did not include access_token and expires_in"
+        )
+    return access_token, float(expires_in)
 
 
 def _should_retry(response: httpx.Response) -> bool:

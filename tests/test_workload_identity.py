@@ -4,9 +4,11 @@ import json
 import time
 import asyncio
 import threading
+from types import SimpleNamespace
 from typing import Any, Dict, List, Iterator, Optional
 from pathlib import Path
 
+import anyio
 import httpx
 import pytest
 from respx import MockRouter
@@ -100,11 +102,15 @@ class FakeClock:
         self.sleeps.append(seconds)
         self.now += seconds
 
+    async def async_sleep(self, seconds: float) -> None:
+        self.sleep(seconds)
+
 
 @pytest.fixture
 def clock(monkeypatch: pytest.MonkeyPatch) -> FakeClock:
     fake = FakeClock()
     monkeypatch.setattr(_workload, "time", fake)
+    monkeypatch.setattr(_workload, "anyio", SimpleNamespace(sleep=fake.async_sleep, Lock=anyio.Lock))
     return fake
 
 
@@ -141,7 +147,7 @@ class TestExchange:
         server = TokenServer()
         respx_mock.post(token_url).mock(side_effect=server)
         provider: SubjectTokenProvider = {"token_type": "id", "get_token": lambda: "id.jwt"}
-        WorkloadIdentityAuth(identity(provider=provider), token_url=token_url).get_token()
+        WorkloadIdentityAuth(identity(provider=provider), token_url=token_url, http_client=httpx.Client()).get_token()
         assert server.bodies[0]["subject_token_type"] == "urn:ietf:params:oauth:token-type:id_token"
 
     def test_exchange_uses_base_url(self, respx_mock: MockRouter) -> None:
@@ -167,7 +173,7 @@ class TestExchange:
     def test_refreshes_before_expiry(self, respx_mock: MockRouter, clock: FakeClock) -> None:
         server = TokenServer(expires_in=100)
         respx_mock.post(token_url).mock(side_effect=server)
-        auth = WorkloadIdentityAuth(identity(), token_url=token_url)
+        auth = WorkloadIdentityAuth(identity(), token_url=token_url, http_client=httpx.Client())
 
         assert auth.get_token() == "rdat_1"
         clock.now += 49  # buffer is min(1200, 100 / 2) = 50
@@ -178,7 +184,9 @@ class TestExchange:
     def test_refresh_buffer_option(self, respx_mock: MockRouter, clock: FakeClock) -> None:
         server = TokenServer(expires_in=3600)
         respx_mock.post(token_url).mock(side_effect=server)
-        auth = WorkloadIdentityAuth(identity(refresh_buffer_seconds=60), token_url=token_url)
+        auth = WorkloadIdentityAuth(
+            identity(refresh_buffer_seconds=60), token_url=token_url, http_client=httpx.Client()
+        )
 
         assert auth.get_token() == "rdat_1"
         clock.now += 3539
@@ -189,7 +197,7 @@ class TestExchange:
     def test_concurrent_threads_share_one_exchange(self, respx_mock: MockRouter) -> None:
         server = TokenServer(delay=0.2)
         respx_mock.post(token_url).mock(side_effect=server)
-        auth = WorkloadIdentityAuth(identity(), token_url=token_url)
+        auth = WorkloadIdentityAuth(identity(), token_url=token_url, http_client=httpx.Client())
 
         results: List[str] = []
         threads = [threading.Thread(target=lambda: results.append(auth.get_token())) for _ in range(10)]
@@ -204,7 +212,7 @@ class TestExchange:
     async def test_concurrent_tasks_share_one_exchange(self, respx_mock: MockRouter) -> None:
         server = TokenServer(delay=0.2)
         respx_mock.post(token_url).mock(side_effect=server)
-        auth = WorkloadIdentityAuth(identity(), token_url=token_url)
+        auth = WorkloadIdentityAuth(identity(), token_url=token_url, http_client=httpx.AsyncClient())
 
         results = await asyncio.gather(*(auth.get_token_async() for _ in range(10)))
 
@@ -327,6 +335,53 @@ class TestExchange:
         assert us_token.call_count == 1
         assert eu_token.call_count == 1
         assert auth_headers(eu_api) == ["Bearer rdat_1"]
+
+    def test_custom_http_client_sends_the_exchange(self) -> None:
+        server = TokenServer()
+        requests: List[httpx.Request] = []
+
+        def handler(request: httpx.Request) -> httpx.Response:
+            requests.append(request)
+            return server(request) if request.url.path == "/oauth/token" else httpx.Response(200, text="1")
+
+        client = Reducto(workload_identity=identity(), http_client=httpx.Client(transport=httpx.MockTransport(handler)))
+
+        assert client.api_version() == "1"
+        assert [str(r.url) for r in requests] == [token_url, f"{base_url}/version"]
+        assert requests[1].headers["Authorization"] == "Bearer rdat_1"
+
+    async def test_custom_async_http_client_sends_the_exchange(self) -> None:
+        server = TokenServer()
+        requests: List[httpx.Request] = []
+
+        def handler(request: httpx.Request) -> httpx.Response:
+            requests.append(request)
+            return server(request) if request.url.path == "/oauth/token" else httpx.Response(200, text="1")
+
+        client = AsyncReducto(
+            workload_identity=identity(), http_client=httpx.AsyncClient(transport=httpx.MockTransport(handler))
+        )
+
+        assert await client.api_version() == "1"
+        assert [str(r.url) for r in requests] == [token_url, f"{base_url}/version"]
+        assert requests[1].headers["Authorization"] == "Bearer rdat_1"
+
+    def test_exchange_does_not_follow_redirects(self) -> None:
+        requests: List[httpx.Request] = []
+
+        def handler(request: httpx.Request) -> httpx.Response:
+            requests.append(request)
+            return httpx.Response(307, headers={"Location": "https://attacker.example/oauth/token"})
+
+        client = Reducto(
+            workload_identity=identity(),
+            http_client=httpx.Client(transport=httpx.MockTransport(handler), follow_redirects=True),
+        )
+
+        with pytest.raises(OAuthError) as exc:
+            client.api_version()
+        assert exc.value.status_code == 307
+        assert [str(r.url) for r in requests] == [token_url]
 
     def test_provider_error(self) -> None:
         def get_token() -> str:
