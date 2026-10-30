@@ -145,6 +145,14 @@ class TestClient:
         copied = client.copy(workload_identity=identity(chain, key))
         assert str(copied.base_url).rstrip("/") == "https://mtls.eu.platform.reducto.ai"
         assert str(copied.copy(api_key="key").base_url).rstrip("/") == "https://eu.platform.reducto.ai"
+        chained = client.with_options(timeout=5).copy(workload_identity=identity(chain, key))
+        assert str(chained.base_url).rstrip("/") == "https://mtls.eu.platform.reducto.ai"
+        reassigned = Reducto(api_key="key", environment="eu")
+        reassigned.base_url = "https://reducto.internal"
+        assert (
+            str(reassigned.copy(workload_identity=identity(chain, key)).base_url).rstrip("/")
+            == "https://reducto.internal"
+        )
         explicit = Reducto(api_key="key", base_url="https://eu.platform.reducto.ai")
         explicit_copy = explicit.copy(workload_identity=identity(chain, key))
         assert str(explicit_copy.base_url).rstrip("/") == "https://eu.platform.reducto.ai"
