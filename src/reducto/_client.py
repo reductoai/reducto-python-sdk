@@ -90,6 +90,15 @@ ENVIRONMENTS: Dict[str, str] = {
 }
 
 
+def _switch_default_base_url(base_url: str | httpx.URL, *, mtls: bool) -> str | httpx.URL:
+    """Map a default host to the same environment's host when a copy switches to or from X.509."""
+    source, target = (ENVIRONMENTS, MTLS_ENVIRONMENTS) if mtls else (MTLS_ENVIRONMENTS, ENVIRONMENTS)
+    for name, url in source.items():
+        if str(base_url).rstrip("/") == url:
+            return target[name]
+    return base_url
+
+
 class Reducto(SyncAPIClient):
     # client options
     api_key: str
@@ -328,12 +337,17 @@ class Reducto(SyncAPIClient):
             else:
                 api_key = self.api_key
 
-        if http_client is None and client_certificate(workload_identity) is client_certificate(self.workload_identity):
+        certificate = client_certificate(workload_identity)
+        if http_client is None and certificate is client_certificate(self.workload_identity):
             http_client = self._client
+        if base_url is None:
+            base_url = self.base_url
+            if (certificate is None) != (client_certificate(self.workload_identity) is None):
+                base_url = _switch_default_base_url(base_url, mtls=certificate is not None)
         copied = self.__class__(
             api_key=api_key,
             workload_identity=workload_identity,
-            base_url=base_url or self.base_url,
+            base_url=base_url,
             environment=environment or self._environment,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,
@@ -726,12 +740,17 @@ class AsyncReducto(AsyncAPIClient):
             else:
                 api_key = self.api_key
 
-        if http_client is None and client_certificate(workload_identity) is client_certificate(self.workload_identity):
+        certificate = client_certificate(workload_identity)
+        if http_client is None and certificate is client_certificate(self.workload_identity):
             http_client = self._client
+        if base_url is None:
+            base_url = self.base_url
+            if (certificate is None) != (client_certificate(self.workload_identity) is None):
+                base_url = _switch_default_base_url(base_url, mtls=certificate is not None)
         copied = self.__class__(
             api_key=api_key,
             workload_identity=workload_identity,
-            base_url=base_url or self.base_url,
+            base_url=base_url,
             environment=environment or self._environment,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,
