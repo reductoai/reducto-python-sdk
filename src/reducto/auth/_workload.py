@@ -6,12 +6,13 @@ import os
 import time
 import importlib
 import threading
-from typing import Any, Dict, Tuple, Callable, Optional, Generator, AsyncGenerator
+from typing import Any, Dict, Tuple, Union, Callable, Optional, Generator, AsyncGenerator
 from pathlib import Path
 from typing_extensions import Literal, TypedDict, NotRequired, override
 
 import httpx
 
+from ._x509 import X509Provider, ClientCertificate, LoadedCertificate, x509_workload_identity
 from .._utils import is_dict
 from .._exceptions import (
     OAuthError,
@@ -25,8 +26,10 @@ from .._utils._sync import to_thread
 
 __all__ = [
     "SubjectTokenProvider",
+    "X509Provider",
     "WorkloadIdentity",
     "WorkloadIdentityAuth",
+    "x509_workload_identity",
     "identity_token_file",
     "k8s_service_account_token_provider",
     "gcp_id_token_provider",
@@ -39,6 +42,7 @@ TOKEN_EXCHANGE_GRANT_TYPE = "urn:ietf:params:oauth:grant-type:token-exchange"
 SUBJECT_TOKEN_TYPES = {
     "jwt": "urn:ietf:params:oauth:token-type:jwt",
     "id": "urn:ietf:params:oauth:token-type:id_token",
+    "x509": "urn:reducto:params:oauth:token-type:x509",
 }
 DEFAULT_AUDIENCE = "https://platform.reducto.ai"
 DEFAULT_REFRESH_BUFFER_SECONDS = 1200.0
@@ -60,8 +64,8 @@ class WorkloadIdentity(TypedDict):
     identity_provider_id: str
     """The Reducto workload identity provider ID (`wip_...`)."""
 
-    provider: SubjectTokenProvider
-    """Where the subject token comes from."""
+    provider: Union[SubjectTokenProvider, X509Provider]
+    """Where the subject token comes from, or the client certificate from `x509_workload_identity`."""
 
     refresh_buffer_seconds: NotRequired[float]
     """Refresh the access token this many seconds before it expires, capped at half its lifetime. Defaults to 1200."""
@@ -236,15 +240,36 @@ def workload_identity_from_env() -> Optional[WorkloadIdentity]:
         return None
     token_file = os.environ.get("REDUCTO_IDENTITY_TOKEN_FILE")
     token = os.environ.get("REDUCTO_IDENTITY_TOKEN")
-    if token_file:
+    cert_chain = os.environ.get("REDUCTO_MTLS_CERT_CHAIN")
+    key = os.environ.get("REDUCTO_MTLS_KEY")
+    provider: Union[SubjectTokenProvider, X509Provider]
+    if cert_chain or key:
+        if not (cert_chain and key):
+            raise ReductoError("REDUCTO_MTLS_CERT_CHAIN and REDUCTO_MTLS_KEY must be set together")
+        if token_file or token:
+            raise ReductoError(
+                "Set either REDUCTO_MTLS_CERT_CHAIN and REDUCTO_MTLS_KEY, or REDUCTO_IDENTITY_TOKEN_FILE or "
+                "REDUCTO_IDENTITY_TOKEN, not both"
+            )
+        provider = x509_workload_identity(cert_chain=cert_chain, key=key)
+    elif token_file:
         provider = identity_token_file(token_file)
     elif token:
         provider = SubjectTokenProvider(token_type="jwt", get_token=lambda: token)
     else:
         raise ReductoError(
-            "REDUCTO_IDENTITY_PROVIDER_ID is set, but neither REDUCTO_IDENTITY_TOKEN_FILE nor REDUCTO_IDENTITY_TOKEN is set"
+            "REDUCTO_IDENTITY_PROVIDER_ID is set, but none of REDUCTO_IDENTITY_TOKEN_FILE, REDUCTO_IDENTITY_TOKEN "
+            "or REDUCTO_MTLS_CERT_CHAIN and REDUCTO_MTLS_KEY is set"
         )
     return {"identity_provider_id": provider_id, "provider": provider}
+
+
+def client_certificate(workload_identity: Optional[WorkloadIdentity]) -> Optional[ClientCertificate]:
+    """The client certificate to present on every request, if `workload_identity` uses X.509."""
+    if workload_identity is None:
+        return None
+    provider = workload_identity["provider"]
+    return provider["client_certificate"] if provider["token_type"] == "x509" else None
 
 
 def resolve_credentials(
@@ -261,8 +286,8 @@ def resolve_credentials(
         raise ReductoError(
             "The api_key client option must be set either by passing api_key to the client or by setting the "
             "REDUCTO_API_KEY environment variable. To use workload identity federation instead, pass "
-            "workload_identity or set REDUCTO_IDENTITY_PROVIDER_ID with REDUCTO_IDENTITY_TOKEN_FILE or "
-            "REDUCTO_IDENTITY_TOKEN."
+            "workload_identity or set REDUCTO_IDENTITY_PROVIDER_ID with REDUCTO_IDENTITY_TOKEN_FILE, "
+            "REDUCTO_IDENTITY_TOKEN, or REDUCTO_MTLS_CERT_CHAIN and REDUCTO_MTLS_KEY."
         )
     return api_key, workload_identity
 
@@ -273,7 +298,7 @@ class WorkloadIdentityAuth(httpx.Auth):
     def __init__(self, workload_identity: WorkloadIdentity, *, token_url: str, timeout: float = 10.0) -> None:
         token_type = workload_identity["provider"]["token_type"]
         if token_type not in SUBJECT_TOKEN_TYPES:
-            raise ReductoError(f"Unsupported subject token type {token_type!r}. Use one of: jwt, id")
+            raise ReductoError(f"Unsupported subject token type {token_type!r}. Use one of: jwt, id, x509")
         if not workload_identity["identity_provider_id"]:
             raise ReductoError("workload_identity.identity_provider_id must not be empty")
         self.workload_identity = workload_identity
@@ -355,28 +380,25 @@ class WorkloadIdentityAuth(httpx.Auth):
 
     def _exchange(self) -> Tuple[str, float]:
         provider = self.workload_identity["provider"]
-        try:
-            subject_token = provider["get_token"]()
-        except SubjectTokenProviderError:
-            raise
-        except Exception as e:
-            raise SubjectTokenProviderError(
-                f"The workload identity provider failed to return a subject token: {e}"
-            ) from e
-        if not subject_token:
-            raise SubjectTokenProviderError("The workload identity provider returned an empty subject token")
+        params: Dict[str, str] = {
+            "grant_type": TOKEN_EXCHANGE_GRANT_TYPE,
+            "subject_token_type": SUBJECT_TOKEN_TYPES[provider["token_type"]],
+            "identity_provider_id": self.workload_identity["identity_provider_id"],
+        }
+        certificate: Optional[LoadedCertificate] = None
+        if provider["token_type"] == "x509":
+            # No subject token: the server reads the client certificate from the TLS handshake.
+            certificate = provider["client_certificate"].load()
+        else:
+            params["subject_token"] = self._subject_token(provider)
 
         try:
-            with httpx.Client(timeout=self._timeout, follow_redirects=False) as client:
-                response = client.post(
-                    self.token_url,
-                    json={
-                        "grant_type": TOKEN_EXCHANGE_GRANT_TYPE,
-                        "subject_token_type": SUBJECT_TOKEN_TYPES[provider["token_type"]],
-                        "subject_token": subject_token,
-                        "identity_provider_id": self.workload_identity["identity_provider_id"],
-                    },
-                )
+            with httpx.Client(
+                timeout=self._timeout,
+                follow_redirects=False,
+                verify=certificate.context if certificate is not None else True,
+            ) as client:
+                response = client.post(self.token_url, json=params)
         except httpx.TimeoutException as e:
             raise APITimeoutError(request=e.request) from e
         except httpx.RequestError as e:
@@ -401,4 +423,21 @@ class WorkloadIdentityAuth(httpx.Auth):
             raise APIResponseValidationError(
                 response, body, message="Token exchange response did not include access_token and expires_in"
             )
+        if certificate is not None and provider["token_type"] == "x509":
+            # The new token is bound to this certificate, so API requests must present it from now on.
+            provider["client_certificate"].use(certificate)
         return access_token, float(expires_in)
+
+    @staticmethod
+    def _subject_token(provider: SubjectTokenProvider) -> str:
+        try:
+            subject_token = provider["get_token"]()
+        except SubjectTokenProviderError:
+            raise
+        except Exception as e:
+            raise SubjectTokenProviderError(
+                f"The workload identity provider failed to return a subject token: {e}"
+            ) from e
+        if not subject_token:
+            raise SubjectTokenProviderError("The workload identity provider returned an empty subject token")
+        return subject_token

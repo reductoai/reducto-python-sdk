@@ -307,7 +307,9 @@ class TestCredentials:
         with update_env(REDUCTO_IDENTITY_PROVIDER_ID="wip_env", REDUCTO_IDENTITY_TOKEN="static.jwt"):
             client = Reducto()
         assert client.workload_identity is not None
-        assert client.workload_identity["provider"]["get_token"]() == "static.jwt"
+        provider = client.workload_identity["provider"]
+        assert provider["token_type"] == "jwt"
+        assert provider["get_token"]() == "static.jwt"
 
     def test_provider_id_without_token(self) -> None:
         with update_env(REDUCTO_IDENTITY_PROVIDER_ID="wip_env"):

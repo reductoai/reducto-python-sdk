@@ -180,6 +180,44 @@ client = Reducto(
 A failed exchange raises `reducto.OAuthError` with the RFC 6749 `error` and `error_description`. A token provider
 that cannot return a subject token raises `reducto.SubjectTokenProviderError`.
 
+### X.509 certificates (mutual TLS)
+
+A workload with a client certificate (for example from a private CA or a SPIFFE X.509-SVID) can authenticate with
+it instead of a JWT. Upload the CA as a trust anchor in Reducto Studio (Settings > Security > Mutual TLS) and create
+an `x509` workload identity provider and a mapping. Then:
+
+```python
+from reducto import Reducto
+from reducto.auth import x509_workload_identity
+
+client = Reducto(
+    workload_identity={
+        "identity_provider_id": "wip_...",
+        "provider": x509_workload_identity(cert_chain="chain.pem", key="key.pem"),
+    }
+)
+```
+
+Or set environment variables and call `Reducto()` with no arguments:
+
+```sh
+REDUCTO_IDENTITY_PROVIDER_ID=wip_...
+REDUCTO_MTLS_CERT_CHAIN=/path/to/chain.pem  # PEM, leaf certificate first, then intermediates
+REDUCTO_MTLS_KEY=/path/to/key.pem           # PEM, unencrypted private key of the leaf
+```
+
+With X.509:
+
+- The client uses the mTLS host for the `environment`: `https://mtls.platform.reducto.ai`,
+  `https://mtls.eu.platform.reducto.ai` or `https://mtls.au.platform.reducto.ai`. A `base_url` argument or
+  `REDUCTO_BASE_URL` overrides it.
+- The client presents the certificate on the token exchange and on every API request. The access token is bound to
+  the certificate, so the API rejects it without the same certificate.
+- The files are read on each token exchange, not on each request. After you rotate them, the next exchange uses the
+  new certificate, and API requests switch to new connections that present it.
+- The client builds its own HTTP client, so `http_client` cannot be passed. Proxy environment variables
+  (`HTTPS_PROXY`, `NO_PROXY`) and `SSL_CERT_FILE` still apply.
+
 ## Using types
 
 Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typing.html#typing.TypedDict). Responses are [Pydantic models](https://docs.pydantic.dev) which also provide helper methods for things like:
