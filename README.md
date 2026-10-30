@@ -177,8 +177,10 @@ client = Reducto(
 )
 ```
 
-A failed exchange raises `reducto.OAuthError` with the RFC 6749 `error` and `error_description`. A token provider
-that cannot return a subject token raises `reducto.SubjectTokenProviderError`.
+The exchange is retried like an API request (see [Retries](#retries)): connection errors, 408, 409, 429 and >=500
+are retried `max_retries` times with exponential backoff, and `retry-after` is respected. A failed exchange raises
+`reducto.OAuthError` with the RFC 6749 `error` and `error_description`. A token provider that cannot return a
+subject token raises `reducto.SubjectTokenProviderError`.
 
 ## Using types
 
