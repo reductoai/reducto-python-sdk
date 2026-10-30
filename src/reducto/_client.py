@@ -144,7 +144,7 @@ class Reducto(SyncAPIClient):
         self._environment = environment
 
         base_url_env = os.environ.get("REDUCTO_BASE_URL")
-        self._base_url_is_default = not (is_given(base_url) and base_url is not None) and (
+        base_url_is_default = not (is_given(base_url) and base_url is not None) and (
             is_given(environment) or base_url_env is None
         )
         if is_given(base_url) and base_url is not None:
@@ -192,6 +192,8 @@ class Reducto(SyncAPIClient):
             custom_query=default_query,
             _strict_response_validation=_strict_response_validation,
         )
+
+        self._default_base_url = self.base_url if base_url_is_default else None
 
         self._workload_identity_auth = (
             WorkloadIdentityAuth(
@@ -336,8 +338,7 @@ class Reducto(SyncAPIClient):
         certificate = client_certificate(workload_identity)
         if http_client is None and certificate is client_certificate(self.workload_identity):
             http_client = self._client
-        switches_mtls = (certificate is None) != (client_certificate(self.workload_identity) is None)
-        if base_url is None and not (switches_mtls and self._base_url_is_default):
+        if base_url is None and self.base_url != self._default_base_url:
             base_url = self.base_url
         copied = self.__class__(
             api_key=api_key,
@@ -552,7 +553,7 @@ class AsyncReducto(AsyncAPIClient):
         self._environment = environment
 
         base_url_env = os.environ.get("REDUCTO_BASE_URL")
-        self._base_url_is_default = not (is_given(base_url) and base_url is not None) and (
+        base_url_is_default = not (is_given(base_url) and base_url is not None) and (
             is_given(environment) or base_url_env is None
         )
         if is_given(base_url) and base_url is not None:
@@ -600,6 +601,8 @@ class AsyncReducto(AsyncAPIClient):
             custom_query=default_query,
             _strict_response_validation=_strict_response_validation,
         )
+
+        self._default_base_url = self.base_url if base_url_is_default else None
 
         self._workload_identity_auth = (
             WorkloadIdentityAuth(
@@ -744,8 +747,7 @@ class AsyncReducto(AsyncAPIClient):
         certificate = client_certificate(workload_identity)
         if http_client is None and certificate is client_certificate(self.workload_identity):
             http_client = self._client
-        switches_mtls = (certificate is None) != (client_certificate(self.workload_identity) is None)
-        if base_url is None and not (switches_mtls and self._base_url_is_default):
+        if base_url is None and self.base_url != self._default_base_url:
             base_url = self.base_url
         copied = self.__class__(
             api_key=api_key,
