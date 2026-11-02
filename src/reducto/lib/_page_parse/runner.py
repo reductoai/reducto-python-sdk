@@ -17,7 +17,7 @@ from ..._exceptions import ReductoError
 
 __all__ = ["DEFAULT_MAX_CONCURRENCY", "DEFAULT_MAX_RETRIES", "PageSlots", "Stopped", "check_limits", "parse_pages"]
 
-DEFAULT_MAX_CONCURRENCY = 4
+DEFAULT_MAX_CONCURRENCY = 8
 DEFAULT_MAX_RETRIES = 2
 
 _STOP_POLL_SECONDS = 0.05
