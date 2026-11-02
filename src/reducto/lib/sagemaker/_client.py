@@ -76,7 +76,7 @@ class _SageMakerClientBase(_PageParseClientBase):
 
 
 class ReductoSageMaker(_SageMakerClientBase, PageParseClient):
-    """A client for your r-1 endpoint on Amazon SageMaker. It supports `parse.run` only."""
+    """A client for your r-1 mini endpoint on Amazon SageMaker. It supports `parse.run` only."""
 
 
 class AsyncReductoSageMaker(_SageMakerClientBase, AsyncPageParseClient):

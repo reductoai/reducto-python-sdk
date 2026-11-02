@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Parses a document with your r-1 endpoint on Amazon SageMaker.
+"""Parses a document with your r-1 mini endpoint on Amazon SageMaker.
 
 Usage: python3 examples/sagemaker/parse.py ENDPOINT_NAME DOCUMENT [AWS_REGION]
 See README.md in this folder for the options and errors.
