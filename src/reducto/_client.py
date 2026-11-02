@@ -42,7 +42,8 @@ from ._response import (
     async_to_streamed_response_wrapper,
 )
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
-from ._exceptions import APIStatusError
+from .auth._x509 import MTLS_ENVIRONMENTS, SyncClientCertificateHttpxClient, AsyncClientCertificateHttpxClient
+from ._exceptions import ReductoError, APIStatusError
 from ._base_client import (
     DEFAULT_MAX_RETRIES,
     SyncAPIClient,
@@ -53,6 +54,7 @@ from .auth._workload import (
     WORKLOAD_IDENTITY_AUTHORIZATION,
     WorkloadIdentity,
     WorkloadIdentityAuth,
+    client_certificate,
     resolve_credentials,
 )
 from .types.shared.upload import Upload
@@ -128,14 +130,23 @@ class Reducto(SyncAPIClient):
         Pass `workload_identity` (or set `REDUCTO_IDENTITY_PROVIDER_ID` with `REDUCTO_IDENTITY_TOKEN_FILE` or
         `REDUCTO_IDENTITY_TOKEN`) to exchange a platform-issued JWT for short-lived access tokens instead.
         Precedence: `api_key`, `workload_identity`, `REDUCTO_API_KEY`, then the `REDUCTO_IDENTITY_*` variables.
+
+        With X.509 workload identity (`reducto.auth.x509_workload_identity`, or `REDUCTO_MTLS_CERT_CHAIN` and
+        `REDUCTO_MTLS_KEY`), the client presents the certificate on every request and defaults `base_url` to the
+        mTLS host for `environment`.
         """
         api_key, workload_identity = resolve_credentials(api_key, workload_identity)
         self.api_key = api_key or ""
         self.workload_identity = workload_identity
+        certificate = client_certificate(workload_identity)
+        environments = MTLS_ENVIRONMENTS if certificate is not None else ENVIRONMENTS
 
         self._environment = environment
 
         base_url_env = os.environ.get("REDUCTO_BASE_URL")
+        base_url_is_default = not (is_given(base_url) and base_url is not None) and (
+            is_given(environment) or base_url_env is None
+        )
         if is_given(base_url) and base_url is not None:
             # cast required because mypy doesn't understand the type narrowing
             base_url = cast("str | httpx.URL", base_url)  # pyright: ignore[reportUnnecessaryCast]
@@ -146,7 +157,7 @@ class Reducto(SyncAPIClient):
                 )
 
             try:
-                base_url = ENVIRONMENTS[environment]
+                base_url = environments[environment]
             except KeyError as exc:
                 raise ValueError(f"Unknown environment: {environment}") from exc
         elif base_url_env is not None:
@@ -155,9 +166,21 @@ class Reducto(SyncAPIClient):
             self._environment = environment = "production"
 
             try:
-                base_url = ENVIRONMENTS[environment]
+                base_url = environments[environment]
             except KeyError as exc:
                 raise ValueError(f"Unknown environment: {environment}") from exc
+
+        if certificate is not None:
+            if http_client is None:
+                http_client = SyncClientCertificateHttpxClient(certificate)
+            elif not (
+                isinstance(http_client, SyncClientCertificateHttpxClient)
+                and http_client.client_certificate is certificate
+            ):
+                raise ReductoError(
+                    "X.509 workload identity cannot be combined with a custom http_client. The client builds its "
+                    "own HTTP client that presents the certificate; it honors proxy environment variables."
+                )
 
         super().__init__(
             version=__version__,
@@ -169,6 +192,8 @@ class Reducto(SyncAPIClient):
             custom_query=default_query,
             _strict_response_validation=_strict_response_validation,
         )
+
+        self._default_base_url = self.base_url if base_url_is_default else None
 
         self._workload_identity_auth = (
             WorkloadIdentityAuth(
@@ -320,11 +345,15 @@ class Reducto(SyncAPIClient):
             else:
                 api_key = self.api_key
 
-        http_client = http_client or self._client
+        certificate = client_certificate(workload_identity)
+        if http_client is None and certificate is client_certificate(self.workload_identity):
+            http_client = self._client
+        if base_url is None and self.base_url != self._default_base_url:
+            base_url = self.base_url
         copied = self.__class__(
             api_key=api_key,
             workload_identity=workload_identity,
-            base_url=base_url or self.base_url,
+            base_url=base_url,
             environment=environment or self._environment,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,
@@ -521,14 +550,23 @@ class AsyncReducto(AsyncAPIClient):
         Pass `workload_identity` (or set `REDUCTO_IDENTITY_PROVIDER_ID` with `REDUCTO_IDENTITY_TOKEN_FILE` or
         `REDUCTO_IDENTITY_TOKEN`) to exchange a platform-issued JWT for short-lived access tokens instead.
         Precedence: `api_key`, `workload_identity`, `REDUCTO_API_KEY`, then the `REDUCTO_IDENTITY_*` variables.
+
+        With X.509 workload identity (`reducto.auth.x509_workload_identity`, or `REDUCTO_MTLS_CERT_CHAIN` and
+        `REDUCTO_MTLS_KEY`), the client presents the certificate on every request and defaults `base_url` to the
+        mTLS host for `environment`.
         """
         api_key, workload_identity = resolve_credentials(api_key, workload_identity)
         self.api_key = api_key or ""
         self.workload_identity = workload_identity
+        certificate = client_certificate(workload_identity)
+        environments = MTLS_ENVIRONMENTS if certificate is not None else ENVIRONMENTS
 
         self._environment = environment
 
         base_url_env = os.environ.get("REDUCTO_BASE_URL")
+        base_url_is_default = not (is_given(base_url) and base_url is not None) and (
+            is_given(environment) or base_url_env is None
+        )
         if is_given(base_url) and base_url is not None:
             # cast required because mypy doesn't understand the type narrowing
             base_url = cast("str | httpx.URL", base_url)  # pyright: ignore[reportUnnecessaryCast]
@@ -539,7 +577,7 @@ class AsyncReducto(AsyncAPIClient):
                 )
 
             try:
-                base_url = ENVIRONMENTS[environment]
+                base_url = environments[environment]
             except KeyError as exc:
                 raise ValueError(f"Unknown environment: {environment}") from exc
         elif base_url_env is not None:
@@ -548,9 +586,21 @@ class AsyncReducto(AsyncAPIClient):
             self._environment = environment = "production"
 
             try:
-                base_url = ENVIRONMENTS[environment]
+                base_url = environments[environment]
             except KeyError as exc:
                 raise ValueError(f"Unknown environment: {environment}") from exc
+
+        if certificate is not None:
+            if http_client is None:
+                http_client = AsyncClientCertificateHttpxClient(certificate)
+            elif not (
+                isinstance(http_client, AsyncClientCertificateHttpxClient)
+                and http_client.client_certificate is certificate
+            ):
+                raise ReductoError(
+                    "X.509 workload identity cannot be combined with a custom http_client. The client builds its "
+                    "own HTTP client that presents the certificate; it honors proxy environment variables."
+                )
 
         super().__init__(
             version=__version__,
@@ -562,6 +612,8 @@ class AsyncReducto(AsyncAPIClient):
             custom_query=default_query,
             _strict_response_validation=_strict_response_validation,
         )
+
+        self._default_base_url = self.base_url if base_url_is_default else None
 
         self._workload_identity_auth = (
             WorkloadIdentityAuth(
@@ -713,11 +765,15 @@ class AsyncReducto(AsyncAPIClient):
             else:
                 api_key = self.api_key
 
-        http_client = http_client or self._client
+        certificate = client_certificate(workload_identity)
+        if http_client is None and certificate is client_certificate(self.workload_identity):
+            http_client = self._client
+        if base_url is None and self.base_url != self._default_base_url:
+            base_url = self.base_url
         copied = self.__class__(
             api_key=api_key,
             workload_identity=workload_identity,
-            base_url=base_url or self.base_url,
+            base_url=base_url,
             environment=environment or self._environment,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,
