@@ -10,7 +10,7 @@ __all__ = ["PageError", "PageParseError", "UnsupportedOnProviderError"]
 
 
 class UnsupportedOnProviderError(ReductoError):
-    """A file type, option, or resource that a client for your own r-1 endpoint cannot serve.
+    """A file type, option, or resource that a client for your own r-1 mini endpoint cannot serve.
     `feature` names it, for example "DOCX files" or "The `formatting.add_page_markers` option"."""
 
     def __init__(self, feature: str, kind: Literal["feature", "file_type"] = "feature") -> None:
@@ -22,11 +22,11 @@ class UnsupportedOnProviderError(ReductoError):
     def __str__(self) -> str:
         if self.kind == "file_type":
             return (
-                f"{self.feature} are not supported when you call your own r-1 endpoint. "
+                f"{self.feature} are not supported when you call your own r-1 mini endpoint. "
                 "The hosted Reducto API parses them."
             )
         return (
-            f"{self.feature} cannot be used when you call your own r-1 endpoint. "
+            f"{self.feature} cannot be used when you call your own r-1 mini endpoint. "
             "Use the hosted Reducto API, or contact Reducto for a VPC deployment."
         )
 

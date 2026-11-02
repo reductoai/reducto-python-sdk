@@ -1,4 +1,4 @@
-"""The parts of a client for your own r-1 endpoint that every provider shares. A provider client calls
+"""The parts of a client for your own r-1 mini endpoint that every provider shares. A provider client calls
 `check_client_settings`, builds its `PageTransport`, and passes it to `PageParseClient` or
 `AsyncPageParseClient`."""
 
@@ -113,7 +113,7 @@ class _PageParseClientBase:
 
 
 class PageParseClient(_PageParseClientBase):
-    """A client for your own r-1 endpoint. It supports `parse.run` only."""
+    """A client for your own r-1 mini endpoint. It supports `parse.run` only."""
 
     @cached_property
     def parse(self) -> PageParseResource:

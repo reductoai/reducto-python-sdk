@@ -1,8 +1,8 @@
-# Parse with your r-1 endpoint on Amazon SageMaker
+# Parse with your r-1 mini endpoint on Amazon SageMaker
 
-`ReductoSageMaker` parses documents with an r-1 endpoint that you deploy from AWS Marketplace to SageMaker
+`ReductoSageMaker` parses documents with an r-1 mini endpoint that you deploy from AWS Marketplace to SageMaker
 real-time inference. The client renders each page on your machine and sends it to your endpoint. Your documents
-do not go to Reducto. Deploy the r-1 model package from AWS Marketplace.
+do not go to Reducto. Deploy the r-1 mini model package from AWS Marketplace.
 
 ## Install
 
@@ -18,7 +18,7 @@ For HEIC photos, also install `reductoai[heic]`. That extra bundles LGPL librari
 from reducto import ReductoSageMaker
 
 client = ReductoSageMaker(
-    endpoint_name="my-r1-endpoint",
+    endpoint_name="my-r-1-mini-endpoint",
     aws_region="us-east-2",  # else AWS_REGION, AWS_DEFAULT_REGION, or your AWS profile
 )
 
@@ -32,7 +32,7 @@ boto3 finds the AWS credentials. You can also pass `aws_profile`, or `aws_access
 script:
 
 ```sh
-python3 examples/sagemaker/parse.py my-r1-endpoint report.pdf us-east-2
+python3 examples/sagemaker/parse.py my-r-1-mini-endpoint report.pdf us-east-2
 ```
 
 ## Inputs and outputs
@@ -49,7 +49,7 @@ python3 examples/sagemaker/parse.py my-r1-endpoint report.pdf us-east-2
 is read. That includes the hosted request options `async_`, `queue_priority`, `extra_headers`, `extra_query`,
 `extra_body`, and `timeout` when you give them a value; at their defaults they are accepted. To limit the wait for each
 page, set `timeout` on the client instead. A file type that the client does not support also raises `UnsupportedOnProviderError`, with the type name,
-for example `DOCX files are not supported when you call your own r-1 endpoint. The hosted Reducto API parses them.`
+for example `DOCX files are not supported when you call your own r-1 mini endpoint. The hosted Reducto API parses them.`
 
 ## Errors
 
@@ -88,7 +88,7 @@ A retry can succeed for some pages. Some pages fail every time, so do not retry 
 
 ## Concurrency
 
-`max_concurrency` (default 4) is the number of pages in flight per client, across every `parse.run` call and thread
+`max_concurrency` (default 8) is the number of pages in flight per client, across every `parse.run` call and thread
 that shares the client. Raise it when the endpoint has more instances. When you cancel an `AsyncReductoSageMaker`
 call, it returns at once and sends no more pages. A page call that is in progress finishes in the background.
 
