@@ -21,6 +21,7 @@ from ._response import APIResponse as APIResponse, AsyncAPIResponse as AsyncAPIR
 from ._constants import DEFAULT_TIMEOUT, DEFAULT_MAX_RETRIES, DEFAULT_CONNECTION_LIMITS
 from ._exceptions import (
     APIError,
+    OAuthError,
     ReductoError,
     ConflictError,
     NotFoundError,
@@ -33,6 +34,7 @@ from ._exceptions import (
     InternalServerError,
     PermissionDeniedError,
     UnprocessableEntityError,
+    SubjectTokenProviderError,
     APIResponseValidationError,
 )
 from ._base_client import DefaultHttpxClient, DefaultAioHttpClient, DefaultAsyncHttpxClient
@@ -64,6 +66,8 @@ __all__ = [
     "UnprocessableEntityError",
     "RateLimitError",
     "InternalServerError",
+    "OAuthError",
+    "SubjectTokenProviderError",
     "UnsupportedOnProviderError",
     "PageParseError",
     "Timeout",

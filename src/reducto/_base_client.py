@@ -81,6 +81,7 @@ from ._constants import (
 )
 from ._streaming import Stream, SSEDecoder, AsyncStream, SSEBytesDecoder
 from ._exceptions import (
+    ReductoError,
     APIStatusError,
     APITimeoutError,
     APIConnectionError,
@@ -1037,6 +1038,9 @@ class SyncAPIClient(BaseClient[httpx.Client, Stream[Any]]):
 
                 log.debug("Raising timeout error")
                 raise APITimeoutError(request=request) from err
+            except ReductoError:
+                # Raised by our own auth flow (e.g. a failed workload identity token exchange); not retryable.
+                raise
             except Exception as err:
                 log.debug("Encountered Exception", exc_info=True)
 
@@ -1592,8 +1596,9 @@ class AsyncAPIClient(BaseClient[httpx.AsyncClient, AsyncStream[Any]]):
             await self._prepare_request(request)
 
             kwargs: HttpxSendArgs = {}
-            if self.custom_auth is not None:
-                kwargs["auth"] = self.custom_auth
+            custom_auth = self._custom_auth(options.security)
+            if custom_auth is not None:
+                kwargs["auth"] = custom_auth
 
             if options.follow_redirects is not None:
                 kwargs["follow_redirects"] = options.follow_redirects
@@ -1621,6 +1626,9 @@ class AsyncAPIClient(BaseClient[httpx.AsyncClient, AsyncStream[Any]]):
 
                 log.debug("Raising timeout error")
                 raise APITimeoutError(request=request) from err
+            except ReductoError:
+                # Raised by our own auth flow (e.g. a failed workload identity token exchange); not retryable.
+                raise
             except Exception as err:
                 log.debug("Encountered Exception", exc_info=True)
 

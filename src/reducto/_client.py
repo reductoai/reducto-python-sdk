@@ -42,12 +42,18 @@ from ._response import (
     async_to_streamed_response_wrapper,
 )
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
-from ._exceptions import ReductoError, APIStatusError
+from ._exceptions import APIStatusError
 from ._base_client import (
     DEFAULT_MAX_RETRIES,
     SyncAPIClient,
     AsyncAPIClient,
     make_request_options,
+)
+from .auth._workload import (
+    WORKLOAD_IDENTITY_AUTHORIZATION,
+    WorkloadIdentity,
+    WorkloadIdentityAuth,
+    resolve_credentials,
 )
 from .types.shared.upload import Upload
 from .types.client_delete_upload_response import ClientDeleteUploadResponse
@@ -85,13 +91,16 @@ ENVIRONMENTS: Dict[str, str] = {
 class Reducto(SyncAPIClient):
     # client options
     api_key: str
+    workload_identity: WorkloadIdentity | None
 
     _environment: Literal["production", "eu", "au"] | NotGiven
+    _workload_identity_auth: WorkloadIdentityAuth | None
 
     def __init__(
         self,
         *,
         api_key: str | None = None,
+        workload_identity: WorkloadIdentity | None = None,
         environment: Literal["production", "eu", "au"] | NotGiven = not_given,
         base_url: str | httpx.URL | None | NotGiven = not_given,
         timeout: float | Timeout | None | NotGiven = not_given,
@@ -115,14 +124,14 @@ class Reducto(SyncAPIClient):
         """Construct a new synchronous Reducto client instance.
 
         This automatically infers the `api_key` argument from the `REDUCTO_API_KEY` environment variable if it is not provided.
+
+        Pass `workload_identity` (or set `REDUCTO_IDENTITY_PROVIDER_ID` with `REDUCTO_IDENTITY_TOKEN_FILE` or
+        `REDUCTO_IDENTITY_TOKEN`) to exchange a platform-issued JWT for short-lived access tokens instead.
+        Precedence: `api_key`, `workload_identity`, `REDUCTO_API_KEY`, then the `REDUCTO_IDENTITY_*` variables.
         """
-        if api_key is None:
-            api_key = os.environ.get("REDUCTO_API_KEY")
-        if api_key is None:
-            raise ReductoError(
-                "The api_key client option must be set either by passing api_key to the client or by setting the REDUCTO_API_KEY environment variable"
-            )
-        self.api_key = api_key
+        api_key, workload_identity = resolve_credentials(api_key, workload_identity)
+        self.api_key = api_key or ""
+        self.workload_identity = workload_identity
 
         self._environment = environment
 
@@ -159,6 +168,17 @@ class Reducto(SyncAPIClient):
             custom_headers=default_headers,
             custom_query=default_query,
             _strict_response_validation=_strict_response_validation,
+        )
+
+        self._workload_identity_auth = (
+            WorkloadIdentityAuth(
+                workload_identity,
+                token_url=str(self.base_url.join("oauth/token")),
+                http_client=self._client,
+                max_retries=self.max_retries,
+            )
+            if workload_identity is not None
+            else None
         )
 
     @cached_property
@@ -230,8 +250,23 @@ class Reducto(SyncAPIClient):
 
     @property
     def _skippable_http_bearer(self) -> dict[str, str]:
+        if self._workload_identity_auth is not None:
+            return {"Authorization": WORKLOAD_IDENTITY_AUTHORIZATION}
         api_key = self.api_key
         return {"Authorization": f"Bearer {api_key}"}
+
+    @override
+    def _custom_auth(self, security: SecurityOptions) -> httpx.Auth | None:
+        auth = self._workload_identity_auth
+        if auth is None or not security.get("skippable_http_bearer", False):
+            return None
+        token_url = str(self.base_url.join("oauth/token"))
+        if auth.token_url != token_url:
+            # `base_url` was reassigned: exchange in the new region with a fresh token cache.
+            auth = self._workload_identity_auth = WorkloadIdentityAuth(
+                auth.workload_identity, token_url=token_url, http_client=self._client, max_retries=self.max_retries
+            )
+        return auth
 
     @property
     @override
@@ -246,6 +281,7 @@ class Reducto(SyncAPIClient):
         self,
         *,
         api_key: str | None = None,
+        workload_identity: WorkloadIdentity | None = None,
         environment: Literal["production", "eu", "au"] | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
@@ -278,9 +314,16 @@ class Reducto(SyncAPIClient):
         elif set_default_query is not None:
             params = set_default_query
 
+        if api_key is None and workload_identity is None:
+            if self.workload_identity is not None:
+                workload_identity = self.workload_identity
+            else:
+                api_key = self.api_key
+
         http_client = http_client or self._client
-        return self.__class__(
-            api_key=api_key or self.api_key,
+        copied = self.__class__(
+            api_key=api_key,
+            workload_identity=workload_identity,
             base_url=base_url or self.base_url,
             environment=environment or self._environment,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
@@ -290,6 +333,18 @@ class Reducto(SyncAPIClient):
             default_query=params,
             **_extra_kwargs,
         )
+        # Share the cached access token when the copy authenticates the same way.
+        auth, copied_auth = self._workload_identity_auth, copied._workload_identity_auth
+        if (
+            auth is not None
+            and copied_auth is not None
+            and copied.workload_identity is self.workload_identity
+            and copied_auth.token_url == auth.token_url
+            and copied_auth.max_retries == auth.max_retries
+            and copied_auth.http_client is auth.http_client
+        ):
+            copied._workload_identity_auth = auth
+        return copied
 
     # Alias for `copy` for nicer inline usage, e.g.
     # client.with_options(timeout=10).foo.create(...)
@@ -429,13 +484,16 @@ class Reducto(SyncAPIClient):
 class AsyncReducto(AsyncAPIClient):
     # client options
     api_key: str
+    workload_identity: WorkloadIdentity | None
 
     _environment: Literal["production", "eu", "au"] | NotGiven
+    _workload_identity_auth: WorkloadIdentityAuth | None
 
     def __init__(
         self,
         *,
         api_key: str | None = None,
+        workload_identity: WorkloadIdentity | None = None,
         environment: Literal["production", "eu", "au"] | NotGiven = not_given,
         base_url: str | httpx.URL | None | NotGiven = not_given,
         timeout: float | Timeout | None | NotGiven = not_given,
@@ -459,14 +517,14 @@ class AsyncReducto(AsyncAPIClient):
         """Construct a new async AsyncReducto client instance.
 
         This automatically infers the `api_key` argument from the `REDUCTO_API_KEY` environment variable if it is not provided.
+
+        Pass `workload_identity` (or set `REDUCTO_IDENTITY_PROVIDER_ID` with `REDUCTO_IDENTITY_TOKEN_FILE` or
+        `REDUCTO_IDENTITY_TOKEN`) to exchange a platform-issued JWT for short-lived access tokens instead.
+        Precedence: `api_key`, `workload_identity`, `REDUCTO_API_KEY`, then the `REDUCTO_IDENTITY_*` variables.
         """
-        if api_key is None:
-            api_key = os.environ.get("REDUCTO_API_KEY")
-        if api_key is None:
-            raise ReductoError(
-                "The api_key client option must be set either by passing api_key to the client or by setting the REDUCTO_API_KEY environment variable"
-            )
-        self.api_key = api_key
+        api_key, workload_identity = resolve_credentials(api_key, workload_identity)
+        self.api_key = api_key or ""
+        self.workload_identity = workload_identity
 
         self._environment = environment
 
@@ -503,6 +561,17 @@ class AsyncReducto(AsyncAPIClient):
             custom_headers=default_headers,
             custom_query=default_query,
             _strict_response_validation=_strict_response_validation,
+        )
+
+        self._workload_identity_auth = (
+            WorkloadIdentityAuth(
+                workload_identity,
+                token_url=str(self.base_url.join("oauth/token")),
+                http_client=self._client,
+                max_retries=self.max_retries,
+            )
+            if workload_identity is not None
+            else None
         )
 
     @cached_property
@@ -574,8 +643,23 @@ class AsyncReducto(AsyncAPIClient):
 
     @property
     def _skippable_http_bearer(self) -> dict[str, str]:
+        if self._workload_identity_auth is not None:
+            return {"Authorization": WORKLOAD_IDENTITY_AUTHORIZATION}
         api_key = self.api_key
         return {"Authorization": f"Bearer {api_key}"}
+
+    @override
+    def _custom_auth(self, security: SecurityOptions) -> httpx.Auth | None:
+        auth = self._workload_identity_auth
+        if auth is None or not security.get("skippable_http_bearer", False):
+            return None
+        token_url = str(self.base_url.join("oauth/token"))
+        if auth.token_url != token_url:
+            # `base_url` was reassigned: exchange in the new region with a fresh token cache.
+            auth = self._workload_identity_auth = WorkloadIdentityAuth(
+                auth.workload_identity, token_url=token_url, http_client=self._client, max_retries=self.max_retries
+            )
+        return auth
 
     @property
     @override
@@ -590,6 +674,7 @@ class AsyncReducto(AsyncAPIClient):
         self,
         *,
         api_key: str | None = None,
+        workload_identity: WorkloadIdentity | None = None,
         environment: Literal["production", "eu", "au"] | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
@@ -622,9 +707,16 @@ class AsyncReducto(AsyncAPIClient):
         elif set_default_query is not None:
             params = set_default_query
 
+        if api_key is None and workload_identity is None:
+            if self.workload_identity is not None:
+                workload_identity = self.workload_identity
+            else:
+                api_key = self.api_key
+
         http_client = http_client or self._client
-        return self.__class__(
-            api_key=api_key or self.api_key,
+        copied = self.__class__(
+            api_key=api_key,
+            workload_identity=workload_identity,
             base_url=base_url or self.base_url,
             environment=environment or self._environment,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
@@ -634,6 +726,18 @@ class AsyncReducto(AsyncAPIClient):
             default_query=params,
             **_extra_kwargs,
         )
+        # Share the cached access token when the copy authenticates the same way.
+        auth, copied_auth = self._workload_identity_auth, copied._workload_identity_auth
+        if (
+            auth is not None
+            and copied_auth is not None
+            and copied.workload_identity is self.workload_identity
+            and copied_auth.token_url == auth.token_url
+            and copied_auth.max_retries == auth.max_retries
+            and copied_auth.http_client is auth.http_client
+        ):
+            copied._workload_identity_auth = auth
+        return copied
 
     # Alias for `copy` for nicer inline usage, e.g.
     # client.with_options(timeout=10).foo.create(...)
