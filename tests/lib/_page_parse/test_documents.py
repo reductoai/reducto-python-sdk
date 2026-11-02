@@ -67,7 +67,7 @@ def test_docx_raises_unsupported_with_type_and_hosted_hint() -> None:
         open_document(_docx(), None)
     message = str(raised.value)
     assert message == (
-        "DOCX files are not supported when you call your own r-1 endpoint. The hosted Reducto API parses them."
+        "DOCX files are not supported when you call your own r-1 mini endpoint. The hosted Reducto API parses them."
     )
 
 
