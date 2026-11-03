@@ -3,6 +3,7 @@ from __future__ import annotations
 import io
 import zipfile
 import warnings
+from typing import Tuple, Union
 from pathlib import Path
 
 import pytest
@@ -180,6 +181,22 @@ def test_transparent_pixels_are_flattened_on_white() -> None:
     page = _render(image_bytes(image, "PNG"))
     assert page.getpixel((0, 0)) == (255, 255, 255)
     assert page.getpixel((10, 10)) == (0, 0, 0)
+
+
+@pytest.mark.parametrize(
+    ("mode", "background", "transparency", "ink"),
+    [("RGB", (0, 0, 0), (0, 0, 0), (40, 40, 40)), ("L", 0, 0, 40)],
+)
+def test_color_key_transparency_is_flattened_on_white(
+    mode: str, background: Union[int, Tuple[int, int, int]], transparency: object, ink: Union[int, Tuple[int, int, int]]
+) -> None:
+    """Catches a PNG whose transparency is a tRNS color key, not an alpha channel, flattened onto that key color.
+    PNG encoders and optimizers can store a transparent background this way."""
+    image = Image.new(mode, (20, 20), background)
+    image.paste(ink, (5, 5, 15, 15))
+    page = _render(image_bytes(image, "PNG", transparency=transparency))
+    assert page.getpixel((0, 0)) == (255, 255, 255)
+    assert page.getpixel((10, 10)) == (40, 40, 40)
 
 
 @pytest.fixture
