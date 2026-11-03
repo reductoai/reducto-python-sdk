@@ -84,8 +84,15 @@ def union(members: List[Shape]) -> Shape:
     flat: List[Shape] = []
     for m in members:
         flat.extend(m.members if m.kind == "union" else [m])
+    # The spec can split one literal set across members (`enum` + `const`); compare value sets.
+    enums = [m for m in flat if m.kind == "enum"]
+    rest = [m for m in flat if m.kind != "enum"]
+    if len(enums) > 1:
+        values = {v for e in enums for v in e.values}
+        label = next((e.label for e in enums if e.label), "")
+        enums = [Shape("enum", values=values, label=label)]
     dedup: List[Shape] = []
-    for m in flat:
+    for m in enums + rest:
         if not any(same_signature(m, d) for d in dedup):
             dedup.append(m)
     return dedup[0] if len(dedup) == 1 else Shape("union", members=dedup)

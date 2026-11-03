@@ -75,7 +75,7 @@ class SettingsParam(TypedDict, total=False):
     hybrid_vpc: HybridVpc
     """Hybrid VPC request-scoped settings."""
 
-    model: Optional[Union[Literal["r-1", "r-1-mini"], Literal["legacy"]]]
+    model: Optional[Literal["r-1", "r-1-mini", "legacy"]]
     """The parse model used for the request.
 
     Setting `r-1` will use Reducto's latest flagship Parse model. `r-1-mini` is a
