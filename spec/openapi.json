@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Reducto API",
-    "version": "v1.12.20-329-g39692c7ddfb9"
+    "version": "v1.12.22-181-g8a8d2b94e9b2"
   },
   "servers": [
     {
@@ -3906,6 +3906,7 @@
             "type": "string",
             "enum": [
               "R-1",
+              "R-1 Mini",
               "Legacy"
             ],
             "title": "Parse Model"
@@ -3955,7 +3956,7 @@
           "tier"
         ],
         "title": "ParseUsageBreakdown",
-        "description": "Raw parse quantities for accounts on the new (Q3 2026) pricing model.\n\n``parse_model`` is \"R-1\" for the new parse model and \"Legacy\" for the\nlegacy parse pipeline. A legacy-pipeline parse carries its cost in\n``legacy_parse_credits``; add-on quantities (``ocr_pages``, ``charts``,\n``prompted_blocks``) apply to the new parse model only."
+        "description": "Raw parse quantities for accounts on the new (Q3 2026) pricing model.\n\n``parse_model`` is \"R-1\" for the new parse model, \"R-1 Mini\" for a job\nthat bills as R1 Mini (its pages are in ``parse_pages``), and \"Legacy\" for\nthe legacy parse pipeline. A legacy-pipeline parse carries its cost in\n``legacy_parse_credits``; add-on quantities (``ocr_pages``, ``charts``,\n``prompted_blocks``) apply to the new parse model only."
       },
       "PipelineResponse": {
         "properties": {
@@ -4218,8 +4219,8 @@
             "maximum": 250.0,
             "minimum": 50.0,
             "title": "Embed Pdf Metadata Dpi",
-            "description": "Render DPI used when rasterizing the source PDF before embedding the OCR text layer (only applies when ``embed_pdf_metadata`` is True). Lower values produce dramatically smaller output PDFs; higher values preserve more detail when zoomed past 200%. Defaults to 100 (good for on-screen viewing); raise toward the source scan DPI for crisper output. Min 50, max 250.",
-            "default": 100
+            "description": "Render DPI used when rasterizing the source PDF before embedding the OCR text layer (only applies when ``embed_pdf_metadata`` is True). Lower values produce dramatically smaller output PDFs; higher values preserve more detail when zoomed past 200%. Defaults to 200 (good for on-screen viewing); raise toward the source scan DPI for crisper output. Min 50, max 250.",
+            "default": 200
           },
           "persist_results": {
             "type": "boolean",
@@ -4303,15 +4304,19 @@
                 "type": "string",
                 "enum": [
                   "r-1",
-                  "legacy"
+                  "r-1-mini"
                 ]
+              },
+              {
+                "type": "string",
+                "const": "legacy"
               },
               {
                 "type": "null"
               }
             ],
             "title": "Model",
-            "description": "The parse model to use. 'r-1' is the R-1 full-page parse model, which parses each page in a single generation. 'legacy' is the previous parsing pipeline. Defaults to 'legacy' unless your organization was created on the r-1 plan, in which case it defaults to 'r-1'."
+            "description": "The parse model to use. 'r-1' is the R-1 full-page parse model, which parses each page in a single generation. 'r-1-mini' is a smaller, faster R-1 model, billed at the R-1 Mini rate. Outside the AU region, a page that 'r-1-mini' cannot parse is parsed again with 'r-1'. 'r-1-mini' does not accept spreadsheets, and is not available on-prem. 'legacy' is the previous parsing pipeline. Defaults to 'legacy' unless your organization was created on the r-1 plan, in which case it defaults to 'r-1'."
           },
           "return_citations": {
             "type": "boolean",
