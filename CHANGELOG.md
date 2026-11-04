@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.26.0 (2026-11-04)
+
+Full Changelog: [v0.25.0...v0.26.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.25.0...v0.26.0)
+
+### Features
+
+* **parse:** add `settings.model="r-1-mini"`, a lower-cost R-1 model. It does not accept spreadsheets and is not available on-prem ([7cb732d](https://github.com/reductoai/reducto-python-sdk/commit/7cb732d))
+* **usage:** `parse_model` in the parse usage breakdown can be `"R-1 Mini"` ([7cb732d](https://github.com/reductoai/reducto-python-sdk/commit/7cb732d))
+* **sagemaker:** add `ReductoSageMaker` and `AsyncReductoSageMaker`. They parse a PDF or an image with your own r-1 mini endpoint on Amazon SageMaker, one page per request; your documents do not go to Reducto. Install with `pip install "reductoai[sagemaker]"` (HEIC needs `reductoai[heic]`). Only `settings.page_range` and `settings.document_password` are supported; other options and resources raise `UnsupportedOnProviderError`. A failed page raises `PageParseError` with the pages that succeeded and the `page_range` to retry. `max_concurrency` (default 8) limits pages in flight per client. See `examples/sagemaker/` ([e0c2d60](https://github.com/reductoai/reducto-python-sdk/commit/e0c2d60), [3eb83d5](https://github.com/reductoai/reducto-python-sdk/commit/3eb83d5))
+
+### Notes
+
+* **parse:** the API now defaults `settings.embed_pdf_metadata_dpi` to 200 (was 100). Set it to 100 to keep the smaller output PDFs
+
 ## 0.25.0 (2026-10-24)
 
 Full Changelog: [v0.24.0...v0.25.0](https://github.com/reductoai/reducto-python-sdk/compare/v0.24.0...v0.25.0)
