@@ -50,7 +50,7 @@ class SettingsParam(TypedDict, total=False):
     Render DPI used when rasterizing the source PDF before embedding the OCR text
     layer (only applies when `embed_pdf_metadata` is True). Lower values produce
     dramatically smaller output PDFs; higher values preserve more detail when zoomed
-    past 200%. Defaults to 100.
+    past 200%. Defaults to 200.
     """
 
     extract_document_properties: bool
@@ -75,10 +75,11 @@ class SettingsParam(TypedDict, total=False):
     hybrid_vpc: HybridVpc
     """Hybrid VPC request-scoped settings."""
 
-    model: Optional[Literal["r-1", "legacy"]]
+    model: Optional[Literal["r-1", "r-1-mini", "legacy"]]
     """The parse model used for the request.
 
-    Setting `r-1` will use Reducto's latest flagship Parse model. `legacy` pins the
+    Setting `r-1` will use Reducto's latest flagship Parse model. `r-1-mini` is a
+    lower-cost R-1 model that does not accept spreadsheets. `legacy` pins the
     previous parsing pipeline.
     """
 
