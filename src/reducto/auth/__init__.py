@@ -1,4 +1,6 @@
+from ._x509 import x509_workload_identity as x509_workload_identity
 from ._workload import (
+    X509Provider as X509Provider,
     WorkloadIdentity as WorkloadIdentity,
     SubjectTokenProvider as SubjectTokenProvider,
     WorkloadIdentityAuth as WorkloadIdentityAuth,
@@ -13,7 +15,9 @@ from ._workload import (
 __all__ = [
     "WorkloadIdentity",
     "SubjectTokenProvider",
+    "X509Provider",
     "WorkloadIdentityAuth",
+    "x509_workload_identity",
     "identity_token_file",
     "k8s_service_account_token_provider",
     "gcp_id_token_provider",
