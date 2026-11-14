@@ -32,7 +32,7 @@ PageBillingFeature: TypeAlias = Literal[
 
 
 class UsageBreakdownParseUsageBreakdown(BaseModel):
-    parse_model: Literal["R-1", "Legacy"]
+    parse_model: Literal["R-1", "R-1 Mini", "Legacy"]
 
     tier: Literal["Default", "Batch"]
 
