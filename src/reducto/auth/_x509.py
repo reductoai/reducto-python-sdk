@@ -232,9 +232,9 @@ class AsyncClientCertificateTransport(httpx.AsyncBaseTransport):
             retired, self._pool = self._pool, _AsyncPool(context)
         pool = self._pool
         pool.acquire()
-        if retired is not None:
-            await retired.retire()
         try:
+            if retired is not None:
+                await retired.retire()
             response = await pool.client.send(request, stream=True)
         except BaseException:
             await pool.release()

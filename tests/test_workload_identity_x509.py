@@ -4,6 +4,7 @@ import ssl
 import json
 import time
 import shutil
+import asyncio
 import hashlib
 import threading
 import subprocess
@@ -357,3 +358,34 @@ class TestMutualTls:
             ("/oauth/token", b),
             ("/version", b),
         ]
+
+
+class _StubCertificate:
+    def __init__(self, context: ssl.SSLContext) -> None:
+        self.context = context
+
+
+async def test_async_rotation_cancelled_while_closing_old_pool_releases_new_pool() -> None:
+    from reducto.auth._x509 import AsyncClientCertificateTransport, _AsyncPool
+
+    certificate = _StubCertificate(ssl.create_default_context())
+    transport = AsyncClientCertificateTransport(certificate)  # type: ignore[arg-type]
+    old = transport._pool = _AsyncPool(certificate.context)
+    closing = asyncio.Event()
+
+    async def hanging_aclose() -> None:
+        closing.set()
+        await asyncio.Event().wait()
+
+    old.client.aclose = hanging_aclose  # type: ignore[method-assign]
+    certificate.context = ssl.create_default_context()
+    task = asyncio.ensure_future(transport.handle_async_request(httpx.Request("GET", "https://example.invalid/")))
+    await closing.wait()
+    task.cancel()
+    with pytest.raises(asyncio.CancelledError):
+        await task
+
+    new = transport._pool
+    assert new is not None and new is not old
+    assert new._active == 0
+    await transport.aclose()
