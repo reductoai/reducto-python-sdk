@@ -7,6 +7,7 @@ import time
 import random
 import importlib
 import threading
+import email.utils
 from typing import Any, Dict, Tuple, Union, Callable, Optional, Generator, AsyncGenerator
 from pathlib import Path
 from typing_extensions import Literal, TypedDict, NotRequired, override
@@ -498,15 +499,24 @@ def _should_retry(response: httpx.Response) -> bool:
     return response.status_code in (408, 409, 429) or response.status_code >= 500
 
 
+def _parse_retry_after(headers: httpx.Headers) -> Optional[float]:
+    """Seconds from `retry-after-ms`, or `retry-after` as seconds or an HTTP date, like `BaseClient`."""
+    for name, scale in (("retry-after-ms", 1000.0), ("retry-after", 1.0)):
+        try:
+            return float(headers.get(name, "")) / scale
+        except ValueError:
+            pass
+    date = email.utils.parsedate_tz(headers.get("retry-after", ""))
+    if date is None:
+        return None
+    return float(email.utils.mktime_tz(date) - time.time())
+
+
 def _retry_delay(retries_taken: int, headers: Optional[httpx.Headers]) -> float:
     """Same schedule as `BaseClient._calculate_retry_timeout`."""
     if headers is not None:
-        for name, scale in (("retry-after-ms", 1000.0), ("retry-after", 1.0)):
-            try:
-                retry_after = float(headers.get(name, "")) / scale
-            except ValueError:
-                continue
-            if 0 < retry_after <= 60:
-                return retry_after
+        retry_after = _parse_retry_after(headers)
+        if retry_after is not None and 0 < retry_after <= 60:
+            return retry_after
     delay = min(INITIAL_RETRY_DELAY * pow(2.0, min(retries_taken, 1000)), MAX_RETRY_DELAY)
     return delay * (1 - 0.25 * random.random())

@@ -4,6 +4,7 @@ import json
 import time
 import asyncio
 import threading
+import email.utils
 from types import SimpleNamespace
 from typing import Any, Dict, List, Iterator, Optional
 from pathlib import Path
@@ -97,6 +98,9 @@ class FakeClock:
 
     def monotonic(self) -> float:
         return self.now
+
+    def time(self) -> float:
+        return 1_800_000_000.0 + self.now
 
     def sleep(self, seconds: float) -> None:
         self.sleeps.append(seconds)
@@ -271,6 +275,20 @@ class TestExchange:
         assert route.call_count == 3
         assert clock.sleeps == [3.0, 3.0]
         assert auth_headers(api) == ["Bearer rdat_1"]
+
+    def test_slow_down_honors_retry_after_http_date(self, respx_mock: MockRouter, clock: FakeClock) -> None:
+        retry_at = email.utils.formatdate(clock.time() + 5, usegmt=True)
+        slow_down = httpx.Response(429, headers={"retry-after": retry_at}, json={"error": "slow_down"})
+        route = respx_mock.post(token_url).mock(
+            side_effect=[slow_down, TokenServer()(httpx.Request("POST", token_url, json={}))]
+        )
+        respx_mock.get(f"{base_url}/version").mock(return_value=httpx.Response(200, text="1"))
+        client = Reducto(workload_identity=identity(), max_retries=2)
+
+        client.api_version()
+
+        assert route.call_count == 2
+        assert clock.sleeps == [5.0]
 
     def test_slow_down_raises_after_max_retries(self, respx_mock: MockRouter, clock: FakeClock) -> None:
         route = respx_mock.post(token_url).mock(
