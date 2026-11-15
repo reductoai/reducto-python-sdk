@@ -34,6 +34,7 @@ def handle_url_response(response: ParseResponse) -> FullParseResponse:
                 job_id=response.job_id,
                 result=result,
                 usage=response.usage,
+                pdf_url=response.pdf_url,
             )
     else:
         return FullParseResponse.model_validate(response.model_dump())
