@@ -384,4 +384,7 @@ def _flatten(image: PILImage) -> PILImage:
 
 
 def _has_alpha(image: PILImage) -> bool:
-    return image.mode in ("RGBA", "LA", "PA") or (image.mode == "P" and "transparency" in image.info)
+    """An alpha channel, or a transparent color key, such as a PNG tRNS chunk on a palette, grayscale, or RGB image."""
+    return image.mode in ("RGBA", "LA", "PA") or (
+        image.mode in ("P", "1", "L", "RGB") and image.info.get("transparency") is not None
+    )
